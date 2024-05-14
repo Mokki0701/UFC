@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/css/headerFooter.css">
+
+<body>
+  <div class="TopBoard">
+    <!-- 로고 -->
+    <div id="logo">
+
+    </div>
+
+    <!-- 로그인화면 이동 버튼, 마이페이지 이동 버튼 -->
+    <div>
+
+      <!-- 로그인이 안된 경우 -->
+      <th:block th:if="${session.loginMember == null}">
+        <span id="login">로그인 하기</span>
+        <span> / </span>
+        <span id="join">회원가입 </span>
+      </th:block>
+
+      <!-- 로그인 된 경우 -->
+      <th:block th:if="${session.loginMember != null}">
+        <span id="myInfo">내 정보 수정</span>
+      </th:block>
+    </div>
+
+    <!-- 로그아웃 버튼 -->
+    
+  </div>
+
+</body>
