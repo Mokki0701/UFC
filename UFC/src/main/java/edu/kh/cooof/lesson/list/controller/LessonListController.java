@@ -40,7 +40,7 @@ public class LessonListController {
 			// 게시글 목록 조회 서비스 호출
 			map = service.selectLessonList(cp);
 
-		} else { // 검색인 경우 (아직 미구현)
+		} else { 
 			
 			// 검색 서비스 호출
 			map = service.searchList(paramMap, cp);
@@ -56,5 +56,22 @@ public class LessonListController {
 		
 		return "lesson/lessonList/lessonList"; // lessonList.html로 포워드
 	}
+	
+	// 비동기식 검색 엔드포인트 추가
+    @GetMapping("/search")
+    public String searchLessons(
+            @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+            @RequestParam Map<String, Object> paramMap,
+            Model model) {
+        
+        // 검색 서비스 호출
+        Map<String, Object> map = service.searchList(paramMap, cp);
+
+        // 검색 결과 모델에 등록
+        model.addAttribute("lessonList", map.get("lessonList"));
+        
+        // 부분 뷰 반환
+        return "lesson/lessonList/lessonList :: programs";
+    }
 
 }

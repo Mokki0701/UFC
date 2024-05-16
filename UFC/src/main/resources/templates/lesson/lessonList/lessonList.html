@@ -8,332 +8,7 @@
     <style>
     </style>
 
-    <!-- <link rel="stylesheet" href="/css/lesson/lessonList/lessonList.css"> -->
-    <!-- 임시로 여기다 작성 -->
-    <style>
-* {
-  list-style: none;
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f7f7f7;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
-}
-
-.logo {
-  height: 50px;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-nav ul li {
-  margin-right: 20px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-}
-
-.user-options a {
-  margin-left: 15px;
-  text-decoration: none;
-  color: #333;
-}
-
-.program-header {
-  background-color: #af5dde;
-  padding: 20px;
-  color: white;
-  text-align: center;
-}
-
-.program-header .buttons {
-  margin-top: 10px;
-}
-
-.program-header button {
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #ffffff;
-  color: #af5dde;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.program-header button:hover {
-  background-color: #ffcc00;
-  color: #333;
-}
-
-.program-search {
-  background-color: #ffffff;
-  padding: 20px;
-  border-bottom: 1px solid #ddd;
-}
-
-.breadcrumb {
-  margin-bottom: 10px;
-}
-
-.breadcrumb a {
-  text-decoration: none;
-  color: #333;
-}
-
-.search-bar {
-  display: flex;
-}
-
-.search-bar input {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-}
-
-.search-bar button {
-  padding: 10px 20px;
-  border: none;
-  background-color: #5cb85c;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.search-bar button:hover {
-  background-color: #ffcc00;
-  color: #333;
-}
-
-.program-list {
-  padding: 20px;
-}
-
-.filter-options {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.filter-options button {
-  margin-left: 10px;
-  padding: 10px 20px;
-  border: 1px solid #ddd;
-  background-color: #f7f7f7;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.filter-options button:hover {
-  background-color: #ffcc00;
-  color: #333;
-}
-
-.programs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.program-card {
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.program-card img {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
-  object-fit: cover;
-}
-
-.program-info {
-  flex-grow: 1;
-}
-
-.program-info .label {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: #ff5a5a;
-  color: white;
-  margin-right: 5px;
-  font-size: 12px;
-}
-
-.program-info .category {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: #5cb85c;
-  color: white;
-  font-size: 12px;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.pagination a {
-  margin: 0 5px;
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  text-decoration: none;
-  color: #333;
-  transition: background-color 0.3s;
-}
-
-.pagination a.active {
-  background-color: #5cb85c;
-  color: white;
-}
-
-.pagination a:hover {
-  background-color: #ffcc00;
-  color: #333;
-}
-
-.footer-container {
-  background-color: #ffffff;
-  padding: 20px;
-  text-align: center;
-  border-top: 1px solid #ddd;
-}
-
-.footer-container p,
-.footer-container address {
-  margin: 10px 0;
-}
-
-.footer-container address {
-  font-style: normal;
-}
-
-/* 기존 스타일은 그대로 두고 검색창에 대한 스타일 추가 */
-.program-search {
-    background-color: #f7f7f7;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.search-bar {
-    display: flex;
-    background-color: #f7f7f7;
-    border-radius: 5px; /* 모서리 둥글게 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-    width: 100%;
-    max-width: 800px;
-}
-
-.search-bar input {
-    flex-grow: 1;
-    padding: 10px;
-    border: none; /* 테두리 제거 */
-    border-radius: 5px 0 0 5px; /* 좌측 모서리 둥글게 */
-    outline: none; /* 포커스시 아웃라인 제거 */
-}
-
-.search-bar button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #5cb85c;
-    color: white;
-    cursor: pointer;
-    border-radius: 0 5px 5px 0; /* 우측 모서리 둥글게 */
-    transition: background-color 0.3s;
-}
-
-.search-bar button:hover {
-    background-color: #ffcc00;
-    color: #333;
-}
-
-.search-bar .advanced-search {
-    margin-left: 10px;
-    padding: 10px 20px;
-    border: none;
-    background-color: #5cb85c;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px; /* 모서리 둥글게 */
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.search-bar .advanced-search:hover {
-    background-color: #ffcc00;
-    color: #333;
-}
-
-.advanced-search-options {
-    display: none; /* 초기에는 숨김 */
-    background-color: #f7f7f7;
-    padding: 20px;
-    margin-top: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
-    text-align: center;
-}
-
-.advanced-search-options div {
-    margin-bottom: 15px;
-}
-
-.advanced-search-options button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    background-color: #ffffff;
-    color: #333;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.advanced-search-options button:hover {
-    background-color: #ffcc00;
-    color: #333;
-}
-
-.search-button button {
-    background-color: #af5dde;
-    color: white;
-    font-size: 16px;
-    padding: 10px 30px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.search-button button:hover {
-    background-color: #ffcc00;
-    color: #333;
-}
-
-    </style>
+    <link rel="stylesheet" href="/css/lesson/lessonList/lessonList.css">
 </head>
 
 <body>
@@ -365,20 +40,6 @@ nav ul li a {
         <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
         <!-- 세미 헤더 들어가는 곳 끝 -->
 
-<!--         <form th:action="@{{boardCode}(boardCode=${boardCode})}" method="get" id="boardSearch">
-
-            <select name="key" id="searchKey">
-                <option value="t">제목</option>
-                <option value="c">내용</option>
-                <option value="tc">제목+내용</option>
-                <option value="w">작성자</option>
-            </select>
-
-            <input type="text" name="query" id="searchQuery" placeholder="검색어를 입력해주세요.">
-
-            <button>검색</button>
-        </form>
- -->
         <!-- 검색창 시작 -->
         <form action="/lesson/list" method="get" id="lessonSearch">
         <section class="program-search">
@@ -429,7 +90,7 @@ nav ul li a {
             <div class="programs">
 
                 <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card" th:each="lesson : ${lessonList}">
+<!--                 <div class="program-card" th:each="lesson : ${lessonList}">
                     <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
                     <div class="program-info">
                         <span class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
@@ -440,8 +101,26 @@ nav ul li a {
                         <p th:text="'일정: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
                         <p th:text="'정원: ' + ${lesson.lessonCapacity} + '명'"></p>
                     </div>
-                </div>
+                </div> -->
                 <!-- 반복되는 프로그램 카드 끝 -->
+
+                <div class="programs" th:fragment="programs">
+                    <!-- 반복되는 프로그램 카드 -->
+                    <div class="program-card" th:each="lesson : ${lessonList}">
+                        <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
+                        <div class="program-info">
+                            <span class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
+                            <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
+                            <h3 th:text="${lesson.lessonTitle}"></h3>
+                            <p th:text="'대상: ' + ${lesson.lessonTargetAudience}"></p>
+                            <p th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'"></p>
+                            <p th:text="'일정: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
+                            <p th:text="'정원: ' + ${lesson.lessonCapacity} + '명'"></p>
+                        </div>
+                    </div>
+                    <!-- 반복되는 프로그램 카드 끝 -->
+                </div>
+                
 
             </div>
 
