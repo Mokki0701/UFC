@@ -1,5 +1,8 @@
 package edu.kh.cooof.common.config;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.core.io.Resource;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -104,7 +108,13 @@ public class DBConfig {
 		// sessionFactoryBean.setMapperLocations("현재프로젝트.자원.어떤파일");
 		
 		sessionFactoryBean.setMapperLocations( 
-				applicationContext.getResources("classpath:/mappers/**.xml")  );
+				
+				 Stream.of(
+						 applicationContext.getResources("classpath:/mappers/**.xml"),
+					        applicationContext.getResources("classpath:/mappers/lesson/**.xml")
+					    ).flatMap(Arrays::stream).toArray(Resource[]::new)
+				
+				);
 		
 		
 		// 해당 패키지 내 모든 클래스의 별칭을 등록
@@ -115,7 +125,7 @@ public class DBConfig {
 		//   클래스 파일명이 별칭으로 등록
 		
 		// ex) (원본) edu.kh.todo.model.dto.Todo   -->  Todo (별칭 등록)
-		sessionFactoryBean.setTypeAliasesPackage("edu.kh.gowith");
+		sessionFactoryBean.setTypeAliasesPackage("edu.kh.cooof");
 		
 		
 		// 마이바티스 설정 파일 경로 지정

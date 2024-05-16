@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lesson.dashBoard.mapper.DashBoardMapper">
+
+	<select id="findLesson" resultType="LessonListDTO">
+	
+		SELECT LESSON_TITLE , LESSON_NO 
+		FROM STUDENT_ENROLLMENTS E
+		JOIN LESSONS L USING (LESSON_NO) 
+		WHERE E.MEMBER_NO  = #{loginMemberId}
+	
+	</select>
+	
+	
+
+</mapper>

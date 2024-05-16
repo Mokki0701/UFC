@@ -1,0 +1,143 @@
+
+.header-display{
+  color: #2a2a4a;
+}
+
+.dashboard {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 2px solid #333;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.attendance, .schedule, .lectures, .rating {
+  background-color: #808080;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1 1 45%;
+  max-width: 45%;
+  box-sizing: border-box;
+}
+
+.attendance-rate {
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #FFFD74;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-right: 20px;
+}
+
+.circle span {
+  color: black;
+}
+
+.details p {
+  margin: 0;
+}
+
+.schedule #calendar {
+  height: 300px;
+  background-color: #444;
+}
+
+.lectures ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.lectures li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #555;
+}
+
+.lectures li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.remove-btn {
+  background-color: #FFFD74;
+  border: none;
+  color: navy;
+  font-weight: bold;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rating-section label, .rating-section select, .rating-section .stars, .rating-section button {
+  background-color: #333;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* .rating-section .stars {
+  display: flex;
+  gap: 5px;
+} */
+
+/* .rating-section .stars span {
+  cursor: pointer;
+  font-size: 24px;
+} */
+
+.star-average {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.star-point-container {
+  display: flex;
+  align-items: center;
+}
+
+.star-background {
+  display: flex;
+  /* width: 250px;
+  height: 50px; */
+}
+
+.star-background img {
+  /* width: auto; */
+  width: 50px;
+}
+
+.icon-remove-star {
+  width: 22px;
+  height: 22px;
+  margin-left: 12px;
+}
+
