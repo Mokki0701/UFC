@@ -1,15 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>테스트 페이지</title>
-</head>
-<body>
-    
-    <h1>테스트 페이지</h1>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <h2><a href="/gym/main.html">헬스</a></h2>
+<head>
+  <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UFC</title>
+  <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+  <th:block th:replace="~{/common/header}">헤더</th:block>
+
+  <!-- 여기에 메인 화면을 구성 -->
+  <div id="mainField">
+
+    <div>UFC 프로젝트 임시 메인 페이지</div>
+
+    <!-- 빠른로그인 버튼 모음  -->
+    <div class="quickLoginBtnSack">
+      <button class="quickLoginBtn">testMem01@naver.com</button>
+      <button class="quickLoginBtn">testMem02@naver.com</button>
+      <button class="quickLoginBtn">testMem03@naver.com</button>
+    </div>
+
+    <!-- 로그인이 된 경우 -->
+    <th:block th:if="${session.loginMember != null}">
+      <span>이메일 : </span>
+      <span th:text="${session.loginMember.memberEmail}">현재 로그인한 회원 이메일</span>
+    </th:block>
+
+
+    <div>
+      <a class="logoutBtn" href="/member/logout">
+        <th:block>로그아웃 버튼</th:block>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- 임시 링크 -->
+  <div>
+    <a href="">도서관</a>
+    <a href=""></a>
+  </div>
+
+
+
+  <div> 푸터가 들어갈 자리 </div>
+>>>>>>> a765853cac839320dff9ecfab3a2924233a16166
 
 </body>
+<script src="/js/index.js"></script>
+
 </html>
