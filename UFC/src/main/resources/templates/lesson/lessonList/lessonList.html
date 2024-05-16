@@ -6,220 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 안내/신청</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #ffffff;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .logo {
-            height: 50px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .user-options a {
-            margin-left: 15px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .program-header {
-            background-color: #af5dde;
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-
-        .program-header .buttons {
-            margin-top: 10px;
-        }
-
-        .program-header button {
-            margin: 5px;
-            padding: 10px 20px;
-            border: none;
-            background-color: #ffffff;
-            color: #af5dde;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .program-header button:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .program-search {
-            background-color: #ffffff;
-            padding: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .breadcrumb {
-            margin-bottom: 10px;
-        }
-
-        .breadcrumb a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .search-bar {
-            display: flex;
-        }
-
-        .search-bar input {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .search-bar button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #5cb85c;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-bar button:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .program-list {
-            padding: 20px;
-        }
-
-        .filter-options {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .filter-options button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            border: 1px solid #ddd;
-            background-color: #f7f7f7;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .filter-options button:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .programs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .program-card {
-            background-color: white;
-            border: 1px solid #ddd;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .program-card img {
-            width: 100px;
-            height: 100px;
-            margin-right: 20px;
-            object-fit: cover;
-        }
-
-        .program-info {
-            flex-grow: 1;
-        }
-
-        .program-info .label {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #ff5a5a;
-            color: white;
-            margin-right: 5px;
-            font-size: 12px;
-        }
-
-        .program-info .category {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #5cb85c;
-            color: white;
-            font-size: 12px;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .pagination a {
-            margin: 0 5px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            text-decoration: none;
-            color: #333;
-            transition: background-color 0.3s;
-        }
-
-        .pagination a.active {
-            background-color: #5cb85c;
-            color: white;
-        }
-
-        .pagination a:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .footer-container {
-            background-color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
-
-        .footer-container p,
-        .footer-container address {
-            margin: 10px 0;
-        }
-
-        .footer-container address {
-            font-style: normal;
-        }
     </style>
+
+    <link rel="stylesheet" href="/css/lesson/lessonList/lessonList.css">
 </head>
 
 <body>
@@ -242,9 +31,18 @@
         </div>
     </header>
     <main>
+
+        <!-- lessonCommon 들어가는 곳 시작 -->
+        <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+        <!-- lessonCommon 들어가는 곳 끝 -->
+
         <!-- 세미 헤더 들어가는 곳 시작 -->
         <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
         <!-- 세미 헤더 들어가는 곳 끝 -->
+
+
+
+
         <section class="program-search">
             <div class="breadcrumb">
                 <a href="#">평생교육 프로그램</a> &gt; <span>프로그램 안내/신청</span>
@@ -260,205 +58,58 @@
                 <button>마감임박</button>
             </div>
             <div class="programs">
+
+
+
+                
+
                 <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
-                <!-- 반복되는 프로그램 카드 끝 --> <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card">
-                    <img src="program1.jpg" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label">접수중</span>
-                        <span class="category">어린이</span>
-                        <h3>한식조리기능사(자격증반)</h3>
-                        <p>대상: 전체</p>
-                        <p>참가비: 무료</p>
-                        <p>일정: 2024-03-06 ~ 2024-07-10</p>
-                        <p>신청기간: 2024-02-15 09:00 ~ 2024-02-19 20:00</p>
-                        <p>정원: 16명 (대기 0명)</p>
-                    </div>
-                </div>
+<!--                 <div class="program-card" th:each="lesson : ${lessonList}">
+                   
+                        <p th:text="${lesson.lessonCapacity}"></p>
+                        <p>아아아아ㅏㅇ아ㅏ</p>
+            </div> -->
                 <!-- 반복되는 프로그램 카드 끝 -->
+
+                <!-- 반복되는 프로그램 카드 -->
+<!--                 <div class="program-card" th:each="lesson : ${lessonList}">
+                    <div class="program-info">
+                        <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
+                        <p th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'"></p>
+                    </div>
+                </div> -->
+                <!-- 반복되는 프로그램 카드 끝 -->
+
+                
+<!-- 반복되는 프로그램 카드 -->
+<div class="program-card" th:each="lesson : ${lessonList}">
+    <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
+    <div class="program-info">
+        <span class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
+        <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
+        <h3 th:text="${lesson.lessonTitle}"></h3>
+        <p th:text="'대상: ' + ${lesson.lessonTargetAudience}"></p>
+        <p th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'"></p>
+        <p th:text="'일정: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
+
+        
+        <p th:text="'정원: ' + ${lesson.lessonCapacity} + '명'"></p>
+    </div>
+</div>
+<!-- 반복되는 프로그램 카드 끝 -->
+
+
+
+
+
+
             </div>
-            <div class="pagination">
+
+
+
+
+            <!-- 페이지네이션 영역 시작 -->
+<!--             <div class="pagination">
                 <a href="#">&laquo;</a>
                 <a href="#" class="active">1</a>
                 <a href="#">2</a>
@@ -470,7 +121,88 @@
                 <a href="#">8</a>
                 <a href="#">9</a>
                 <a href="#">&raquo;</a>
+            </div> -->
+
+            <!-- 테스트트트트트 -->
+            <div class="pagination-area">
+
+                <!-- 일반 목록 조회 ( 검색 X ) -->
+                <ul class="pagination" th:unless="${param.key}" th:object="${pagination}">
+            
+                    <!-- 첫 페이지로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=1)}"><i class="fa-solid fa-backward-step"></i></a></li>
+            
+                    <!-- 이전 목록 마지막 번호로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=*{prevPage})}"><i class="fa-solid fa-play fa-flip-horizontal"></i></a></li>
+            
+                    <!-- 특정 페이지로 이동 -->
+                    <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
+            
+                        <!-- 현재 보고있는 페이지 -->
+                        <li th:if="${i} == *{currentPage}">
+                            <a class="active" th:text="${i}">현재 페이지</a>
+                        </li>
+            
+                        <!-- 보고있지 않은 페이지 -->
+                        <li th:unless="${i} == *{currentPage}">
+                            <a th:href="@{/lesson/list (cp=${i})}" th:text="${i}">이동할 페이지</a>
+                        </li>
+            
+                    </th:block>
+            
+                    <!-- 다음 목록 시작 번호로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=*{nextPage})}"><i class="fa-solid fa-play"></i></a></li>
+            
+                    <!-- 끝 페이지로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=*{maxPage})}"><i class="fa-solid fa-forward-step"></i></a></li>
+                </ul>
+            
+                <!-- ------------- 검색인 경우 ------------- -->
+                <ul class="pagination" th:if="${param.key}" th:object="${pagination}">
+            
+                    <!-- 첫 페이지로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=1, key=${param.key}, query=${param.query})}">&lt;&lt;</a></li>
+            
+                    <!-- 이전 목록 마지막 번호로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=*{prevPage}, key=${param.key}, query=${param.query})}">&lt;</a></li>
+            
+                    <!-- 특정 페이지로 이동 -->
+                    <th:block th:if="*{startPage lt endPage}" th:each="i : *{#numbers.sequence(startPage, endPage)}">
+            
+                        <!-- 현재 보고있는 페이지 -->
+                        <li th:if="${i} == *{currentPage}">
+                            <a class="active" th:text="${i}">현재 페이지</a>
+                        </li>
+            
+                        <!-- 보고있지 않은 페이지 -->
+                        <li th:unless="${i} == *{currentPage}">
+                            <a th:href="@{/lesson/list (cp=${i}, key=${param.key}, query=${param.query})}" th:text="${i}">이동할 페이지</a>
+                        </li>
+                    </th:block>
+            
+                    <!-- 일치하는 게시글이 없을 경우 -->
+                    <th:block th:unless="*{startPage lt endPage}">
+                        <li>
+                            <a class="active">1</a>
+                        </li>
+                    </th:block>
+            
+                    <!-- 다음 목록 시작 번호로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=*{nextPage}, key=${param.key}, query=${param.query})}">&gt;</a></li>
+            
+                    <!-- 끝 페이지로 이동 -->
+                    <li><a th:href="@{/lesson/list (cp=*{maxPage}, key=${param.key}, query=${param.query})}"><i class="fa-solid fa-angles-right"></i></a></li>
+                </ul>
+            
             </div>
+            
+            <!-- 페이지네이션 영역 끝 -->
+
+
+
+
+
+
         </section>
     </main>
     <footer>
