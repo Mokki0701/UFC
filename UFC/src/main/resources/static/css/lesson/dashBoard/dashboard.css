@@ -1,21 +1,21 @@
 
-.header-display{
-  color: #2a2a4a;
-}
-
-.dashboard {
+.less_dashboard {
   max-width: 1400px;
   margin: auto;
   padding: 20px;
 }
 
-.header {
+.less_header {
   text-align: center;
   padding: 20px;
   border-bottom: 2px solid #333;
 }
 
-.main-content {
+.less_header_display{
+  color: #2a2a4a;
+}
+
+.less_main_content {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -23,7 +23,7 @@
   justify-content: space-between;
 }
 
-.attendance, .schedule, .lectures, .rating {
+.less_attendance, .less_schedule, .less_lectures, .less_rating {
   background-color: #808080;
   padding: 20px;
   border-radius: 10px;
@@ -32,12 +32,12 @@
   box-sizing: border-box;
 }
 
-.attendance-rate {
+.less_attendance_rate {
   display: flex;
   align-items: center;
 }
 
-.circle {
+.less_circle {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -49,25 +49,25 @@
   margin-right: 20px;
 }
 
-.circle span {
+.less_circle span {
   color: black;
 }
 
-.details p {
+.less_details p {
   margin: 0;
 }
 
-.schedule #calendar {
+.less_schedule #lessCalendar {
   height: 300px;
   background-color: #444;
 }
 
-.lectures ul {
+.less_lectures ul {
   list-style-type: none;
   padding: 0;
 }
 
-.lectures li {
+.less_lectures li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,12 +75,12 @@
   border-bottom: 1px solid #555;
 }
 
-.lectures li a {
+.less_lectures li a {
   text-decoration: none;
   color: #fff;
 }
 
-.remove-btn {
+.less_remove_star {
   background-color: #FFFD74;
   border: none;
   color: navy;
@@ -90,13 +90,13 @@
   border-radius: 5px;
 }
 
-.rating-section {
+.less_rating_section {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.rating-section label, .rating-section select, .rating-section .stars, .rating-section button {
+.less_rating_section label, .less_rating_section select, .less_rating_section .stars, .less_rating_section button {
   background-color: #333;
   border: none;
   color: #fff;
@@ -114,30 +114,33 @@
   font-size: 24px;
 } */
 
-.star-average {
+/* .star-average {
   display: block;
   margin-bottom: 16px;
-}
+} */
 
-.star-point-container {
+.star_point_container {
   display: flex;
   align-items: center;
 }
 
-.star-background {
+.star_background {
   display: flex;
   /* width: 250px;
   height: 50px; */
 }
 
-.star-background img {
+.star_background img {
   /* width: auto; */
   width: 50px;
 }
 
-.icon-remove-star {
+.less_remove_star {
   width: 22px;
   height: 22px;
   margin-left: 12px;
 }
 
+#reviewBtn{
+  cursor: pointer;
+}

@@ -9,10 +9,10 @@ const starImageSourceMap = {
   full : '/images/icon_star.png',
 }
 
-const starContentElement = document.querySelector(".content-star");
-const starBackground = document.querySelector(".star-background");
+//const starContentElement = document.querySelector(".content-star");
+const starBackground = document.querySelector(".star_background");
 const starImages = document.querySelectorAll(".star");
-const starPointResetButton = document.querySelector(".icon-remove-star");
+const starPointResetButton = document.querySelector(".less_remove_star");
 
 //별점이 고정되어 있는지 아닌지 상태를 알려주는 변수
 //고정되어 있으면 마우스 이동에 따른 별점 변경을 막음
@@ -68,27 +68,56 @@ starBackground.addEventListener('mousemove',e=>{
 
 
 //select 태그 가져오기
-const lessonSelect = document.querySelector("#lecture-select");
+const lessonSelect = document.querySelector("#lectureSelect");
+
 //수업 코드 가져오기
 function search(){
   const lessonCode = lessonSelect.options[lessonSelect.selectedIndex].value;
-  console.log(lessonCode);
+  //console.log(lessonCode);
+  //평점 제출 클릭 시 별점이랑 option value 값(수업코드) DB에 보내기 
+  const obj = {
+  "lessonStar" : reviewPoint,
+  "lessonNo" : lessonCode
+  };
+
+  fetch("/lesson/dashboard",{
+    method : "POST",
+    headers : {"Content-Type" : "application/json"},
+    body : JSON.stringify(obj)
+  })
+  .then(resp => resp.text())
+  .then(result =>{
+    if(result == 0){
+      alert("후기 등록 실패");
+      return;
+    }
+    alert("별점이 등록 되었습니다");
+    //별점 고정 해제
+    unlockStarPoint();
+    //별점 초기화
+    resetStarPointImages();
+  })
 }
 
-//평점 제출 클릭 시 별점이랑 option value 값(수업코드) 
-//DB에 보내기 
-// const obj = {
-//   "reviewPoint" : reviewPoint
-// }
-
-
-
-
+//평점제출 reviewBtn
+const reviewBtn = document.querySelector("#reviewBtn");
+//평점제출 클릭시 search 함수 실행
+reviewBtn.addEventListener("click",search);
 
 function renderStarPointImages(payload={}){
 
   //초기값 할당
-  const {drawableLimitIndex = -1, isOverHalf = false} = payload;
+  //const {drawableLimitIndex = -1, isOverHalf = false} = payload;
+
+  let drawableLimitIndex = payload.drawableLimitIndex;
+  if (drawableLimitIndex === undefined) {
+      drawableLimitIndex = -1;
+  }
+
+  let isOverHalf = payload.isOverHalf;
+  if (isOverHalf === undefined) {
+      isOverHalf = false;
+  }
 
   //노드리스트에서 forEach 가능하게 (다른 브라우저에서도)
   //NodeList !== Araay. call을 통해서 함수를 호출하는 객체를 
@@ -103,6 +132,11 @@ function renderStarPointImages(payload={}){
   });
 
 }
+
+
+
+
+
 
 //마우스 클릭시 별점 고정(lockStarPoint).
 starBackground.addEventListener("click",()=>{

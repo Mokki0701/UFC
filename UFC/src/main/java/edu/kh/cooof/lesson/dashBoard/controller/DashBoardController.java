@@ -1,11 +1,15 @@
 package edu.kh.cooof.lesson.dashBoard.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
@@ -36,6 +40,21 @@ public class DashBoardController {
 		model.addAttribute("lessonList",lessonList);
 		
 		return "lessonDashBoard/dashBoard";
+	}
+	
+	@PostMapping("dashboard")
+	@ResponseBody
+	private int dashboard(
+			@RequestBody LessonListDTO lessonListDTO,
+			@SessionAttribute("loginMember") Member loginMember
+			) {
+		
+		//별점, 강의번호 넣기
+		lessonListDTO.setMemberNo(loginMember.getMemberNo());
+		
+		int result = service.insertReview(lessonListDTO);
+		
+		return result;
 	}
 	
 	

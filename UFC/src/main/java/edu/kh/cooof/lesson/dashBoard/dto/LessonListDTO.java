@@ -13,7 +13,7 @@ public class LessonListDTO {
 	
 	private String lessonTitle;
 	private int lessonNo;
-	
-	
+	private int lessonStar;
+	private int memberNo;
 
 }
