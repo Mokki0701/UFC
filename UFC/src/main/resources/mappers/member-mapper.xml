@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.member.model.mapper.MemberMapper">
+
+	<!-- 빠른로그인용으로 만든 로그인 sql -->
+	<select id="loginMember" parameterType="String">
+		SELECT * FROM MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
+
+
+
+</mapper>
