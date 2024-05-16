@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${equipmentUsage.name}">기구사용법 상세페이지</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .video-container {
+            text-align: center;
+        }
+        .video-container video {
+            max-width: 100%;
+            height: auto;
+        }
+        .description, .target-muscle, .method, .precautions {
+            margin-top: 20px;
+        }
+        .description p, .target-muscle p, .method p, .precautions p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <th:block th:replace="~{common/header}"></th:block>
+    <div class="container">
+        <h2 th:text="${equipmentUsage.name}">운동 이름</h2>
+        <div class="video-container">
+            <video th:src="@{${equipmentUsage.videoUrl}}" controls>동영상을 지원하지 않는 브라우저입니다.</video>
+        </div>
+        
+        <div class="target-muscle">
+            <h3>운동 부위</h3>
+            <p th:text="${equipmentUsage.targetMuscle}">운동 부위</p>
+        </div>
+        <div class="method">
+            <h3>운동 방법</h3>
+            <p th:text="${#strings.escapeHtml(equipmentUsage.method)}">운동 방법</p>
+        </div>
+        <div class="precautions">
+            <h3>주의 사항</h3>
+            <p th:text="${#strings.escapeHtml(equipmentUsage.precautions)}">주의 사항</p>
+        </div>
+    </div>
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>

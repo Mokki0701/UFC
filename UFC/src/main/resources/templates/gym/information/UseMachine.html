@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운동정보</title>
+
+    <style>
+        
+        .gym_container > h3{
+            font-size: 31px;
+            margin: 10px 0 10px 0;
+            text-align: left;
+        }
+
+        .gym_type{
+            height: 50px;
+            background-color: white;
+            border-bottom: 2px solid black;
+        
+            position : sticky; /* 화면 밖으로 벗어났을 때 지정된 위치 붙음 */
+            top : 0;           /* 붙을 위치(고정될 위치) 지정 */
+            z-index: 1000;     
+        }
+        
+        .gym_type > ul{
+            display: flex;
+            list-style: none; /* li 태그 앞에 기호 삭제 */
+            height: 100%;
+        }
+        
+        .gym_type li {
+            flex : 0     1     150px;
+            /* grow  shrink  basis */
+        }
+        
+        .gym_type a {
+            text-decoration: none; /* 밑줄 제거 */
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;   /* 글자를 수직 가운데 정렬 */
+            justify-content: center; /* 글자를 수평 가운데 정렬 */
+            height: 100%;
+            border-radius: 5px;
+            transition-duration: 0.1s; /* css가 0.1초 동안의 시간을 가지고 변함 */
+        }
+        
+        .gym_type a:hover{
+            color: white;
+            background-color: rgb(239, 50, 50);
+        }
+
+        .gym_item{
+            padding: 10px;
+            box-sizing: border-box;
+            float: left;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .gym_thumb{
+            background: #eee;
+            padding: 20px;
+            margin-bottom: 10px;
+            transition: 0.3s ease;
+            -webkit-transition: 0.3s ease;
+            -moz-transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gym_thumb img{
+            max-height: 182px;
+            min-height: 182px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
+        }
+        
+        .gym_name{
+            font-weight: 500;
+            font-size: 16px;
+            padding: 5px 0;
+
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <div class="gym_container">
+        <h3>기구사용법</h3>
+        <div class="gym_type">
+            <ul>
+                <li><a href="gym/information/UseMachine">기구사용법</a></li>
+                <li><a href="gym/information/stretching">스트레칭</a></li>
+            </ul>
+        </div>
+
+        <div class="gym_item">
+            <div class="gym_thumb">
+                <img src="https://www.spoany.co.kr/ActiveFile/spoany.smms/W_tool_img/%C7%C1%B8%AE%BF%FE%C0%CC%C6%AE_%B3%B2_%C3%BC%BD%BA%C6%AE%C7%C1%B7%B9%BD%BA_%B8%D3%BD%C52_%B0%A1%BD%BF_%BD%E6%B3%D7%C0%CF_1.jpg">
+            </div>
+            <div class="gym_name">체스트프레스</div>
+        </div>
+
+        <iframe title="vimeo-player" src="https://player.vimeo.com/video/395655052?h=3b8b3c3899" width="640" height="360" frameborder="0"    allowfullscreen></iframe>
+
+        <div class="gym_btns">
+            <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
+                <li th:if="${i} == *{currentPage}">
+                    <a class="current" th:text="${i}">현재 페이지</a>
+                </li>
+                <li th:unless="${i} == *{currentPage}">
+                    <a th:href="@{/board/{boardCode} (boardCode=${boardCode}, cp=${i})}" th:text="${i}">이동할 페이지</a>
+                </li>
+            </th:block>
+        </div>
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>
