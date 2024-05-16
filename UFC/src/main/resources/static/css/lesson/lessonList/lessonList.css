@@ -1,3 +1,4 @@
+
 * {
   list-style: none;
 }
@@ -215,3 +216,109 @@ nav ul li a {
 .footer-container address {
   font-style: normal;
 }
+
+/* 기존 스타일은 그대로 두고 검색창에 대한 스타일 추가 */
+.program-search {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    background-color: #f7f7f7;
+    border-radius: 5px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    width: 100%;
+    max-width: 800px;
+}
+
+.search-bar input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none; /* 테두리 제거 */
+    border-radius: 5px 0 0 5px; /* 좌측 모서리 둥글게 */
+    outline: none; /* 포커스시 아웃라인 제거 */
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0; /* 우측 모서리 둥글게 */
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.search-bar .advanced-search {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px; /* 모서리 둥글게 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-bar .advanced-search:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.advanced-search-options {
+    display: none; /* 초기에는 숨김 */
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.advanced-search-options div {
+    margin-bottom: 15px;
+}
+
+.advanced-search-options button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #ffffff;
+    color: #333;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.advanced-search-options button:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.search-button button {
+    background-color: #af5dde;
+    color: white;
+    font-size: 16px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-button button:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+    

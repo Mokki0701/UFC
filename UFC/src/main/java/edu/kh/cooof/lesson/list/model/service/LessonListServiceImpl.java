@@ -57,5 +57,43 @@ public class LessonListServiceImpl implements LessonListService {
 		// 결과 반환
 		return map;
 	}
+	
+	// 수업 목록 조회 (검색O)	
+	@Override
+	public Map<String, Object> searchList(Map<String, Object> paramMap, int cp) {
+		
+		// paramMap (key == 아직 미정, query == 검색어)
+		
+		//    검색 조건에 맞는 글 조회
+		int listCount = mapper.getSearchCount(paramMap);
+		
+		
+		// 위의 결과 + cp를 이용해서
+		// Pagination 객체를 생성
+		// * Pagination 객체 : 게시글 목록 구성에 필요한 값을 저장한 객체
+		Pagination pagination = new Pagination(cp, listCount);
+		
+		
+		// 3. 지정된 페이지의 검색 결과 목록 조회
+		int limit = pagination.getLimit(); 
+		int offset = (cp - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit); 
+		
+		/* Mapper 메서드 호출 시
+		 * - 첫 번째 매개 변수 -> SQL에 전달할 파라미터
+		 * - 두 번째 매개 변수 -> RowBounds 객체 전달 
+		 * */
+		List<Lesson> lessonList = mapper.selectSearchList(paramMap, rowBounds);
+		
+		
+		// 4. 목록 조회 결과 + Pagination 객체를 Map으로 묶음
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("pagination", pagination);
+		map.put("lessonList", lessonList);
+		
+		// 5. 결과 반환
+		return map;
+	}
 
 }

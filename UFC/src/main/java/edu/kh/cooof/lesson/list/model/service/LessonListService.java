@@ -10,4 +10,11 @@ public interface LessonListService {
 	 */
 	Map<String, Object> selectLessonList(int cp);
 
+	/** 레슨 리스트 조회 (검색O)
+	 * @param paramMap
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> searchList(Map<String, Object> paramMap, int cp);
+
 }

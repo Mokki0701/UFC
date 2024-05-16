@@ -1,6 +1,7 @@
 package edu.kh.cooof.lesson.list.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -20,5 +21,19 @@ public interface LessonListMapper {
 	 * @return
 	 */
 	List<Lesson> selectLessonList(RowBounds rowBounds);
+
+	/** 검색한 수업명과 겹치는 게시글의 개수를 조회
+	 * @param paramMap
+	 * @return
+	 */
+	int getSearchCount(Map<String, Object> paramMap);
+
+	/** 검색한 페이지의 수업 목록 조회 해오기
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Lesson> selectSearchList(Map<String, Object> paramMap, RowBounds rowBounds);
+
 
 }

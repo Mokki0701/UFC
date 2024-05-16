@@ -35,18 +35,15 @@ public class LessonListController {
 		Map<String, Object> map = null;
 		
 		// 검색이 아닌 경우
-		if (paramMap.get("key") == null) {
+		if (paramMap.get("query") == null) {
 
 			// 게시글 목록 조회 서비스 호출
 			map = service.selectLessonList(cp);
 
 		} else { // 검색인 경우 (아직 미구현)
-
-			// boardCode를 paramMap에 추가
-			/* paramMap.put("boardCode", boardCode); */
-
+			
 			// 검색 서비스 호출
-			/* map = service.searchList(paramMap, cp); */
+			map = service.searchList(paramMap, cp);
 		}
 		
 		// 페이지네이션 모델에 등록
