@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- boardName : 인터셉터가 세팅한 값 -->
+    <title th:text="|${boardName} - ${board.boardNo}번 글|">게시판 이름</title>
+
+
+    <th:block th:replace="~{common/common}"></th:block>
+
+
+    <link rel="stylesheet" href="/css/board/boardDetail-style.css">
+    <link rel="stylesheet" href="/css/board/comment-style.css">
+
+</head>
+<body>
+    <main>
+        <th:block th:replace="~{common/header}"></th:block>
+
+        <section class="board-detail" th:object="${board}">  
+            <!-- 제목 -->
+            <h1 class="board-title" 
+                th:text="|*{boardTitle} - ${boardName}|">  게시글 제목  </h1>
+
+            <!-- 프로필 + 닉네임 + 작성일 + 조회수 -->
+            <div class="board-header">
+                <div class="board-writer">
+
+                    <!-- 프로필 이미지 -->
+                    <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
+
+                    <!-- *{profileImg} 
+                        값이 null 이면 false 
+                        null이 아니면 true
+                    -->
+                    <img th:unless="*{profileImg}" 
+                         th:src="#{user.default.image}">
+                    
+                    <!-- 프로필 이미지가 있을 경우 출력-->
+                    <img th:if="*{profileImg}" 
+                         th:src="*{profileImg}">
+
+
+
+                    <span th:text="*{memberNickname}">작성자 닉네임</span>
+
+                    
+                    <!-- 좋아요 하트 -->
+                    <span class="like-area">
+                        
+                        <!-- 비동기로 좋아요 누를 때 동작 (4/22 월요일 예정) -->
+                        <!-- 좋아요 누른적이 있으면 fa-solid, 없으면 fa-regular 클래스 추가 -->
+                        <i class="fa-heart" id="boardLike"
+                           th:classappend="*{likeCheck == 1} ? fa-solid : fa-regular"></i>
+
+                        <!-- 좋아요 개수 -->
+                        <span th:text="*{likeCount}">0</span>
+                    </span>
+
+                </div>
+
+                <div class="board-info">
+                    <p> <span>작성일</span> [[*{boardWriteDate}]] </p>     
+
+                    <!-- 수정한 게시글인 경우 -->
+
+                    <!-- 참조하는 객체가 있으면 true, 없으면 false -->
+                    <p th:if="*{boardUpdateDate}"> 
+                        <span>마지막 수정일</span> [[*{boardUpdateDate}]]
+                    </p>   
+
+                    <!--  (4/22 월요일 예정) -->
+                    <p> <span>조회수</span> [[*{readCount}]] </p>                    
+                </div>
+            </div>
+
+
+
+            <!-- ====================== 이미지가 있을 경우 출력하는 구문  ====================== -->
+            <th:block th:if="${ #lists.size(board.imageList) > 0}">
+
+                <!-- 썸네일이 있을 경우 -->
+                <th:block th:if="*{thumbnail}">
+                    <h5>썸네일</h5>
+                    <div class="img-box">
+                        <div class="boardImg thumbnail">
+                            <img th:src="|${thumbnail.imgPath}${thumbnail.imgRename}|">                     
+                            
+                            <a th:href="|${thumbnail.imgPath}${thumbnail.imgRename}|"
+                               th:download="${thumbnail.imgOriginalName}">다운로드</a>         
+                        </div>
+                    </div>
+                </th:block>
+                
+                
+                <th:block th:if="${#lists.size(board.imageList) > start}">
+                  
+                    <h5>업로드 이미지</h5>
+                    <th:block th:each="i : ${#numbers.sequence(start, #lists.size(board.imageList) -1)}">                                       
+                        <div class="img-box">
+                            <div class="boardImg">
+
+                                <img th:src="|${board.imageList[i].imgPath}${board.imageList[i].imgRename}|">  
+
+                                <a th:href="|${board.imageList[i].imgPath}${board.imageList[i].imgRename}|"
+                                   th:download="${board.imageList[i].imgOriginalName}" >다운로드</a>                
+                            </div>
+                        </div>
+                    </th:block>
+
+                </th:block>
+            </th:block>
+            <!-- ====================== 이미지가 있을 경우 출력하는 구문 ====================== -->
+            
+            <!-- 내용 -->
+            <div class="board-content" th:text="*{boardContent}">내용</div>
+
+
+
+            <!-- 버튼 영역-->
+            <div class="board-btn-area">
+
+                <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우-->
+
+                <!-- 
+                    ${객체?.필드} : 안전 탐색 연산자(Safe Navigation Operator)
+                    객체가 null인지 판별해서 null이 아닌 경우에 수행
+                 -->
+                <th:block th:if="${board.memberNo == session.loginMember?.memberNo}">             
+                    <button id="updateBtn">수정</button>
+                    <button id="deleteBtn">삭제(GET)</button>
+                    <button id="deleteBtn2">삭제(POST)</button>
+                </th:block>
+
+                <button id="goToListBtn">목록으로</button>
+            </div>
+
+        </section>
+
+
+        <!-- 댓글 영역-->
+        <th:block th:replace="~{board/comment}"></th:block>
+
+    </main>
+
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+
+    <script th:inline="javascript">
+        
+        /* 로그인 상태인 경우 로그인한 회원 번호를 전역 변수 저장 */
+
+        // session.loginMember?.memberNo 
+        // - session에서 loginMember를 얻어 왔는데 
+        //   null이 아닌 경우(?) [회원 번호(memberNo)] 얻어오기
+        
+        // - loginMember가 null인 경우 [null] 반환
+        const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인 회원 번호" ;
+
+        /* 현재 게시글 번호를 전역 변수로 저장 */
+        const boardNo = /*[[${board.boardNo}]]*/ "게시글 번호";
+
+        /* 현재 게시글 좋아요 여부(boardLike)를 전역 변수로 저장 */
+        let likeCheck = /*[[${board.likeCheck}]]*/ "좋아요 여부";
+
+        const userDefaultIamge = /*[[#{user.default.image}]]*/ "기본이미지";
+    </script>
+
+    <script src="/js/board/boardDetail.js"></script>
+    <script src="/js/board/comment.js"></script>
+    
+</body>
+</html>
