@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 페이지</title>
+
+  <link rel="stylesheet" href="/css/member/login.css">
+  <script src="https://kit.fontawesome.com/a373078820.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <main>
+
+    <section class="logo-area">
+      <a href="/">
+        <img src="/images/logo.jpg">
+      </a>
+    </section>
+
+
+    <form action="/member/login" method="post" id="loginForm">
+      <section class="input-box">
+        <input type="text" name="memberEmail" placeholder="Email" value="" required />
+      </section>
+
+      <section class="input-box">
+        <input type="password" name="memberPw" placeholder="Password" required />
+      </section>
+
+      <button class="login-btn">Login</button>
+
+      <div class="saveId-area">
+        <input type="checkbox" name="saveId" id="saveId">
+        <label for="saveId"><i class="fas fa-check"></i>아이디 저장</label>
+      </div>
+
+      <p class="text-area">
+        <a href="#">회원가입</a>
+        |
+        <a href="#">ID/PW 찾기</a>
+      </p>
+    </form>
+  </main>
+
+  <!-- main.js 추가 -->
+  <script src="/js/main.js"></script>
+
+  <script th:inline="javascript">
+    const message =  /*[[${message}]]*/ "전달 받은 message";
+    // message가 없다면 null
+
+    if (message != null) alert(message);
+  </script>
+</body>
+
+</html>

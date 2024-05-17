@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="#{app.name}">message.properties 값 출력</title>
+
+  <!-- templates/common/common.html 조각으로 추가 -->
+  <th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+
+  <main>
+    
+    <!-- common/header.html 을 조각으로 추가 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <!-- 메인 페이지 내용  -->
+    <section class="content">
+    
+      <section class="content-1">
+        <!-- 확인, 보충 등등 그때 그때 사용 -->
+
+        <h3>빠른 로그인</h3>
+        <button class="quick-login">member02@kh.com</button>
+        <button class="quick-login">member04@kh.com</button>
+        <button class="quick-login">member05@kh.com</button>
+
+
+        <hr>
+
+        <h3>특정 회원 비밀번호 초기화(Ajax)</h3>
+
+        <div>
+          회원번호 : 
+          <input type="text" id="resetMemberNo">
+          <button id="resetPw">비밀번호 초기화(pass01!)</button>
+        </div>
+
+        <hr>
+
+        <h3>특정 회원(회원번호) 탈퇴 복구(Ajax)</h3>
+
+        <div>
+          회원번호 : 
+          <input type="text" id="restorationMemberNo">
+          <button id="restorationBtn">복구하기</button>
+        </div>
+
+        <hr>
+
+
+        <h3>
+          회원 목록 조회(비동기)
+          <button id="selectMemberList">조회</button>
+        </h3>
+
+        <table border="1" style="border-collapse: collapse;">
+          <thead>
+            <th>회원 번호</th>
+            <th>이메일</th>
+            <th>닉네임</th>
+            <th>탈퇴여부</th>
+          </thead>
+
+          <tbody id="memberList">
+            
+          </tbody>
+        </table>
+
+
+      </section>
+
+
+
+      <section class="content-2">
+        <!-- 로그인, 회원가입 버튼 -->
+
+        <!-- 로그인이 되어있지 않은 경우 -->
+        <th:block th:if="${session.loginMember == null}">
+
+          <!-- 로그인 박스 -->
+          <form action="/member/login" method="POST" id="loginForm">
+            <fieldset class="id-pw-area">
+  
+              <!-- 아이디/비밀번호 입력 -->
+              <section>
+                <input type="text" 
+                       name="memberEmail"
+                       placeholder="이메일">
+  
+                <input type="password" 
+                       name="memberPw" 
+                       placeholder="비밀번호">
+              </section>
+  
+              <!-- 로그인 버튼 -->
+              <section>
+                <button>로그인</button>
+              </section>
+            </fieldset>
+  
+            <label>
+              <!-- label 태그 : input 태그의 제목을 나타내는 태그  -->
+              <input type="checkbox" name="saveId">
+              아이디 저장
+            </label>
+  
+            <article class="signup-find-area">
+
+              <a href="/member/signup">회원가입</a>
+
+              <span> | </span>
+              <a href="#">ID/PW 찾기</a>
+            </article>
+  
+          </form>
+        </th:block>
+
+
+        <!-- 로그인이 되어있을 때 -->
+
+        <!-- th:unless="${session.loginMember == null}" -->
+        <th:block th:if="${session.loginMember != null}">
+
+          <article class="login-area">
+            
+            <a href="/myPage/profile">
+              <!-- 프로필 이미지 -->
+
+              <!-- messages.properties에 작성된 기본 사용자 이미지 -->
+              <img th:with="user=#{user.default.image}" 
+                   th:src="${session.loginMember.profileImg ?: user }"
+                   id="memberProfile"
+                   alt="프로필 이미지" >
+            </a>
+
+            <!-- 닉네임, 이메일, 로그아웃 버튼 영역 -->
+            <div class="my-info" th:object="${session.loginMember}">
+
+              <div>
+                <a href="/myPage/info" id="nickname" th:text="*{memberNickname}">닉네임</a>
+
+                <a href="/member/logout" id="logoutBtn">로그아웃</a>
+              </div>
+
+              <p th:text="*{memberEmail}">이메일</p>
+
+            </div>
+          </article>
+
+        </th:block>
+
+
+      </section>
+
+    </section>
+  </main>
+
+  <!-- common/footer.html 추가 -->
+  <th:block th:replace="~{common/footer}"></th:block>
+
+  <script src="/js/main.js"></script>
+
+  <script src="/js/websocket_test.js"></script>
+
+
+</body>
+</html>

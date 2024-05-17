@@ -1,0 +1,17 @@
+<!-- 공통으로 사용될 css, js 추가 코드-->
+<link rel="stylesheet" href="/css/main-style.css">
+
+<!-- font awesome 라이브러리 추가 + key 등록 -->
+<script src="https://kit.fontawesome.com/a373078820.js" crossorigin="anonymous"></script>
+
+<!-- SockJS 라이브러리 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+<!-- 알림 관련 전역 변수 -->
+<script th:inline="javascript">
+  const notificationLoginCheck = /*[[${session.loginMember} ? true : false]]*/ '로그인 체크';
+  const notificationDefaultImage = /*[[#{user.default.image}]]*/ '유저 기본 이미지';
+</script>
+
+
+<script src="/js/header.js"></script>

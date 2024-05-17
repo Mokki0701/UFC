@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.project.board.model.mapper.CommentMapper">
+  	
+  	<!-- 댓글 목록 조회 -->
+  	<select id="select">
+		SELECT LEVEL, C.* FROM
+			(SELECT COMMENT_NO, COMMENT_CONTENT,
+			    TO_CHAR(COMMENT_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') COMMENT_WRITE_DATE,
+			    BOARD_NO, MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG, PARENT_COMMENT_NO, COMMENT_DEL_FL
+			FROM "COMMENT"
+			JOIN MEMBER USING(MEMBER_NO)
+			WHERE BOARD_NO = #{boardNo}) C
+		WHERE COMMENT_DEL_FL = 'N'
+		OR 0 != (SELECT COUNT(*) FROM "COMMENT" SUB
+						WHERE SUB.PARENT_COMMENT_NO = C.COMMENT_NO
+						AND COMMENT_DEL_FL = 'N')
+		START WITH PARENT_COMMENT_NO IS NULL
+		CONNECT BY PRIOR COMMENT_NO = PARENT_COMMENT_NO
+		ORDER SIBLINGS BY COMMENT_NO
+  	</select>
+  	
+  	
+  	
+  	<!-- 
+  		동적 SQL : <if>
+  		
+  		- else문 없음
+  		- test 속성 : 조건식을 작성하는 속성	
+  	 -->
+  	
+  	<!-- 댓글 / 자식 댓글 등록 -->
+  	<insert id="insert" parameterType="Comment" useGeneratedKeys="true">
+  	
+  		<selectKey order="BEFORE" resultType="_int" keyProperty="commentNo">
+  			SELECT SEQ_COMMENT_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+  	
+  		INSERT INTO "COMMENT"	
+		VALUES( #{commentNo}, #{commentContent},
+			  DEFAULT, DEFAULT,	#{boardNo}, #{memberNo}, 
+			  
+			<!-- 자식 댓글 -->
+			<if test="parentCommentNo != 0">
+			  #{parentCommentNo}
+			</if>
+			
+			<!-- 부모 댓글 -->
+			<if test="parentCommentNo == 0">
+			  NULL
+			</if>
+		)
+  	</insert>
+  	
+  	
+  	<!-- 댓글 삭제 -->
+  	<update id="delete">
+  		UPDATE "COMMENT" SET
+  		COMMENT_DEL_FL = 'Y'
+  		WHERE COMMENT_NO = #{commentNo}
+  	</update>
+  	
+  	
+  	<!-- 댓글 수정 -->
+  	<update id="update">
+		UPDATE "COMMENT" SET
+		COMMENT_CONTENT = #{commentContent}
+		WHERE COMMENT_NO = #{commentNo}
+  	</update> 
+  	
+  	
+  	
+  
+</mapper>

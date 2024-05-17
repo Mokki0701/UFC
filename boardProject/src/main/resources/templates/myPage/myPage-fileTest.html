@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Page</title>
+
+  <!-- 공용 css/js 추가 -->
+  <th:block th:replace="~{common/common}"></th:block>
+
+  <!-- myPage 전용 CSS -->
+  <link rel="stylesheet" href="/css/myPage/myPage-style.css">
+</head>
+<body>
+
+  <main>
+
+    <!-- 헤더 추가 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <section class="myPage-content">
+
+      <!-- 사이드 메뉴(왼쪽) 추가 -->
+      <th:block th:replace="~{myPage/sideMenu}"></th:block>
+
+      <!-- 마이페이지 본문(오른쪽) -->
+      <section class="myPage-main">
+
+        <h1 class="myPage-title">파일 업/다운로드 테스트</h1>
+
+        <pre>
+          
+          [form태그의 enctype 속성]
+
+          enctype 이란??
+          - 데이터를 서버로 전송할 때 데이터의 형태(인코딩)를 지정하는 속성
+
+
+          * application/x-www-form-urlencoded (기본값)
+           - URL 인코딩된 "문자열" 로 서버에 제출
+
+
+          * multipart/form-data  (무조건 POST에서만 동작)
+
+           - 제출되는 여러 데이터 타입에 맞춰서 인코딩하여 제출
+            문자열 -> String
+            숫자   -> String -> int/double(Spring이 처리)
+            파일   -> 2진 데이터
+
+          * text/plain
+           - 텍스트로 서버에 제출
+
+
+        </pre>
+
+        <form action="/myPage/file/test1" 
+          method="POST" 
+          name="myPageFrm"
+          enctype="multipart/form-data"  >
+          <h3>업로드 테스트 1</h3>
+          <!--
+             type="file"도 결국에는 Parameter
+              -> @RequestParam으로 처리 가능
+          -->
+          <input type="file" name="uploadFile">
+
+          <button class="myPage-submit">제출하기</button>
+        </form>
+
+        <!-- 
+          a태그의 download 속성
+          - href 속성에 작성된 요청에 대한 응답을 다운로드함
+        -->
+
+        <a th:if="${path != null}"
+           th:text="${path}"
+           th:href="${path}"   
+           download >   업로드한 파일</a>
+
+        <hr>
+
+        <form action="/myPage/file/test2"
+          method="POST" enctype="multipart/form-data" >
+
+          <h3>파일 업로드 + DB 저장 + 조회</h3>
+
+          <input type="file" name="uploadFile">
+
+          <button class="myPage-submit">제출하기</button>
+        </form>
+
+        
+
+        <form action="/myPage/file/test3"
+          method="POST" enctype="multipart/form-data" >
+
+          <h3>여러 파일 업로드</h3>
+
+          <pre>
+            1) 같은 name 속성을 가지는 type="file" 
+               요소를 여러 개 작성
+
+            2) multiple 속성 이용
+          </pre>
+
+          <div>
+            1번) type="file" 요소를 여러 개 작성 
+            <br>
+            <input type="file" name="aaa">
+            <br>
+            <input type="file" name="aaa">
+          </div>
+
+          <hr>
+
+          <div>
+            2번) multiple 사용
+            <input type="file" name="bbb" multiple>
+          </div>
+
+          <button class="myPage-submit">제출하기</button>
+        </form>
+
+
+      </section>
+
+    </section>
+
+  </main>
+
+   <!-- 푸터 추가 -->
+   <th:block th:replace="~{common/footer}"></th:block>
+  
+   <script src="/js/myPage/myPage.js"></script>
+</body>
+</html>
