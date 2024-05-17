@@ -58,8 +58,8 @@ public class LessonListController {
 	}
 	
 	// 비동기식 검색 엔드포인트 추가
-    @GetMapping("/search")
-    public String searchLessons(
+    @GetMapping("/search2")
+    public String searchLessons2(
             @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
             @RequestParam Map<String, Object> paramMap,
             Model model) {
@@ -73,6 +73,24 @@ public class LessonListController {
         
         // 부분 뷰 반환
         return "lesson/lessonList/lessonList :: programs";
+    }
+    
+    // 동기식 검색 엔드포인트 추가
+    @GetMapping("/search")
+    public String searchLessons(
+    		@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+    		@RequestParam Map<String, Object> paramMap,
+    		Model model) {
+    	
+    	// 검색 서비스 호출
+    	Map<String, Object> map = service.searchList(paramMap, cp);
+    	
+    	// 검색 결과 모델에 등록
+    	model.addAttribute("lessonList", map.get("lessonList"));
+    	model.addAttribute("pagination", map.get("pagination"));
+    	
+    	// 부분 뷰 반환
+    	return "lesson/lessonList/lessonList";
     }
 
 }
