@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lesson.dashBoard.mapper.DashBoardMapper">
+
+	<select id="findLesson" resultType="LessonListDTO">
+	
+		SELECT LESSON_TITLE , LESSON_NO 
+		FROM STUDENT_ENROLLMENTS E
+		JOIN LESSONS L USING (LESSON_NO) 
+		WHERE E.MEMBER_NO  = #{loginMemberId}
+	
+	</select>
+	
+	<!-- 별점 등록시 이미 등록된 후기가 있는지 찾아보기 -->
+	<select id="searchLessonNo" resultType="_int">
+		SELECT COUNT(*)  
+		FROM STAR_MANAGEMENT
+		WHERE LESSON_NO = #{lessonNo} 
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 후기 등록 -->
+	<insert id="insertReview">
+	
+		INSERT INTO STAR_MANAGEMENT
+		VALUES (#{lessonNo},#{memberNo},#{lessonStar})
+	
+	</insert>
+	
+ 	<update id="updateReview">
+		UPDATE STAR_MANAGEMENT
+		SET LESSON_STAR = #{lessonStar},
+			MEMBER_NO = #{memberNo}
+		WHERE LESSON_NO = #{lessonNo}
+    </update> 
+	
+	
+
+</mapper>
