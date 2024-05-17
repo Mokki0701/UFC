@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.lib.book.model.mapper.BookMapper">
 
+	<select id="selectBookStorage">
+		SELECT *
+		FROM BOOK_STORAGE_LOCATION
+		JOIN BOOK_CATEGORY USING (STORAGE_NO)
+		ORDER BY STORAGE_NAME DESC, CAT_NAME DESC
+	</select>
 	
+	<select id="getListCount">
+		SELECT COUNT(*)
+		FROM "BOOK_INFO"
+		WHERE BOOK_DEL_FL = 0
+	</select>
 	
+	<select id="getBookList">
+		
+	</select>
 
 </mapper>

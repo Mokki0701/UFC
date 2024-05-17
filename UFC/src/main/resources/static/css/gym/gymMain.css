@@ -1,0 +1,64 @@
+
+
+          /* 전체 페이지 스타일 */
+          body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 헤더 스타일 */
+        #gym_headerMenu {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 30%;
+        }
+
+        .gym_main_logo {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .gym_main_logo li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .gym_main_logo li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .gym_main_logo li a:hover {
+            text-decoration: underline;
+        }
+
+        /* 사진 스타일 */
+        .gym_photo {
+            float: left;
+            margin-right: 20px;
+            max-width: 30%;
+            display: flex;
+            
+        }
+
+        .gym_photo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .gym_time{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 30vh;
+        }
+
+        .gym_time_info{
+            display: flex;
+
+        }
+
+        

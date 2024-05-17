@@ -100,20 +100,38 @@ public class DBConfig {
 		// -> Mybatis 코드 수행 시 mapper.xml을 읽을 수 있음
 		// sessionFactoryBean.setMapperLocations("현재프로젝트.자원.어떤파일");
 
-		// 모든 mappers 하위 폴더의 XML 파일을 포함
-        sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**/*.xml"));
+
         
+
+
+		
+		sessionFactoryBean.setMapperLocations( 
+				
+				 Stream.of(
+						 applicationContext.getResources("classpath:/mappers/**.xml"),
+
+					        applicationContext.getResources("classpath:/mappers/lesson/**.xml"),
+					        applicationContext.getResources("classpath:/mappers/lib/**.xml"),
+                  applicationContext.getResources("classpath:/mappers/**/*.xml")
+  
+					    ).flatMap(Arrays::stream).toArray(Resource[]::new)
+				
+				);
+		
+		
 
 		// 해당 패키지 내 모든 클래스의 별칭을 등록
 		// - Mybatis는 특정 클래스 지정 시 패키지명.클래스명을 모두 작성해야함
 		// -> 긴 이름을 짧게 부를 별칭 설정할 수 있음
 
 		// - setTypeAliasesPackage("패키지") 이용 시
-		// 클래스 파일명이 별칭으로 등록
 
-		// ex) (원본) edu.kh.todo.model.dto.Todo --> Todo (별칭 등록)
+		//   클래스 파일명이 별칭으로 등록
+		
+		// ex) (원본) edu.kh.todo.model.dto.Todo   -->  Todo (별칭 등록)
 		sessionFactoryBean.setTypeAliasesPackage("edu.kh.cooof");
-
+		
+		
 		// 마이바티스 설정 파일 경로 지정
 		sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
 
