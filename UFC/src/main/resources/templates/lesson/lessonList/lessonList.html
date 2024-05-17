@@ -53,18 +53,20 @@
                 </div>
                 <div class="advanced-search-options" id="advanced-search-options">
                     <div>
-                        <span>요일별</span>
-                        <button>월요일</button>
-                        <button>화요일</button>
-                        <button>수요일</button>
-                        <button>목요일</button>
-                        <button>금요일</button>
-                        <button>토요일</button>
+                        <!-- id값은 소분류 코드 -->
+                        <span>요일별</span> 
+                        <button type="button" id="19">월요일</button>
+                        <button type="button" id="20">화요일</button>
+                        <button type="button" id="21">수요일</button>
+                        <button type="button" id="22">목요일</button>
+                        <button type="button" id="23">금요일</button>
+                        <button type="button" id="24">토요일</button>
+                        <button type="button" id="25">일요일</button>
                     </div>
                     <div>
                         <span>시간별</span>
-                        <button>오전</button>
-                        <button>오후</button>
+                        <button type="button" id="10">오전</button>
+                        <button type="button" id="11">오후</button>
                     </div>
                     <div class="search-button">
                     </div>
@@ -109,7 +111,7 @@
                     <div class="program-card" th:each="lesson : ${lessonList}">
                         <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
                         <div class="program-info">
-                            <span class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
+                            <span id="${lesson.lessonNo}" class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
                             <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
                             <h3 th:text="${lesson.lessonTitle}"></h3>
                             <p th:text="'대상: ' + ${lesson.lessonTargetAudience}"></p>

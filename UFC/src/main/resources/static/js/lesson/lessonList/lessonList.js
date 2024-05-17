@@ -13,7 +13,11 @@ document.addEventListener("DOMContentLoaded", function() {
     advancedSearchButtons.forEach(button => {
         button.addEventListener('click', function() {
             const query = document.getElementById('searchQuery').value;
-            const tag = this.innerText;
+
+            // 클릭한 태그의 id 값을 얻와 tag에 저장
+            const tag = this.id;
+
+            console.log(tag);
             fetchSearchResults(query, tag);
         });
     });
@@ -48,6 +52,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
             const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${cp}"]`);
+
+
+            
             if (activePageLink) {
                 activePageLink.classList.add('active');
             }
