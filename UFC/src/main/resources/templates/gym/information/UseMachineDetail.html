@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기구 사용법 상세</title>
+</head>
+
+<style>
+    .gym_detail_container {
+        padding: 20px;
+    }
+    .gym_video {
+        margin-bottom: 20px;
+    }
+    .gym_info h3 {
+        margin-top: 20px;
+    }
+    .gym_info p {
+        white-space: pre-wrap; /* 줄 바꿈을 처리하기 위해 사용 */
+    }
+</style>
+
+<body>
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <div class="gym_detail_container">
+        <h2 th:text="${useMachine.name}">기구 이름</h2>
+        <div class="gym_video">
+            <iframe th:src="${useMachine.videoUrl}" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="gym_info">
+            <h3>운동 부위</h3>
+            <p th:text="${useMachine.targetMuscle}">운동 부위 내용</p>
+
+            <h3>운동 방법</h3>
+            <p th:utext="${#strings.replace(useMachine.exerciseMethod, '\n', '<br/>')}">운동 방법 내용</p>
+
+            <h3>주의 사항</h3>
+            <p th:text="${useMachine.precautions}">주의 사항 내용</p>
+        </div>
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>

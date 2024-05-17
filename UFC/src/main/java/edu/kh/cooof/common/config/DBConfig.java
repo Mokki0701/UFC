@@ -109,11 +109,14 @@ public class DBConfig {
 				
 				 Stream.of(
 						 applicationContext.getResources("classpath:/mappers/**.xml"),
+					        
+
 
 					        applicationContext.getResources("classpath:/mappers/lesson/**.xml"),
 					        applicationContext.getResources("classpath:/mappers/lib/**.xml"),
-                  applicationContext.getResources("classpath:/mappers/**/*.xml")
-  
+                  applicationContext.getResources("classpath:/mappers/**/*.xml"),
+                  applicationContext.getResources("classpath:/mappers/gym/**.xml")
+
 					    ).flatMap(Arrays::stream).toArray(Resource[]::new)
 				
 				);
