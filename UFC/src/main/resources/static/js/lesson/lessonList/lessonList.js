@@ -13,19 +13,18 @@ document.addEventListener("DOMContentLoaded", function() {
     advancedSearchButtons.forEach(button => {
         button.addEventListener('click', function() {
             const query = document.getElementById('searchQuery').value;
-
-            // 클릭한 태그의 id 값을 얻어 tag에 저장
             const tag = this.id;
-
-            //**** 기존 태그들을 가져오고 현재 태그를 추가 ****
             let currentTags = new URLSearchParams(window.location.search).get('tags') || '';
-            const tags = currentTags.split(',').filter(Boolean);
-            if (!tags.includes(tag)) {
+            let tags = currentTags.split(',').filter(Boolean);
+
+            if (tags.includes(tag)) {
+                tags = tags.filter(t => t !== tag);
+            } else {
                 tags.push(tag);
             }
-            const tagString = tags.join(',');
 
-            console.log(tagString);
+            const tagString = tags.join(',');
+            console.log(tags);
             fetchSearchResults(query, tagString);
         });
     });
@@ -37,37 +36,19 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             const page = target.getAttribute('data-page');
             const query = document.getElementById('searchQuery').value;
-            //**** 쿼리 스트링에서 태그들 가져오기 ****
             const tag = new URLSearchParams(window.location.search).get('tags') || null;
             fetchSearchResults(query, tag, page);
 
-            // active 클래스 추가 및 제거
             if (target.classList.contains('page-arrow')) {
-
-            // 현재 URL 저장
-            const url = window.location.href;
-
-            // URL 객체를 생성
-            const urlObj = new URL(url);
-
-            // URLSearchParams 객체를 사용하여 쿼리 파라미터 가져오기
-            const params = new URLSearchParams(urlObj.search);
-
-            // 'cp' 파라미터 값 얻어오기
-            const cp = params.get('cp');
-
-            // 모든 active 삭제
-            document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
-
-
-            // 지정한 조건에 맞는 번호 지정
-            const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${cp}"]`);
-
-
-            // active 추가하기
-            if (activePageLink) {
-                activePageLink.classList.add('active');
-            }
+                const url = window.location.href;
+                const urlObj = new URL(url);
+                const params = new URLSearchParams(urlObj.search);
+                const cp = params.get('cp');
+                document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
+                const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${cp}"]`);
+                if (activePageLink) {
+                    activePageLink.classList.add('active');
+                }
             } else {
                 document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
                 target.classList.add('active');
@@ -77,27 +58,20 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function fetchSearchResults(query, tags = null, page = 1, pushState = true) {
-
-    //**** tags를 쿼리 파라미터로 추가 ****
     let requestUrl = `/lesson/list/search2?query=${encodeURIComponent(query)}&cp=${page}`;
     let url = `/lesson/list/search?query=${encodeURIComponent(query)}&cp=${page}`;
     if (tags) {
         requestUrl += `&tags=${encodeURIComponent(tags)}`;
+        url += `&tags=${encodeURIComponent(tags)}`;
     }
 
-        // 검색 결과를 가져오기 위해 fetch API를 사용
-        fetch(requestUrl)
-        // 응답을 텍스트 형태로 변환
+    fetch(requestUrl)
         .then(response => response.text())
-         // 변환된 텍스트(HTML)를 처리
         .then(html => {
-            // .programs 요소의 innerHTML을 새로운 검색 결과 HTML로 대체
             document.querySelector('.programs').outerHTML = html;
             if (pushState) {
                 window.history.pushState({ query: query, tags: tags, page: page }, '', url);
             }
-
-            // 새로운 결과 반환 시 active 클래스 최신화
             const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${page}"]`);
             if (activePageLink) {
                 document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
