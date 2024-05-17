@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.gym.information.model.mapper.UseMachineMapper">
 
+  <select id="getAllUseMachines">
+      SELECT * 
+      FROM USE_MACHINE
+  </select>
+
+  <select id="getUseMachineById" parameterType="_int" >
+      SELECT * 
+      FROM USE_MACHINE 
+      WHERE ID = #{id}
+  </select>
+
 	
 	
 

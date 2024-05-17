@@ -19,7 +19,7 @@ public class UseMachine {
     private String imageUrl;
     private String videoUrl;
     private String targetMuscle;
-    private String method;
+    private String exerciseMethod;
     private String precautions;
 	
 }

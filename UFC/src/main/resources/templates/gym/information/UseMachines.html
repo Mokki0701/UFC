@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운동 정보</title>
+    <style>
+        .gym_container {
+            max-width: 1200px; /* 최대 너비 설정 */
+            margin: 0 auto; /* 중앙 정렬 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .gym_container > h3 {
+            font-size: 31px;
+            margin: 10px 0;
+            text-align: left;
+            width: 100%; /* h3가 가로로 꽉 차게 */
+        }
+        .gym_type {
+            height: 50px;
+            background-color: white;
+            border-bottom: 2px solid black;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+        .gym_type > ul {
+            display: flex;
+            list-style: none;
+            height: 100%;
+            justify-content: center; /* 중앙 정렬 */
+        }
+
+        .gym_type li {
+            flex: 0 1 150px;
+        }
+        .gym_type a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            border-radius: 5px;
+            transition-duration: 0.1s;
+        }
+        .gym_type a:hover {
+            color: white;
+            background-color: rgb(239, 50, 50);
+        }
+        .gym_items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* 아이템들 사이에 간격 추가 */
+            width: 100%;
+        }
+        .gym_item {
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+            position: relative;
+            width: 22%; /* 각 아이템의 너비를 22%로 설정하여 4개가 한 줄에 표시되도록 */
+        }
+        .gym_thumb {
+            background: #eee;
+            padding: 20px;
+            margin-bottom: 10px;
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+        .gym_thumb img {
+            max-height: 182px;
+            min-height: 182px;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
+        }
+        .gym_name {
+            font-weight: 500;
+            font-size: 16px;
+            padding: 5px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .pagination li {
+            margin: 0 5px;
+        }
+        .pagination a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        .pagination .current {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <th:block th:replace="~{common/header}"></th:block>
+    <div class="gym_container">
+        <h3>기구 사용법</h3>
+        <div class="gym_type">
+            <ul>
+                <li><a href="/gym/information/useMachines">기구 사용법</a></li>
+                <li><a href="/gym/information/stretching">스트레칭</a></li>
+            </ul>
+        </div>
+        <div class="gym_items">
+            <th:block th:each="machine : ${result.useMachines}">
+                <div class="gym_item">
+                    <div class="gym_thumb">
+                        <a th:href="@{/gym/information/useMachine/{id}(id=${machine.id})}">
+                            <img th:src="${machine.imageUrl}" alt="Image" width="205">
+                        </a>
+                    </div>
+                    <div class="gym_name" th:text="${machine.name}"></div>
+                </div>
+            </th:block>
+        </div>
+        <div class="gym_pagination">
+            <ul class="pagination">
+                <li th:each="i : ${#numbers.sequence(0, (result.totalItems / result.pageSize) + 1)}">
+                    <a th:href="@{/gym/information/useMachines(page=${i}, size=${result.pageSize})}"
+                       th:text="${i + 1}" th:class="${i == result.currentPage} ? 'current' : ''"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>
