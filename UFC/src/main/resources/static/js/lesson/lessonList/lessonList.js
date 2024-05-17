@@ -29,9 +29,32 @@ document.addEventListener("DOMContentLoaded", function() {
             fetchSearchResults(query, tag, page);
 
             // active 클래스 추가 및 제거
-            document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
-            target.classList.add('active');
+            if (target.classList.contains('page-arrow')) {
 
+            // 현재 URL 저장
+            const url = window.location.href;
+
+            // URL 객체를 생성
+            const urlObj = new URL(url);
+
+            // URLSearchParams 객체를 사용하여 쿼리 파라미터를 가져옵니다.
+            const params = new URLSearchParams(urlObj.search);
+
+            // 'cp' 파라미터 값을 가져옵니다.
+            const cp = params.get('cp');
+
+            // 모든 active 삭제
+            document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
+
+
+            const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${cp}"]`);
+            if (activePageLink) {
+                activePageLink.classList.add('active');
+            }
+            } else {
+                document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
+                target.classList.add('active');
+            }
         }
     });
 });
@@ -49,6 +72,13 @@ function fetchSearchResults(query, tag = null, page = 1, pushState = true) {
             if (pushState) {
                 window.history.pushState({ query: query, tag: tag, page: page }, '', url);
             }
+
+            // Update active class for pagination after fetching new results
+            const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${page}"]`);
+            if (activePageLink) {
+                document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
+                activePageLink.classList.add('active');
+            }
         })
         .catch(error => console.error('Error fetching search results:', error));
 }
@@ -61,8 +91,6 @@ window.addEventListener('popstate', function(event) {
         fetchSearchResults(query, tag, page, false);
     }
 });
-
-
 
 /* 상세 검색 드롭 다운 메뉴 시작 */
 document.getElementById('advanced-search-toggle').addEventListener('click', function() {
