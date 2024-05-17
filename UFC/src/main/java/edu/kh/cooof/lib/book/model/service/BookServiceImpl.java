@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.cooof.lib.book.model.dto.Book;
 import edu.kh.cooof.lib.book.model.dto.BookStorageLocation;
-import edu.kh.cooof.lib.book.model.dto.Pagination;
+import edu.kh.cooof.lib.book.model.dto.LibPagination;
 import edu.kh.cooof.lib.book.model.mapper.BookMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +38,7 @@ public class BookServiceImpl implements BookService {
 			
 		}
 		
-		Pagination pagination = new Pagination((int)search.get("cp"), listCount, (int)search.get("limit"));
+		LibPagination pagination = new LibPagination((int)search.get("cp"), listCount, (int)search.get("limit"));
 		
 		int offset = ((int)search.get("cp") - 1) * (int)search.get("limit");
 		
