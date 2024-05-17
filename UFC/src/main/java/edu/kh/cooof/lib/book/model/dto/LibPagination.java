@@ -1,6 +1,6 @@
 package edu.kh.cooof.lib.book.model.dto;
 
-public class Pagination {
+public class LibPagination {
 
 	private int currentPage;
 	private int listCount;
@@ -15,7 +15,7 @@ public class Pagination {
 	private int prevPage;
 	private int nextPage;
 	
-	public Pagination(int currentPage, int listCount, int limit) {
+	public LibPagination(int currentPage, int listCount, int limit) {
 		super();
 		this.currentPage = currentPage;
 		this.listCount   = listCount;
