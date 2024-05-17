@@ -28,8 +28,9 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Override
 	public int insertReview(LessonListDTO lessonListDTO) {
 		
+		
 		//별점 등록시 이미 등록된 후기가 있는지 찾아보기
-		int lessonNo = mapper.searchLessonNo(lessonListDTO.getLessonNo());
+		int lessonNo = mapper.searchLessonNo(lessonListDTO);
 		
 		int result = 0;
 		
@@ -46,6 +47,13 @@ public class DashBoardServiceImpl implements DashBoardService {
 		if(result == 0) return 0;
 		
 		return result;
+	}
+	
+	
+	//내가 등록한 강의의 별점 찾기
+	@Override
+	public int findStar(LessonListDTO lessonList) {
+		return mapper.findStar(lessonList);
 	}
 	
 	

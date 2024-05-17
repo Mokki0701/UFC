@@ -119,6 +119,10 @@
   margin-bottom: 16px;
 } */
 
+#lectureSelect{
+  cursor: pointer;
+}
+
 .star_point_container {
   display: flex;
   align-items: center;
@@ -133,6 +137,7 @@
 .star_background img {
   /* width: auto; */
   width: 50px;
+  cursor: pointer;
 }
 
 .less_remove_star {
@@ -144,3 +149,6 @@
 #reviewBtn{
   cursor: pointer;
 }
+
+
+

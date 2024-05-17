@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.service.DashBoardService;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +60,24 @@ public class DashBoardController {
 	}
 	
 	
+	//내가 등록한 강의의 별점 찾기
 
+		@GetMapping("dashboard/star")
+		@ResponseBody
+		private int reviewRating(
+
+				@RequestParam("lessonNo") int lessonNo,
+				@SessionAttribute("loginMember")Member loginMember
+
+				) {
+		    LessonListDTO lessonList = new LessonListDTO();
+		    lessonList.setMemberNo(loginMember.getMemberNo());
+		    lessonList.setLessonNo(lessonNo);
+			int starRating = service.findStar(lessonList);
+			
+			return starRating;
+
+		}
 	
 	
 }

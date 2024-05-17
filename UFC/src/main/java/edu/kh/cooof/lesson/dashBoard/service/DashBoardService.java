@@ -14,6 +14,9 @@ public interface DashBoardService {
 	//별점, 강의번호 넣기
 	int insertReview(LessonListDTO lessonListDTO);
 
+	//내가 등록한 강의의 별점 찾기
+	int findStar(LessonListDTO lessonList);
+
 	
 
 

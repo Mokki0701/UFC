@@ -1,11 +1,10 @@
 // alert("연결!")
 
-//호버 상태에 따른 이미지 매핑 객체
-// 프로젝트에 옮길 경우 경로 확인하기
-//객체는 각 별의 상태(빈 별, 반 별, 가득 찬 별)에 따른 이미지 경로를 저장
+/* ===== 별점 후기 ==================================== */
+
+//호버 상태에 따른 이미지 (빈별, 가득찬 별만 사용)
 const starImageSourceMap = {
   empty : '/images/icon_empty_star.png',
-  half : '/images/icon_half_star.png',
   full : '/images/icon_star.png',
 }
 
@@ -33,6 +32,7 @@ const isLockedPoint =()=>{
   return lockedStarPoint;
 }
 
+//별점 1~5점 가져오는 변수
 let reviewPoint;
 
 starBackground.addEventListener('mousemove',e=>{
@@ -46,12 +46,18 @@ starBackground.addEventListener('mousemove',e=>{
   const target = e.target;
   const currentUserPoint = e.offsetX;
 
-  // const {point} = target.dataset; //data-point 값
+  //html data-* 속성 값 1~5 
+  //data-* JS로 받으면 문자열이 됨
   const point = target.dataset.point;
   
   //이미지들을 배열로 가져왔을때 인덱스값을 맞추기 위해
+  //parseInt 함수는 첫 번째 매개변수로 주어진 문자열을 정수로 변환
   const starPointIndex = parseInt(point,10)-1 ;
+
   //요소의 좌표와 크기에 대한 정보를 반환
+  //getClientRects() = 대상 요소에 대한 DOMRect 객체의 컬렉션을 반환
+  // DOMRect 객체는 요소의 크기와 뷰포트에 대한 상대적인 위치 정보를 포함
+  //top, right, bottom, left, width, height 같은 속성들이 포함
   const [starImageClientRect] = target.getClientRects();
   //별모양 넚이값
   const starImageWidth = starImageClientRect.width;
@@ -70,9 +76,59 @@ starBackground.addEventListener('mousemove',e=>{
 //select 태그 가져오기
 const lessonSelect = document.querySelector("#lectureSelect");
 
-//수업 코드 가져오기
+// 등록한 별점 불러오기 
+lessonSelect.addEventListener("change",()=>{
+  const lessonCode = lessonSelect.options[lessonSelect.selectedIndex].value;
+
+  const lessonText = lessonSelect.options[lessonSelect.selectedIndex].text;
+
+  const label = document.querySelector("[for='lectureSelect']");
+  label.innerText = lessonText;
+
+  if(lessonSelect.value == "강의선택"){
+    resetStarPointImages();
+    return;
+  } 
+
+  //console.log(lessonCode); //코드 나오는거 확인
+  fetch('/lesson/dashboard/star?lessonNo='+lessonCode)
+  .then(res => res.text())
+  .then(result =>{
+  
+    if(result>0){
+      //별점 UI 함수
+      setStarRating(result)
+    }else{
+      //초기화
+      resetStarPointImages();
+    }
+  })
+})
+
+
+//별점 UI 함수
+const setStarRating= (result)=>{
+  renderStarPointImages({drawableLimitIndex: result - 1, isOverHalf: false});
+
+  //별점 고정
+  lockStarPoint();
+  
+}
+
+
+//평점제출 reviewBtn
+const reviewBtn = document.querySelector("#reviewBtn");
+//평점제출 클릭시 search 함수 실행
+reviewBtn.addEventListener("click",search);
+
+//수업 코드 가져오고 별점 등록
 function search(){
   const lessonCode = lessonSelect.options[lessonSelect.selectedIndex].value;
+
+  if(lessonSelect.value == "강의선택"){
+    alert("강의선택을 해주세요");
+    return;
+  } 
   //console.log(lessonCode);
   //평점 제출 클릭 시 별점이랑 option value 값(수업코드) DB에 보내기 
   const obj = {
@@ -92,22 +148,22 @@ function search(){
       return;
     }
     alert("별점이 등록 되었습니다");
+    
     //별점 고정 해제
     unlockStarPoint();
+
     //별점 초기화
-    resetStarPointImages();
+    //resetStarPointImages();
+
+    setStarRating();
+    
+    setDefaultLecture();
+
   })
 }
 
-//평점제출 reviewBtn
-const reviewBtn = document.querySelector("#reviewBtn");
-//평점제출 클릭시 search 함수 실행
-reviewBtn.addEventListener("click",search);
-
+//별 이미지 full/empty 결정
 function renderStarPointImages(payload={}){
-
-  //초기값 할당
-  //const {drawableLimitIndex = -1, isOverHalf = false} = payload;
 
   let drawableLimitIndex = payload.drawableLimitIndex;
   if (drawableLimitIndex === undefined) {
@@ -120,8 +176,10 @@ function renderStarPointImages(payload={}){
   }
 
   //노드리스트에서 forEach 가능하게 (다른 브라우저에서도)
+  //NodeList는 배열과 유사하지만, 배열의 모든 메서드를 지원하지 않음
   //NodeList !== Araay. call을 통해서 함수를 호출하는 객체를 
   // Array 에서 NodeList 객체로 
+  //starImages == img 태그들
   Array.prototype.forEach.call(starImages,(starimage,index)=>{
     let imageSource = index < drawableLimitIndex? starImageSourceMap.full : starImageSourceMap.empty;
 
@@ -134,11 +192,7 @@ function renderStarPointImages(payload={}){
 }
 
 
-
-
-
-
-//마우스 클릭시 별점 고정(lockStarPoint).
+//마우스 클릭시 별점 고정(lockStarPoint)
 starBackground.addEventListener("click",()=>{
   lockStarPoint();
 })
@@ -160,5 +214,21 @@ starBackground.addEventListener("mouseout",()=>{
   //별점 상태가 고정이 아닌 경우 resetStarPointImages 실행
   !isLockedPoint() && resetStarPointImages();
 })
+
+
+//select의 옵션 1 선택 
+const setDefaultLecture = ()=>{
+
+  const selectElement = document.getElementById('lectureSelect');
+
+  //selectElement.length
+  //<select> 요소 내에 포함된 <option> 요소의 개수
+    if (selectElement.length > 1) { // 옵션이 두 개 이상 있는지 확인 (기본 옵션 포함)
+      //select option 요소의 인덱스
+      selectElement.selectedIndex = 0; 
+    }
+}
+/* ===== 별점 후기 끝 ==================================== */
+
 
 
