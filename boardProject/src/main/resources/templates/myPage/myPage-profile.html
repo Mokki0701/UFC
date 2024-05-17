@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Page</title>
+
+  <!-- 공용 css/js 추가 -->
+  <th:block th:replace="~{common/common}"></th:block>
+
+  <!-- myPage 전용 CSS -->
+  <link rel="stylesheet" href="/css/myPage/myPage-style.css">
+</head>
+<body>
+
+  <main>
+
+    <!-- 헤더 추가 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <section class="myPage-content">
+
+      <!-- 사이드 메뉴(왼쪽) 추가 -->
+      <th:block th:replace="~{myPage/sideMenu}"></th:block>
+
+      <!-- 마이페이지 본문(오른쪽) -->
+      <section class="myPage-main">
+        <h1 class="myPage-title">프로필</h1>
+        <span class="myPage-subject">프로필 이미지를 변경할 수 있습니다.</span>
+
+        <form action="profile" method="POST" name="myPageFrm" id="profile" enctype="multipart/form-data">
+          <div class="profile-image-area">
+
+            <img th:with="user=#{user.default.image}" 
+                 th:src="${session.loginMember.profileImg ?: user }" 
+                 id="profileImg">
+
+          </div>
+          <span id="deleteImage">x</span>
+
+          <div class="profile-btn-area">
+            <label for="imageInput">이미지 선택</label>
+
+            <input type="file" name="profileImg" id="imageInput" accept="image/*">
+
+            <button>변경하기</button>
+          </div>
+
+          <div class="myPage-row">
+            <label>이메일</label>
+            <span th:text="${session.loginMember.memberEmail}"></span>
+          </div>
+
+          <div class="myPage-row">
+            <label>가입일</label>
+            <span th:text="${session.loginMember.enrollDate}"></span>
+          </div>
+
+        </form>
+
+
+      </section>
+
+    </section>
+
+  </main>
+
+   <!-- 푸터 추가 -->
+  <th:block th:replace="~{common/footer}"></th:block>
+  
+  <script th:inline="javascript">
+    const loginMemberProfileImg = /*[[${session.loginMember.profileImg}]]*/  "회원 프로필 이미지";
+  </script>
+
+
+  <script src="/js/myPage/myPage.js"></script>
+</body>
+</html>

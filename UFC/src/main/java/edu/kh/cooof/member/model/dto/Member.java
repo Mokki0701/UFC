@@ -16,5 +16,11 @@ public class Member {
 	private int memberNo;
 	private String memberEmail;
 	private String memberPw;
+	private String memberLastName; 
+	private String memberFirstName;
+	
+	// ... 
+	private int memberAuthority;
+	
 	// 이후에 추가..
 }

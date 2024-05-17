@@ -11,12 +11,24 @@
         
         <div>
             <!-- 여긴 사이드 왼쪽 바 카테고리, 도서 저장소 전체 얻어와서 나열 -->
+            <div th:each="bookStorageLocation : ${bookStorageLocations}" th:object="${bookStorageLocation}">
+
+                <input type="checkbox" class="category_checkbox"></input>
+
+                <h4 th:text="*{storageName}" class="storageContainer"></h4>
+
+
+
+
+            </div>
+
         </div>
 
         <div>
 
             <div>
                 <!-- 검색 창 -->
+                
             </div>
 
             <div>
@@ -27,16 +39,63 @@
 
                 <div>
                     <!-- 관심 등록 도서 수(이게 먼저) / 도서 가나다라 조회순 -->
+                    <!-- 이건 나중에 생각하면 될듯 이걸 눌렀을 때 비동기 조회니까, 일단 카테고리별, 책별 나열하고 -> 검색, 인기순 조회 기능을 넣을 때 넣자 -->
+                    <div th:each="book : ${bookList}" th:object="${book}">
+                        <td th:text="*{bookTitle}">도서 제목</td> 
+                        <td th:text="*{authorLastName}">저자 성</td>
+                        <td th:text="*{authorFirstName}">저자 명</td>
+                        <td th:text="*{bookPublisher}">출판사</td>
+                        <td th:text="*{bookImg}">도서 이미지</td>
+                        <td th:text="*{bookTmi}">도서 정보</td>
+                        <td th:text="*{storageDetail}">세부 위치</td>
+                        <td th:text="*{lrFlag} == 1 ? '대출 O' : '대출 X'"></td>
+
+                    </div>
+
+                    
+
                 </div>
 
             </div>
 
             <div>
+                <!-- ******** a태그 주소 요청할 때 cp값만 맞춰서 넣으면 페이징 네이션만 신경쓴건 된ㄷ읏 -->
                 <!-- 1. 도서 전체 목록 불러오기 2. 파라미터 값 받아와서 얻어오기 ->  -->
+                <div th:object="${pagination}">
+
+                    <!-- 첫 페이지 -->
+                    <li><a th:href="@{/book/bookList(cp=1)}">&lt;&lt;</a></li>
+
+                    <!-- 이전 목록 마지막 번호 -->
+                    <li><a th:href="@{/book/bookList(cp=*{prevPage})}">&lt;</a></li>
+
+                    <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
+                        
+                        <!-- 현재 보는 페이지 -->
+                        <li th:if="${i == pagination.currentPage}">
+                            <a th:text="${i}"></a>
+                        </li>
+
+                        <li th:unless="${i == pagination.currentPage}">
+                            <a th:href="@{/book/bookList(cp=${i})}" th:text="${i}"></a>
+                        </li>
+
+                    </th:block>
+
+                    <!-- 다음 목록 시작 번호 이동 -->
+                    <li><a th:href="@{/book/bookList(cp=*{nextPage})}">&gt;</a></li>
+
+                    <!-- 끝 페이지 이동 -->
+                    <li><a th:href="@{/book/bookList(cp=*{maxPage})}">&gt;&gt;</a></li>
+
+                </div>
+
             </div>
 
             <div>
                 <!-- 페이징 네이션 -->
+
+
             </div>
         </div>
 
@@ -47,6 +106,6 @@
     </div>
 
 
-    
+    <script src="/js/lib/bookList.js"></script>
 </body>
 </html>

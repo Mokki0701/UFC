@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.project.websocket.model.mapper.NotificationMapper">
+	
+	<select id="selectNotification" resultType="Notification">
+		SELECT NOTIFICATION_NO, NOTIFICATION_CONTENT, NOTIFICATION_CHECK,
+			NOTIFICATION_URL, SEND_MEMBER_PROFILE_IMG, 
+			<![CDATA[
+			CASE
+					 WHEN CURRENT_DATE - NOTIFICATION_DATE < 1 / 24 / 60 
+					 THEN FLOOR((CURRENT_DATE - NOTIFICATION_DATE) * 24 * 60 * 60)  || '초 전'
+					 
+					 WHEN CURRENT_DATE - NOTIFICATION_DATE < 1 / 24 
+					 THEN FLOOR((CURRENT_DATE - NOTIFICATION_DATE)* 24 * 60) || '분 전'
+					 
+					 WHEN CURRENT_DATE - NOTIFICATION_DATE < 1
+					 THEN FLOOR((CURRENT_DATE - NOTIFICATION_DATE) * 24) || '시간 전'
+					 
+					 ELSE TO_CHAR(NOTIFICATION_DATE, 'YYYY-MM-DD')
+				 	
+				 END NOTIFICATION_DATE 
+		 	]]>
+		FROM "NOTIFICATION"
+		WHERE RECEIVE_MEMBER_NO = #{receiveMemberNo}
+		ORDER BY NOTIFICATION_NO DESC
+	</select>
+	
+	<!-- 알림을 보낼 때 필요한 게시글 관련 값 조회 -->
+	<select id="selectBoardData" resultType="Board">
+		SELECT BOARD_TITLE, MEMBER_NO, MEMBER_NICKNAME
+		FROM "BOARD"
+		JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE BOARD_NO = #{pkNo}
+	</select>
+	
+	<!-- 알림 추가 -->
+	<insert id="insertNotification">
+		INSERT INTO "NOTIFICATION" VALUES
+		(SEQ_NOTI_NO.NEXTVAL, #{notificationContent}, DEFAULT, DEFAULT, #{notificationUrl}, #{sendMemberProfileImg}, #{sendMemberNo}, #{receiveMemberNo})
+	</insert>
+	
+	
+	<!-- 알림 읽음으로 변경 -->
+	<update id="updateNotification">
+		UPDATE "NOTIFICATION" SET
+		NOTIFICATION_CHECK = 'Y'
+		WHERE NOTIFICATION_NO = #{notificationNo}
+	</update>
+	
+	
+	<!-- 읽지 않은 알림 개수 조회 -->
+	<select id="notReadCheck">
+		SELECT COUNT(*) 
+		FROM "NOTIFICATION"
+		WHERE RECEIVE_MEMBER_NO = #{memberNo}
+		AND NOTIFICATION_CHECK = 'N'
+	</select>
+	
+	<delete id="deleteNotification">
+		DELETE FROM "NOTIFICATION"
+		WHERE NOTIFICATION_NO = #{notificationNo}
+	</delete>
+	
+</mapper>

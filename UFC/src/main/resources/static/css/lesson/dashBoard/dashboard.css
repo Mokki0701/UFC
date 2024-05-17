@@ -1,0 +1,154 @@
+
+.less_dashboard {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+}
+
+.less_header {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 2px solid #333;
+}
+
+.less_header_display{
+  color: #2a2a4a;
+}
+
+.less_main_content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.less_attendance, .less_schedule, .less_lectures, .less_rating {
+  background-color: #808080;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1 1 45%;
+  max-width: 45%;
+  box-sizing: border-box;
+}
+
+.less_attendance_rate {
+  display: flex;
+  align-items: center;
+}
+
+.less_circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #FFFD74;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-right: 20px;
+}
+
+.less_circle span {
+  color: black;
+}
+
+.less_details p {
+  margin: 0;
+}
+
+.less_schedule #lessCalendar {
+  height: 300px;
+  background-color: #444;
+}
+
+.less_lectures ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.less_lectures li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #555;
+}
+
+.less_lectures li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.less_remove_star {
+  background-color: #FFFD74;
+  border: none;
+  color: navy;
+  font-weight: bold;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.less_rating_section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.less_rating_section label, .less_rating_section select, .less_rating_section .stars, .less_rating_section button {
+  background-color: #333;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* .rating-section .stars {
+  display: flex;
+  gap: 5px;
+} */
+
+/* .rating-section .stars span {
+  cursor: pointer;
+  font-size: 24px;
+} */
+
+/* .star-average {
+  display: block;
+  margin-bottom: 16px;
+} */
+
+#lectureSelect{
+  cursor: pointer;
+}
+
+.star_point_container {
+  display: flex;
+  align-items: center;
+}
+
+.star_background {
+  display: flex;
+  /* width: 250px;
+  height: 50px; */
+}
+
+.star_background img {
+  /* width: auto; */
+  width: 50px;
+  cursor: pointer;
+}
+
+.less_remove_star {
+  width: 22px;
+  height: 22px;
+  margin-left: 12px;
+}
+
+#reviewBtn{
+  cursor: pointer;
+}
+
+
+

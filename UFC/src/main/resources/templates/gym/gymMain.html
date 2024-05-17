@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헬스 메인</title>
+    
+</head>
+<link rel="stylesheet" href="/css/gym/gymMain.css">
+
+
+<body>
+    
+    <th:block th:replace="~{/common/header}">헤더</th:block>
+
+
+    <div class="gym_container">
+      <div id="gym_headerMenu">
+        <h2 class="gym_header">헬스장</h2>
+        <ul class="gym_main_logo">
+          <li>
+            <a href="">운동정보</a>
+          </li>
+          <li>
+            <a href="/trainerSelect/trainerSelect">PT신청</a> 
+          </li>
+          <li>
+            <a href="">사용후기</a>    
+          </li>
+        </ul>
+      </div>
+
+      <div id="gym_container2">  
+        <div>
+          <p class="gym_photo">
+            <img src="/images/gym/gym.jpg" alt="헬스장 사진">
+          </p>
+          <div class="gym_time">
+          <dl>
+            <dt>
+              "이용요일"
+            </dt>
+            <dd>
+              개관일 : 월 ~ 금
+              <br>
+              <span class="gym_point">(주말 및 공휴일 휴관)</span>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              "이용대상"
+            </dt>
+            <dd>
+              (아직 모름 ~ 가상)
+            </dd>
+          </dl>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="gym_time_info">
+        <div class="gym_calendar">
+            <!-- 아직 실험중 ...ㅠ -->
+        </div>
+        <div class="gym_info">
+          <p class="gym_rules">이용방법</p>
+          <ul>
+            <li>
+              머..방문해서 회원증 발급 받기~
+            </li>
+            <li>
+              회원명단에 체크 후 사용
+            </li>
+            <li>
+              어쩌고 저쩌고~~ 
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p>시설 기구 안내</p>
+          <ul>
+            <li>추후에 운동기구 종류 추가~</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div> <!-- 푸터 --> </div>
+</body>
+</html>

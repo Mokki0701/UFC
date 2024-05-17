@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+					<!-- 연결할 Mapper Interface 작성 -->
+<mapper namespace="edu.kh.project.myPage.model.mapper.MyPageMapper">
+
+	<!-- 회원 정보 수정 -->
+	<update id="updateInfo">
+		UPDATE "MEMBER" SET
+		MEMBER_NICKNAME = #{memberNickname},
+		MEMBER_TEL = #{memberTel},
+		MEMBER_ADDRESS = #{memberAddress}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 회원의 비밀번호 조회 -->
+	<select id="selectPw">
+		SELECT MEMBER_PW
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="changePw">
+		UPDATE "MEMBER" SET
+		MEMBER_PW = #{encPw}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 회원 탈퇴  -->
+	<update id="secession">
+		UPDATE "MEMBER" SET
+		MEMBER_DEL_FL = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	<!-- 파일 정보를 DB에 삽입  -->
+	<insert id="insertUploadFile">
+		INSERT INTO "UPLOAD_FILE"
+		VALUES(SEQ_FILE_NO.NEXTVAL, #{filePath}, 
+			#{fileOriginalName}, #{fileRename}, DEFAULT, #{memberNo})
+	</insert>
+	
+	
+	<!-- 파일 목록 조회 -->
+	<select id="fileList" resultType="UploadFile">
+		SELECT FILE_NO, FILE_PATH, FILE_ORIGINAL_NAME, FILE_RENAME, MEMBER_NICKNAME,
+			TO_CHAR(FILE_UPLOAD_DATE, 'YYYY-MM-DD') FILE_UPLOAD_DATE
+		FROM "UPLOAD_FILE"
+		JOIN "MEMBER" USING(MEMBER_NO)
+		ORDER BY FILE_NO DESC
+	</select>
+	
+	
+	<!-- 프로필 이미지 변경 -->
+	<update id="profile">
+		UPDATE "MEMBER" SET
+		PROFILE_IMG = #{profileImg}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	
+
+</mapper>
