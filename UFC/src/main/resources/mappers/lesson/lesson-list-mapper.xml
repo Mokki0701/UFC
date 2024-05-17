@@ -34,7 +34,9 @@
 	JOIN LESSON_CATEGORY USING (LESSON_NO)
 	WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
 
-
+	<if test='tags != null'>
+		AND SMALL_CODE IN (${tags})
+	</if>
 	
 	
 	</select>
@@ -55,11 +57,13 @@
 	MEMBER_NO
 	FROM
 	"LESSONS"
-	
+	JOIN LESSON_CATEGORY USING (LESSON_NO)
 	WHERE
 	LESSON_TITLE LIKE '%' || #{query} || '%'
 
-
+	<if test='tags != null'>
+		AND SMALL_CODE IN (${tags})
+	</if>
 	
 	
 	ORDER BY
