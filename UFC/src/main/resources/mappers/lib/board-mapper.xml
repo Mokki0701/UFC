@@ -5,18 +5,25 @@
 	<select id="selectBookStorage">
 		SELECT *
 		FROM BOOK_STORAGE_LOCATION
-		JOIN BOOK_CATEGORY USING (STORAGE_NO)
-		ORDER BY STORAGE_NAME DESC, CAT_NAME DESC
+		ORDER BY STORAGE_NAME DESC
 	</select>
 	
 	<select id="getListCount">
 		SELECT COUNT(*)
 		FROM "BOOK_INFO"
-		WHERE BOOK_DEL_FL = 0
 	</select>
 	
 	<select id="getBookList">
-		
+		SELECT * FROM BOOK_INFO
+		ORDER BY BOOK_NO
+	</select>
+	
+	<select id="categoryList" resultType="string">
+		SELECT CAT_NAME
+		FROM BOOK_CATEGORY
+		JOIN BOOK_STORAGE_LOCATION USING (STORAGE_NO)
+		WHERE STORAGE_NAME = #{storageName}
+		ORDER BY CAT_NO
 	</select>
 
 </mapper>
