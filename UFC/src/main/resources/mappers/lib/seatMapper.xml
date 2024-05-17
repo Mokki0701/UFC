@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="edu.kh.cooof.lib.seat.model.mapper.LibSeatMapper">
+<mapper
+	namespace="edu.kh.cooof.lib.seat.model.mapper.LibSeatMapper">
 
-    <select id="getAllSeats" resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
-        SELECT 
-            SEAT_NO 
-            X_COORDI,
-            Y_COORDI,
-            CONDITION
-        FROM SEAT
-    </select>
+	<select id="getAllSeats" resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
+		SELECT SEAT_NO, COORDI_X AS coordiX, COORDI_Y AS coordiY,
+		CONDITION,
+		SEAT_AVAIL
+		FROM SEAT
+	</select>
 
-    <delete id="deleteAllSeats">
-        DELETE FROM SEAT
-    </delete>
+	<delete id="deleteAllSeats">
+		DELETE FROM SEAT
+	</delete>
 
-    <insert id="insertSeat">
-        INSERT INTO SEAT (SEAT_NO, X_COORDI, Y_COORDI, CONDITION)
-        VALUES (#{seatNo}, #{xCoordi}, #{yCoordi}, #{condition})
-    </insert>
+	<insert id="insertSeat">
+		INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y,
+		CONDITION)
+		VALUES (#{seatNo}, #{coordiX}, #{coordiY}, #{condition})
+	</insert>
 
 </mapper>

@@ -1,3 +1,5 @@
+
+
 const seatChart = document.querySelector('.seat-chart');
 const rows = 20;
 const cols = 20;
@@ -17,6 +19,8 @@ for (let i = 0; i < rows; i++) {
 }
 
 // 드래그로 div 선택 시작
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const seatChart = document.querySelector('.seat-chart');
   let isDragging = false;
@@ -26,12 +30,13 @@ document.addEventListener('DOMContentLoaded', function () {
   seatChart.addEventListener('mousedown', function (event) {
     if (event.target.classList.contains('seat')) {
       isDragging = true;
-      startX = event.clientX;
-      startY = event.clientY;
+      startX = event.clientX + window.scrollX;
+      startY = event.clientY + window.scrollY;
 
-      // 선택 박스 생성
+      // 선택 박스 생성 및 초기 위치 설정
       selectionBox = document.createElement('div');
       selectionBox.className = 'selection-box';
+      selectionBox.style.position = 'absolute';
       selectionBox.style.left = `${startX}px`;
       selectionBox.style.top = `${startY}px`;
       document.body.appendChild(selectionBox);
@@ -42,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.addEventListener('mousemove', function (event) {
     if (isDragging) {
-      currentX = event.clientX;
-      currentY = event.clientY;
+      currentX = event.clientX + window.scrollX;
+      currentY = event.clientY + window.scrollY;
 
       // 선택 박스 크기와 위치 업데이트
       const width = Math.abs(currentX - startX);
@@ -83,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const seats = document.querySelectorAll('.seat');
     seats.forEach(seat => {
       const rect = seat.getBoundingClientRect();
-      const seatLeft = rect.left;
-      const seatTop = rect.top;
-      const seatRight = rect.right;
-      const seatBottom = rect.bottom;
+      const seatLeft = rect.left + window.scrollX;
+      const seatTop = rect.top + window.scrollY;
+      const seatRight = rect.right + window.scrollX;
+      const seatBottom = rect.bottom + window.scrollY;
 
       // 좌석이 선택 박스 영역에 있는지 확인
       if (seatLeft < left + width && seatRight > left &&
@@ -111,10 +116,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+
+
+
+
+
 // 드래그로 div 선택 끝
-
-
-
 
 
 // 하단 버튼 클릭 시 동작
@@ -122,40 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
 const clearSeat = document.querySelector("#clearSeat");
 const doneSeat = document.querySelector("#doneSeat");
 const saveSeat = document.querySelector("#saveSeat");
-
-
 const loadSeat = document.querySelector("#loadSeat");
 
-loadSeat.addEventListener("click", () => {
-
-  const seatChart = document.querySelector('.seat-chart');
-
-  // 모든 좌석 초기화
-  seatChart.querySelectorAll('.seat').forEach(seat => {
-    seat.className = 'seat aisle';
-    seat.textContent = '';
-  });
-  
-  fetch('/lib/seats/data')
-    .then(response => response.json())
-    .then(data => {
-
-
-      // 서버에서 가져온 좌석 데이터로 업데이트
-      data.forEach(seat => {
-        const seatDiv = document.querySelector(`[data-seat-no="${seat.seatNo}"]`);
-        if (seatDiv) {
-          seatDiv.className = 'seat ' + (seat.condition === 1 ? 'availSeat' : seat.condition === 2 ? 'disavailSeat' : 'aisle');
-          seatDiv.dataset.seatNo = seat.seatNo;
-        }
-      });
-    })
-    .catch(error => console.error('Error loading seats:', error));
-});
-
-
-
-
+// 좌석 클리어
 clearSeat.addEventListener("click", () => {
   const seatsElements = document.querySelectorAll(".seat");
   seatsElements.forEach(seat => {
@@ -172,6 +148,7 @@ clearSeat.addEventListener("click", () => {
   });
 });
 
+// 좌석에 번호 부여
 doneSeat.addEventListener('click', () => {
   const availableSeats = document.querySelectorAll(".availSeat, .disavailSeat");
   availableSeats.forEach((seat, index) => {
@@ -180,16 +157,17 @@ doneSeat.addEventListener('click', () => {
   });
 });
 
-// 좌석 저장 편집 현황 저장
+// 좌석 편집 현황 저장
 document.getElementById('saveSeat').addEventListener('click', () => {
   const seatData = [];
   const seats = document.querySelectorAll('.seat');
   seats.forEach((seat, index) => {  // index를 사용하여 SEAT_NO 고유하게 설정
     const coords = seat.dataset.coords.split('-').map(Number);
+    console.log(`Coords: ${coords}`); // 디버깅용 로그
     seatData.push({
       seatNo: index + 1,  // index를 SEAT_NO로 사용
-      xCoordi: coords[1],
-      yCoordi: coords[2],
+      coordiX: coords[1],
+      coordiY: coords[2],
       condition: seat.classList.contains('availSeat') ? 1 : seat.classList.contains('disavailSeat') ? 2 : 0
     });
   });
@@ -217,3 +195,38 @@ document.getElementById('saveSeat').addEventListener('click', () => {
       console.error('There was a problem with the fetch operation:', error);
     });
 });
+
+
+// 좌석 정보 불러오기
+// 좌석 초기화 후 condition에 맞게 클래스 부여
+loadSeat.addEventListener("click", () => {
+
+  const seatChart = document.querySelector('.seat-chart');
+
+  // 모든 좌석 초기화
+  seatChart.querySelectorAll('.seat').forEach(seat => {
+    seat.className = 'seat aisle';
+    seat.textContent = '';
+  });
+  
+  fetch('/lib/seats/data')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Loaded seat data:', data); // 디버깅용 로그 추가
+
+      // 서버에서 가져온 좌석 데이터로 업데이트
+      data.forEach(seat => {
+        const seatDiv = document.querySelector(`[data-coords="seat-${seat.coordiX}-${seat.coordiY}"]`);
+        if (seatDiv) {
+          console.log('Updating seat:', seat); // 디버깅용 로그 추가
+          seatDiv.className = 'seat ' + (seat.condition === 1 ? 'availSeat' : seat.condition === 2 ? 'disavailSeat' : 'aisle');
+          seatDiv.dataset.seatNo = seat.seatNo;
+        } else {
+          console.warn('Seat not found for coords:', seat.coordiX, seat.coordiY); // 디버깅용 로그 추가
+        }
+      });
+    })
+    .catch(error => console.error('Error loading seats:', error));
+});
+
+

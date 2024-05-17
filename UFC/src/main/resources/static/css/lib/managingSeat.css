@@ -10,21 +10,24 @@
 
 .dragging {
   background-color: rgba(42, 191, 255, 0.3);
-  border: 2px dashed rgba(42, 191, 255, 0.6); /* 테두리 추가 */
+  border: 2px dashed rgba(42, 191, 255, 0.6);
+  /* 테두리 추가 */
 }
 
 .selection-box {
   position: absolute;
   border: 2px dashed rgba(42, 191, 255, 0.6);
   background-color: rgba(42, 191, 255, 0.3);
-  pointer-events: none; /* 선택 박스는 클릭할 수 없도록 설정 */
+  pointer-events: none;
+  /* 선택 박스는 클릭할 수 없도록 설정 */
 }
 
 .seat-chart {
   display: grid;
   grid-template-columns: repeat(20, 20px);
   grid-gap: 2px;
-  position: relative; /* 좌석 차트를 기준으로 절대 위치 설정 */
+  position: relative;
+  /* 좌석 차트를 기준으로 절대 위치 설정 */
 }
 
 .seat {
@@ -40,18 +43,65 @@
   font-size: 12px;
 }
 
+/* ----------------- 샘플 좌석 보여주기 --------------------- 시작 */
+
+.sampleSeatSack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 각 쌍 사이의 간격을 원하는 크기로 조정 */
+}
+
+.sampleSeatPair {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* div와 span 사이의 간격을 원하는 크기로 조정 */
+}
+
+
+.can {
+  background-color: rgb(12, 57, 0);
+}
+
+.cant {
+  background-color: rgb(255, 0, 0);
+}
+
+.saled {
+  background-color: rgb(225, 135, 0);
+}
+
+.sampleSeat {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+/* ----------------- 샘플 좌석 보여주기 --------------------- 끝 */
+
+/* 좌석 칸을 구분하는 배경색 설정  */
+
 .aisle {
   background-color: gray;
 }
 
 .availSeat {
-  background-color: blue;
+  background-color: rgb(12, 57, 0);
   color: white;
+  border: 1px dotted black;
 }
 
 .disavailSeat {
-  background-color: red;
+  background-color: rgb(255, 0, 0);
   color: white;
   font-weight: bold;
   font-size: 14px;
+  border: 1px dotted black;
+}
+
+.nowUsing {
+  background-color: rgb(225, 135, 0);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px dotted black;
 }

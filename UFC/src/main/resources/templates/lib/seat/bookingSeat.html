@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/lib/managingSeat.css">
+  <title>자리 확인 / 예약 페이지</title>
+</head>
+
+<body>
+
+  <div>
+    공용 헤더가 들어갈 부분
+  </div>
+
+  <br><br><br>
+
+  <!-- 좌석의 상태를 안내하는 div 모음 -->
+  <div class="sampleSeatSack">
+    <div class="sampleSeatPair">
+        <div class="sampleSeat can"></div>
+        <span> 사용 가능한 좌석 </span>
+    </div>
+    <div class="sampleSeatPair">
+        <div class="sampleSeat cant"></div>
+        <span> 사용 불가능한 좌석 </span>
+    </div>
+    <div class="sampleSeatPair">
+        <div class="sampleSeat saled"></div>
+        <span> 사용중인 좌석</span>
+    </div>
+</div>
+
+
+  <br><br>
+
+  <!-- 좌석이 만들어지는 div 칸 -->
+  <div class="seat-chart" id="seatChart"></div>
+
+
+
+
+  <div>
+    <span>현재 선택한 좌석 번호 : <span id="currentSelectSeat"></span>  </span> <br>
+    <span>x 좌표 : <span id="coordiX"></span>  </span>
+    <span> / </span>
+    <span>y 좌표 : <span id="coordiY"></span>  </span>
+    <br>
+    <span> DB SEAT_NO : <span id="dbSeatNo"> </span>   </span>
+    <br>
+    <span> 좌석의 상태 : <span id="dbSeatAvail"></span> </span>
+
+  </div>
+
+
+  <div>
+
+    <button id="useSeat">이용하기</button>
+
+    <button id="bookingSeat">예약하기</button>
+
+  </div>
+
+
+  <div>
+    공용 부터가 들어갈 부분
+  </div>
+
+</body>
+
+
+<script src="/js/lib/bookingSeat.js"></script>
+</html>
