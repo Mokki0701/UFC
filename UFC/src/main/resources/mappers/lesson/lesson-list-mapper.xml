@@ -31,7 +31,12 @@
 	<select id="getSearchCount">
 	SELECT COUNT(*)
 	FROM "LESSONS"
+	JOIN LESSON_CATEGORY USING (LESSON_NO)
 	WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
+
+
+	
+	
 	</select>
 	
 	<select id="selectSearchList">
@@ -50,8 +55,13 @@
 	MEMBER_NO
 	FROM
 	"LESSONS"
+	
 	WHERE
 	LESSON_TITLE LIKE '%' || #{query} || '%'
+
+
+	
+	
 	ORDER BY
 	LESSON_NO DESC
 	</select>

@@ -62,7 +62,7 @@ public class LessonListServiceImpl implements LessonListService {
 	@Override
 	public Map<String, Object> searchList(Map<String, Object> paramMap, int cp) {
 		
-		// paramMap (key == 아직 미정, query == 검색어)
+		// paramMap (tags == 지정된 태그, query == 검색어)
 		
 		//    검색 조건에 맞는 글 조회
 		int listCount = mapper.getSearchCount(paramMap);
