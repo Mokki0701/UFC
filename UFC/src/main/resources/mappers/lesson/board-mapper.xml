@@ -34,7 +34,7 @@
 		AND MEMBER_NO = #{memberNo}
     </update> 
     
-    <select id="findStar" resultType="_int">
+    <select id="findStar">
     	
     	SELECT LESSON_STAR  
 		FROM STAR_MANAGEMENT

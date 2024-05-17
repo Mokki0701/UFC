@@ -61,24 +61,22 @@ public class DashBoardController {
 	
 	
 	//내가 등록한 강의의 별점 찾기
-	@GetMapping("dashboard/star")
-	@ResponseBody
-	private int reviewRating(
-			@RequestBody LessonListDTO lessonNo,
-			@SessionAttribute("loginMember")Member loginMember
-			) {
-		
-		lessonNo.setMemberNo(loginMember.getMemberNo());
-		
-		
-		int starRating = service.findStar(lessonNo);
-		
-		return starRating;
-		
-	}
-	
-	
 
+		@GetMapping("dashboard/star")
+		@ResponseBody
+		private int reviewRating(
+
+				@RequestParam("lessonNo") int lessonNo,
+				@SessionAttribute("loginMember")Member loginMember
+
+				) {
+		    LessonListDTO lessonListDTO = new LessonListDTO();
+		    lessonListDTO.setMemberNo(loginMember.getMemberNo());
+			int starRating = service.findStar(lessonListDTO);
+			
+			return starRating;
+
+		}
 	
 	
 }
