@@ -11,4 +11,5 @@ public interface TrainerSelectService {
 	 */
 	List<Trainer> getAllTrainers();
 
+	
 }

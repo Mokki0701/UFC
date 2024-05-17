@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.cooof.gym.trainerSelect.model.dto.Trainer;
 import edu.kh.cooof.gym.trainerSelect.model.service.TrainerSelectService;
@@ -20,27 +21,26 @@ public class TrainerSelectController {
 	private final TrainerSelectService service;
 	
 	@GetMapping("/trainerSelect")
-	public String trainerSelect() {
+	public String trainerSelect(
+			Model model) {
+		
+		List<Trainer> trainers = service.getAllTrainers();	
+		model.addAttribute("trainers", trainers);
 	    return "gym/trainerSelect/trainerSelect";
 	}
 	
-	
-	
-	
-	/** 트레이너 값 불러오기~
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/trainer")
-	public String getTrainer(
-			Model model) {
-		
-		List<Trainer> trainer = service.getAllTrainers();
-		
-		model.addAttribute("trainer", trainer);
-		
-		return "gym/trainerSelect/trainerSelect";
+	@GetMapping("trainerPrice")
+	public String trainerPrice(
+			Model model){
+		List<Trainer> trainers = service.getAllTrainers();
+	    model.addAttribute("trainers", trainers);
+		return "gym/trainerSelect/trainerPrice";
 	}
+	
+    
+	
+	
+	
 	
 	
 	

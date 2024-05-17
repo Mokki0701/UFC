@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+    <link rel="stylesheet" href="/css/gym/trainerPrice.css">
+</head>
+<body>
+    
+    <th:black th:replace="~{gym/gymHeader}"></th:black>
+    
+    <h2>구매자 정보</h2>
+    <div>이름</div>
+    <input type="text" placeholder="이름을 입력해 주세요.">
+
+    <div>성별</div>
+    <button>남자</button>
+    <button>여자</button>
+
+    <div>휴대폰번호</div>
+    <input type="text">
+
+    <div>
+      <div>
+        최종 결재 금액
+      </div>
+      <div>
+        <span  th:text="${trainerPrice}"></span>
+      </div>
+    </div>
+
+
+</body>
+</html>
