@@ -1,6 +1,6 @@
 // alert("연결!")
 
-//호버 상태에 따른 이미지 매핑 객체
+//호버 상태에 따른 이미지 (빈별, 가득찬 별만 사용)
 // 프로젝트에 옮길 경우 경로 확인하기
 //객체는 각 별의 상태(빈 별, 반 별, 가득 찬 별)에 따른 이미지 경로를 저장
 const starImageSourceMap = {
@@ -98,6 +98,17 @@ function search(){
     resetStarPointImages();
   })
 }
+
+// 등록한 별점 불러오기 
+lessonSelect.addEventListener("change",()=>{
+  const lessonCode = lessonSelect.options[lessonSelect.selectedIndex].value;
+  //console.log(lessonCode); //코드 나오는거 확인
+  fetch('/lesson/dashboard/star?lessonNo='+lessonCode)
+  .then(res => res.text())
+  .then(result =>{
+  console.log(result);
+  })
+})
 
 //평점제출 reviewBtn
 const reviewBtn = document.querySelector("#reviewBtn");

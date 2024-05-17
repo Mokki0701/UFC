@@ -29,10 +29,19 @@
 	
  	<update id="updateReview">
 		UPDATE STAR_MANAGEMENT
-		SET LESSON_STAR = #{lessonStar},
-			MEMBER_NO = #{memberNo}
+		SET LESSON_STAR = #{lessonStar}
 		WHERE LESSON_NO = #{lessonNo}
+		AND MEMBER_NO = #{memberNo}
     </update> 
+    
+    <select id="findStar" resultType="_int">
+    	
+    	SELECT LESSON_STAR  
+		FROM STAR_MANAGEMENT
+		WHERE LESSON_NO = #{lessonNo}
+		AND MEMBER_NO = #{memberNo}
+    
+    </select>
 	
 	
 
