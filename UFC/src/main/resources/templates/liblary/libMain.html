@@ -5,11 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>도서관 메인</title>
-  <link rel="stylesheet" href="/src/main/resources/static/css/libMain.css">
+  <link rel="stylesheet" href="/css/libMain.css">
 </head>
 
 <body>
 
+  <div>
+    현재 로그인한 회원 : <span th:text="${session.loginMember.memberEmail}"></span>
+    <span>/</span>
+    memberAuthority: <span th:text="${session.loginMember.memberAuthority}"></span>
+  </div>
   <!-- 도서관 전용 nav -->
   <nav>
 
@@ -23,7 +28,7 @@
         <a href="#">열람실</a>
         <ul class="dropdown-content">
           <li><a href="#">📕 빈 자리 확인</a></li>
-          <li><a href="#">📗자리 빌리기</a></li>
+          <li><a href="#">📗자리 빌리기</a></li>  
           <li><a href="#">📘자리 연장</a></li>
           <li><a href="#">📙자리 예약</a></li>
           <li><a href="#">📔관심 자리 등록</a></li>
@@ -44,6 +49,24 @@
       <li><a href="#">문의</a></li>
     </ul>
   </nav>
+
+
+
+  임시 열람실 좌석 관리자용 페이지 
+  
+  <th:block th:if="${session.loginMember!=null && session.loginMember.memberAuthority == 3}">
+
+  <div>
+    임시 관리자 메뉴입니다  
+
+    <hr>
+    <span> 열람실 좌석 관리하는 링크 : </span>
+    <a href="/libMain/managingSeatPage">여기를 누르면 열람실 좌석을 관리합니다</a>
+  </div>
+
+
+  </th:block>
+
 </body>
 
 </html>
