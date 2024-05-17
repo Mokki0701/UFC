@@ -19,4 +19,6 @@ public class TrainerSelectServiceImpl implements TrainerSelectService {
 	public List<Trainer> getAllTrainers() {
 		return mapper.getAllTrainers();
 	}
+	
+	
 }

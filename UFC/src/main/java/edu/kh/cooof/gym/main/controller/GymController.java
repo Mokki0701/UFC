@@ -20,6 +20,9 @@ public class GymController  {
 	public String gymPage() {
 	    return "gym/gymMain";
 	}
+	
+	
+	
 
 
 	

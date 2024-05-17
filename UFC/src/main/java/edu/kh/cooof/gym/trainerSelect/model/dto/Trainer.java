@@ -16,5 +16,6 @@ public class Trainer {
 	private int trainerPrice;
 	private String trainerImg;
 	private int memberNo;
+	private int price;
 	
 }

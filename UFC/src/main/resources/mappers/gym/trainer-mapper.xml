@@ -4,7 +4,7 @@
 	
 	<select id="getAllTrainers">
 	  SELECT * FROM TRAINER
-	  WHERE TRAINER_NO = 1
+
 	</select>
 	
 
