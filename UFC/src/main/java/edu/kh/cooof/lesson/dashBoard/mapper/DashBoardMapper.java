@@ -24,7 +24,7 @@ public interface DashBoardMapper {
 	int updateReview(LessonListDTO lessonListDTO);
 
 	//내가 등록한 강의의 별점 찾기
-	int findStar(LessonListDTO lessonNo);
+	int findStar(LessonListDTO lessonList);
 
 	
 

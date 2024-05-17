@@ -52,8 +52,8 @@ public class DashBoardServiceImpl implements DashBoardService {
 	
 	//내가 등록한 강의의 별점 찾기
 	@Override
-	public int findStar(LessonListDTO lessonNo) {
-		return mapper.findStar(lessonNo);
+	public int findStar(LessonListDTO lessonList) {
+		return mapper.findStar(lessonList);
 	}
 	
 	

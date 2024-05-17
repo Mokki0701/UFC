@@ -48,6 +48,7 @@
                     <!-- 수강하는 강의 이름 나오게 -->
                     <label for="lectureSelect">강의 선택:</label>
                     <select id="lectureSelect">
+                        <option>강의선택</option>
                         <option th:each="lesson : ${lessonList}" th:value="${lesson.lessonNo}" th:text="${lesson.lessonTitle}" >강의 1</option>
                     </select>
                     <div class="stars">

@@ -70,9 +70,10 @@ public class DashBoardController {
 				@SessionAttribute("loginMember")Member loginMember
 
 				) {
-		    LessonListDTO lessonListDTO = new LessonListDTO();
-		    lessonListDTO.setMemberNo(loginMember.getMemberNo());
-			int starRating = service.findStar(lessonListDTO);
+		    LessonListDTO lessonList = new LessonListDTO();
+		    lessonList.setMemberNo(loginMember.getMemberNo());
+		    lessonList.setLessonNo(lessonNo);
+			int starRating = service.findStar(lessonList);
 			
 			return starRating;
 

@@ -1,11 +1,8 @@
 // alert("연결!")
 
 //호버 상태에 따른 이미지 (빈별, 가득찬 별만 사용)
-// 프로젝트에 옮길 경우 경로 확인하기
-//객체는 각 별의 상태(빈 별, 반 별, 가득 찬 별)에 따른 이미지 경로를 저장
 const starImageSourceMap = {
   empty : '/images/icon_empty_star.png',
-  half : '/images/icon_half_star.png',
   full : '/images/icon_star.png',
 }
 
@@ -33,6 +30,7 @@ const isLockedPoint =()=>{
   return lockedStarPoint;
 }
 
+//별점 1~5점
 let reviewPoint;
 
 starBackground.addEventListener('mousemove',e=>{
@@ -46,10 +44,12 @@ starBackground.addEventListener('mousemove',e=>{
   const target = e.target;
   const currentUserPoint = e.offsetX;
 
-  // const {point} = target.dataset; //data-point 값
+  //html data-* 속성 값 1~5 
+  //
   const point = target.dataset.point;
   
   //이미지들을 배열로 가져왔을때 인덱스값을 맞추기 위해
+  //parseInt 함수는 첫 번째 매개변수로 주어진 문자열을 정수로 변환
   const starPointIndex = parseInt(point,10)-1 ;
   //요소의 좌표와 크기에 대한 정보를 반환
   const [starImageClientRect] = target.getClientRects();
@@ -96,19 +96,49 @@ function search(){
     unlockStarPoint();
     //별점 초기화
     resetStarPointImages();
+
+    //setStarRating();
   })
 }
+
+
 
 // 등록한 별점 불러오기 
 lessonSelect.addEventListener("change",()=>{
   const lessonCode = lessonSelect.options[lessonSelect.selectedIndex].value;
+  if(lessonSelect.value == "강의선택"){
+    resetStarPointImages();
+    return;
+  } 
+  
+    
+
   //console.log(lessonCode); //코드 나오는거 확인
   fetch('/lesson/dashboard/star?lessonNo='+lessonCode)
   .then(res => res.text())
   .then(result =>{
-  console.log(result);
+  
+    if(result>0){
+      //별점 UI 함수
+      setStarRating(result)
+    }else{
+      //초기화
+      resetStarPointImages();
+    }
   })
 })
+
+
+
+
+
+//별점 UI 함수
+const setStarRating= (result)=>{
+  renderStarPointImages({drawableLimitIndex: result - 1, isOverHalf: false});
+  //별점 고정
+  lockStarPoint();
+}
+
 
 //평점제출 reviewBtn
 const reviewBtn = document.querySelector("#reviewBtn");
