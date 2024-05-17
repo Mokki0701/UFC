@@ -168,11 +168,12 @@
 
                     <!-- 첫 페이지로 이동 -->
                     <li><a th:href="@{/lesson/list (cp=1, key=${param.key}, query=${param.query})}"
-                            th:data-page="1" class="page-arrow">&lt;&lt;</a></li>
+                            th:data-page="1" class="page-arrow"><i class="fa-solid fa-backward-step"></i></a></li>
 
                     <!-- 이전 목록 마지막 번호로 이동 -->
                     <li><a th:href="@{/lesson/list (cp=*{prevPage}, key=${param.key}, query=${param.query})}"
-                            th:data-page="*{prevPage}" class="page-arrow">&lt;</a></li>
+                            th:data-page="*{prevPage}" class="page-arrow"><i
+                            class="fa-solid fa-play fa-flip-horizontal"></i></a></li>
 
                     <!-- 특정 페이지로 이동 -->
                     <th:block th:if="*{startPage lt endPage}" th:each="i : *{#numbers.sequence(startPage, endPage)}">
@@ -198,7 +199,8 @@
 
                     <!-- 다음 목록 시작 번호로 이동 -->
                     <li><a th:href="@{/lesson/list (cp=*{nextPage}, key=${param.key}, query=${param.query})}"
-                            th:data-page="*{nextPage}" class="page-arrow">&gt;</a></li>
+                            th:data-page="*{nextPage}" class="page-arrow"><i
+                            class="fa-solid fa-play"></i></a></li>
 
                     <!-- 끝 페이지로 이동 -->
                     <li><a th:href="@{/lesson/list (cp=*{maxPage}, key=${param.key}, query=${param.query})}"
