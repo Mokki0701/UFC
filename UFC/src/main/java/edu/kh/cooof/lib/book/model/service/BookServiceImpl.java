@@ -1,6 +1,7 @@
 package edu.kh.cooof.lib.book.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +13,11 @@ import edu.kh.cooof.lib.book.model.dto.BookStorageLocation;
 import edu.kh.cooof.lib.book.model.dto.LibPagination;
 import edu.kh.cooof.lib.book.model.mapper.BookMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BookServiceImpl implements BookService {
 
 	private final BookMapper mapper;
@@ -45,20 +48,35 @@ public class BookServiceImpl implements BookService {
 		RowBounds rowBounds = new RowBounds(offset, (int)search.get("limit"));
 		
 		List<Book> bookList = new ArrayList<>();
-
+		
 		// 처음 들어왔을 경우
 		if((int)search.get("catNo") == 0) {
-
-			bookList = mapper.getBookList();			
-
+			
+			bookList = mapper.getBookList(rowBounds);	
+			
 		}
 		// 카테고리 체크를 했을 경우
 		else {
 			
 		}
 		
+		// 전체 도서 수 검색
 		
-		return null;
+		Map<String, Object> mapList = new HashMap<>();
+		
+		mapList.put("bookStorageLocations", bookStorageLocations);
+		mapList.put("bookList", bookList);
+		mapList.put("pagination", pagination);
+		
+		return mapList;
 	}
+	
+	@Override
+	public List<String> categoryList(String storageName) {
+		
+		return mapper.categoryList(storageName);
+	}
+	
+	
 	
 }
