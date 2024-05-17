@@ -15,7 +15,8 @@ import lombok.ToString;
 @Builder
 public class LibSeatDTO {
     private int seatNo;
-    private int xCoordi;
-    private int yCoordi;
+    private int coordiX;
+    private int coordiY;
     private int condition;
+    private int seatAvail;
 }

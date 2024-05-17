@@ -28,7 +28,7 @@ public class LibSeatServiceImpl implements LibSeatService {
         mapper.deleteAllSeats();
         log.debug("Inserting new seats...");
         for (LibSeatDTO seat : seats) {
-            log.debug("Inserting seat: {}", seat);
+        	log.debug("Inserting seat: {}", seat); 
             mapper.insertSeat(seat);
         }
     }
