@@ -1,0 +1,115 @@
+<header>
+  <section>
+    <!-- 클릭 시 메인 페이지로 이동하는 로고 -->
+    <a href="/">
+      <img src="/images/logo.jpg" alt="메인 로고" id="homeLogo">
+    </a>
+  </section>
+
+  <!-- 검색어 입력할 수 있는 요소 배치 영역 -->
+  <section>
+    <article class="search-area">
+      <form action="#" method="GET">
+        <fieldset>
+
+          <!-- autocomplete="off" : 자동완성 off -->
+          <input type="search" id="query" name="query" placeholder="검색어를 입력해 주세요." autocomplete="off">
+
+          <!-- 제목 검색 -->
+          <input type="hidden" name="key" value="t">
+
+          <!-- 검색 버튼 -->
+          <button id="searchBtn" class="fa-solid fa-magnifying-glass"></button>
+
+        </fieldset>
+      </form>
+
+      <!-- 검색 결과 -->
+      <ul id="searchResult" class="close"></ul>
+
+    </article>
+  </section>
+
+
+  <section>
+
+    <!-- 알림 영역 -->
+    <div class="notification-container" th:if="${session.loginMember}">
+
+      <!-- 알림 버튼 -->
+      <button class="notification-btn fa-regular fa-bell" id="my-element"></button>
+
+      <ul class="notification-list">
+        <li class="notification-item">
+          <div class="notification-text">
+            <img src="/images/user.png">
+            <div class="notification-content-container">
+              <p class="notification-date">20분 전</p>
+              <p class="notification-content">
+                <b>test</b>님이
+                <b>[1500번글]</b>을 좋아합니다
+                asdasdasdasdas
+                123123sssssssssssssssssssssssssssssssssssssssssssssssssss
+              </p>
+            </div>
+          </div>
+
+          <span class="notidication-delete">&times;</span>
+        </li>
+      </ul>
+    </div>
+
+
+
+
+
+    <!-- 우측 상단 드롭다운 메뉴 -->
+    <div class="header-top-menu">
+
+      <!-- 로그인 X -->
+      <th:block th:if="${session.loginMember == null}">
+        <a href="/">메인 페이지</a>
+        |
+        <a href="/member/login">로그인</a>
+      </th:block>
+
+
+      <!-- 로그인 O -->
+      <th:block th:unless="${session.loginMember == null}">
+        <label for="headerMenuToggle">
+          [[${session.loginMember.memberNickname}]]
+
+          <i class="fa-solid fa-caret-down"></i>
+        </label>
+
+        <input type="checkbox" id="headerMenuToggle">
+
+        <div class="header-menu">
+          <a href="#">내정보</a>
+          <a href="/member/logout">로그아웃</a>
+        </div>
+
+      </th:block>
+
+    </div>
+  </section>
+</header>
+
+
+<!-- navigator -->
+<nav>
+  <ul>
+
+    <th:block th:each="boardType : ${application.boardTypeList}">
+      <li>
+        <a th:href="@{/board/{boardCode}(boardCode = ${boardType.boardCode})}"
+          th:text="${boardType.boardName}">게시판이름</a>
+      </li>
+    </th:block>
+
+    <li>
+      <a href="/chatting">채팅</a>
+    </li>
+
+  </ul>
+</nav>

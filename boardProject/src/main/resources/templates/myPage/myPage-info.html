@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Page</title>
+
+  <!-- 공용 css/js 추가 -->
+  <th:block th:replace="~{common/common}"></th:block>
+
+  <!-- myPage 전용 CSS -->
+  <link rel="stylesheet" href="/css/myPage/myPage-style.css">
+</head>
+<body>
+
+  <main>
+
+    <!-- 헤더 추가 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <section class="myPage-content">
+
+      <!-- 사이드 메뉴(왼쪽) 추가 -->
+      <th:block th:replace="~{myPage/sideMenu}"></th:block>
+
+      <!-- 마이페이지 본문(오른쪽) -->
+      <section class="myPage-main">
+
+        <h1 class="myPage-title">내 정보</h1>
+        <span class="myPage-subject">원하는 회원 정보를 수정할 수 있습니다.</span>
+
+        <!-- 상대 경로로 작성 -->
+        <form action="info" method="POST" name="myPageFrm" 
+          id="updateInfo">
+
+          <div class="myPage-row">
+            <label>닉네임</label>
+
+            <input type="text" name="memberNickname" 
+              maxlength="10" id="memberNickname" 
+              th:value="${session.loginMember.memberNickname}">
+          </div>
+
+
+          <div class="myPage-row">
+            <label>전화번호</label>
+            <input type="text" name="memberTel" 
+              maxlength="11" id="memberTel"
+              th:value="${session.loginMember.memberTel}">
+          </div>
+
+          <div class="myPage-row info-title">
+            <span>주소</span>
+          </div>
+
+          <div class="myPage-row info-address">
+            <input type="text" name="memberAddress"
+              placeholder="우편번호" id="postcode"
+              th:value="${postcode}">
+            
+            <button type="button">검색</button>
+          </div>
+
+          <div class="myPage-row info-address">
+            <input type="text" name="memberAddress"
+              placeholder="도로명/지번 주소" id="address"
+              th:value="${address}">
+          </div>
+
+          <div class="myPage-row info-address">
+            <input type="text" name="memberAddress"
+              placeholder="상세 주소" id="detailAddress"
+              th:value="${detailAddress}">
+          </div>
+
+          <button class="myPage-submit">수정하기</button>
+        </form>
+
+
+      </section>
+
+    </section>
+
+  </main>
+
+  <!-- 푸터 추가 -->
+  <th:block th:replace="~{common/footer}"></th:block>
+  
+  <script src="/js/myPage/myPage.js"></script>
+
+</body>
+</html>

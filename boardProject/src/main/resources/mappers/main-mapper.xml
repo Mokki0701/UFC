@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.project.main.model.mapper.MainMapper">
+  
+  <!-- 비밀번호 초기화 -->
+  <update id="resetPw">
+  	UPDATE "MEMBER" SET
+  	MEMBER_PW = #{encPw}
+  	WHERE MEMBER_NO = #{inputNo}
+  </update>
+  
+  <!-- 탈퇴 복구 -->
+  <update id="restoration">
+  	UPDATE "MEMBER" SET
+  	MEMBER_DEL_FL = 'N'
+  	WHERE MEMBER_NO = #{inputNo}
+  </update>
+  
+  
+</mapper>
