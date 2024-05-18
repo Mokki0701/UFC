@@ -24,7 +24,7 @@
 }
 
 .less_attendance, .less_schedule, .less_lectures, .less_rating {
-  background-color: #808080;
+  background-color: #d9d9d9;
   padding: 20px;
   border-radius: 10px;
   flex: 1 1 45%;
@@ -77,7 +77,7 @@
 
 .less_lectures li a {
   text-decoration: none;
-  color: #fff;
+  color: #000;
 }
 
 .less_remove_star {
@@ -150,5 +150,4 @@
   cursor: pointer;
 }
 
-
-
+/* 즐겨찾기 강의 목록 */
