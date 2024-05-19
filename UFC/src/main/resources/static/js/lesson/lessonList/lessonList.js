@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const searchButton = document.querySelector('.search-bar button[type="submit"]');
     const advancedSearchButtons = document.querySelectorAll('.advanced-search-options button:not(.search-button)');
+    const advancedSearchTgglBtn = document.querySelector('#advanced-search-toggle');
 
     // 검색 버튼 클릭 이벤트 리스너
     searchButton.addEventListener('click', function(event) {
@@ -10,15 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // 상세 검색 버튼 클릭 이벤트 리스너
-    document.addEventListener('click', function(event) {
-
-        console.log("확인");
-        const target = event.target;
-        if (target.closest('.advanced-search-options button:not(.search-button)')) {
-            const button = target.closest('.advanced-search-options button:not(.search-button)');
-            button.classList.toggle('clicked');
+    advancedSearchButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            this.classList.toggle('clicked');
             const query = document.getElementById('searchQuery').value;
-            const tag = button.id;
+            const tag = this.id;
             let currentTags = new URLSearchParams(window.location.search).get('tags') || '';
             let tags = currentTags.split(',').filter(Boolean);
 
@@ -30,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const tagString = tags.join(',');
             fetchSearchResults(query, tagString);
-        }
+        });
     });
 
     // 페이지네이션 버튼 클릭 이벤트 리스너
@@ -103,3 +100,16 @@ document.getElementById('advanced-search-toggle').addEventListener('click', func
     }
 });
 /* 상세 검색 드롭 다운 메뉴 끝 */
+
+/* 정렬 버튼 관련 시작 */
+document.getElementById('orderBtn').addEventListener('click', function() {
+    if (this.getAttribute('data-order') === 'asc') {
+        this.setAttribute('data-order', 'desc');
+        this.innerHTML = '등록일순 &#9660;'; // 아래쪽 화살표로 변경
+    } else {
+        this.setAttribute('data-order', 'asc');
+        this.innerHTML = '등록일순 &#9650;'; // 위쪽 화살표로 변경
+    }
+});
+/* 정렬 버튼 관련 끝 */
+
