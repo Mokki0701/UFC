@@ -24,13 +24,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             const tagString = tags.join(',');
-            console.log(tags);
             fetchSearchResults(query, tagString);
         });
     });
 
     // 페이지네이션 버튼 클릭 이벤트 리스너
-    document.querySelector('.pagination-area').addEventListener('click', function(event) {
+    document.addEventListener('click', function(event) {
         const target = event.target.closest('a');
         if (target && target.hasAttribute('data-page')) {
             event.preventDefault();
@@ -38,21 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const query = document.getElementById('searchQuery').value;
             const tag = new URLSearchParams(window.location.search).get('tags') || null;
             fetchSearchResults(query, tag, page);
-
-            if (target.classList.contains('page-arrow')) {
-                const url = window.location.href;
-                const urlObj = new URL(url);
-                const params = new URLSearchParams(urlObj.search);
-                const cp = params.get('cp');
-                document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
-                const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${cp}"]`);
-                if (activePageLink) {
-                    activePageLink.classList.add('active');
-                }
-            } else {
-                document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
-                target.classList.add('active');
-            }
         }
     });
 });
@@ -68,10 +52,22 @@ function fetchSearchResults(query, tags = null, page = 1, pushState = true) {
     fetch(requestUrl)
         .then(response => response.text())
         .then(html => {
-            document.querySelector('.programs').outerHTML = html;
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // 새로운 프로그램 리스트와 페이지네이션 영역을 가져옵니다.
+            const newPrograms = doc.querySelector('.programs');
+            const newPagination = doc.querySelector('.pagination-area');
+
+            // 기존 프로그램 리스트와 페이지네이션 영역을 업데이트합니다.
+            document.querySelector('.programs').replaceWith(newPrograms);
+            document.querySelector('.pagination-area').replaceWith(newPagination);
+
             if (pushState) {
                 window.history.pushState({ query: query, tags: tags, page: page }, '', url);
             }
+
+            // 페이지네이션에서 현재 페이지를 강조
             const activePageLink = document.querySelector(`.pagination a.page-number[data-page="${page}"]`);
             if (activePageLink) {
                 document.querySelectorAll('.pagination a').forEach(a => a.classList.remove('active'));
@@ -102,3 +98,16 @@ document.getElementById('advanced-search-toggle').addEventListener('click', func
     }
 });
 /* 상세 검색 드롭 다운 메뉴 끝 */
+
+/* 태그 클릭 시 시작 */
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.advanced-search-options button:not(.search-button)');
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            console.log("작동함");
+            button.classList.toggle('clicked');
+        });
+    });
+});
+/* 태그 클릭 시 끝 */

@@ -322,3 +322,7 @@ nav ul li a {
 }
 
     
+.clicked {
+  background-color: purple;
+  color: white;
+}
