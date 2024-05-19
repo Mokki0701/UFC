@@ -12,7 +12,9 @@
 </head>
 
 <body>
-    <header>
+    
+    <!-- 헤더 들어가는 곳 시작 -->
+<!--     <header>
         <div class="header-container">
             <img src="logo.png" alt="Logo" class="logo">
             <nav>
@@ -29,7 +31,8 @@
                 <a href="#">검색</a>
             </div>
         </div>
-    </header>
+    </header> -->
+    <!-- 헤더 들어가는 곳 끝 -->
     <main>
 
         <!-- lessonCommon 들어가는 곳 시작 -->
@@ -73,160 +76,148 @@
                 </div>
             </section>
         </form>
-
         <!-- 검색창 끝 -->
 
 
 
 
 
-
+        <!-- 정렬 시작 -->
         <section class="program-list">
             <div class="filter-options">
-                <button>등록일순</button>
+                <button class="clicked">등록일순</button>
                 <button>마감임박</button>
             </div>
+            <!-- 정렬 끝 -->
 
 
+            <!-- 부분 조회 시작 -->
+            <th:block th:fragment="programs">
 
-            <!-- <div class="programs"> -->
-
-            <!-- 반복되는 프로그램 카드 -->
-            <!--                 <div class="program-card" th:each="lesson : ${lessonList}">
-                    <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
-                        <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
-                        <h3 th:text="${lesson.lessonTitle}"></h3>
-                        <p th:text="'대상: ' + ${lesson.lessonTargetAudience}"></p>
-                        <p th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'"></p>
-                        <p th:text="'일정: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
-                        <p th:text="'정원: ' + ${lesson.lessonCapacity} + '명'"></p>
+                <div class="programs">
+                    <!-- 반복되는 프로그램 카드 -->
+                    <div class="program-card" th:each="lesson : ${lessonList}">
+                        <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
+                        <div class="program-info">
+                            <span id="${lesson.lessonNo}" class="label"
+                                th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
+                            <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
+                            <h3 th:text="${lesson.lessonTitle}"></h3>
+                            <p th:text="'대상: ' + ${lesson.lessonTargetAudience}"></p>
+                            <p th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'"></p>
+                            <p th:text="'일정: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
+                            <p th:text="'정원: ' + ${lesson.lessonCapacity} + '명'"></p>
+                        </div>
                     </div>
-                </div> -->
-            <!-- 반복되는 프로그램 카드 끝 -->
-
-                <th:block th:fragment="programs">
-
-            <div class="programs">
-                <!-- 반복되는 프로그램 카드 -->
-                <div class="program-card" th:each="lesson : ${lessonList}">
-                    <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
-                    <div class="program-info">
-                        <span id="${lesson.lessonNo}" class="label"
-                            th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
-                        <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
-                        <h3 th:text="${lesson.lessonTitle}"></h3>
-                        <p th:text="'대상: ' + ${lesson.lessonTargetAudience}"></p>
-                        <p th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'"></p>
-                        <p th:text="'일정: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
-                        <p th:text="'정원: ' + ${lesson.lessonCapacity} + '명'"></p>
-                    </div>
+                    <!-- 반복되는 프로그램 카드 끝 -->
                 </div>
-                <!-- 반복되는 프로그램 카드 끝 -->
-            </div>
 
 
-            </div>
+                </div>
 
 
-            <!-- 페이지네이션 영역 시작 -->
-            <div class="pagination-area">
+                <!-- 페이지네이션 영역 시작 -->
+                <div class="pagination-area">
 
-                <!-- 일반 목록 조회 ( 검색 X ) -->
-                <ul class="pagination" th:unless="${param.query}" th:object="${pagination}">
+                    <!-- 일반 목록 조회 ( 검색 X ) -->
+                    <ul class="pagination" th:unless="${param.query}" th:object="${pagination}">
 
-                    <!-- 첫 페이지로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=1)}" th:data-page="1" class="page-arrow"><i
-                                class="fa-solid fa-backward-step"></i></a>
-                    </li>
-
-                    <!-- 이전 목록 마지막 번호로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=*{prevPage})}" th:data-page="*{prevPage}" class="page-arrow"><i
-                                class="fa-solid fa-play fa-flip-horizontal"></i></a></li>
-
-                    <!-- 특정 페이지로 이동 -->
-                    <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
-
-                        <!-- 현재 보고있는 페이지 -->
-                        <li th:if="${i} == *{currentPage}">
-                            <a class="active page-number" th:text="${i}" th:data-page="${i}">현재 페이지</a>
+                        <!-- 첫 페이지로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=1)}" th:data-page="1" class="page-arrow"><i
+                                    class="fa-solid fa-backward-step"></i></a>
                         </li>
 
-                        <!-- 보고있지 않은 페이지 -->
-                        <li th:unless="${i} == *{currentPage}">
-                            <a th:href="@{/lesson/list (cp=${i})}" th:text="${i}" th:data-page="${i}"
-                                class="page-number">이동할 페이지</a>
+                        <!-- 이전 목록 마지막 번호로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=*{prevPage})}" th:data-page="*{prevPage}"
+                                class="page-arrow"><i class="fa-solid fa-play fa-flip-horizontal"></i></a></li>
+
+                        <!-- 특정 페이지로 이동 -->
+                        <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
+
+                            <!-- 현재 보고있는 페이지 -->
+                            <li th:if="${i} == *{currentPage}">
+                                <a class="active page-number" th:text="${i}" th:data-page="${i}">현재 페이지</a>
+                            </li>
+
+                            <!-- 보고있지 않은 페이지 -->
+                            <li th:unless="${i} == *{currentPage}">
+                                <a th:href="@{/lesson/list (cp=${i})}" th:text="${i}" th:data-page="${i}"
+                                    class="page-number">이동할 페이지</a>
+                            </li>
+
+                        </th:block>
+
+                        <!-- 다음 목록 시작 번호로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=*{nextPage})}" th:data-page="*{nextPage}"
+                                class="page-arrow"><i class="fa-solid fa-play"></i></a></li>
+
+                        <!-- 끝 페이지로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=*{maxPage})}" th:data-page="*{maxPage}" class="page-arrow">
+                                <i class="fa-solid fa-forward-step"></i>
+                            </a></li>
+                    </ul>
+
+                    <!-- ------------- 검색인 경우 ------------- -->
+                    <ul class="pagination" th:if="${param.query}" th:object="${pagination}">
+
+                        <!-- 첫 페이지로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=1, key=${param.key}, query=${param.query})}" th:data-page="1"
+                                class="page-arrow"><i class="fa-solid fa-backward-step"></i></a></li>
+
+                        <!-- 이전 목록 마지막 번호로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=*{prevPage}, key=${param.key}, query=${param.query})}"
+                                th:data-page="*{prevPage}" class="page-arrow"><i
+                                    class="fa-solid fa-play fa-flip-horizontal"></i></a></li>
+
+                        <!-- 특정 페이지로 이동 -->
+                        <th:block th:if="*{startPage lt endPage}"
+                            th:each="i : *{#numbers.sequence(startPage, endPage)}">
+
+                            <!-- 현재 보고있는 페이지 -->
+                            <li th:if="${i} == *{currentPage}">
+                                <a class="active page-number" th:text="${i}" th:data-page="${i}">현재 페이지</a>
+                            </li>
+
+                            <!-- 보고있지 않은 페이지 -->
+                            <li th:unless="${i} == *{currentPage}">
+                                <a th:href="@{/lesson/list (cp=${i}, key=${param.key}, query=${param.query})}"
+                                    th:text="${i}" th:data-page="${i}" class="page-number">이동할 페이지</a>
+                            </li>
+                        </th:block>
+
+                        <!-- 일치하는 게시글이 없을 경우 -->
+                        <th:block th:unless="*{startPage lt endPage}">
+                            <li>
+                                <a class="active">1</a>
+                            </li>
+                        </th:block>
+
+                        <!-- 다음 목록 시작 번호로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=*{nextPage}, key=${param.key}, query=${param.query})}"
+                                th:data-page="*{nextPage}" class="page-arrow"><i class="fa-solid fa-play"></i></a></li>
+
+                        <!-- 끝 페이지로 이동 -->
+                        <li><a th:href="@{/lesson/list (cp=*{maxPage}, key=${param.key}, query=${param.query})}"
+                                th:data-page="*{maxPage}" class="page-arrow">
+                                <i class="fa-solid fa-forward-step"></i>
+
+
+                            </a>
                         </li>
+                    </ul>
 
-                    </th:block>
+                </div>
+                <!-- 페이지네이션 영역 끝 -->
 
-                    <!-- 다음 목록 시작 번호로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=*{nextPage})}" th:data-page="*{nextPage}" class="page-arrow"><i
-                                class="fa-solid fa-play"></i></a></li>
-
-                    <!-- 끝 페이지로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=*{maxPage})}" th:data-page="*{maxPage}" class="page-arrow"><i
-                                class="fa-solid fa-forward-step"></i></a></li>
-                </ul>
-
-                <!-- ------------- 검색인 경우 ------------- -->
-                <ul class="pagination" th:if="${param.query}" th:object="${pagination}">
-
-                    <!-- 첫 페이지로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=1, key=${param.key}, query=${param.query})}" th:data-page="1"
-                            class="page-arrow"><i class="fa-solid fa-backward-step"></i></a></li>
-
-                    <!-- 이전 목록 마지막 번호로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=*{prevPage}, key=${param.key}, query=${param.query})}"
-                            th:data-page="*{prevPage}" class="page-arrow"><i
-                                class="fa-solid fa-play fa-flip-horizontal"></i></a></li>
-
-                    <!-- 특정 페이지로 이동 -->
-                    <th:block th:if="*{startPage lt endPage}" th:each="i : *{#numbers.sequence(startPage, endPage)}">
-
-                        <!-- 현재 보고있는 페이지 -->
-                        <li th:if="${i} == *{currentPage}">
-                            <a class="active page-number" th:text="${i}" th:data-page="${i}">현재 페이지</a>
-                        </li>
-
-                        <!-- 보고있지 않은 페이지 -->
-                        <li th:unless="${i} == *{currentPage}">
-                            <a th:href="@{/lesson/list (cp=${i}, key=${param.key}, query=${param.query})}"
-                                th:text="${i}" th:data-page="${i}" class="page-number">이동할 페이지</a>
-                        </li>
-                    </th:block>
-
-                    <!-- 일치하는 게시글이 없을 경우 -->
-                    <th:block th:unless="*{startPage lt endPage}">
-                        <li>
-                            <a class="active">1</a>
-                        </li>
-                    </th:block>
-
-                    <!-- 다음 목록 시작 번호로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=*{nextPage}, key=${param.key}, query=${param.query})}"
-                            th:data-page="*{nextPage}" class="page-arrow"><i class="fa-solid fa-play"></i></a></li>
-
-                    <!-- 끝 페이지로 이동 -->
-                    <li><a th:href="@{/lesson/list (cp=*{maxPage}, key=${param.key}, query=${param.query})}"
-                            th:data-page="*{maxPage}" class="page-arrow"><i class="fa-solid fa-angles-right"></i></a>
-                    </li>
-                </ul>
-
-            </div>
-            <!-- 페이지네이션 영역 끝 -->
-
-        </th:block>
-
-
-
-
+            </th:block>
+            <!-- 부분 조회 끝 -->
 
 
 
         </section>
     </main>
+
+    <!-- 푸터 시작 -->
     <footer>
         <div class="footer-container">
             <p>찾아오시는 길 | 사이트맵</p>
@@ -239,6 +230,7 @@
             <p>AM 9:00 ~ PM 06:00 (점심시간 12:00~13:00) 일/공휴일 휴무</p>
         </div>
     </footer>
+    <!-- 푸터 끝 -->
 
     <!-- JS 연결 -->
     <script src="/js/lesson/lessonList/lessonList.js"></script>

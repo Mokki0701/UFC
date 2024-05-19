@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const searchButton = document.querySelector('.search-bar button[type="submit"]');
-    const advancedSearchButtons = document.querySelectorAll('.advanced-search-options button');
+    const advancedSearchButtons = document.querySelectorAll('.advanced-search-options button:not(.search-button)');
 
     // 검색 버튼 클릭 이벤트 리스너
     searchButton.addEventListener('click', function(event) {
@@ -10,10 +10,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // 상세 검색 버튼 클릭 이벤트 리스너
-    advancedSearchButtons.forEach(button => {
-        button.addEventListener('click', function() {
+    document.addEventListener('click', function(event) {
+
+        console.log("확인");
+        const target = event.target;
+        if (target.closest('.advanced-search-options button:not(.search-button)')) {
+            const button = target.closest('.advanced-search-options button:not(.search-button)');
+            button.classList.toggle('clicked');
             const query = document.getElementById('searchQuery').value;
-            const tag = this.id;
+            const tag = button.id;
             let currentTags = new URLSearchParams(window.location.search).get('tags') || '';
             let tags = currentTags.split(',').filter(Boolean);
 
@@ -25,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const tagString = tags.join(',');
             fetchSearchResults(query, tagString);
-        });
+        }
     });
 
     // 페이지네이션 버튼 클릭 이벤트 리스너
@@ -98,16 +103,3 @@ document.getElementById('advanced-search-toggle').addEventListener('click', func
     }
 });
 /* 상세 검색 드롭 다운 메뉴 끝 */
-
-/* 태그 클릭 시 시작 */
-document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.advanced-search-options button:not(.search-button)');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            console.log("작동함");
-            button.classList.toggle('clicked');
-        });
-    });
-});
-/* 태그 클릭 시 끝 */

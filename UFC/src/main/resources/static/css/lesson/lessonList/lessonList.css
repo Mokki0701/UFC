@@ -46,7 +46,8 @@ nav ul li a {
 }
 
 .program-header {
-  background-color: #af5dde;
+  border-radius: 180px;
+  background-color: #992BF2;
   padding: 20px;
   color: white;
   text-align: center;
@@ -99,7 +100,7 @@ nav ul li a {
 .search-bar button {
   padding: 10px 20px;
   border: none;
-  background-color: #5cb85c;
+  background-color: #992BF2;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -111,7 +112,12 @@ nav ul li a {
 }
 
 .program-list {
-  padding: 20px;
+    padding: 20px;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    max-width: 1350px; /* 최대 너비 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 선택 사항: 컨테이너에 그림자 추가 */
+    background-color: #fff; /* 선택 사항: 배경 색상 추가 */
+    border-radius: 8px; /* 선택 사항: 모서리 둥글게 */
 }
 
 .filter-options {
@@ -171,7 +177,7 @@ nav ul li a {
 .program-info .category {
   display: inline-block;
   padding: 5px 10px;
-  background-color: #5cb85c;
+  background-color: green;
   color: white;
   font-size: 12px;
 }
@@ -183,6 +189,7 @@ nav ul li a {
 }
 
 .pagination a {
+  border-radius: 180px;
   margin: 0 5px;
   padding: 10px 15px;
   border: 1px solid #ddd;
@@ -192,7 +199,7 @@ nav ul li a {
 }
 
 .pagination a.active {
-  background-color: #5cb85c;
+  background-color: #992BF2;
   color: white;
 }
 
@@ -247,7 +254,7 @@ nav ul li a {
 .search-bar button {
     padding: 10px 20px;
     border: none;
-    background-color: #5cb85c;
+    background-color: #992BF2;
     color: white;
     cursor: pointer;
     border-radius: 0 5px 5px 0; /* 우측 모서리 둥글게 */
@@ -263,7 +270,7 @@ nav ul li a {
     margin-left: 10px;
     padding: 10px 20px;
     border: none;
-    background-color: #5cb85c;
+    background-color: #992BF2;
     color: white;
     cursor: pointer;
     border-radius: 5px; /* 모서리 둥글게 */
@@ -308,7 +315,7 @@ nav ul li a {
 }
 
 .search-button button {
-    background-color: #af5dde;
+    background-color: #992BF2;
     color: white;
     font-size: 16px;
     padding: 10px 30px;
@@ -323,6 +330,6 @@ nav ul li a {
 
     
 .clicked {
-  background-color: purple;
-  color: white;
+  background-color: #992BF2 !important;
+  color: white !important;
 }
