@@ -150,4 +150,9 @@
   cursor: pointer;
 }
 
-/* 즐겨찾기 강의 목록 */
+/* 강사 강의 목록 */
+#lecture_list{
+  /* 강의 리스트가 많을 경우 스크롤로 보이게 */
+  height: 80%;
+  overflow-y: auto;
+}

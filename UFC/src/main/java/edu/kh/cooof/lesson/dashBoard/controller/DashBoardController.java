@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.service.DashBoardService;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
@@ -38,8 +39,10 @@ public class DashBoardController {
 		//회원이 듣는 강의 리스트 조회
 		int loginMemberId = loginMember.getMemberNo();
 		List<LessonListDTO> lessonList = service.findLesson(loginMemberId);
+		List<LessonInstructorDTO> instructorLessons = service.instructorLesson(loginMemberId);
 		
 		model.addAttribute("lessonList",lessonList);
+		model.addAttribute("instructorLessons",instructorLessons);
 		
 		return "lessonDashBoard/dashBoard";
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.mapper.DashBoardMapper;
 import edu.kh.cooof.member.model.dto.Member;
@@ -56,5 +57,11 @@ public class DashBoardServiceImpl implements DashBoardService {
 		return mapper.findStar(lessonList);
 	}
 	
+	
+	//강사 강의 찾기
+	@Override
+	public List<LessonInstructorDTO> instructorLesson(int loginMemberId) {
+		return mapper.instructorLesson(loginMemberId);
+	}
 	
 }

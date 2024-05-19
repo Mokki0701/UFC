@@ -42,6 +42,14 @@
 		AND MEMBER_NO = #{memberNo}
     
     </select>
+    
+    <select id="instructorLesson" resultType="LessonInstructorDTO">
+    
+    	SELECT LESSON_TITLE 
+		FROM LESSONS
+		WHERE MEMBER_NO = #{loginMemberId}
+    
+    </select>
 	
 	
 

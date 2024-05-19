@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.member.model.dto.Member;
 
@@ -25,6 +26,9 @@ public interface DashBoardMapper {
 
 	//내가 등록한 강의의 별점 찾기
 	int findStar(LessonListDTO lessonList);
+
+	//강사 강의 찾기
+	List<LessonInstructorDTO> instructorLesson(int loginMemberId);
 
 	
 
