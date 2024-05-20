@@ -1,0 +1,146 @@
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.signUp-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+#signUpForm {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+#signUpForm>label {
+  display: block;
+  margin-top: 30px;
+  font-size: 18px;
+}
+
+#signUpForm>span {
+  display: block;
+  height: 20px;
+  margin-top: 5px;
+}
+
+/* 필수 작성 */
+.required {
+  color: red;
+  padding: 0 5px;
+}
+
+/* input 태그를 감싸고 있는 div 태그 */
+.signUp-input-area {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
+.signUp-input-area>input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+
+.signUp-input-area>button {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid gray;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signUp-input-area>button:hover {
+  background-color: #f0f0f0;
+}
+
+/* :focus-within : 내부 input 요소에 포커스가 맞춰졌을 때 */
+.signUp-input-area:focus-within {
+  border-bottom-color: #455ba8;
+}
+
+/* 입력 관련 메세지 */
+.signUp-message {
+  font-size: 14px;
+  letter-spacing: -1px;
+  margin-top: 5px;
+}
+
+/* 메세지 색상 지정 */
+.confirm {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+/* 회원가입 버튼 */
+#signUpBtn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 30px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #455ba8;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#signUpBtn:hover {
+  background-color: #364a8a;
+}
+
+#signUpBtn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  #signUpForm {
+    padding: 15px;
+  }
+
+  .signUp-input-area {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .signUp-input-area>button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #signUpForm>label {
+    font-size: 16px;
+  }
+
+  #signUpBtn {
+    font-size: 18px;
+  }
+}
+</style>

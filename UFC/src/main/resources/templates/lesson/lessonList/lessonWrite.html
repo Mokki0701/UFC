@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수업 게시</title>
+
+  <link rel="stylesheet" href="/css/lesson/lessonList/lessonWrite.css">
+
+</head>
+
+<body>
+
+  <main>
+
+    <!-- 
+        LESSON_NO
+        LESSON_TITLE
+        LESSON_ROOM
+        LESSON_SCHEDULE
+        LESSON_START_DATE
+        LESSON_END_DATE
+        LESSON_CAPACITY
+        LESSON_TUITION_FEE
+        LESSON_MATERIAL_FEE
+        LESSON_TARGET_AUDIENCE
+        CLOSE_YN
+        MEMBER_NO
+        LESSON_REGISTER_START
+        LESSON_REGISTER_END
+        LESSON_REMAINS
+        IMG_PATH
+        DAY_WEEK 
+            -->
+
+    <section class="signUp-content">
+
+      <form action="/lesson/listEdit/insert" method="POST" name="lessonPostFrm" id="lessonPostFrm">
+
+        <!-- 수업명 입력 -->
+        <label for="lessonTitle">
+          <span class="required">*</span> 수업명
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="lessonTitle" id="lessonTitle" placeholder="수업명" maxlength="30"
+            autocomplete="off">
+        </div>
+
+        <!-- 강의실 입력 -->
+        <label for="lessonRoom">
+          <span class="required">*</span> 강의실
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="lessonRoom" id="lessonRoom" placeholder="강의실" maxlength="30">
+        </div>
+
+        <!-- 수업 시간 -->
+        <label for="lessonSchedule">
+          <span class="required">*</span> 수업 시간
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="lessonSchedule" id="lessonSchedule" placeholder="수업 시간" maxlength="30">
+        </div>
+
+        <span class="signUp-message" id="lessonScheduleMsg">수업 시간 정하세요</span>
+
+
+        <!-- 전화번호 입력 -->
+        <label for="memberTel">
+          <span class="required">*</span> 전화번호
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="memberTel" id="memberTel" placeholder="(- 없이 숫자만 입력)" maxlength="11">
+        </div>
+
+        <span class="signUp-message" id="telMessage">전화번호를 입력해주세요.(- 제외)</span>
+
+
+        <!-- 주소 입력 -->
+        <label for="memberAddress">주소</label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="memberAddress" placeholder="우편번호" maxlength="6" id="postcode">
+
+          <button type="button" id="searchAddress">검색</button>
+        </div>
+
+        <div class="lesson-input-area">
+          <input type="text" name="memberAddress" placeholder="도로명/지번 주소" id="address">
+        </div>
+
+        <div class="lesson-input-area">
+          <input type="text" name="memberAddress" placeholder="상세 주소" id="detailAddress">
+        </div>
+
+        <button id="signUpBtn">가입하기</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- 푸터 추가 -->
+  <th:block th:replace="~{common/footer}"></th:block>
+
+
+  <!-- script태그가 여러 개로 나뉘어 있어도
+    HTML 랜더링 시 큰 한 장의 JS 파일로 변환된다고 생각!
+
+    (단, 윗쪽 script에서 해석 안된 아랫쪽 script는 호출 불가)
+  -->
+
+  <!-- 다음 주소 API 추가 -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+  <!-- 회원 가입 JS 추가 -->
+  <script src="/js/member/signup.js"></script>
+
+</body>
+
+</html>
