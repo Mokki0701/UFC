@@ -30,6 +30,7 @@ public class Lesson {
 	private int memberNo;
 	private String lessonRegisterStart;
 	private String lessonRegisterEnd;
+	private int lessonRemains;
 	
 	// 추후 추가 예정
 	
