@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운동 정보</title>
+
+    <link rel="stylesheet" href="/css/gym/information/stretching.css">
+</head>
+<body>
+    <th:block th:replace="~{common/header}"></th:block>
+    <div class="gym_container">
+        <h3>스트레칭</h3>
+        <div class="gym_type">
+            <ul>
+                <li><a href="/gym/information/useMachines">기구 사용법</a></li>
+                <li><a href="/gym/information/stretching">스트레칭</a></li>
+            </ul>
+        </div>
+
+        <div class="gym_title">
+            <p>스트레칭</p>
+        </div>
+        
+        <div class="gym_view_stretching">
+            <iframe title="vimeo-player" src="https://player.vimeo.com/video/396362546?h=5dc653edc0" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="gym_title_line">상세설명</div>
+
+        <div class="gym_view_img">
+            <p><img src="http://spoany.co.kr/ActiveFile/spoany.smms/board_img/2636659285d819af22cd99.png" alt="스트레칭 이미지"></p>
+        </div>
+
+    </div>
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>

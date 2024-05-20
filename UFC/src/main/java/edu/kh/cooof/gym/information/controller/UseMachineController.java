@@ -22,6 +22,7 @@ public class UseMachineController {
 
     private final UseMachineService service;
 
+    // 기구 사용법 조회
     @GetMapping("/useMachines")
     public String getAllUseMachines(Model model, 
                                     @RequestParam(name = "page", defaultValue = "0") int page,
@@ -42,10 +43,48 @@ public class UseMachineController {
         return "gym/information/UseMachines";
     }
 
+    // 기구 사용법 상세 조회
     @GetMapping("/useMachine/{id}")
     public String getUseMachineById(@PathVariable("id") int id, Model model) {
         UseMachine useMachine = service.getUseMachineById(id);
         model.addAttribute("useMachine", useMachine);
         return "gym/information/UseMachineDetail";
     }
+
+    // 스트레칭 페이지
+    @GetMapping("/stretching")
+    public String stretching() {
+    	
+    	return "gym/information/stretching";
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

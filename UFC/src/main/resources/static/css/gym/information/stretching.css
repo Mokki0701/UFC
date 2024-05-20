@@ -1,0 +1,86 @@
+.gym_container {
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gym_container > h3 {
+    font-size: 31px;
+    margin: 10px 0;
+    text-align: left;
+    width: 100%; /* h3가 가로로 꽉 차게 */
+}
+
+.gym_type {
+    height: 50px;
+    background-color: white;
+    width: 100%;
+}
+
+.gym_type > ul {
+    display: flex;
+    list-style: none;
+    height: 100%;
+    border-bottom: 2px solid black;
+    justify-content: center; /* 중앙 정렬 */
+}
+
+.gym_type li {
+    flex: 0 1 150px;
+}
+
+.gym_type a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 5px;
+    transition-duration: 0.1s;
+}
+
+.gym_type a:hover {
+    color: white;
+    background-color: rgb(239, 50, 50);
+}
+
+.gym_title {
+    margin: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.gym_view_stretching {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.gym_title_line {
+    width: 100%;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 0;
+    border-bottom: 2px solid #000;
+    margin-top: 80px;
+}
+
+.gym_view_img {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.gym_view_img img {
+    max-width: 100%;
+    height: auto;
+}

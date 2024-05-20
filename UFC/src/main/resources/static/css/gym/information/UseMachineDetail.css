@@ -1,0 +1,12 @@
+.gym_detail_container {
+    padding: 20px;
+}
+.gym_video {
+    margin-bottom: 20px;
+}
+.gym_info h3 {
+    margin-top: 20px;
+}
+.gym_info p {
+    white-space: pre-wrap; /* 줄 바꿈을 처리하기 위해 사용 */
+}
