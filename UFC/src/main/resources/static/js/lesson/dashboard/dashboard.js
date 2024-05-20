@@ -240,12 +240,12 @@ const setDefaultLecture = ()=>{
 /* 강사 출석부 리스트 팝업 */
 const popupCloseBtn = document.querySelector(".popup_close_btn");
 const popupContainer = document.querySelector("#less_attendancePopup");
-
+//const date = document.querySelector("#less_attendanceForm > input");
 
 popupCloseBtn.addEventListener("click",()=>{
   popupContainer.style.display = 'none';
 })
-const date = document.querySelector("#less_attendanceForm > input");
+
 
 // 강의리스트들 가져오기
 const lectureLinks = document.querySelectorAll(".lecture-link");
@@ -253,33 +253,67 @@ const lectureLinks = document.querySelectorAll(".lecture-link");
 //console.log(lectureLinks);
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  // 처음에 팝업 창 숨기기
   popupContainer.style.display = 'none';
 
+  // 강의 링크에 이벤트 리스너 추가
   const lectureLinks = document.querySelectorAll('.lecture-link');
   lectureLinks.forEach(link => {
       link.addEventListener('click', event => {
-          event.preventDefault(); // 링크의 기본 동작을 막음
-          popupContainer.style.display = 'flex';
-          const lessonId = link.getAttribute('data-lesson-id'); // 링크의 data-lesson-id 속성 값을 가져옴
-          // console.log(lessonId); //출력확인함
-          const attendanceDate = document.querySelector('input[name="date"]').value; // 선택된 날짜 값을 가져옴
-          fetchAttendance(lessonId, attendanceDate); // lessonId와 날짜를 사용하여 출석부 데이터를 가져옴
+          event.preventDefault(); // 기본 링크 동작 방지
+          popupContainer.style.display = 'flex'; // 팝업 창 보이기
+          const lessonId = link.getAttribute('data-lesson-id'); // 강의 ID 가져오기
+          popupContainer.dataset.lessonId = lessonId; // 팝업 컨테이너에 lessonId 저장
       });
   });
 
-  const popup = document.getElementById('less_attendancePopup');
+  // 닫기 버튼에 이벤트 리스너 추가하여 팝업 창 숨기기
   const closeBtn = document.querySelector('.popup_close_btn');
   closeBtn.addEventListener('click', () => {
-      popup.style.display = 'none';
+      popupContainer.style.display = 'none';
+  });
+
+  // 검색 버튼에 이벤트 리스너 추가
+  const searchButton = document.getElementById('less_student_list');
+  searchButton.addEventListener('click', () => {
+      const lessonId = popupContainer.dataset.lessonId; // 팝업 컨테이너에서 lessonId 가져오기
+      const attendanceDateInput = document.getElementById('attendanceDateInput');
+      const attendanceDate = attendanceDateInput.value; // 선택한 날짜 가져오기
+      console.log('lessonId:', lessonId);
+      console.log('attendanceDate:', attendanceDate);
+      fetchAttendance(lessonId, attendanceDate); // 강의 ID와 날짜로 출석부 데이터 가져오기
   });
 
   document.getElementById('less_attendanceForm').addEventListener('submit', event => {
-      event.preventDefault(); // 폼 제출의 기본 동작을 막음
-      //submitAttendance();
+      event.preventDefault(); // 기본 폼 제출 동작 방지
+      //submitAttendance(); // 폼 제출 처리 함수 호출
   });
 });
+//===============================================================
 
 
-
+function fetchAttendance(lessonId, attendanceDate) {
+  fetch(`/lesson/dashboard/attendance?lessonNo=${lessonId}&date=${attendanceDate}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("data >>>>>>>>> ", JSON.stringify(data))
+          // 테이블에 출석부 데이터 표시
+          const attendanceTable = document.getElementById('less_attendanceTable');
+          attendanceTable.innerHTML = ''; // 기존 테이블 내용 지우기
+          // data.forEach(student => {
+          //     const row = document.createElement('tr');
+          //     const nameCell = document.createElement('td');
+          //     nameCell.textContent = student.name; // 데이터 구조에 맞게 조정
+          //     const attendanceCell = document.createElement('td');
+          //     const attendanceInput = document.createElement('input');
+          //     attendanceInput.type = 'checkbox';
+          //     attendanceInput.checked = student.isPresent; // 데이터 구조에 맞게 조정
+          //     attendanceCell.appendChild(attendanceInput);
+          //     row.appendChild(nameCell);
+          //     row.appendChild(attendanceCell);
+          //     attendanceTable.appendChild(row);
+          // });
+      })
+      .catch(error => console.error('Error fetching attendance data:', error));
+}
 

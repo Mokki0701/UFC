@@ -30,6 +30,9 @@ public interface DashBoardMapper {
 	//강사 강의 찾기
 	List<LessonInstructorDTO> instructorLesson(int loginMemberId);
 
+	//학생 출석부 조회
+	List<LessonListDTO> attendanceList(LessonInstructorDTO studentList);
+
 	
 
 

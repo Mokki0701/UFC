@@ -50,7 +50,25 @@
 		WHERE MEMBER_NO = #{loginMemberId}
     
     </select>
+    
+	<select id="count" resultType="LessonInstructorDTO">
+    
+    	SELECT COUNT(*) AS CNT  
+		FROM LESSONS
+		WHERE LESSON_NO = #{lessonNo}
+		AND #{date2} BETWEEN TO_CHAR(LESSON_START_DATE, 'YYYYMMDD') AND TO_CHAR(LESSON_END_DATE, 'YYYYMMDD')
+		AND TO_CHAR(TO_DATE(#{date2}), 'dy') = SUBSTR(LESSON_SCHEDULE, 0,1)
+    
+    </select>
 	
+	
+	<select id="attendanceList" resultType="LessonListDTO">
+    
+	    SELECT MEMBER_NO 
+		FROM STUDENT_ENROLLMENTS 
+		WHERE LESSON_NO = #{lessonNo}
+
+    </select>
 	
 
 </mapper>

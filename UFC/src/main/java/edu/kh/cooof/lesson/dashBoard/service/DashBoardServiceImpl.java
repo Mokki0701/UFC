@@ -64,4 +64,10 @@ public class DashBoardServiceImpl implements DashBoardService {
 		return mapper.instructorLesson(loginMemberId);
 	}
 	
+	//학생 출석부 조회
+	@Override
+	public List<LessonListDTO> AttendanceList(LessonInstructorDTO studentList) {
+		return mapper.attendanceList(studentList);
+	}
+	
 }
