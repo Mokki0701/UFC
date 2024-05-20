@@ -229,6 +229,31 @@ const setDefaultLecture = ()=>{
     }
 }
 /* ===== 별점 후기 끝 ==================================== */
+/** 즐겨찾기 리스트 ********************* */
 
 
+
+
+
+
+/**============================================== */
+/* 강사 출석부 리스트 팝업 */
+const popupCloseBtn = document.querySelector(".popup_close_btn");
+const popupContainer = document.querySelector("#less_attendancePopup");
+popupCloseBtn.addEventListener("click",()=>{
+  popupContainer.classList.add("less_popup_hidden")
+})
+const date = document.querySelector("#less_attendanceForm > input");
+
+// 강의리스트들 가져오기
+const lectureLinks = document.querySelector(".lecture-link");
+
+lectureLinks.forEach(link => {
+    link.addEventListener('click', event => {
+        event.preventDefault();
+        //강의번호 가져오기
+        const lessonId = link.getAttribute('data-lesson-id');
+        fetchAttendance(lessonId);
+    });
+});
 

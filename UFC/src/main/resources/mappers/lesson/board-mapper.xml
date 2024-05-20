@@ -45,7 +45,7 @@
     
     <select id="instructorLesson" resultType="LessonInstructorDTO">
     
-    	SELECT LESSON_TITLE 
+    	SELECT LESSON_TITLE , LESSON_NO 
 		FROM LESSONS
 		WHERE MEMBER_NO = #{loginMemberId}
     
