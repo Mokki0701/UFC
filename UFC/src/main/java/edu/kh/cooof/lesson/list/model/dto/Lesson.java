@@ -31,6 +31,7 @@ public class Lesson {
 	private String lessonRegisterStart;
 	private String lessonRegisterEnd;
 	private int lessonRemains;
+	private String imgPath;
 	
 	// 추후 추가 예정
 	

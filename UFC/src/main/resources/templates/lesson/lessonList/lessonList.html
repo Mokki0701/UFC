@@ -99,7 +99,7 @@
             <div class="programs">
                 <!-- 반복되는 프로그램 카드 -->
                 <div class="program-card" th:each="lesson : ${lessonList}">
-                    <img th:src="@{/images/lesson.jpg}" alt="프로그램 이미지">
+                    <img th:src="'/images/lesson/' + ${lesson.imgPath}" alt="프로그램 이미지">
                     <div class="program-info">
                         <span id="${lesson.lessonNo}" class="label"
                             th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
