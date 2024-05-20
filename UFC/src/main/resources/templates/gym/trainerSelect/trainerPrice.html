@@ -7,8 +7,13 @@
 
     <link rel="stylesheet" href="/css/gym/gymMain.css">
     <link rel="stylesheet" href="/css/gym/trainerPrice.css">
+    
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
+
+
 <body>
+    
     
     <th:black th:replace="~{gym/gymHeader}"></th:black>
     
@@ -32,6 +37,66 @@
       </div>
     </div>
 
+    <div>
+      <div>
+        <label for="startDate">운동 시작일:</label>
+        <input type="date" id="startDate" name="startDate" required>
+      </div>
+    </div>
 
+    <div class="agreement-container">
+      
+      <div>
+          <input type="checkbox" id="selectAll" onclick="toggleAll(this)">
+          <label for="selectAll" class="bold">전체 동의</label>
+      </div>
+      <div>
+          <input type="checkbox" class="agreement" onclick="checkSelectAll()">
+          <label for="agreement1">(필수) 약관 1 동의</label>
+          <a href="">내용보기</a> <!-- 동의에 대한 내용 보기 -->
+      </div>
+      <div>
+          <input type="checkbox" class="agreement" onclick="checkSelectAll()">
+          <label for="agreement2">(필수) 약관 2 동의</label>
+          <a href="">내용보기</a>
+      </div>
+      <div>
+          <input type="checkbox" class="agreement" onclick="checkSelectAll()">
+          <label for="agreement3">약관 3 동의</label>
+          <a href="">내용보기</a>
+      </div>
+  </div>
+
+
+  
+  <button onclick="requestPay()" id="gym_pay_button" >결제하기</button>
+
+  <script th:inline="javascript">
+    const trainerPrice = /*[[${trainerPrice}]]*/ 100; // spring에서 타임리프 사용 방법
+    
+    IMP.init("imp14397622");
+    
+    function requestPay() {
+      IMP.request_pay({
+        pg: "kakaopay",
+        pay_method: "card",
+        merchant_uid: "test_lwehztzg2",
+        name: "테스트 결제",
+        amount: trainerPrice,
+        buyer_tel: "010-0000-0000",
+      }, 
+      function (rsp) {
+        console.log(rsp);
+        if (rsp.sucess){
+          var msg = "결제가 완료되었습니다.";
+          var result = {
+
+          }
+        }
+      })
+    } 
+    </script>
+
+  <script src="/js/gym/trainerPrice.js"></script>
 </body>
 </html>
