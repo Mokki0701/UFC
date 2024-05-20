@@ -18,4 +18,5 @@ public class Trainer {
 	private int memberNo;
 	private int price;
 	
+	
 }
