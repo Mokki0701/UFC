@@ -75,7 +75,6 @@
                     </div>
                 </div>
             </section>
-        </form>
 
 
 
@@ -84,9 +83,14 @@
             <!-- 정렬 시작 -->
             <section class="program-list">
                 <div class="filter-options">
-                    <button class="clicked" id="orderBtn">등록일순 &#9660;</button>
+                    <button type="button" class="clicked" id="orderBtn" data-order="desc">등록일순 &#9660;</button>
                 </div>
+
+                <!-- 정렬 필드 -->
+                <input type="hidden" name="order" id="orderInput" value="desc">
+
                 <!-- 정렬 끝 -->
+        </form>
         <!-- 검색창 끝 -->
 
         <!-- 부분 조회 시작 -->
