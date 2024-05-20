@@ -81,6 +81,13 @@ public class DashBoardController {
 			return starRating;
 
 		}
+		
+		@GetMapping("/attendance/{lessonId:[0-9]+}")
+		public String attendance() {
+			
+			
+			return null;
+		}
 	
 	
 }

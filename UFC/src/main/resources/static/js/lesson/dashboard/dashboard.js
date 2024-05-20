@@ -240,20 +240,46 @@ const setDefaultLecture = ()=>{
 /* 강사 출석부 리스트 팝업 */
 const popupCloseBtn = document.querySelector(".popup_close_btn");
 const popupContainer = document.querySelector("#less_attendancePopup");
+
+
 popupCloseBtn.addEventListener("click",()=>{
-  popupContainer.classList.add("less_popup_hidden")
+  popupContainer.style.display = 'none';
 })
 const date = document.querySelector("#less_attendanceForm > input");
 
 // 강의리스트들 가져오기
-const lectureLinks = document.querySelector(".lecture-link");
+const lectureLinks = document.querySelectorAll(".lecture-link");
 
-lectureLinks.forEach(link => {
-    link.addEventListener('click', event => {
-        event.preventDefault();
-        //강의번호 가져오기
-        const lessonId = link.getAttribute('data-lesson-id');
-        fetchAttendance(lessonId);
-    });
+//console.log(lectureLinks);
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  popupContainer.style.display = 'none';
+
+  const lectureLinks = document.querySelectorAll('.lecture-link');
+  lectureLinks.forEach(link => {
+      link.addEventListener('click', event => {
+          event.preventDefault(); // 링크의 기본 동작을 막음
+          popupContainer.style.display = 'flex';
+          const lessonId = link.getAttribute('data-lesson-id'); // 링크의 data-lesson-id 속성 값을 가져옴
+          // console.log(lessonId); //출력확인함
+          const attendanceDate = document.querySelector('input[name="date"]').value; // 선택된 날짜 값을 가져옴
+          fetchAttendance(lessonId, attendanceDate); // lessonId와 날짜를 사용하여 출석부 데이터를 가져옴
+      });
+  });
+
+  const popup = document.getElementById('less_attendancePopup');
+  const closeBtn = document.querySelector('.popup_close_btn');
+  closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+  });
+
+  document.getElementById('less_attendanceForm').addEventListener('submit', event => {
+      event.preventDefault(); // 폼 제출의 기본 동작을 막음
+      //submitAttendance();
+  });
 });
+
+
+
 
