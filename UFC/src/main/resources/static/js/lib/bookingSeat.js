@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('dbSeatNo').textContent = a;
 
         // 좌석 상태 표시
-        const seatStatus = seat.classList.contains('availSeat') ? '사용 가능' :
-                           seat.classList.contains('disavailSeat') ? '사용 불가능' :
-                           seat.classList.contains('nowUsing') ? '사용 중' : '없음';
+        const seatStatus = seat.classList.contains('availSeat') && seat.classList.contains('nowUsing') ? '사용 중' :
+                   seat.classList.contains('availSeat') ? '사용 가능' :
+                   seat.classList.contains('disavailSeat') ? '사용 불가능' : '없음';
         document.getElementById('dbSeatAvail').textContent = seatStatus;
 
         // 선택된 좌석 저장
@@ -86,14 +86,28 @@ document.addEventListener('DOMContentLoaded', function () {
   // 버튼 클릭 시 동작
   const useSeatBtn = document.querySelector("#useSeat");
 
+  // 이용 가능한 좌석에만 반응하기
   useSeatBtn.addEventListener("click", () => {
     if (selectedSeat && selectedSeat.classList.contains('availSeat') && !selectedSeat.classList.contains('nowUsing') && !selectedSeat.classList.contains('disavailSeat')) {
       const dbSeatNo = document.getElementById('dbSeatNo').textContent;
+      // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
+      const seatCondition = selectedSeat.classList.contains('availSeat') ? 1 :
+                            selectedSeat.classList.contains('disavailSeat') ? 2 :
+                            0;
       if (dbSeatNo !== '') {
-        fetch(`/lib/seat/useSeat?seatNo=${dbSeatNo}`, {
-          method: 'POST'
+        fetch('/lib/seats/useSeat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ seatNo: dbSeatNo, condition: seatCondition })
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
         .then(data => {
           console.log('Seat usage response:', data);
           alert("좌석 사용 상태가 업데이트되었습니다.");
@@ -107,4 +121,13 @@ document.addEventListener('DOMContentLoaded', function () {
       alert("선택한 좌석은 사용할 수 없습니다.");
     }
   });
+  
+
+});
+
+// 좌석 이용 종료하기
+const stopUsingSeat = document.querySelector("#stopUsingSeat");
+stopUsingSeat.addEventListener("click", () => {
+
+
 });

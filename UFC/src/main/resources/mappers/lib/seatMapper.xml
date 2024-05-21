@@ -4,21 +4,57 @@
 <mapper
 	namespace="edu.kh.cooof.lib.seat.model.mapper.LibSeatMapper">
 
-	<select id="getAllSeats" resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
+	<!-- 모든 좌석 불러오기 -->
+	<select id="getAllSeats"
+		resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
 		SELECT SEAT_NO, COORDI_X AS coordiX, COORDI_Y AS coordiY,
 		CONDITION,
 		SEAT_AVAIL
 		FROM SEAT
 	</select>
 
+	<!-- 좌석 편집 현황 지우기 -->
 	<delete id="deleteAllSeats">
 		DELETE FROM SEAT
 	</delete>
 
+
+	<!-- 좌석 편집 현황 저장하기 -->
 	<insert id="insertSeat">
-		INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y,
-		CONDITION)
-		VALUES (#{seatNo}, #{coordiX}, #{coordiY}, #{condition})
+		<![CDATA[
+			
+			BEGIN
+			
+				DELETE FROM RENT_SEAT;
+				
+	            INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y, CONDITION)
+	            VALUES (#{seatNo}, #{coordiX}, #{coordiY}, #{condition});
+	            
+	            COMMIT;
+				
+			END;
+        ]]>
+
 	</insert>
+
+
+	<!-- 열람실 좌석 이용하기 -->
+	<!-- seatNo2 = db 자리 번호 -->
+	<insert id="useSeat" parameterType="map">
+        <![CDATA[
+        BEGIN
+            INSERT INTO RENT_SEAT
+            (RENT_SEAT_NO, READING_START, READING_DONE, READING_EXTEND, SEAT_NO2, MEMBER_NO)
+            VALUES (SEQ_SEAT_NO.NEXTVAL, DEFAULT, SYSDATE + INTERVAL '4' HOUR, DEFAULT, #{seatNo2}, #{memberNo});
+
+            UPDATE SEAT 
+            SET SEAT_AVAIL = 1
+            WHERE SEAT_NO = #{seatNo2};
+        END;
+        ]]>
+	</insert>
+
+
+
 
 </mapper>

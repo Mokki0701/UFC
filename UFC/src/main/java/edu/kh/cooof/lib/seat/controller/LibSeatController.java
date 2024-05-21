@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.lib.seat.model.service.LibSeatService;
+import edu.kh.cooof.member.model.dto.Member;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,16 +33,16 @@ public class LibSeatController {
 
 	// 관리자 : 저장된 좌석 현황 불러오기
 	@GetMapping("/data")
-    public ResponseEntity<List<LibSeatDTO>> getSeatsData() {
-        try {
-            List<LibSeatDTO> seats = service.getAllSeats();
-            log.debug("Seats: {}", seats);
-            return ResponseEntity.ok(seats);
-        } catch (Exception e) {
-            log.error("Error fetching seats data", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+	public ResponseEntity<List<LibSeatDTO>> getSeatsData() {
+		try {
+			List<LibSeatDTO> seats = service.getAllSeats();
+			log.debug("Seats: {}", seats);
+			return ResponseEntity.ok(seats);
+		} catch (Exception e) {
+			log.error("Error fetching seats data", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 	// 관리자 : 좌석 변경 현황 저장하기
 	@PostMapping("/save")
@@ -56,19 +59,60 @@ public class LibSeatController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	}
-	
-	@PostMapping("useSeat")
-	public String useSeat(
-		Model model,
-		@RequestParam("dbSeatNo") int dbSeatNo,
-		RedirectAttributes ra) 
-	{
-		
-		
 
+	// 열람실 좌석 이용하기
+	@PostMapping("/useSeat")
+	public ResponseEntity<Map<String, String>> useSeat(@RequestBody LibSeatDTO libSeat,
+			@SessionAttribute("loginMember") Member loginMember, HttpServletRequest request) {
+
+		String result;
+		String message = null;
+		int memberNo = loginMember.getMemberNo();
+		int useSeat = service.useSeat(libSeat.getSeatNo(), memberNo);
+
+		// 현재 멤버가 사용중인 좌석이 없을 경우에만 동작하게 한다.
+//        int isMemberUsing = service.isMemberUsing(memberNo);
+
+		// 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
+		if (libSeat.getCondition() != 1) {
+			message = "비어있는 좌석만 이용 가능합니다";
+			result = "fail";
+		}
+//        else if (libSeat.getCondition() == 1 && useSeat < 1) {
+//          좌석 컨디션이 1, service의 결과가 1이 아닌 경우(이용등록 실패 시)
+//        	log.debug.(" 좌석 상태 : " , libSeat.getCondition());
+//        	log.debug.(" 좌석 상태 : " , useSeat);
+//            message = "좌석 이용 등록에 실패했습니다";
+//            result = "fail";
+//        } 
+		else {
+			// 좌석 컨디션이 1, service의 결과가 1인 경우(성공적으로 이용등록한 경우)
+			message = "좌석 이용 등록 성공!";
+			result = "success";
+		}
+
+		Map<String, String> response = new HashMap<>();
+		response.put("message", message);
+		response.put("result", result);
+
+		return ResponseEntity.ok(response);
+	}
+
+	
+	// 열람실 이용 종료하기
+	public String stopUsingSeat(
+		@SessionAttribute("lobinMember") Member loginMember,
+		HttpServletRequest request,
+		@RequestBody LibSeatDTO libSeat
+			) {
 		
+		String result;
+		String message;
+		
+		int memberNo = loginMember.getMemberNo();
 		
 		return null;
 	}
-
+	
+	
 }

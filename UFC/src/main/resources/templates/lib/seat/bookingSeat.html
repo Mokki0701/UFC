@@ -10,9 +10,7 @@
 
 <body>
 
-  <div>
-    공용 헤더가 들어갈 부분
-  </div>
+  <header th:replace="~{common/header}"></header>
 
   <br><br><br>
 
@@ -41,7 +39,8 @@
 
 
 
-  <div>
+  <!-- 나중에 추가 style="display: none;" -->
+  <div >
     <span>현재 선택한 좌석 번호 : <span id="currentSelectSeat"></span>  </span> <br>
     <span>x 좌표 : <span id="coordiX"></span>  </span>
     <span> / </span>
@@ -60,12 +59,14 @@
 
     <button id="bookingSeat">예약하기</button>
 
+    <button id="stopUsingSeat">이용 종료</button>
+
   </div>
 
 
-  <div>
-    공용 부터가 들어갈 부분
-  </div>
+  <footer>
+    공용 푸터가 들어갈 부분
+  </footer>
 
 </body>
 
