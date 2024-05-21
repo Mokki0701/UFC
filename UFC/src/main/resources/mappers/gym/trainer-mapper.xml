@@ -4,9 +4,19 @@
 	
 	<select id="getAllTrainers">
 	  SELECT * FROM TRAINER
-
 	</select>
 	
+	<select id="selectTrainer">
+	  
+	  SELECT TRAINER.*, MEMBER.MEMBER_PHONE 
+	  FROM TRAINER
+	  INNER JOIN MEMBER ON TRAINER.MEMBER_NO = MEMBER.MEMBER_NO
+	  WHERE TRAINER_NO = #{trainerNo}
+	</select>
 
+	<insert id="gymPayment">
+		INSERT INTO PT (PT_COUNT, PT_PRICE, PT_STRDATE, PT_LKROOM)
+   		VALUES (#{ptCount}, #{ptPrice}, #{strDate}, #{ptLkroom})
+	</insert>
 
 </mapper>

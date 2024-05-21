@@ -9,18 +9,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Trainer {
+public class PtPrice {
 
-	private int trainerNo;
-	private String trainerName;
-	private int trainerPrice;
-	private String trainerImg;
+	private int ptNo;
+	private int ptYn;
+	private int ptPrice;
+	private int ptLkroom;
 	private int memberNo;
-	private int price;
-	
-	// member 전화번호
-	private String memberPhone;
-	
+	private int trainerNo;
+	private String ptStrdate;
 }
-
-

@@ -16,7 +16,10 @@
     
     
     <th:black th:replace="~{gym/gymHeader}"></th:black>
-    
+
+    <h2>상품 정보</h2>
+    <div th:text="${trainer.trainerName}">trainer</div>
+    <div th:text="${param.ptCount} + '회' + ${calcResult} + '원'"></div>
     <h2>구매자 정보</h2>
     <div>이름</div>
     <input type="text" placeholder="이름을 입력해 주세요.">
@@ -28,13 +31,16 @@
     <div>휴대폰번호</div>
     <input type="text">
 
+    <div>락커룸 사용 여부(추가 금액 없음)</div>
+    <button id="lockerYes">O</button> 
+    <button id="lockerNo">X</button>
     <div>
       <div>
-        최종 결재 금액
+         최종 결재 금액
       </div>
       <div>
-        <span  th:text="${trainerPrice}"></span>
-      </div>
+        <span  th:text="${calcResult}"></span>
+      </div>  
     </div>
 
     <div>
@@ -67,34 +73,72 @@
       </div>
   </div>
 
-
+  <div th:text="${param.ptCount}">pt 횟수</div>
   
   <button onclick="requestPay()" id="gym_pay_button" >결제하기</button>
 
   <script th:inline="javascript">
-    const trainerPrice = /*[[${trainerPrice}]]*/ 100; // spring에서 타임리프 사용 방법
-    
-    IMP.init("imp14397622");
+    const calcResult = /*[[${calcResult}]]*/ 100; // spring에서 타임리프 사용 방법
+    const memberPhone = /*[[${trainer.memberPhone}]]*/ 0;
+    const ptCount = /*[${param.ptCount}]*/ 0;
+
+    let ptLkroom  = 0;
+
+    document.getElementById("lockerYes").addEventListener("click", function() {
+        ptLkroom  = 1;
+    });
+
+    document.getElementById("lockerNo").addEventListener("click", function() {
+        ptLkroom  = 0;
+    });
+
+    IMP.init("imp50442418");
     
     function requestPay() {
+
+      // 운동 시작일(input 태그)의 값을 가져옴
+      var strDate = document.getElementById("startDate").value;
+        
+      // 운동 시작일 값 확인
+      console.log("운동 시작일: " + startDate);
+
       IMP.request_pay({
         pg: "kakaopay",
-        pay_method: "card",
-        merchant_uid: "test_lwehztzg2",
-        name: "테스트 결제",
-        amount: trainerPrice,
-        buyer_tel: "010-0000-0000",
+        pay_method: "kakaopay",
+        merchant_uid: "test_lwehztzg12",
+        name: "PT 결제",
+        amount: calcResult,
+        buyer_tel: memberPhone,
       }, 
       function (rsp) {
         console.log(rsp);
-        if (rsp.sucess){
+        if (rsp.success){
           var msg = "결제가 완료되었습니다.";
           var result = {
-
+            ptCount: ptCount,
+            ptPrice: calcResult,
+            ptLkroom : ptLkroom,
+            strDate : strDate,
           }
+          console.log(result);
+
+          fetch("/trainerSelect/gymPay", {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(result)
+          })
+          .then(resp => resp.json())
+          .then(data => {
+            console.log('Success', date);
+            location.href = "/gym/gymMain"
+          })
+          .catch((error) =>{
+            console.error('Error:', error);
+          });
+          
         }
       })
-    } 
+    }
     </script>
 
   <script src="/js/gym/trainerPrice.js"></script>
