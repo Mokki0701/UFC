@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.service.DashBoardService;
@@ -104,5 +105,20 @@ public class DashBoardController {
 			
 			return attendanceList;
 		}
+		
+		//출석 등록 
+		@PostMapping("dashboard/submit")
+		@ResponseBody
+		public int saveAttendance(
+				@RequestBody List<AttendanceDTO> attendanceList
+				){
+			
+			int result = service.addList(attendanceList);
+			
+			return result;
+		}
+		
+		
+		
 	
 }

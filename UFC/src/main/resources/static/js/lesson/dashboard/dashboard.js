@@ -249,6 +249,8 @@ popupCloseBtn.addEventListener("click",()=>{
 
 // 강의리스트들 가져오기
 const lectureLinks = document.querySelectorAll(".lecture-link");
+//table 태그
+const attendanceTable = document.getElementById('less_attendanceTable');
 
 //console.log(lectureLinks);
 
@@ -260,10 +262,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const lectureLinks = document.querySelectorAll('.lecture-link');
   lectureLinks.forEach(link => {
       link.addEventListener('click', event => {
-          event.preventDefault(); // 기본 링크 동작 방지
-          popupContainer.style.display = 'flex'; // 팝업 창 보이기
-          const lessonId = link.getAttribute('data-lesson-id'); // 강의 ID 가져오기
-          popupContainer.dataset.lessonId = lessonId; // 팝업 컨테이너에 lessonId 저장
+        
+        attendanceTable.innerHTML='';
+        event.preventDefault(); // 기본 링크 동작 방지
+        popupContainer.style.display = 'flex'; // 팝업 창 보이기
+        const lessonId = link.getAttribute('data-lesson-id'); // 강의 ID 가져오기
+        popupContainer.dataset.lessonId = lessonId; // 팝업 컨테이너에 lessonId 저장
       });
   });
 
@@ -298,8 +302,6 @@ function fetchAttendance(lessonId, attendanceDate) {
   fetch(`/lesson/dashboard/attendance?lessonNo=${lessonId}&date=${attendanceDate}`)
       .then(response => response.json()) // JSON 형식으로 응답을 파싱
       .then(data => {
-          console.log(data); // 출력 확인
-          const attendanceTable = document.getElementById('less_attendanceTable');
 
           // 데이터가 없는 경우
           if(data.length == 0){
@@ -360,10 +362,68 @@ function fetchAttendance(lessonId, attendanceDate) {
 //-------------- 출석 체크 db 제출 -------------------------------------
 
 function submitAttendance() {
-  //presentInput.value = 'Y'; 출석인 경우만 -> fetch로 전달
-  // 레슨번호, 수업일자, 회원번호 전달하기
-  // -> spring에 DTO 만들기
+  // 팝업 컨테이너에서 lessonId 가져오기
+  const lessonId = popupContainer.dataset.lessonId;
+  const attendanceDate = document.getElementById('attendanceDateInput').value;
+
+  const attendanceTable = document.getElementById('less_attendanceTable');
+  const rows = attendanceTable.querySelectorAll('tr');
+  const attendanceData = [];
+  // 모든 라디오 버튼이 선택되었는지 확인하는 변수
+  let allSelected = true; 
+
+  rows.forEach(row => {
+      const memberNo = row.querySelector('input[type="radio"]').name.split('_')[1];
+      //const attendance = row.querySelector('input[type="radio"]:checked').value;
+      const checkedRadio = row.querySelector('input[type="radio"]:checked');
+
+      // 라디오 버튼이 선택되지 않은 경우 allSelected를 false로 설정
+      // 선택된 라디오 버튼이 없는 경우 null을 반환
+      if (!checkedRadio) {
+        allSelected = false;
+    } else {
+        const attendance = checkedRadio.value;
+        // 출석이 'Y'인 경우에만 데이터를 배열에 추가
+        if (attendance === 'Y') {
+            const attendanceRecord = {
+                lessonNo: lessonId,
+                date: attendanceDate,
+                memberNo: memberNo
+                
+            };
+            attendanceData.push(attendanceRecord);
+        
+        }
+      }
+  });
+
+  if (!allSelected) {
+    alert("모든 학생의 출석 여부를 선택해주세요.");
+    return;
+  }
+
+  // 배열에 데이터가 있는 경우에만 서버로 전송
+  if (attendanceData.length > 0) {
+      fetch('/lesson/dashboard/submit', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(attendanceData)
+      })
+      .then(response => response.text())
+      .then(result => {
+        const intResult = parseInt(result, 10);
+        if (intResult > 0) {
+            alert("출석 정보가 저장되었습니다.");
+            //팝업창 닫기
+            popupContainer.style.display = 'none';
+
+        } else {
+            alert("출석 정보 저장에 실패했습니다.");
+        }
+      });
+  }
+}
 
 
-
-};

@@ -3,6 +3,7 @@ package edu.kh.cooof.lesson.dashBoard.service;
 import java.util.List;
 import java.util.Map;
 
+import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.member.model.dto.Member;
@@ -23,6 +24,9 @@ public interface DashBoardService {
 
 	// 출석 리스트 조회
 	List<LessonListDTO> confirmLesson(LessonListDTO studentList);
+
+	//출석 등록 
+	int addList(List<AttendanceDTO> attendanceList);
 
 	
 

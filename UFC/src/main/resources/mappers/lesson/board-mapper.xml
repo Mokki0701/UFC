@@ -84,6 +84,21 @@
 		    LESSON_NO = #{lessonNo}
     
     </select>
+    
+    <!-- 출석 모두 등록 -->
+	<insert id="addList" parameterType="list">
+		INSERT INTO "LESSONS_ATTENDANCE"
+		
+		<foreach collection="list" item="student" separator=" UNION">
+		SELECT #{student.lessonNo},#{student.date},#{student.memberNo}
+		FROM DUAL
+		</foreach>
+	
+	</insert>
+	
+	
+	
+	
 	
 
 </mapper>

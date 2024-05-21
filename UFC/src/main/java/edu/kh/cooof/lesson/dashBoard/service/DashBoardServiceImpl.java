@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.mapper.DashBoardMapper;
@@ -85,8 +86,16 @@ public class DashBoardServiceImpl implements DashBoardService {
 		return attendanceList;
 	}
 	
-	
-	
+
+	//출석 등록 
+	@Override
+	public int addList(List<AttendanceDTO> attendanceList) {
+		
+		int result = mapper.addList(attendanceList);
+		//날짜,회원번호 모두 같은 경우 수정도 가능하게 하기
+		
+		return result;
+	}
 	
 	
 

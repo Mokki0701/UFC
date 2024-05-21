@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.member.model.dto.Member;
@@ -36,6 +37,9 @@ public interface DashBoardMapper {
 
 	// 해당 날짜의 강의가 맞는지 확인
 	int countLesson(LessonListDTO studentList);
+
+	// 출석 등록
+	int addList(List<AttendanceDTO> attendanceList);
 
 	
 	
