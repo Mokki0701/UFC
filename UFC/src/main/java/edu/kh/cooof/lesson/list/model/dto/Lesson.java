@@ -32,8 +32,10 @@ public class Lesson {
 	private String lessonRegisterEnd;
 	private int lessonRemains;
 	private String imgPath;
+	private String lessonDetail;
 	
-	// 추후 추가 예정
+	// 데이터 가공해서 써야되는 것들
+	private String lessonScheduleDay; // 요일만 나옴
 	
 
 }

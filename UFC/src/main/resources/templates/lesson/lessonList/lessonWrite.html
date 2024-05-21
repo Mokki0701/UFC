@@ -14,29 +14,9 @@
 
   <main>
 
-    <!-- 
-        LESSON_NO
-        LESSON_TITLE
-        LESSON_ROOM
-        LESSON_SCHEDULE
-        LESSON_START_DATE
-        LESSON_END_DATE
-        LESSON_CAPACITY
-        LESSON_TUITION_FEE
-        LESSON_MATERIAL_FEE
-        LESSON_TARGET_AUDIENCE
-        CLOSE_YN
-        MEMBER_NO
-        LESSON_REGISTER_START
-        LESSON_REGISTER_END
-        LESSON_REMAINS
-        IMG_PATH
-        DAY_WEEK 
-            -->
+    <section class="lesson-post-content">
 
-    <section class="signUp-content">
-
-      <form action="/lesson/listEdit/insert" method="POST" name="lessonPostFrm" id="lessonPostFrm">
+      <form action="/lesson/listEdit/insert" method="POST" name="lessonPostFrm" id="lessonPostFrm" enctype="multipart/form-data">
 
         <!-- 수업명 입력 -->
         <label for="lessonTitle">
@@ -44,8 +24,16 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="lessonTitle" id="lessonTitle" placeholder="수업명" maxlength="30"
-            autocomplete="off">
+          <input type="text" name="lessonTitle" id="lessonTitle" placeholder="수업명 작성해주세요." maxlength="30" autocomplete="off">
+        </div>
+
+        <!-- 수업 개요 입력 -->
+        <label for="lessonDetail">
+          <span class="required">*</span> 수업 개요
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="lessonDetail" id="lessonDetail" placeholder="수업 개요 작성해주세요." maxlength="100" autocomplete="off">
         </div>
 
         <!-- 강의실 입력 -->
@@ -54,71 +42,142 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="lessonRoom" id="lessonRoom" placeholder="강의실" maxlength="30">
+          <select name="lessonRoom" id="lessonRoom">
+            <option value="A 강의실">A 강의실</option>
+            <option value="B 강의실">B 강의실</option>
+            <option value="C 강의실">C 강의실</option>
+            <option value="D 강의실">D 강의실</option>
+            <option value="E 강의실">E 강의실</option>
+            <option value="F 강의실">F 강의실</option>
+            <option value="G 강의실">G 강의실</option>
+            <option value="H 강의실">H 강의실</option>
+            <option value="I 강의실">I 강의실</option>
+            <option value="J 강의실">J 강의실</option>
+          </select>
         </div>
 
         <!-- 수업 시간 -->
-        <label for="lessonSchedule">
-          <span class="required">*</span> 수업 시간
+        <label for="lessonScheduleDay">
+          <span class="required">*</span> 수업 요일 및 시간
         </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="lessonSchedule" id="lessonSchedule" placeholder="수업 시간" maxlength="30">
+          <select name="lessonScheduleDay" id="lessonScheduleDay">
+            <option value="월">월</option>
+            <option value="화">화</option>
+            <option value="수">수</option>
+            <option value="목">목</option>
+            <option value="금">금</option>
+            <option value="토">토</option>
+            <option value="일">일</option>
+          </select>
+          <select name="lessonSchedule" id="lessonSchedule">
+            <option value="09:00 ~ 10:30">09:00 ~ 10:30</option>
+            <option value="10:30 ~ 12:00">10:30 ~ 12:00</option>
+            <option value="12:00 ~ 13:30">12:00 ~ 13:30</option>
+            <option value="13:30 ~ 15:00">13:30 ~ 15:00</option>
+            <option value="15:00 ~ 16:30">15:00 ~ 16:30</option>
+            <option value="16:30 ~ 18:00">16:30 ~ 18:00</option>
+            <option value="18:00 ~ 19:30">18:00 ~ 19:30</option>
+            <option value="19:30 ~ 21:00">19:30 ~ 21:00</option>
+          </select>
         </div>
 
-        <span class="signUp-message" id="lessonScheduleMsg">수업 시간 정하세요</span>
-
-
-        <!-- 전화번호 입력 -->
-        <label for="memberTel">
-          <span class="required">*</span> 전화번호
+        <!-- 수업 시작 날짜 -->
+        <label for="lessonStartDate">
+          <span class="required">*</span> 수업 시작 날짜
         </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="memberTel" id="memberTel" placeholder="(- 없이 숫자만 입력)" maxlength="11">
+          <input type="date" name="lessonStartDate" id="lessonStartDate">
         </div>
 
-        <span class="signUp-message" id="telMessage">전화번호를 입력해주세요.(- 제외)</span>
-
-
-        <!-- 주소 입력 -->
-        <label for="memberAddress">주소</label>
+        <!-- 수업 종료 날짜 -->
+        <label for="lessonEndDate">
+          <span class="required">*</span> 수업 종료 날짜
+        </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="memberAddress" placeholder="우편번호" maxlength="6" id="postcode">
-
-          <button type="button" id="searchAddress">검색</button>
+          <input type="date" name="lessonEndDate" id="lessonEndDate">
         </div>
+
+        <!-- 수업 정원 -->
+        <label for="lessonCapacity">
+          <span class="required">*</span> 수업 정원
+        </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="memberAddress" placeholder="도로명/지번 주소" id="address">
+          <input type="number" name="lessonCapacity" id="lessonCapacity" placeholder="수업 정원 작성해주세요." min="1">
         </div>
+
+        <!-- 수업 수강료 -->
+        <label for="lessonTuitionFee">
+          <span class="required">*</span> 수업 수강료
+        </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="memberAddress" placeholder="상세 주소" id="detailAddress">
+          <input type="number" name="lessonTuitionFee" id="lessonTuitionFee" placeholder="수업 수강료 작성해주세요." min="0">
         </div>
 
-        <button id="signUpBtn">가입하기</button>
+        <!-- 수업 재료비 -->
+        <label for="lessonMaterialFee">
+          <span class="required">*</span> 수업 재료비
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="number" name="lessonMaterialFee" id="lessonMaterialFee" placeholder="수업 재료비 작성해주세요." min="0">
+        </div>
+
+        <!-- 수업 대상 -->
+        <label for="lessonTargetAudience">
+          <span class="required">*</span> 수업 대상
+        </label>
+
+        <div class="lesson-input-area">
+          <select name="lessonTargetAudience" id="lessonTargetAudience">
+            <option value="성인">성인</option>
+            <option value="어린이">어린이</option>
+          </select>
+        </div>
+
+        <!-- 수업 등록 시작 날짜 -->
+        <label for="lessonRegisterStart">
+          <span class="required">*</span> 수업 등록 시작 날짜
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="date" name="lessonRegisterStart" id="lessonRegisterStart">
+        </div>
+
+        <!-- 수업 등록 종료 날짜 -->
+        <label for="lessonRegisterEnd">
+          <span class="required">*</span> 수업 등록 종료 날짜
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="date" name="lessonRegisterEnd" id="lessonRegisterEnd">
+        </div>
+
+        <!-- 이미지 경로 -->
+        <label for="inputImg">이미지 선택</label>
+
+        <div class="lesson-input-area">
+          <input type="file" name="inputImg" id="inputImg" class="inputImg" accept="image/*">
+        </div>
+
+        <button type="submit" id="lessonPostBtn">게시하기</button>
       </form>
     </section>
 
   </main>
 
-  <!-- 푸터 추가 -->
+  <!-- 푸터 부분 시작 -->
   <th:block th:replace="~{common/footer}"></th:block>
+  <!-- 푸터 부분 끝 -->
 
-
-  <!-- script태그가 여러 개로 나뉘어 있어도
-    HTML 랜더링 시 큰 한 장의 JS 파일로 변환된다고 생각!
-
-    (단, 윗쪽 script에서 해석 안된 아랫쪽 script는 호출 불가)
-  -->
-
-  <!-- 다음 주소 API 추가 -->
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-  <!-- 회원 가입 JS 추가 -->
+  <!-- 수업 게시 JS 연결 시작 -->
   <script src="/js/member/signup.js"></script>
+  <!-- 수업 게시 JS 연결 끝 -->
 
 </body>
 

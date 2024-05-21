@@ -1,12 +1,10 @@
-<style>
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.signUp-content {
+.lesson-post-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +13,7 @@ body {
   background-color: #f9f9f9;
 }
 
-#signUpForm {
+#lessonPostFrm {
   width: 100%;
   max-width: 600px;
   padding: 20px;
@@ -24,13 +22,13 @@ body {
   border-radius: 8px;
 }
 
-#signUpForm>label {
+#lessonPostFrm > label {
   display: block;
   margin-top: 30px;
   font-size: 18px;
 }
 
-#signUpForm>span {
+#lessonPostFrm > span {
   display: block;
   height: 20px;
   margin-top: 5px;
@@ -43,15 +41,18 @@ body {
 }
 
 /* input 태그를 감싸고 있는 div 태그 */
-.signUp-input-area {
+.lesson-input-area {
   display: flex;
   align-items: center;
   margin-top: 10px;
   padding: 10px;
   border-bottom: 2px solid #ddd;
+  flex-wrap: wrap; /* Allow items to wrap */
 }
 
-.signUp-input-area>input {
+.lesson-input-area > input,
+.lesson-input-area > select,
+.lesson-input-area > label {
   flex: 1;
   padding: 10px;
   font-size: 16px;
@@ -60,7 +61,11 @@ body {
   outline: none;
 }
 
-.signUp-input-area>button {
+.lesson-input-area > input[type="file"] {
+  padding: 0;
+}
+
+.lesson-input-area > button {
   margin-left: 10px;
   padding: 10px;
   background-color: white;
@@ -69,13 +74,13 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.signUp-input-area>button:hover {
+.lesson-input-area > button:hover {
   background-color: #f0f0f0;
 }
 
 /* :focus-within : 내부 input 요소에 포커스가 맞춰졌을 때 */
-.signUp-input-area:focus-within {
-  border-bottom-color: #455ba8;
+.lesson-input-area:focus-within {
+  border-bottom-color: #992BF2;
 }
 
 /* 입력 관련 메세지 */
@@ -94,40 +99,40 @@ body {
   color: red;
 }
 
-/* 회원가입 버튼 */
-#signUpBtn {
+/* 게시하기 버튼 */
+#lessonPostBtn {
   width: 100%;
   padding: 15px;
   margin-top: 30px;
   border: none;
   font-size: 20px;
   font-weight: bold;
-  background-color: #455ba8;
+  background-color: #992BF2;
   color: white;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-#signUpBtn:hover {
-  background-color: #364a8a;
+#lessonPostBtn:hover {
+  background-color: #6a1ea8;
 }
 
-#signUpBtn:active {
+#lessonPostBtn:active {
   transform: scale(0.95);
 }
 
 @media (max-width: 768px) {
-  #signUpForm {
+  #lessonPostFrm {
     padding: 15px;
   }
 
-  .signUp-input-area {
+  .lesson-input-area {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .signUp-input-area>button {
+  .lesson-input-area > button {
     width: 100%;
     margin-left: 0;
     margin-top: 10px;
@@ -135,12 +140,11 @@ body {
 }
 
 @media (max-width: 480px) {
-  #signUpForm>label {
+  #lessonPostFrm > label {
     font-size: 16px;
   }
 
-  #signUpBtn {
+  #lessonPostBtn {
     font-size: 18px;
   }
 }
-</style>
