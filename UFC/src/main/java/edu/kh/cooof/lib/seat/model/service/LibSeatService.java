@@ -18,5 +18,8 @@ public interface LibSeatService {
     // seatNo2 : db상 좌석
 	int useSeat(int seatNo2, int memberNo);
 
+	// 현재 회원이 이용 중인 좌석이 있는지 확인
+	int isMemberUsing(int memberNo);
+
 
 }

@@ -25,7 +25,13 @@ public interface LibSeatMapper {
     void insertSeat(LibSeatDTO seat);
 
     // 좌석 이용하기 
+    // 1. 회원이 사용 중인 좌석 있는지 확인
+    int isMemberUsing(int memberNo);
+    // 2. 좌석 이용하기
 	int useSeat(Map<String, Object> params);
+
+
+	
 	
 	
 

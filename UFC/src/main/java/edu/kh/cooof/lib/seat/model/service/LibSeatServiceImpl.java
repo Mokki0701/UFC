@@ -39,6 +39,12 @@ public class LibSeatServiceImpl implements LibSeatService {
         }
     }
     
+    // 회원이 이용 중인 좌석이 있는지 확인하기
+    @Override
+    public int isMemberUsing(int memberNo) {
+        return mapper.isMemberUsing(memberNo) == 1 ? 1 : -1;
+    }
+    
     // 좌석 이용하기
     @Override
     public int useSeat(int seatNo2, int memberNo) {

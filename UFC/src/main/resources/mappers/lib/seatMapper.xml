@@ -30,20 +30,24 @@
 	
 	
 
-
 	<!-- 좌석 편집 현황 저장하기 -->
 	<!-- + 좌석 이용 현황 지우기 함께 하기 -->
 	<insert id="insertSeat">
 	
-		
-				
 	            INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y, CONDITION)
 	            VALUES (#{seatNo}, #{coordiX}, #{coordiY}, #{condition})
-	            
 	     
-
 	</insert>
 
+
+
+	<select id="isMemberUsing" resultType="int">
+	
+		SELECT COUNT(*)
+	    FROM RENT_SEAT
+	    WHERE MEMBER_NO = #{memberNo}
+	
+	</select>
 
 	<!-- 열람실 좌석 이용하기 -->
 	<!-- seatNo2 = db 자리 번호 -->

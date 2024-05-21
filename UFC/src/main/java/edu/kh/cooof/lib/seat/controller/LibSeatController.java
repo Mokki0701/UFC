@@ -65,31 +65,31 @@ public class LibSeatController {
 	public ResponseEntity<Map<String, String>> useSeat(@RequestBody LibSeatDTO libSeat,
 			@SessionAttribute("loginMember") Member loginMember, HttpServletRequest request) {
 
-		String result;
-		String message = null;
-		int memberNo = loginMember.getMemberNo();
-		int useSeat = service.useSeat(libSeat.getSeatNo(), memberNo);
+		String result = null;
+	    String message = null;
+	    int memberNo = loginMember.getMemberNo();
+	    int isMemberUsing = service.isMemberUsing(memberNo);
+	    int seatCondition = libSeat.getCondition();
 
-		// 현재 멤버가 사용중인 좌석이 없을 경우에만 동작하게 한다.
-//        int isMemberUsing = service.isMemberUsing(memberNo);
-
-		// 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
-		if (libSeat.getCondition() != 1) {
-			message = "비어있는 좌석만 이용 가능합니다";
-			result = "fail";
-		}
-//        else if (libSeat.getCondition() == 1 && useSeat < 1) {
-//          좌석 컨디션이 1, service의 결과가 1이 아닌 경우(이용등록 실패 시)
-//        	log.debug.(" 좌석 상태 : " , libSeat.getCondition());
-//        	log.debug.(" 좌석 상태 : " , useSeat);
-//            message = "좌석 이용 등록에 실패했습니다";
-//            result = "fail";
-//        } 
-		else {
-			// 좌석 컨디션이 1, service의 결과가 1인 경우(성공적으로 이용등록한 경우)
-			message = "좌석 이용 등록 성공!";
-			result = "success";
-		}
+	    // 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
+	    if (seatCondition != 1) {
+	        message = "비어있는 좌석만 이용 가능합니다";
+	        result = "fail";
+	    } else if (isMemberUsing == 1) {
+	        // 현재 회원이 이용 중인 좌석이 있을 경우
+	        message = "현재 회원님은 이용중인 자리가 있습니다.";
+	        result = "fail";
+	    } else {
+	        // 이용 가능한 좌석이며, 현재 회원이 이용 중인 좌석이 없을 경우
+	        int useSeatResult = service.useSeat(libSeat.getSeatNo(), memberNo);
+	        if (useSeatResult == 1) {
+	            message = "좌석 이용 등록 성공!";
+	            result = "success";
+	        } else {
+	            message = "좌석 이용 등록 실패!";
+	            result = "fail";
+	        }
+	    }
 
 		Map<String, String> response = new HashMap<>();
 		response.put("message", message);
