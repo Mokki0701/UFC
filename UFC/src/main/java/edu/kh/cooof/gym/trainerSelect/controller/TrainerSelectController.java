@@ -37,6 +37,12 @@ public class TrainerSelectController {
 		return "gym/trainerSelect/trainerPrice";
 	}
 	
+	@GetMapping("apply")
+	public String apply(){
+		
+		return "gym/trainerSelect/apply";
+	}
+	
     
 	
 	

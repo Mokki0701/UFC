@@ -7,22 +7,9 @@
     <link rel="stylesheet" href="/css/gym/gymMain.css">
 </head>
 <body>
-    <div class="gym_container">
-        <div id="gym_headerMenu">
-          <h2 class="gym_header">헬스장</h2>
-          <ul class="gym_main_logo">
-            <li>
-              <a href="">운동정보</a>
-            </li>
-            <li>
-              <a href="/trainerSelect/trainerSelect">PT신청</a> 
-            </li>
-            <li>
-              <a href="">사용후기</a>    
-            </li>
-          </ul>
-        </div>
-    </div>
+
+  <th:black th:replace="~{gym/gymHeader}"></th:black>
+
     <h1>Trainer List</h1>
     
     <div th:each=" trainer : ${trainers}">

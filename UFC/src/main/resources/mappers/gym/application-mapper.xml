@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.gym.application.model.mapper.ApplicationMapper">
+	
+
+<!-- 지원서 삽입 -->
+<insert id="insertApplication">
+    INSERT INTO APPLICATION (MEMBER_NO, POSITION, APPLY_ROUTE, RESUME_PATH, APPLY_DATE)
+    VALUES (#{memberNo}, #{position}, #{applyRoute}, #{resumePath}, #{applyDate})
+</insert>
+
+<!-- 지원서 조회 -->
+<select id="findApplicationById" resultType="edu.kh.cooof.gym.application.model.dto.Application">
+    SELECT APPLICATION_NO, MEMBER_NO, POSITION, APPLY_ROUTE, RESUME_PATH, APPLY_DATE
+    FROM APPLICATION
+    WHERE APPLICATION_NO = #{applicationNo}
+</select>
+	
+
+
+</mapper>
