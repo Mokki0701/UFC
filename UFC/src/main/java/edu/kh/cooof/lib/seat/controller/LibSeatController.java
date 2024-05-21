@@ -21,6 +21,7 @@ import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.lib.seat.model.service.LibSeatService;
 import edu.kh.cooof.member.model.dto.Member;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,7 +65,9 @@ public class LibSeatController {
 	// 열람실 좌석 이용하기
 	@PostMapping("/useSeat")
 	public ResponseEntity<Map<String, String>> useSeat(@RequestBody LibSeatDTO libSeat,
-			@SessionAttribute("loginMember") Member loginMember, HttpServletRequest request) {
+			@SessionAttribute("loginMember") Member loginMember, HttpServletRequest request,
+			HttpSession session
+			) {
 
 		String result = null;
 		String message = null;
@@ -82,12 +85,16 @@ public class LibSeatController {
 			result = "fail";
 		} else {
 			// 이용 가능한 좌석이며, 현재 회원이 이용 중인 좌석이 없을 경우
+			// -1 : 이용 등록 성공
 			int useSeatResult = service.useSeat(libSeat.getSeatNo(), memberNo);
-			System.out.printf("useSeatResult:", useSeatResult);
-			if (useSeatResult == 1) {
+			System.out.printf("useSeatResult: %d%n", useSeatResult);
+			if (useSeatResult == -1) {
 				message = "좌석 이용 등록 성공!";
 				result = "success";
 			} 
+			else message = "좌석 이용 실패...";
+			result = "fail";
+			
 		}
 
 		Map<String, String> response = new HashMap<>();

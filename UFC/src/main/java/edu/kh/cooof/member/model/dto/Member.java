@@ -22,5 +22,7 @@ public class Member {
 	// ... 
 	private int memberAuthority;
 	
+	
+	
 	// 이후에 추가..
 }

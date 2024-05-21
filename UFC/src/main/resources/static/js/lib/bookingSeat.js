@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+  
+  
+  
+  
   const seatChart = document.querySelector('.seat-chart');
   const rows = 20;
   const cols = 20;
