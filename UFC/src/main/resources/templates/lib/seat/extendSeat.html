@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style link=""></style>
+  <link rel="stylesheet" href="/css/libMain.css">
+  <title>자리 연장 페이지</title>
+</head>
+
+<body>
+
+  <!-- 공용 헤더 -->
+  <header></header>
+
+  <!-- 도서관 전용 헤더 -->
+  <th:block th:replace ="~{common/lib/libNavVar}"></th:block>
+
+  <h1>자리 연장 페이지 입니다</h1>
+
+
+  현재 로그인 한 회원 번호 : <span th:text="${session.loginMember.memberNo}"></span>
+  <br>
+
+  내가 이용 중인 자리 번호 : <span th:if = "${session.loginMember.memberNo != null && session.loginMember}"></span>
+  <br>
+
+  이용 시작한 시간 :
+  <br>
+
+  이용 종료 예정 시간 :
+  <br>
+
+  현재 시간 :
+  <br>
+
+  <button>연장하기</button>
+  <br>
+
+  <button>그만 이용하기</button>
+  <br>
+
+  <button>자리 이동하기</button>
+  <br>
+
+
+
+  <!-- 공용 푸터 -->
+  <footer></footer>
+</body>
+<script src="js/lib/extendSeat.js"></script>
+
+</html>
