@@ -276,40 +276,94 @@ document.addEventListener('DOMContentLoaded', () => {
   // 검색 버튼에 이벤트 리스너 추가
   const searchButton = document.getElementById('less_student_list');
   searchButton.addEventListener('click', () => {
-      const lessonId = popupContainer.dataset.lessonId; // 팝업 컨테이너에서 lessonId 가져오기
-      const attendanceDateInput = document.getElementById('attendanceDateInput');
-      const attendanceDate = attendanceDateInput.value; // 선택한 날짜 가져오기
-      console.log('lessonId:', lessonId);
-      console.log('attendanceDate:', attendanceDate);
-      fetchAttendance(lessonId, attendanceDate); // 강의 ID와 날짜로 출석부 데이터 가져오기
+    const lessonId = popupContainer.dataset.lessonId; // 팝업 컨테이너에서 lessonId 가져오기
+    const attendanceDateInput = document.getElementById('attendanceDateInput');
+    const attendanceDate = attendanceDateInput.value; // 선택한 날짜 가져오기
+    console.log('lessonId:', lessonId);
+    console.log('attendanceDate:', attendanceDate);
+    fetchAttendance(lessonId, attendanceDate); // 강의 ID와 날짜로 출석부 데이터 가져오기
   });
 
   document.getElementById('less_attendanceForm').addEventListener('submit', event => {
       event.preventDefault(); // 기본 폼 제출 동작 방지
-      //submitAttendance(); // 폼 제출 처리 함수 호출
+      submitAttendance(); // 폼 제출 처리 함수 호출
   });
 });
 //===============================================================
 
 
+//------출석부 학생 리스트-----------------------------------------------------
 function fetchAttendance(lessonId, attendanceDate) {
+  // 서버에 출석 데이터를 요청
   fetch(`/lesson/dashboard/attendance?lessonNo=${lessonId}&date=${attendanceDate}`)
-      .then(response => response.json())
+      .then(response => response.json()) // JSON 형식으로 응답을 파싱
       .then(data => {
-          console.log(data);
-          // 테이블에 출석부 데이터 표시
+          console.log(data); // 출력 확인
+          const attendanceTable = document.getElementById('less_attendanceTable');
+
+          // 데이터가 없는 경우
+          if(data.length == 0){
+            alert("해당 강좌 일정을 확인해주세요");
+            attendanceTable.innerHTML = '';
+            return; // 함수 종료
+          }
+
+          // 기존 테이블 내용 지우기
+          attendanceTable.innerHTML = '';
+           //forEach((value, index) =>{})
+          data.forEach(student => {
+            const row = document.createElement('tr');
+
+            // 학생 이름 -> (td) 생성 / 텍스트 설정
+            const nameCell = document.createElement('td');
+            nameCell.textContent = student.fullName;
+
+            // 출석 상태 (td) 생성
+            const attendanceCell = document.createElement('td');
+
+            // 출석 라디오 버튼 생성
+            const presentInput = document.createElement('input');
+            presentInput.type = 'radio';
+            presentInput.name = `attendance_${student.memberNo}`; 
+            presentInput.value = 'Y'; // 출석 값 설정
+            //student.attendance === 'N': student.attendance가 'N'과 같은지 비교하는 조건
+            // 비교가 참이면 true를, 거짓이면 false를 반환
+            presentInput.checked = student.attendance === 'Y'; // 조건에 따라 체크 상태 설정
+
+            // 결석 라디오 버튼 생성
+            const absentInput = document.createElement('input');
+            absentInput.type = 'radio';
+            absentInput.name = `attendance_${student.memberNo}`; // 라디오 버튼 그룹 이름 설정
+            absentInput.value = 'N'; // 결석 값 설정
+            absentInput.checked = student.attendance === 'N'; // 조건에 따라 체크 상태 설정
+
+            // 셀에 라디오 버튼 및 텍스트 노드 추가
+            attendanceCell.appendChild(presentInput);
+            attendanceCell.appendChild(document.createTextNode(' 출석 '));
+            attendanceCell.appendChild(absentInput);
+            attendanceCell.appendChild(document.createTextNode(' 결석 '));
           
 
-          const attendanceTable = document.getElementById('less_attendanceTable');
-          attendanceTable.innerHTML = ''; // 기존 테이블 내용 지우기
+            // 행에 이름 셀 및 출석 상태 셀 추가
+            row.appendChild(nameCell);
+            row.appendChild(attendanceCell);
 
-          data.forEach(student =>{
-            const row = document.createElement('tr');
-            const nameCell = document.createElement('td');
+            // 테이블에 행 추가
+            attendanceTable.appendChild(row);
 
+            // 중복된 코드 제거
             nameCell.textContent = student.fullName;
-          })
-  
+          });
       })
 }
 
+//-------------- 출석 체크 db 제출 -------------------------------------
+
+function submitAttendance() {
+  //presentInput.value = 'Y'; 출석인 경우만 -> fetch로 전달
+  // 레슨번호, 수업일자, 회원번호 전달하기
+  // -> spring에 DTO 만들기
+
+
+
+};

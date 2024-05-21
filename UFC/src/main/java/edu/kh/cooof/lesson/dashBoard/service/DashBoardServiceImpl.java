@@ -1,5 +1,6 @@
 package edu.kh.cooof.lesson.dashBoard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +71,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 	public List<LessonListDTO> confirmLesson(LessonListDTO studentList) {
 		
 		int count = mapper.countLesson(studentList);
-		List<LessonListDTO> attendanceList = null;
+		List<LessonListDTO> attendanceList = new ArrayList<>();
 		
 		
 		if(count > 0 ) { // 해당 요일 강의 맞음
@@ -78,7 +79,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 			attendanceList = mapper.confirmLesson(studentList);
 			
 		}else { // 해당 요일 강의 없음
-			return null;
+			return attendanceList;
 		}
 		
 		return attendanceList;

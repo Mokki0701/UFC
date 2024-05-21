@@ -92,14 +92,12 @@ public class DashBoardController {
 		public List<LessonListDTO> attendance(
 				@RequestParam("lessonNo") int lessonNo,
 				@RequestParam("date") String date
-//				@SessionAttribute("loginMember")Member loginMember
 				) {
 			
 			LessonListDTO studentList = new LessonListDTO();
 			
 			studentList.setDate(date.replaceAll("-",""));
 			studentList.setLessonNo(lessonNo);
-//			studentList.setMemberNo(loginMember.getMemberNo());
 			
 			// 출석 리스트 조회
 			List<LessonListDTO> attendanceList = service.confirmLesson(studentList);	
