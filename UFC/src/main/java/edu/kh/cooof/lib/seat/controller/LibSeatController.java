@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -66,30 +67,28 @@ public class LibSeatController {
 			@SessionAttribute("loginMember") Member loginMember, HttpServletRequest request) {
 
 		String result = null;
-	    String message = null;
-	    int memberNo = loginMember.getMemberNo();
-	    int isMemberUsing = service.isMemberUsing(memberNo);
-	    int seatCondition = libSeat.getCondition();
+		String message = null;
+		int memberNo = loginMember.getMemberNo();
+		int isMemberUsing = service.isMemberUsing(memberNo);
+		int seatCondition = libSeat.getCondition();
 
-	    // 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
-	    if (seatCondition != 1) {
-	        message = "비어있는 좌석만 이용 가능합니다";
-	        result = "fail";
-	    } else if (isMemberUsing == 1) {
-	        // 현재 회원이 이용 중인 좌석이 있을 경우
-	        message = "현재 회원님은 이용중인 자리가 있습니다.";
-	        result = "fail";
-	    } else {
-	        // 이용 가능한 좌석이며, 현재 회원이 이용 중인 좌석이 없을 경우
-	        int useSeatResult = service.useSeat(libSeat.getSeatNo(), memberNo);
-	        if (useSeatResult == 1) {
-	            message = "좌석 이용 등록 성공!";
-	            result = "success";
-	        } else {
-	            message = "좌석 이용 등록 실패!";
-	            result = "fail";
-	        }
-	    }
+		// 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
+		if (seatCondition != 1) {
+			message = "비어있는 좌석만 이용 가능합니다";
+			result = "fail";
+		} else if (isMemberUsing == 1) {
+			// 현재 회원이 이용 중인 좌석이 있을 경우
+			message = "현재 회원님은 이용중인 자리가 있습니다.";
+			result = "fail";
+		} else {
+			// 이용 가능한 좌석이며, 현재 회원이 이용 중인 좌석이 없을 경우
+			int useSeatResult = service.useSeat(libSeat.getSeatNo(), memberNo);
+			System.out.printf("useSeatResult:", useSeatResult);
+			if (useSeatResult == 1) {
+				message = "좌석 이용 등록 성공!";
+				result = "success";
+			} 
+		}
 
 		Map<String, String> response = new HashMap<>();
 		response.put("message", message);
@@ -98,23 +97,30 @@ public class LibSeatController {
 		return ResponseEntity.ok(response);
 	}
 
-	
 	// 열람실 이용 종료하기
-	// 회원 번호, 회원이 이용중인 자리, 자리 이용 현황을 담은 RENT_SEAT 테이블 
-	public String stopUsingSeat(
-		@SessionAttribute("lobinMember") Member loginMember,
-		HttpServletRequest request,
-		@RequestBody LibSeatDTO libSeat
-			) {
-		
-		String result;
-		String message;
-		
-		int memberNo = loginMember.getMemberNo();
-		
-		
-		return null;
-	}
-	
-	
+	// 회원 번호, 회원이 이용중인 자리, 자리 이용 현황을 담은 RENT_SEAT 테이블
+	@PostMapping("/stopUsingSeat")
+    public ResponseEntity<Map<String, String>> stopUsingSeat(@SessionAttribute("loginMember") Member loginMember) {
+        int memberNo = loginMember.getMemberNo();
+        int seatNo = service.stopUsingSeat(memberNo);
+        
+        String message;
+        String result;
+        if (seatNo > 0) {
+            message = "좌석 이용 종료 성공!";
+            result = "success";
+        } else {
+            message = "이용 중인 좌석이 없습니다.";
+            result = "fail";
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", message);
+        response.put("result", result);
+        response.put("seatNo", String.valueOf(seatNo));
+
+        return ResponseEntity.ok(response);
+    }
+
+
 }

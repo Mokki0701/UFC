@@ -30,6 +30,11 @@ public interface LibSeatMapper {
     // 2. 좌석 이용하기
 	int useSeat(Map<String, Object> params);
 
+	// 열람실 이용 종료하기
+	int getMemberUsingSeat(int memberNo);
+    void clearMemberFromSeat(int seatNo);
+    void clearConditionFromSeat(int seatNo);
+
 
 	
 	
