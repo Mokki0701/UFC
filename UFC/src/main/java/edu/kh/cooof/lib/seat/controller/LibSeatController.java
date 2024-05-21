@@ -100,6 +100,7 @@ public class LibSeatController {
 
 	
 	// 열람실 이용 종료하기
+	// 회원 번호, 회원이 이용중인 자리, 자리 이용 현황을 담은 RENT_SEAT 테이블 
 	public String stopUsingSeat(
 		@SessionAttribute("lobinMember") Member loginMember,
 		HttpServletRequest request,
@@ -110,6 +111,7 @@ public class LibSeatController {
 		String message;
 		
 		int memberNo = loginMember.getMemberNo();
+		
 		
 		return null;
 	}

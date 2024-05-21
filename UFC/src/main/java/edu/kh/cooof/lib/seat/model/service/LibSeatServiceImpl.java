@@ -30,8 +30,8 @@ public class LibSeatServiceImpl implements LibSeatService {
     @Override
     public void saveSeats(List<LibSeatDTO> seats) {
         log.debug("Deleting all seats...");
+        mapper.deleteRentSeat();
         mapper.deleteAllSeats();
-//        mapper.deleteRentSeat();
         log.debug("Inserting new seats...");
         for (LibSeatDTO seat : seats) {
         	log.debug("Inserting seat: {}", seat); 
@@ -39,7 +39,7 @@ public class LibSeatServiceImpl implements LibSeatService {
         }
     }
     
-    // 좌석 예약하기
+    // 좌석 이용하기
     @Override
     public int useSeat(int seatNo2, int memberNo) {
         Map<String, Object> params = new HashMap<>();

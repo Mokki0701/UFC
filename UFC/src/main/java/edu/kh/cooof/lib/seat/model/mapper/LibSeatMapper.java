@@ -19,7 +19,7 @@ public interface LibSeatMapper {
     void deleteAllSeats();
     
     // 2. rentSeat 삭제하기
-// 	void deleteRentSeat();
+ 	void deleteRentSeat();
     
     // 3. 편집 저장하기
     void insertSeat(LibSeatDTO seat);

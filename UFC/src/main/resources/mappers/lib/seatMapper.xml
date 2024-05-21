@@ -15,25 +15,32 @@
 
 	<!-- 좌석 편집 현황 지우기 -->
 	<delete id="deleteAllSeats">
+	
 		DELETE FROM SEAT
+		
 	</delete>
+	
+	
+	<!-- 좌석 이용 현황 지우기 -->
+	<delete id="deleteRentSeat">
+	
+		DELETE FROM RENT_SEAT
+		
+	</delete>
+	
+	
 
 
 	<!-- 좌석 편집 현황 저장하기 -->
+	<!-- + 좌석 이용 현황 지우기 함께 하기 -->
 	<insert id="insertSeat">
-		<![CDATA[
-			
-			BEGIN
-			
-				DELETE FROM RENT_SEAT;
+	
+		
 				
 	            INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y, CONDITION)
-	            VALUES (#{seatNo}, #{coordiX}, #{coordiY}, #{condition});
+	            VALUES (#{seatNo}, #{coordiX}, #{coordiY}, #{condition})
 	            
-	            COMMIT;
-				
-			END;
-        ]]>
+	     
 
 	</insert>
 
