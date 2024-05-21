@@ -64,10 +64,29 @@ public class DashBoardServiceImpl implements DashBoardService {
 		return mapper.instructorLesson(loginMemberId);
 	}
 	
-	//학생 출석부 조회
+	
+	// 출석 리스트 조회
 	@Override
-	public List<LessonListDTO> AttendanceList(LessonInstructorDTO studentList) {
-		return mapper.attendanceList(studentList);
+	public List<LessonListDTO> confirmLesson(LessonListDTO studentList) {
+		
+		int count = mapper.countLesson(studentList);
+		List<LessonListDTO> attendanceList = null;
+		
+		
+		if(count > 0 ) { // 해당 요일 강의 맞음
+			
+			attendanceList = mapper.confirmLesson(studentList);
+			
+		}else { // 해당 요일 강의 없음
+			return null;
+		}
+		
+		return attendanceList;
 	}
 	
+	
+	
+	
+	
+
 }

@@ -296,24 +296,20 @@ function fetchAttendance(lessonId, attendanceDate) {
   fetch(`/lesson/dashboard/attendance?lessonNo=${lessonId}&date=${attendanceDate}`)
       .then(response => response.json())
       .then(data => {
-        console.log("data >>>>>>>>> ", JSON.stringify(data))
+          console.log(data);
           // 테이블에 출석부 데이터 표시
+          
+
           const attendanceTable = document.getElementById('less_attendanceTable');
           attendanceTable.innerHTML = ''; // 기존 테이블 내용 지우기
-          // data.forEach(student => {
-          //     const row = document.createElement('tr');
-          //     const nameCell = document.createElement('td');
-          //     nameCell.textContent = student.name; // 데이터 구조에 맞게 조정
-          //     const attendanceCell = document.createElement('td');
-          //     const attendanceInput = document.createElement('input');
-          //     attendanceInput.type = 'checkbox';
-          //     attendanceInput.checked = student.isPresent; // 데이터 구조에 맞게 조정
-          //     attendanceCell.appendChild(attendanceInput);
-          //     row.appendChild(nameCell);
-          //     row.appendChild(attendanceCell);
-          //     attendanceTable.appendChild(row);
-          // });
+
+          data.forEach(student =>{
+            const row = document.createElement('tr');
+            const nameCell = document.createElement('td');
+
+            nameCell.textContent = student.fullName;
+          })
+  
       })
-      .catch(error => console.error('Error fetching attendance data:', error));
 }
 

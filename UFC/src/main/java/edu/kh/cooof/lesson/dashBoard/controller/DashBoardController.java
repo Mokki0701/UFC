@@ -92,13 +92,17 @@ public class DashBoardController {
 		public List<LessonListDTO> attendance(
 				@RequestParam("lessonNo") int lessonNo,
 				@RequestParam("date") String date
+//				@SessionAttribute("loginMember")Member loginMember
 				) {
 			
-			LessonInstructorDTO studentList = new LessonInstructorDTO();
-			studentList.setDate(date);
-			studentList.setLessonNo(lessonNo);
+			LessonListDTO studentList = new LessonListDTO();
 			
-			List<LessonListDTO> attendanceList = service.AttendanceList(studentList);
+			studentList.setDate(date.replaceAll("-",""));
+			studentList.setLessonNo(lessonNo);
+//			studentList.setMemberNo(loginMember.getMemberNo());
+			
+			// 출석 리스트 조회
+			List<LessonListDTO> attendanceList = service.confirmLesson(studentList);	
 			
 			return attendanceList;
 		}

@@ -51,23 +51,38 @@
     
     </select>
     
-	<select id="count" resultType="LessonInstructorDTO">
+    <!-- 해당 날짜의 강의가 맞는지 확인 -->
+	<select id="countLesson" resultType="_int">
     
     	SELECT COUNT(*) AS CNT  
 		FROM LESSONS
 		WHERE LESSON_NO = #{lessonNo}
-		AND #{date2} BETWEEN TO_CHAR(LESSON_START_DATE, 'YYYYMMDD') AND TO_CHAR(LESSON_END_DATE, 'YYYYMMDD')
-		AND TO_CHAR(TO_DATE(#{date2}), 'dy') = SUBSTR(LESSON_SCHEDULE, 0,1)
+		AND #{date} BETWEEN TO_CHAR(LESSON_START_DATE, 'YYYYMMDD') AND TO_CHAR(LESSON_END_DATE, 'YYYYMMDD')
+		AND TO_CHAR(TO_DATE(#{date}), 'dy') = SUBSTR(LESSON_SCHEDULE, 0,1)
     
     </select>
 	
-	
-	<select id="attendanceList" resultType="LessonListDTO">
+	<!-- 출석부 리스트 -->
+<!-- 	<select id="confirmLesson" resultType="LessonListDTO">
     
 	    SELECT MEMBER_NO 
 		FROM STUDENT_ENROLLMENTS 
 		WHERE LESSON_NO = #{lessonNo}
 
+    </select> -->
+    
+    <select id="confirmLesson" resultType="LessonListDTO">
+    
+	    SELECT 
+	    MEMBER_NO,
+	    MEMBER_LAST_NAME || ' ' || MEMBER_FIRST_NAME AS FULL_NAME
+		FROM 
+		    STUDENT_ENROLLMENTS 
+		JOIN 
+		    "MEMBER" USING(MEMBER_NO)
+		WHERE 
+		    LESSON_NO = #{lessonNo}
+    
     </select>
 	
 

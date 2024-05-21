@@ -29,10 +29,15 @@ public interface DashBoardMapper {
 
 	//강사 강의 찾기
 	List<LessonInstructorDTO> instructorLesson(int loginMemberId);
+	
 
-	//학생 출석부 조회
-	List<LessonListDTO> attendanceList(LessonInstructorDTO studentList);
+	//출석부 리스트
+	List<LessonListDTO> confirmLesson(LessonListDTO studentList);
 
+	// 해당 날짜의 강의가 맞는지 확인
+	int countLesson(LessonListDTO studentList);
+
+	
 	
 
 
