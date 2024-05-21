@@ -109,7 +109,16 @@
                         <span id="${lesson.lessonNo}" class="label"
                             th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
                         <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
-                        <h3 th:text="${lesson.lessonTitle}"></h3>
+
+
+
+                        <a class="detail-view-link" th:href="@{/lesson/list/{lessonNo} (lessonNo=${lesson.lessonNo}, query=${param.query}, tags=${param.tags}, cp=${pagination.currentPage}, order=${param.order})}">
+                            <h3 th:text="${lesson.lessonTitle}"></h3>
+                        </a>
+
+
+
+
                         <p th:text="'교육기간: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
                         <p th:if="${lesson.lessonTuitionFee == 0}" th:text="'참가비: 무료'"></p>
                         <p th:if="${lesson.lessonTuitionFee != 0}" th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'">

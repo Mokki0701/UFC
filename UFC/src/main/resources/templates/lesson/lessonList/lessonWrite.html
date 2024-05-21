@@ -16,7 +16,8 @@
 
     <section class="lesson-post-content">
 
-      <form action="/lesson/listEdit/insert" method="POST" name="lessonPostFrm" id="lessonPostFrm" enctype="multipart/form-data">
+      <form action="/lesson/listEdit/insert" method="POST" name="lessonPostFrm" id="lessonPostFrm"
+        enctype="multipart/form-data">
 
         <!-- 수업명 입력 -->
         <label for="lessonTitle">
@@ -24,7 +25,8 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="lessonTitle" id="lessonTitle" placeholder="수업명 작성해주세요." maxlength="30" autocomplete="off">
+          <input type="text" name="lessonTitle" id="lessonTitle" placeholder="수업명 작성해주세요." maxlength="30"
+            autocomplete="off">
         </div>
 
         <!-- 수업 개요 입력 -->
@@ -33,7 +35,8 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="text" name="lessonDetail" id="lessonDetail" placeholder="수업 개요 작성해주세요." maxlength="100" autocomplete="off">
+          <input type="text" name="lessonDetail" id="lessonDetail" placeholder="수업 개요 작성해주세요." maxlength="100"
+            autocomplete="off">
         </div>
 
         <!-- 강의실 입력 -->
@@ -171,12 +174,17 @@
 
   </main>
 
+
+  <!-- lessonCommon 들어가는곳 시작 -->
+  <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+  <!-- lessonCommon 들어가는곳 끝 -->
+
   <!-- 푸터 부분 시작 -->
-  <th:block th:replace="~{common/footer}"></th:block>
+  <!-- <th:block th:replace="~{common/footer}"></th:block> -->
   <!-- 푸터 부분 끝 -->
 
   <!-- 수업 게시 JS 연결 시작 -->
-  <script src="/js/member/signup.js"></script>
+  <!-- <script src="/js/member/signup.js"></script> -->
   <!-- 수업 게시 JS 연결 끝 -->
 
 </body>

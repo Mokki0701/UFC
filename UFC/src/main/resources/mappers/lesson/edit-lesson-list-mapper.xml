@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lesson.list.model.mapper.EditLessonListMapper">
+
+	<!-- 
+		useGeneratedKeys 속성 : DB 내부적으로 생성한 키 (시퀀스)를
+						전달된 파라미터의 필드로 대입 가능 여부 지정
+		
+		** 동적 SQL **
+		- 프로그램 수행 중 SQL을 변경하는 기능 (마이바티스의 가장 강력한 기능)
+		
+		<selectKey> 태그 : INSERT/UPDATE 시 사용할 키(시퀀스)를
+						조회해서 파라미터의 지정된 필드에 대입
+		
+		order 속성 : 메인 SQL이 수행되기 전/후에 selectkey가 수행되도록 지정
+		전 : BEFORE
+		후 : AFTER
+		
+		keyProperty 속성 : selectKey 조회 결과를 저장할 파라미터의 필드
+	-->
+  
+  
+  
+	<!-- 게시글 작성 -->
+  	<insert id="lessonInsert" useGeneratedKeys="true" parameterType="Lesson">
+  		
+  		<selectKey order="BEFORE" resultType="_int" keyProperty="lessonNo">
+  			SELECT SEQ_LESSON_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+
+	INSERT
+	INTO
+	"LESSONS"
+	VALUES(
+	#{lessonNo},
+	#{lessonTitle},
+	#{lessonRoom},
+	#{lessonScheduleDay} || ' ' || #{lessonSchedule},
+	#{lessonStartDate},
+	#{lessonEndDate},
+	#{lessonCapacity},
+	#{lessonTuitionFee},
+	#{lessonMaterialFee},
+	#{lessonTargetAudience},
+	0,
+	#{memberNo},
+	#{lessonRegisterStart},
+	#{lessonRegisterEnd},
+	#{lessonCapacity},
+	#{imgPath},
+	#{lessonDetail}
+	)
+	  	
+	</insert>
+
+</mapper>

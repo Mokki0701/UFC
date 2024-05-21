@@ -2,6 +2,8 @@ package edu.kh.cooof.lesson.list.model.service;
 
 import java.util.Map;
 
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
+
 public interface LessonListService {
 
 	/** 레슨 리스트 조회 (검색X)
@@ -16,5 +18,11 @@ public interface LessonListService {
 	 * @return
 	 */
 	Map<String, Object> searchList(Map<String, Object> paramMap, int cp);
+
+	/** 레슨 상세 조회
+	 * @param lessonNo
+	 * @return
+	 */
+	Lesson selectDetail(int lessonNo);
 
 }

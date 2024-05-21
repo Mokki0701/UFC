@@ -336,3 +336,7 @@ nav ul li a {
   color: white !important;
 }
 
+.detail-view-link {
+  text-decoration: none;
+}
+

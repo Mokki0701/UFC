@@ -35,5 +35,11 @@ public interface LessonListMapper {
 	 */
 	List<Lesson> selectSearchList(Map<String, Object> paramMap, RowBounds rowBounds);
 
+	/** 선택한 수업 내용 상세 조회해오기
+	 * @param lessonNo
+	 * @return
+	 */
+	Lesson selectDetail(int lessonNo);
+
 
 }
