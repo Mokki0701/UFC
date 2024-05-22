@@ -1,18 +1,22 @@
 package edu.kh.cooof.lesson.list.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.lesson.list.model.service.LessonListService;
 import edu.kh.cooof.lesson.main.controller.LessonController;
+import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -123,5 +127,30 @@ public class LessonListController {
     	
     	return path;
     }
+    
+    // http://localhost/lesson/list/17/signup 요청 주소 예시
+	// !!!!! 한번 신청했으면 안되게 막아야됌 !!!!!!!!    
+	@GetMapping("{lessonNo:[0-9]+}/signup")
+	public String lessonSignup (
+			@PathVariable("lessonNo") Integer lessonNo,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra
+			) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("lessonNo", lessonNo);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		int result = service.lessonSignup(map);
+		
+		
+		
+		
+
+		
+		return "redirect:/lesson/list"; // 리스트로 리다이렉트
+		
+	}
+    
 
 }

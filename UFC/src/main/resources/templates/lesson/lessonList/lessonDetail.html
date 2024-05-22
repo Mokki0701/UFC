@@ -111,6 +111,34 @@
             height: 450px;
 
         }
+
+        .signupBtn,
+        .gobackBtn {
+            display: block;
+            position: relative;
+            float: left;
+            width: 120px;
+            padding: 0;
+            margin: 10px 20px 10px 0;
+            font-weight: 600;
+            text-align: center;
+            line-height: 30px;
+            color: #FFF;
+            border-radius: 180px;
+            transition: all 0.2s;
+            background: #992BF2;
+            border: none;
+        }
+
+        .signupBtn:hover,
+        .gobackBtn:hover {
+            background: #7b23c3;
+        }
+
+        .lesson-btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 
 </head>
@@ -171,26 +199,22 @@
         </div>
         <!-- 수업 개요 끝 -->
 
-        <table class="course-fees">
-            <tr>
-                <th>교육명</th>
-                <td>자체교육비</td>
-                <th>교재비</th>
-                <td>150,000원</td>
-            </tr>
-        </table>
-        <table class="course-outline">
-            <thead>
-                <tr>
-                    <th>개강일 준비물</th>
-                    <td>조리복, 앞치마, 조리모, 면장갑(2종류), 행주, 덧모, 기타도구</td>
-                </tr>
-            </thead>
-        </table>
+        <div class="lesson-btn-container">
+            <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0}">
+                <button type="button" id="signupBtn" class="signupBtn btn">신청하기</button>
+            </th:block>
+            <button type="button" id="gobackBtn" class="gobackBtn btn">목록으로</button>
+        </div>
+
 
 
 
     </div>
+
+    <!-- JS 연결 -->
+    <script src="/js/lesson/lessonList/lessonDetail.js"></script>
+    <!-- JS 연결 끝 -->
+
 </body>
 
 </html>

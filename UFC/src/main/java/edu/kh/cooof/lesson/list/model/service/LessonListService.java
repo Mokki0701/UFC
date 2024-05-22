@@ -25,4 +25,10 @@ public interface LessonListService {
 	 */
 	Lesson selectDetail(int lessonNo);
 
+	/** 레슨 신청 (회원만 강사X, 관리자X)
+	 * @param map
+	 * @return 성공 여부
+	 */
+	int lessonSignup(Map<String, Integer> map);
+
 }

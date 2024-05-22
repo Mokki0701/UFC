@@ -101,5 +101,10 @@ public class LessonListServiceImpl implements LessonListService {
 	public Lesson selectDetail(int lessonNo) {
 		return mapper.selectDetail(lessonNo);
 	}
+	
+	@Override
+	public int lessonSignup(Map<String, Integer> map) {
+		return mapper.lessonSignup(map);
+	}
 
 }
