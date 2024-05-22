@@ -45,32 +45,7 @@ nav ul li a {
   color: #333;
 }
 
-.program-header {
-  border-radius: 180px;
-  background-color: #992BF2;
-  padding: 20px;
-  color: white;
-  text-align: center;
-}
 
-.program-header .buttons {
-  margin-top: 10px;
-}
-
-.program-header button {
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #ffffff;
-  color: #af5dde;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.program-header button:hover {
-  background-color: #ffcc00;
-  color: #333;
-}
 
 .program-search {
   background-color: #ffffff;
@@ -169,10 +144,12 @@ nav ul li a {
 .program-info .label {
   display: inline-block;
   padding: 5px 10px;
-  background-color: #ff5a5a;
+  background-color: red;
   color: white;
   margin-right: 5px;
   font-size: 12px;
+
+  border-radius: 180px;
 }
 
 .program-info .category {
@@ -181,6 +158,8 @@ nav ul li a {
   background-color: green;
   color: white;
   font-size: 12px;
+
+  border-radius: 180px;
 }
 
 .pagination {
@@ -339,4 +318,31 @@ nav ul li a {
 .detail-view-link {
   text-decoration: none;
 }
+
+.bg-picture-top{
+content: '';
+position: absolute;
+right: 0;
+top: 400px;
+width: 500px;
+height: 400px;
+background: url(/images/lesson/bg-top.png);
+pointer-events: none;
+z-index: -1; /* 가장 아래로 설정 */
+
+}
+
+.bg-picture-btm {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 329px;
+  width: 561px;
+  height: 781px;
+  background: url(/images/lesson/bg-btm.png);
+  pointer-events: none;
+}
+
+
+
 

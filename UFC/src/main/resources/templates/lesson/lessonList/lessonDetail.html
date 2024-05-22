@@ -1,135 +1,176 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 안내/신청</title>
     <link rel="stylesheet" href="styles.css">
 
-  <style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
 
-.program-info {
-    max-width: 800px;
-    margin: auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        .program-info {
+            max-width: 800px;
+            margin: 15px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-.breadcrumb {
-    font-size: 14px;
-    color: #666;
-}
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+        }
 
-.program-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .program-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.program-title h2 {
-    margin: 0;
-    font-size: 24px;
-}
+        .program-title h2 {
+            margin: 0;
+            font-size: 24px;
+        }
 
-.tags {
-    display: flex;
-}
+        .tags {
+            display: flex;
+        }
 
-.tag {
-    background-color: #f1c40f;
-    color: #fff;
-    padding: 5px 10px;
-    margin-left: 5px;
-    border-radius: 3px;
-}
+        .target-audience-tag {
+            background-color: green;
+            color: #fff;
+            padding: 5px 10px;
+            margin-left: 5px;
+            border-radius: 3px;
 
-.program-details, .course-fees, .course-outline, .curriculum {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
+            border-radius: 180px;
+        }
 
-.program-details th, .program-details td,
-.course-fees th, .course-fees td,
-.course-outline th, .course-outline td,
-.curriculum th, .curriculum td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
+        .closeyn-tag {
+            background-color: red;
+            color: #fff;
+            padding: 5px 10px;
+            margin-left: 5px;
+            border-radius: 3px;
 
-.program-details th, .course-fees th, .course-outline th, .curriculum th {
-    background-color: #f2f2f2;
-    text-align: left;
-}
+            border-radius: 180px;
+        }
 
-.course-description {
-    margin-top: 20px;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
+        .program-details,
+        .course-fees,
+        .course-outline,
+        .curriculum {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-.curriculum thead {
-    background-color: #f2f2f2;
-}
+        .program-details th,
+        .program-details td,
+        .course-fees th,
+        .course-fees td,
+        .course-outline th,
+        .course-outline td,
+        .curriculum th,
+        .curriculum td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-  </style>
+        .program-details th,
+        .course-fees th,
+        .course-outline th,
+        .curriculum th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .course-description {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .curriculum thead {
+            background-color: #f2f2f2;
+        }
+
+        .lesson-thumbnail {
+
+            display: block;
+            margin: 10px auto;
+            width: 750px;
+            height: 450px;
+
+        }
+    </style>
 
 </head>
+
 <body>
+
+    <!-- 세미 헤더 들어가는 곳 시작 -->
+    <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
+    <!-- 세미 헤더 들어가는 곳 끝 -->
+
+
     <div class="program-info">
         <div class="breadcrumb">
             <span>홈</span> &gt; <span>평생교육 프로그램</span> &gt; <span>프로그램 안내/신청</span>
         </div>
         <div class="program-title">
-            <h2>한식조리기능사(자격증반)</h2>
+            <h2 th:text="${lesson.lessonTitle}">수업명</h2>
             <div class="tags">
-                <span class="tag">야간</span>
-                <span class="tag">성수기</span>
-                <span class="tag">교육중</span>
+                <span class="target-audience-tag" th:text="${lesson.lessonTargetAudience}">대상</span>
+                <span class="closeyn-tag" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}">접수중 여부</span>
             </div>
         </div>
         <table class="program-details">
             <tr>
-                <th>분야</th>
-                <td>창의문화예술 &gt; 자격증</td>
-                <th>신청방법</th>
-                <td>추첨</td>
+                <th>접수 기간</th>
+                <td th:text="${lesson.lessonRegisterStart} + ' ~ ' + ${lesson.lessonRegisterEnd}">접수 기간 날짜</td>
+
+                <th>교육 요일 및 시간</th>
+                <td th:text="${lesson.lessonSchedule}">요일 및 시간</td>
             </tr>
             <tr>
-                <th>접수기간</th>
-                <td>2024.02.15 09:00 ~ 2024.02.19 20:00</td>
-                <th>교육요일 및 시간</th>
-                <td>수 18:30 ~ 21:30</td>
-            </tr>
-            <tr>
-                <th>교육기간</th>
-                <td>2024-03-06 ~ 2024-07-10</td>
+                <th>교육 기간</th>
+                <td th:text="${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}">교육 기간</td>
                 <th>정원</th>
-                <td>16명</td>
+                <td th:text="${lesson.lessonCapacity}">정원</td>
             </tr>
             <tr>
                 <th>강의실</th>
-                <td>5층 조리실습실</td>
+                <td th:text="${lesson.lessonRoom}">강의실 위치</td>
+
                 <th>재료비</th>
-                <td>150,000원</td>
+                <td th:if="${lesson.lessonMaterialFee == 0}" th:text="무료">재료비</td>
+                <td th:if="${lesson.lessonMaterialFee != 0}" th:text="${lesson.lessonMaterialFee} + '원'">재료비</td>
             </tr>
             <tr>
                 <th>수강료</th>
-                <td>무료</td>
+                <td th:if="${lesson.lessonTuitionFee == 0}" th:text="무료">수강료</td>
+                <td th:if="${lesson.lessonTuitionFee != 0}" th:text="${lesson.lessonTuitionFee} + '원'">수강료</td>
             </tr>
+
         </table>
+
+        <img class="lesson-thumbnail" th:src="'/images/lesson/' + ${lesson.imgPath}" alt="프로그램 이미지">
+
+        <!-- 수업 개요 시작 -->
         <div class="course-description">
-            <p>한식조리기능사 실기시험 메뉴 주1회 총 교육기간의 16주로 운영됩니다. 참석자에게 안내합니다.</p>
-            <p>한식조리기능사 실기시험 대비 및 한식 기능사 요리 기본이론과 조리기술을 함양할 수 있다.</p>
+            <p th:text="${lesson.lessonDetail}">수업 개요</p>
         </div>
+        <!-- 수업 개요 끝 -->
+
         <table class="course-fees">
             <tr>
                 <th>교육명</th>
@@ -146,92 +187,10 @@
                 </tr>
             </thead>
         </table>
-        <table class="curriculum">
-            <thead>
-                <tr>
-                    <th>회차</th>
-                    <th>강의내용</th>
-                    <th>비고</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>두부조림, 오이소박이</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>콩나물밥, 궁중전골</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>오징어숙회, 잡채</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>탕평채, 너비아니</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>홍합초, 피꼬막</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>생선전, 채소구이</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>해물된장찌개, 칼국수</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>불고기, 북어찜</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>닭찜, 만두국</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>육원전, 호박선</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td>육회, 섭산적, 과자차</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>제육구이, 더덕생채</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>13</td>
-                    <td>생선양념구이, 야채김밥</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>14</td>
-                    <td>미나리강회, 두부조림</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>15</td>
-                    <td>배추김치, 오이소박이</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+
+
+
     </div>
 </body>
+
 </html>

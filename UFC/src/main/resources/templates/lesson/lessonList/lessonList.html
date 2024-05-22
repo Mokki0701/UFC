@@ -98,6 +98,12 @@
         </form>
         <!-- 검색창 끝 -->
 
+                <!-- 배경 그림 좌측 상단 시작 -->
+                <div class="bg-picture-top"></div>
+                <!-- 배경 그림 좌측 상단 끝 -->
+
+
+
         <!-- 부분 조회 시작 -->
         <th:block th:fragment="programs">
 
@@ -106,9 +112,9 @@
                 <div class="program-card" th:each="lesson : ${lessonList}">
                     <img th:src="'/images/lesson/' + ${lesson.imgPath}" alt="프로그램 이미지">
                     <div class="program-info">
+                        <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
                         <span id="${lesson.lessonNo}" class="label"
                             th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
-                        <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
 
 
 
@@ -120,8 +126,8 @@
 
 
                         <p th:text="'교육기간: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
-                        <p th:if="${lesson.lessonTuitionFee == 0}" th:text="'참가비: 무료'"></p>
-                        <p th:if="${lesson.lessonTuitionFee != 0}" th:text="'참가비: ' + ${lesson.lessonTuitionFee} + '원'">
+                        <p th:if="${lesson.lessonTuitionFee == 0}" th:text="'수강료: 무료'"></p>
+                        <p th:if="${lesson.lessonTuitionFee != 0}" th:text="'수강료: ' + ${lesson.lessonTuitionFee} + '원'">
                         </p>
                         <p th:if="${lesson.lessonMaterialFee == 0}" th:text="'재료비: 무료'"></p>
                         <p th:if="${lesson.lessonMaterialFee != 0}"
@@ -230,6 +236,12 @@
 
         </th:block>
         <!-- 부분 조회 끝 -->
+
+        
+
+        <!-- 배경 그림 우측 하단 시작 -->
+        <!-- <div class="bg-picture-btm"></div> -->
+        <!-- 배경 그림 우측 하단 끝 -->
 
 
 
