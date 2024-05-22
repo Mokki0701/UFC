@@ -22,5 +22,9 @@ public class Member {
 	// ... 
 	private int memberAuthority;
 	
+	// 현재 이용 중인 좌석 번호
+	private int curUsingSeatNo;
+	
+	
 	// 이후에 추가..
 }

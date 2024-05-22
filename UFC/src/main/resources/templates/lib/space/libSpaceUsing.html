@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UFC 도서관 공간대여</title>
+  <!-- 도서관 전용 헤더 스타일로만 사용하기!! -->
+  <link rel="stylesheet" href="/css/libMain.css">
+  <link rel="stylesheet" href="/css/lib/space.css">
+</head>
+
+<body>
+
+
+
+  <!-- 공용 헤더 -->
+  <header th:replace="~{common/header}"></header>
+
+  <!-- 도서관 전용 헤더 -->
+  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
+
+
+  <!-- 세션의 회원 정보 얻어오기 -->
+
+  <div id="spaceShip">
+
+    <!-- 0. 출입구 모음 -->
+    <div id="exitSack">
+      <div class="exit">출입구</div>
+      <div class="exit">출입구</div>
+    </div>
+
+    <!-- 1. 1번 방 -->
+    <div id="firstSpaceSack">
+      <!-- 1.1. 1번 방 -->
+      <div class="space">1번 방</div>
+    </div>
+
+    <!-- 2. 2,6번 방 -->
+    <div id="secondSpaceSack">
+      <!--2.1. 2번 방 -->
+      <div class="space"> 2번 방 </div>
+      <!-- 방 사이 빈 공간 -->
+      <div class="justSpace"></div>
+      <!--2.2. 6번 방 -->
+      <div class="space"> 6번 방 </div>
+    </div>
+
+    <!--3. 3,4,5번 방 -->
+    <div id="thirdSaceSack">
+      <!-- 3.1. 3번 방 -->
+      <div class="space"> 3번 방 </div>
+      <!-- 3.2. 4번 방 -->
+      <div class="space"> 4번 방 </div>
+      <!-- 3.3. 5번 방 -->
+      <div class="space"> 5번 방 </div>
+    </div>
+
+
+
+  </div>
+
+
+  <!-- 방의 상태 창 -->
+  <div id="conditionGuide">
+
+    <div class="boxSack ">
+      <div class="conditionBox avail"></div>
+      <p>: 이용 가능 / </p>
+    </div>
+
+    <div class="boxSack ">
+      <div class="conditionBox nowUsing"></div>
+      <p>: 현재 사용 중 /</p>
+    </div>
+
+    <div class="boxSack">
+      <div class="conditionBox disavail"></div>
+      <p>: 점검 중. 이용 불가</p>
+    </div>
+
+  </div>
+
+
+  <div id="buttonSack">
+
+    <form action="">
+      <button>이용하기</button>
+      <button>그만 사용하기</button>
+    </form>
+
+  </div>
+
+</body>
+
+<script src="/js/lib/spaceUsing.js"></script>
+
+</html>

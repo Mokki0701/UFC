@@ -54,7 +54,50 @@ public class LibMainController {
 
 		return path;
 	}
-	
-	
+
+	// 자리 연장 페이지로 이동하기
+	@GetMapping("/toExtendSeat")
+	public String extendSeat(HttpSession session, RedirectAttributes ra) {
+
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		String path = null;
+
+		// 로그인 안된 경우
+		if (loginMember == null) {
+			ra.addFlashAttribute("message", "로그인 후 이용해 주세요");
+			path = "common/error";
+
+		}
+
+		// 로그인 된 경우
+		if (loginMember != null && loginMember.getMemberAuthority() < 3) {
+			path = "lib/seat/extendSeat";
+		}
+
+		return path;
+
+	}
+
+	// 공간 이용 페이지로 이동하기
+	@GetMapping("toSpace")
+	public String toSpace(HttpSession session, RedirectAttributes ra) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		String path = null;
+
+		// 로그인 안된 경우
+		if (loginMember == null) {
+			ra.addFlashAttribute("message", "로그인 후 이용해 주세요");
+			path = "common/error";
+
+		}
+
+		// 로그인 된 경우
+		if (loginMember != null && loginMember.getMemberAuthority() < 3) {
+			path = "lib/space/libSpaceUsing";
+		}
+
+		return path;
+
+	}
 
 }

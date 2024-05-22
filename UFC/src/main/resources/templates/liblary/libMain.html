@@ -10,78 +10,23 @@
 
 <body>
 
+  <!-- 공용 헤더 -->
+  <header th:replace="~{common/header.html}"></header>
+
+  <!-- 도서관 nav 조각 -->
+  <th:block th:replace ="~{common/lib/libNavVar}"></th:block>
+
   <div th:if="${session.loginMember != null }">
     현재 로그인한 회원 : <span th:text="${session.loginMember.memberEmail}"></span>
     <span>/</span>
     memberAuthority: <span th:text="${session.loginMember.memberAuthority}"></span>
   </div>
 
+  
 
   <!-- 도서관 전용 nav bar 로그인 안된 경우 -->
 
-  <nav th:if="${session.loginMember == null}">
-
-    <ul class="navbar">
-      <span> 📔도서관 </span>
-      <span id="space"></span>
-      <li><a href="">메인</a></li>
-      <li class="dropdown">
-        <a href="#">열람실</a>
-        <ul class="dropdown-content">
-          <li><a href="#">📕 빈 자리 확인 / 빌리기</a></li>
-          <li><a href="#" class="memberOnly">📘자리 연장</a></li>
-          <li><a href="#" class="memberOnly">📙자리 예약</a></li>
-          <li><a href="#" class="memberOnly">📔관심 자리 등록</a></li>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a href="#">공간대여</a>
-        <ul class="dropdown-content">
-          <li><a href="">📕 빈 자리 확인 / 빌리기</a></li>
-          <li><a href="#" class="memberOnly">📘자리 연장</a></li>
-          <li><a href="#" class="memberOnly">📙자리 예약</a></li>
-          <li><a href="#" class="memberOnly">📔관심 자리 등록</a></li>
-        </ul>
-      </li>
-      <li><a href="#">회사</a></li>
-      <li><a href="#">문의</a></li>
-    </ul>
-  </nav>
-
-  <!-- 도서관 전용 nav bar 일반회원 로그인 되어있는 경우 -->
-  <!-- 일반회원 : memberAuthority 가 3보다 작은 경우 -->
-  <nav th:if="${session.loginMember != null && session.loginMember.memberAuthority lt 3}">
-    <br>
-    나는 일반회원 전용 nav다.
-    <br>
-    <ul class="navbar">
-      <span> 📔도서관 </span>
-      <span id="space"></span>
-      <li><a href="#">메인</a></li>
-      <li class="dropdown">
-        <a href="#">열람실</a>
-        <ul class="dropdown-content">
-          <li><a href="/libMain/toUseSeat">📕 빈 자리 확인/빌리기</a></li>
-          <li><a href="#">📘자리 연장</a></li>
-          <li><a href="#">📙자리 예약</a></li>
-          <li><a href="#">📔관심 자리 등록</a></li>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a href="#">공간대여</a>
-        <ul class="dropdown-content">
-          <li><a href="#">📕 빈 자리 확인 / 빌리기</a></li>
-          <li><a href="#">📘자리 연장</a></li>
-          <li><a href="#">📙자리 예약</a></li>
-          <li><a href="#">📔관심 자리 등록</a></li>
-        </ul>
-      </li>
-      <li><a href="#">회사</a></li>
-      <li><a href="#">문의</a></li>
-    </ul>
-  </nav>
+  
 
 
 
@@ -97,19 +42,19 @@
 
 
 
-  <!-- 임시 열람실 좌석 관리자용 페이지 -->
-  <th:block th:if="${session.loginMember!=null && session.loginMember.memberAuthority == 3}">
-
-    <div>
-      임시 관리자 메뉴입니다
-
-      <hr>
-      <span> 열람실 좌석 관리하는 링크 : </span>
-      <a href="/libMain/managingSeatPage">여기를 누르면 열람실 좌석을 관리합니다</a>
-    </div>
 
 
-  </th:block>
+
+
+
+
+
+
+
+
+
+
+
 
 
   <script src="/js/lib/libMain.js"></script>

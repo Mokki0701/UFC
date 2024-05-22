@@ -1,0 +1,158 @@
+*{
+  user-select: none;
+}
+
+#spaceShip {
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 600px; /* 전체 레이아웃 너비 */
+  height: 500px; /* 전체 레이아웃 높이 */
+  margin: 0 auto;
+
+  margin-top: 100px;
+}
+
+#firstSpaceSack {
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+}
+
+#firstSpaceSack .space {
+  flex: 1;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0px 200px;
+}
+
+#secondSpaceSack {
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+}
+
+#secondSpaceSack .space {
+  flex: 1;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#secondSpaceSack .space:first-child {
+  margin-right: 100px;
+  margin-top: 50px;
+
+  border-bottom: none;
+
+}
+
+.justSpace{
+  width: 200px;
+}
+
+#secondSpaceSack .space:last-child {
+  margin-left: auto;
+  margin-top: 50px;
+
+  border-bottom: none;
+}
+
+#thirdSaceSack {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+#thirdSaceSack .space {
+  flex: 1;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entry {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.space:hover {
+  cursor: pointer;
+  background-color: rgba(42, 191, 255, 0.6);
+  transition: background-color 0.3s ease-in-out; /* 배경색 전환 효과 추가 */
+}
+
+#exitSack{
+  display: flex;
+  justify-content: space-between;
+}
+
+.exit{
+  display: flex; /* 플렉스 박스로 설정 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    width: 30%;
+    text-align: center;
+    border: 1px solid black;
+    height: 50px;
+}
+
+#conditionGuide {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.boxSack {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.conditionBox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+
+.avail {
+  background-color: green;
+}
+
+.nowUsing {
+  background-color: yellow;
+}
+
+.disavail {
+  background-color: red;
+}
+
+/* 버튼 스타일 */
+
+#buttonSack{
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+}
+
+#buttonSack > button{
+  width: 200px;
+  height: 50px;
+}
+
+button{
+  font-size: 20px;
+}
+
+button:hover{
+  cursor: pointer;
+
+}

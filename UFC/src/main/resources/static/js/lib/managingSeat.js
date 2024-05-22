@@ -212,13 +212,13 @@ loadSeat.addEventListener("click", () => {
   fetch('/lib/seats/data')
     .then(response => response.json())
     .then(data => {
-      console.log('Loaded seat data:', data); // 디버깅용 로그 추가
+      // console.log('Loaded seat data:', data); // 디버깅용 로그 추가
 
       // 서버에서 가져온 좌석 데이터로 업데이트
       data.forEach(seat => {
         const seatDiv = document.querySelector(`[data-coords="seat-${seat.coordiX}-${seat.coordiY}"]`);
         if (seatDiv) {
-          console.log('Updating seat:', seat); // 디버깅용 로그 추가
+          // console.log('Updating seat:', seat); // 디버깅용 로그 추가
           seatDiv.className = 'seat ' + (seat.condition === 1 ? 'availSeat' : seat.condition === 2 ? 'disavailSeat' : 'aisle');
           seatDiv.dataset.seatNo = seat.seatNo;
         } else {
@@ -228,5 +228,4 @@ loadSeat.addEventListener("click", () => {
     })
     .catch(error => console.error('Error loading seats:', error));
 });
-
 
