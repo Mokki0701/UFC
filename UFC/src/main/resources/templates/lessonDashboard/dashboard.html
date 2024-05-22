@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/css/lesson/dashBoard/dashboard.css">
 </head>
 <body>
+
+    <!-- lessonCommon 들어가는 곳 시작 -->
+    <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+    <!-- lessonCommon 들어가는 곳 끝 -->
+
+    <!-- 세미 헤더 들어가는 곳 시작 -->
+    <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
+    <!-- 세미 헤더 들어가는 곳 끝 -->
+
+
     <div class="less_dashboard">
         <div class="less_header">
             <h1 class="less_header_display">강의 대시보드</h1>
