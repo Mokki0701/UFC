@@ -20,6 +20,11 @@ public interface BookMapper {
 
 	List<String> categoryList(String storageName);
 
+	int checkedListCount(String string);
+
+	List<Book> checkedBookList(String string, RowBounds rowBounds);
+
+
 
 
 }
