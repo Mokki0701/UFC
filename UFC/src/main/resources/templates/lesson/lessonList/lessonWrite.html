@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수업 게시</title>
+
+  <link rel="stylesheet" href="/css/lesson/lessonList/lessonWrite.css">
+
+</head>
+
+<body>
+
+  <main>
+
+    <!-- 세미 헤더 들어가는 곳 시작 -->
+    <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
+    <!-- 세미 헤더 들어가는 곳 끝 -->
+
+
+
+    <section class="lesson-post-content">
+
+      <form action="/lesson/listEdit/insert" method="POST" name="lessonPostFrm" id="lessonPostFrm"
+        enctype="multipart/form-data">
+
+        <!-- 수업명 입력 -->
+        <label for="lessonTitle">
+          <span class="required">*</span> 수업명
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="lessonTitle" id="lessonTitle" placeholder="수업명 작성해주세요." maxlength="30"
+            autocomplete="off">
+        </div>
+
+        <!-- 수업 개요 입력 -->
+        <label for="lessonDetail">
+          <span class="required">*</span> 수업 개요
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="lessonDetail" id="lessonDetail" placeholder="수업 개요 작성해주세요." maxlength="100"
+            autocomplete="off">
+        </div>
+
+        <!-- 강의실 입력 -->
+        <label for="lessonRoom">
+          <span class="required">*</span> 강의실
+        </label>
+
+        <div class="lesson-input-area">
+          <select name="lessonRoom" id="lessonRoom">
+            <option value="A 강의실">A 강의실</option>
+            <option value="B 강의실">B 강의실</option>
+            <option value="C 강의실">C 강의실</option>
+            <option value="D 강의실">D 강의실</option>
+            <option value="E 강의실">E 강의실</option>
+            <option value="F 강의실">F 강의실</option>
+            <option value="G 강의실">G 강의실</option>
+            <option value="H 강의실">H 강의실</option>
+            <option value="I 강의실">I 강의실</option>
+            <option value="J 강의실">J 강의실</option>
+          </select>
+        </div>
+
+        <!-- 수업 시간 -->
+        <label for="lessonScheduleDay">
+          <span class="required">*</span> 수업 요일 및 시간
+        </label>
+
+        <div class="lesson-input-area">
+          <select name="lessonScheduleDay" id="lessonScheduleDay">
+            <option value="월">월</option>
+            <option value="화">화</option>
+            <option value="수">수</option>
+            <option value="목">목</option>
+            <option value="금">금</option>
+            <option value="토">토</option>
+            <option value="일">일</option>
+          </select>
+          <select name="lessonSchedule" id="lessonSchedule">
+            <option value="09:00 ~ 10:30">09:00 ~ 10:30</option>
+            <option value="10:30 ~ 12:00">10:30 ~ 12:00</option>
+            <option value="12:00 ~ 13:30">12:00 ~ 13:30</option>
+            <option value="13:30 ~ 15:00">13:30 ~ 15:00</option>
+            <option value="15:00 ~ 16:30">15:00 ~ 16:30</option>
+            <option value="16:30 ~ 18:00">16:30 ~ 18:00</option>
+            <option value="18:00 ~ 19:30">18:00 ~ 19:30</option>
+            <option value="19:30 ~ 21:00">19:30 ~ 21:00</option>
+          </select>
+        </div>
+
+        <!-- 수업 시작 날짜 -->
+        <label for="lessonStartDate">
+          <span class="required">*</span> 수업 시작 날짜
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="date" name="lessonStartDate" id="lessonStartDate">
+        </div>
+
+        <!-- 수업 종료 날짜 -->
+        <label for="lessonEndDate">
+          <span class="required">*</span> 수업 종료 날짜
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="date" name="lessonEndDate" id="lessonEndDate">
+        </div>
+
+        <!-- 수업 정원 -->
+        <label for="lessonCapacity">
+          <span class="required">*</span> 수업 정원
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="number" name="lessonCapacity" id="lessonCapacity" placeholder="수업 정원 작성해주세요." min="1">
+        </div>
+
+        <!-- 수업 수강료 -->
+        <label for="lessonTuitionFee">
+          <span class="required">*</span> 수업 수강료
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="number" name="lessonTuitionFee" id="lessonTuitionFee" placeholder="수업 수강료 작성해주세요." min="0">
+        </div>
+
+        <!-- 수업 재료비 -->
+        <label for="lessonMaterialFee">
+          <span class="required">*</span> 수업 재료비
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="number" name="lessonMaterialFee" id="lessonMaterialFee" placeholder="수업 재료비 작성해주세요." min="0">
+        </div>
+
+        <!-- 수업 대상 -->
+        <label for="lessonTargetAudience">
+          <span class="required">*</span> 수업 대상
+        </label>
+
+        <div class="lesson-input-area">
+          <select name="lessonTargetAudience" id="lessonTargetAudience">
+            <option value="성인">성인</option>
+            <option value="어린이">어린이</option>
+          </select>
+        </div>
+
+        <!-- 수업 등록 시작 날짜 -->
+        <label for="lessonRegisterStart">
+          <span class="required">*</span> 수업 등록 시작 날짜
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="date" name="lessonRegisterStart" id="lessonRegisterStart">
+        </div>
+
+        <!-- 수업 등록 종료 날짜 -->
+        <label for="lessonRegisterEnd">
+          <span class="required">*</span> 수업 등록 종료 날짜
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="date" name="lessonRegisterEnd" id="lessonRegisterEnd">
+        </div>
+
+        <!-- 이미지 경로 -->
+        <label for="inputImg">이미지 선택</label>
+
+        <div class="lesson-input-area">
+          <input type="file" name="inputImg" id="inputImg" class="inputImg" accept="image/*">
+        </div>
+
+        <button type="submit" id="lessonPostBtn">게시하기</button>
+      </form>
+    </section>
+
+  </main>
+
+
+  <!-- lessonCommon 들어가는곳 시작 -->
+  <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+  <!-- lessonCommon 들어가는곳 끝 -->
+
+  <!-- 푸터 부분 시작 -->
+  <!-- <th:block th:replace="~{common/footer}"></th:block> -->
+  <!-- 푸터 부분 끝 -->
+
+  <!-- 수업 게시 JS 연결 시작 -->
+  <!-- <script src="/js/member/signup.js"></script> -->
+  <!-- 수업 게시 JS 연결 끝 -->
+
+</body>
+
+</html>
