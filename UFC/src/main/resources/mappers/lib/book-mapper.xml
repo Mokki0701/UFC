@@ -25,5 +25,19 @@
 		WHERE STORAGE_NAME = #{storageName}
 		ORDER BY CAT_NO
 	</select>
+	
+	<select id="checkedListCount">
+		SELECT COUNT(*)
+		FROM "BOOK_INFO"
+		JOIN "BOOK_CATEGORY" USING(CAT_NO)
+		WHERE CAT_NAME IN (#{string})
+	</select>
+	
+	<select id="checkedBookList">
+		SELECT * FROM BOOK_INFO
+		JOIN "BOOK_CATEGORY" USING(CAT_NO)
+		WHERE CAT_NAME IN (#{string})
+		ORDER BY BOOK_NO
+	</select>
 
 </mapper>
