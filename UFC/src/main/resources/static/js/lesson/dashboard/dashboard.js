@@ -93,7 +93,7 @@ lessonSelect.addEventListener("change",()=>{
     return;
   } 
 
-  console.log(lessonCode); //코드 나오는거 확인
+  //console.log(lessonCode); //코드 나오는거 확인
   fetch('/lesson/dashboard/star?lessonNo='+lessonCode)
   .then(res => res.text())
   .then(result =>{
@@ -330,8 +330,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const lessonId = popupContainer.dataset.lessonId; // 팝업 컨테이너에서 lessonId 가져오기
     const attendanceDateInput = document.getElementById('attendanceDateInput');
     const attendanceDate = attendanceDateInput.value; // 선택한 날짜 가져오기
-    console.log('lessonId:', lessonId);
-    console.log('attendanceDate:', attendanceDate);
+    //console.log('lessonId:', lessonId);
+    //console.log('attendanceDate:', attendanceDate);
     fetchAttendance(lessonId, attendanceDate); // 강의 ID와 날짜로 출석부 데이터 가져오기
   });
 
@@ -439,8 +439,7 @@ function submitAttendance() {
                 
             };
             attendanceData.push(attendanceRecord);
-        }//if문
-
+        }//if문 끝
 
       }
   });

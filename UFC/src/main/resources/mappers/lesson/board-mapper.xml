@@ -61,15 +61,6 @@
 		AND TO_CHAR(TO_DATE(#{date}), 'dy') = SUBSTR(LESSON_SCHEDULE, 0,1)
     
     </select>
-	
-	<!-- 출석부 리스트 -->
-<!-- 	<select id="confirmLesson" resultType="LessonListDTO">
-    
-	    SELECT MEMBER_NO 
-		FROM STUDENT_ENROLLMENTS 
-		WHERE LESSON_NO = #{lessonNo}
-
-    </select> -->
     
     <select id="confirmLesson" resultType="LessonListDTO">
     
