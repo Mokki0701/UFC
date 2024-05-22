@@ -259,7 +259,6 @@ public class EditBoardController {
 		// 2. 게시글 수정 서비스 호출 후 결과 반환 받기
 		int result = service.boardUpdate(inputBoard, images, deleteOrder);
 		
-		
 		// 3. 서비스 결과에 따라 응답 제어
 		String message = null;
 		String path = null;

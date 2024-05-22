@@ -1,71 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.kh.cooof.lesson.list.model.mapper.LessonListMapper">
 
-	<select id="getLessonCount">
-		SELECT COUNT(*)
-		FROM "LESSONS"
-	</select>
-	
-	<select id="selectLessonList">
+    <select id="getLessonCount">
+        SELECT COUNT(*)
+        FROM "LESSONS"
+    </select>
+    
+    <select id="selectLessonList">
 	SELECT
-	LESSON_NO,
+	DISTINCT LESSON_NO,
 	LESSON_TITLE,
 	LESSON_ROOM,
 	LESSON_SCHEDULE,
-	LESSON_START_DATE,
+	IMG_PATH,
+
+
+	TO_CHAR(LESSON_START_DATE, 'YYYY-MM-DD') LESSON_START_DATE,
+	TO_CHAR(LESSON_END_DATE, 'YYYY-MM-DD')
 	LESSON_END_DATE,
+
+
 	LESSON_CAPACITY,
 	LESSON_TUITION_FEE,
 	LESSON_MATERIAL_FEE,
 	LESSON_TARGET_AUDIENCE,
 	CLOSE_YN,
 	MEMBER_NO,
-	LESSON_REGISTER_START,
-	LESSON_REGISTER_END
+
+	TO_CHAR(LESSON_REGISTER_START, 'YYYY-MM-DD') LESSON_REGISTER_START,
+	TO_CHAR(LESSON_REGISTER_END, 'YYYY-MM-DD') LESSON_REGISTER_END,
+
+	LESSON_REMAINS
 	FROM LESSONS
 	JOIN "MEMBER" USING(MEMBER_NO)
-	ORDER BY LESSON_NO DESC
-	</select>
-	
-	<select id="getSearchCount">
-	SELECT COUNT(*)
-	FROM "LESSONS"
-	JOIN LESSON_CATEGORY USING (LESSON_NO)
-	WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
 
-
-	
-	
-	</select>
-	
-	<select id="selectSearchList">
+	<choose>
+		<when test="order == 'asc'">
+			ORDER BY LESSON_NO ASC
+		</when>
+		<when test="order == 'desc'">
+			ORDER BY LESSON_NO DESC
+		</when>
+		<otherwise>
+			ORDER BY LESSON_NO DESC
+		</otherwise>
+	</choose>
+    
+    </select>
+    
+    <select id="getSearchCount">
+    SELECT COUNT(*)
+    FROM "LESSONS"
+    <if test="tags != null">
+        JOIN LESSON_CATEGORY USING (LESSON_NO)
+    </if>
+    WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
+    <if test="tags != null">
+        AND SMALL_CODE IN (${tags})
+    </if>
+    </select>
+    
+    <select id="selectSearchList">
 	SELECT
-	LESSON_NO,
+	DISTINCT LESSON_NO,
 	LESSON_TITLE,
 	LESSON_ROOM,
 	LESSON_SCHEDULE,
-	LESSON_START_DATE,
-	LESSON_END_DATE,
+	IMG_PATH,
+
+	TO_CHAR(LESSON_START_DATE, 'YYYY-MM-DD') LESSON_START_DATE,
+	TO_CHAR(LESSON_END_DATE, 'YYYY-MM-DD') LESSON_END_DATE,
+
+
 	LESSON_CAPACITY,
 	LESSON_TUITION_FEE,
 	LESSON_MATERIAL_FEE,
 	LESSON_TARGET_AUDIENCE,
 	CLOSE_YN,
-	MEMBER_NO
-	FROM
-	"LESSONS"
-	
-	WHERE
-	LESSON_TITLE LIKE '%' || #{query} || '%'
+	MEMBER_NO,
 
+	TO_CHAR(LESSON_REGISTER_START, 'YYYY-MM-DD') AS LESSON_REGISTER_START,
+	TO_CHAR(LESSON_REGISTER_END, 'YYYY-MM-DD') AS LESSON_REGISTER_END,
 
-	
-	
-	ORDER BY
-	LESSON_NO DESC
+	LESSON_REMAINS
+	FROM "LESSONS"
+    <if test="tags != null">
+        JOIN LESSON_CATEGORY USING (LESSON_NO)
+    </if>
+    WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
+    <if test="tags != null">
+        AND SMALL_CODE IN (${tags})
+    </if>
+    
+   <choose>
+		<when test="order == 'asc'">
+			ORDER BY LESSON_NO ASC
+		</when>
+		<when test="order == 'desc'">
+			ORDER BY LESSON_NO DESC
+		</when>
+		<otherwise>
+			ORDER BY LESSON_NO DESC
+		</otherwise>
+	</choose>
+    
+    
+    </select>
+    
+	<select id="selectDetail" resultType="Lesson">
+	SELECT
+	LESSON_TITLE,
+	LESSON_ROOM,
+	LESSON_SCHEDULE,
+	TO_CHAR(LESSON_START_DATE, 'YYYY-MM-DD') LESSON_START_DATE,
+	TO_CHAR(LESSON_END_DATE, 'YYYY-MM-DD') LESSON_END_DATE,
+	LESSON_CAPACITY,
+	LESSON_TUITION_FEE,
+	LESSON_MATERIAL_FEE,
+	LESSON_TARGET_AUDIENCE,
+	CLOSE_YN,
+	MEMBER_NO,
+	TO_CHAR(LESSON_REGISTER_START, 'YYYY-MM-DD') LESSON_REGISTER_START,
+	TO_CHAR(LESSON_REGISTER_END, 'YYYY-MM-DD') LESSON_REGISTER_END,
+	LESSON_REMAINS,
+	IMG_PATH,
+	LESSON_DETAIL
+	FROM LESSONS
+	WHERE LESSON_NO =
+	#{lessonNo}
 	</select>
-	
-	
 
+	<insert id="lessonSignup">
+		INSERT
+		INTO
+		"STUDENT_ENROLLMENTS"
+		VALUES(
+		#{lessonNo}, #{memberNo}, 1
+		)
+	</insert>
+   
+    
 </mapper>

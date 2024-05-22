@@ -4,21 +4,92 @@
 <mapper
 	namespace="edu.kh.cooof.lib.seat.model.mapper.LibSeatMapper">
 
-	<select id="getAllSeats" resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
+	<!-- 모든 좌석 불러오기 -->
+	<select id="getAllSeats"
+		resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
 		SELECT SEAT_NO, COORDI_X AS coordiX, COORDI_Y AS coordiY,
 		CONDITION,
 		SEAT_AVAIL
 		FROM SEAT
 	</select>
 
+	<!-- 좌석 편집 현황 지우기 -->
 	<delete id="deleteAllSeats">
+
 		DELETE FROM SEAT
+
 	</delete>
 
+	<!-- 좌석 이용 현황 지우기 -->
+	<delete id="deleteRentSeat">
+
+		DELETE FROM RENT_SEAT
+
+	</delete>
+
+	<!-- 좌석 편집 현황 저장하기 -->
 	<insert id="insertSeat">
-		INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y,
-		CONDITION)
-		VALUES (#{seatNo}, #{coordiX}, #{coordiY}, #{condition})
+
+		INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y, CONDITION)
+		VALUES (#{seatNo},
+		#{coordiX}, #{coordiY}, #{condition})
+
 	</insert>
+
+
+	<select id="isMemberUsing" resultType="int">
+
+		SELECT COUNT(*)
+		FROM RENT_SEAT
+		WHERE MEMBER_NO = #{memberNo}
+
+	</select>
+
+	<!-- 열람실 좌석 이용하기 -->
+	<!-- seatNo2 = db 자리 번호 -->
+	<insert id="useSeat" parameterType="map">
+        <![CDATA[
+        BEGIN
+            INSERT INTO RENT_SEAT
+            (RENT_SEAT_NO, READING_START, READING_DONE, READING_EXTEND, SEAT_NO2, MEMBER_NO)
+            VALUES (SEQ_SEAT_NO.NEXTVAL, DEFAULT, SYSDATE + INTERVAL '4' HOUR, DEFAULT, #{seatNo2}, #{memberNo});
+
+            UPDATE SEAT 
+            SET SEAT_AVAIL = 1
+            WHERE SEAT_NO = #{seatNo2};
+        END;
+        ]]>
+	</insert>
+
+
+	<!-- 열람실 이용 종료하기 -->
+	<select id="getMemberUsingSeat" resultType="int">
+        SELECT s.SEAT_NO
+        FROM RENT_SEAT rs
+        JOIN SEAT s
+        ON rs.SEAT_NO2 = s.SEAT_NO
+        WHERE rs.MEMBER_NO = #{memberNo} AND s.CONDITION = 1
+    </select>
+
+    <update id="clearMemberFromSeat">
+        DELETE FROM RENT_SEAT
+        WHERE SEAT_NO2 = #{seatNo}
+    </update>
+
+    <update id="clearConditionFromSeat">
+        UPDATE SEAT
+        SET SEAT_AVAIL = 0
+        WHERE SEAT_NO = #{seatNo}
+    </update>
+
+	<update id="extendSeat">
+        UPDATE RENT_SEAT
+        SET READING_DONE = READING_DONE + INTERVAL '4' HOUR,
+            READING_EXTEND = READING_EXTEND - 1
+        WHERE MEMBER_NO = #{memberNo}
+          AND READING_EXTEND > 0
+    </update>
+
+
 
 </mapper>

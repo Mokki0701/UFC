@@ -15,5 +15,7 @@ public class LessonListDTO {
 	private int lessonNo;
 	private int lessonStar;
 	private int memberNo;
+	private String date;
+	private String fullName;
 
 }

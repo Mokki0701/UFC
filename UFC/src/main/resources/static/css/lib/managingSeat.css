@@ -48,13 +48,15 @@
 .sampleSeatSack {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* 각 쌍 사이의 간격을 원하는 크기로 조정 */
+  gap: 10px;
+  /* 각 쌍 사이의 간격을 원하는 크기로 조정 */
 }
 
 .sampleSeatPair {
   display: flex;
   align-items: center;
-  gap: 10px; /* div와 span 사이의 간격을 원하는 크기로 조정 */
+  gap: 10px;
+  /* div와 span 사이의 간격을 원하는 크기로 조정 */
 }
 
 
@@ -104,4 +106,157 @@
   font-weight: bold;
   font-size: 14px;
   border: 1px dotted black;
+}
+
+
+/* ---------------------------- 좌석 만들기 -------------------------- */
+
+
+.RGB-Exhibition-1-rgba {
+  color: rgba(219, 186, 242, 1);
+}
+
+.RGB-Exhibition-2-rgba {
+  color: rgba(187, 162, 242, 1);
+}
+
+.RGB-Exhibition-3-rgba {
+  color: rgba(162, 216, 201, 1);
+}
+
+.RGB-Exhibition-4-rgba {
+  color: rgba(179, 242, 212, 1);
+}
+
+.RGB-Exhibition-5-rgba {
+  color: rgba(235, 242, 48, 1);
+}
+
+
+#seatPlan {
+  background-color: rgba(187, 162, 242, 0.5);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.displayRow {
+  display: flex;
+  flex-direction: row;
+}
+
+#rRoomSign {
+
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+
+  margin: 10px 3px;
+  width: 90%;
+
+  border-radius: 7px;
+
+
+
+}
+
+#rRoomRowWindow {
+
+  border: 1px solid black;
+  text-align: center;
+  font-size: 20px;
+
+  margin: 10px 0px;
+
+  width: 50%;
+
+  border-radius: 7px;
+  background-color: rgba(162, 216, 201, 1);
+}
+
+#rRoomColWindow {
+
+  background-color: rgba(162, 216, 201, 1);
+  border: 1px solid black;
+  text-align: center;
+  font-size: 20px;
+
+  margin: 0px 10px;
+
+  width: 30px;
+
+  display: flex;
+  align-items: center;
+  /* 수직 정렬 */
+  justify-content: center;
+  /* 수평 정렬 */
+
+  writing-mode: vertical-rl;
+  /* 영어, 숫자 등을 세로로 정렬. */
+  text-orientation: upright;
+
+  border-radius: 7px;
+}
+
+#entranceSack {
+
+  /* border: 1px solid black; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-left: 10px;
+}
+
+.entrance {
+  border: 1px solid black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100px;
+  width: 30px;
+  margin: 50px 0px;
+
+  writing-mode: vertical-rl;
+  /* 영어, 숫자 등을 세로로 정렬. */
+  text-orientation: upright;
+
+
+  border-radius: 7px;
+}
+
+
+#editBtnSack {
+
+  margin: 20px 0px;
+}
+
+#editBtnSack>button {
+
+  width: 120px;
+  height: 50px;
+
+  transition: background-color 0.3s ease;
+}
+
+#editBtnSack > * {
+  border-radius: 7px;
+}
+
+#editBtnSack>button:hover {
+
+  cursor: pointer;
+
+  background-color: rgba(219, 186, 242, 1);
+
+
+  
 }

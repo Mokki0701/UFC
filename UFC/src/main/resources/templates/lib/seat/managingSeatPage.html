@@ -5,42 +5,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/lib/managingSeat.css">
+  <link rel="stylesheet" href="/css/libMain.css">
   <title>좌석 관리 페이지</title>
 </head>
 
 <body>
-  <div>공통 헤더가 들어갈 자리</div>
+  <header th:replace="~{common/header}"></header>
 
-  <div>도서관 전용 헤더가 들어갈 자리</div>
 
   <h1>도서관 좌석 관리 페이지</h1>
-  
-  <span>이메일 : </span><span id="user-email"></span>
+
+  <!-- 도서관 nav 조각 -->
+  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
+
+  <span>이메일 : </span><span th:text="${session.loginMember.memberEmail}"></span>
+
   <br>
-  <span>회원 등급 : </span><span id="user-authority"></span>
-  
-  <!-- 좌석이 만들어지는 div 칸 -->
-  <div class="seat-chart" id="seatChart"></div>
+  <span>회원 등급 : </span><span th:text="${session.loginMember.memberAuthority}"></span>
+
+  <!-- 좌석이 만들어지는 section 칸 -->
+
+  <!-- 열람실 좌석 배치도 -->
+  <section id="seatPlan">
+    <!-- 1. 열람실 간판 -->
+    <div id="rRoomSign" style="background-color: orange;">
+      UFC 도서관 열람실 편집 공간
+    </div>
+
+    <!-- 2. 가로 창문 -->
+    <div id="rRoomRowWindow"> 창 문 </div>
+
+    <!-- 3. 창문, 좌석, 출입구 모음 -->
+    <div class="displayRow">
+
+      <!-- 3.1 세로 창문 -->
+      <div id="rRoomColWindow">창 문 </div>
+
+      <!-- 3.2 좌석 모음 -->
+      <div class="seat-chart" id="seatChart"></div>
+
+      <!-- 3.3 출입구 모음 -->
+      <div id="entranceSack">
+        <!-- 3.3.1 출입구 1 -->
+        <div class="entrance"> 출입구 </div>
+        <!-- 3.3.2 출입구 2 -->
+        <div class="entrance"> 출입구 </div>
+      </div>
+
+    </div>
+
+    <!-- 4. 버튼 모음 -->
+    <div id="editBtnSack">
+      <button class="editBtn" id="loadSeat">좌석 배치 불러오기</button>
+      <button class="editBtn" id="clearSeat">전부 통로로 초기화</button>
+      <button class="editBtn" id="doneSeat">자리 번호 확인하기</button>
+      <button class="editBtn" id="saveSeat">변경사항 저장하기</button>
+    </div>
+
+  </section>
+
 
 
 
 
   <br><br>
-  <button id="loadSeat">좌석 배치 불러오기</button>
-  <button id="clearSeat">전부 통로로 초기화</button>
-  <button id="doneSeat">자리 번호 확인하기</button>
-  <button id="saveSeat">변경사항 저장하기</button>
-  <div>푸터가 들어갈 자리</div>
+
+  <footer>푸터가 들어갈 자리</footer>
+
+
+
+
+
+
+
   
-  
-  <div>temp</div>
-  <button>누르면 temp</button>
-  
-  <script src="/js/lib/managingSeat.js"></script>
 
 
 
 
 </body>
-
+<script src="/js/lib/managingSeat.js"></script>
 </html>

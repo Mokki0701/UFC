@@ -45,31 +45,7 @@ nav ul li a {
   color: #333;
 }
 
-.program-header {
-  background-color: #af5dde;
-  padding: 20px;
-  color: white;
-  text-align: center;
-}
 
-.program-header .buttons {
-  margin-top: 10px;
-}
-
-.program-header button {
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #ffffff;
-  color: #af5dde;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.program-header button:hover {
-  background-color: #ffcc00;
-  color: #333;
-}
 
 .program-search {
   background-color: #ffffff;
@@ -99,7 +75,7 @@ nav ul li a {
 .search-bar button {
   padding: 10px 20px;
   border: none;
-  background-color: #5cb85c;
+  background-color: #992BF2;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -111,7 +87,12 @@ nav ul li a {
 }
 
 .program-list {
-  padding: 20px;
+    padding: 20px;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    max-width: 1350px; /* 최대 너비 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 선택 사항: 컨테이너에 그림자 추가 */
+    background-color: #fff; /* 선택 사항: 배경 색상 추가 */
+    border-radius: 8px; /* 선택 사항: 모서리 둥글게 */
 }
 
 .filter-options {
@@ -121,6 +102,7 @@ nav ul li a {
 }
 
 .filter-options button {
+  border-radius: 5px;
   margin-left: 10px;
   padding: 10px 20px;
   border: 1px solid #ddd;
@@ -162,18 +144,22 @@ nav ul li a {
 .program-info .label {
   display: inline-block;
   padding: 5px 10px;
-  background-color: #ff5a5a;
+  background-color: red;
   color: white;
   margin-right: 5px;
   font-size: 12px;
+
+  border-radius: 180px;
 }
 
 .program-info .category {
   display: inline-block;
   padding: 5px 10px;
-  background-color: #5cb85c;
+  background-color: green;
   color: white;
   font-size: 12px;
+
+  border-radius: 180px;
 }
 
 .pagination {
@@ -183,6 +169,8 @@ nav ul li a {
 }
 
 .pagination a {
+  user-select: none;
+  border-radius: 180px;
   margin: 0 5px;
   padding: 10px 15px;
   border: 1px solid #ddd;
@@ -192,7 +180,7 @@ nav ul li a {
 }
 
 .pagination a.active {
-  background-color: #5cb85c;
+  background-color: #992BF2;
   color: white;
 }
 
@@ -247,7 +235,7 @@ nav ul li a {
 .search-bar button {
     padding: 10px 20px;
     border: none;
-    background-color: #5cb85c;
+    background-color: #992BF2;
     color: white;
     cursor: pointer;
     border-radius: 0 5px 5px 0; /* 우측 모서리 둥글게 */
@@ -263,7 +251,7 @@ nav ul li a {
     margin-left: 10px;
     padding: 10px 20px;
     border: none;
-    background-color: #5cb85c;
+    background-color: #992BF2;
     color: white;
     cursor: pointer;
     border-radius: 5px; /* 모서리 둥글게 */
@@ -308,7 +296,7 @@ nav ul li a {
 }
 
 .search-button button {
-    background-color: #af5dde;
+    background-color: #992BF2;
     color: white;
     font-size: 16px;
     padding: 10px 30px;
@@ -322,3 +310,39 @@ nav ul li a {
 }
 
     
+.clicked {
+  background-color: #992BF2 !important;
+  color: white !important;
+}
+
+.detail-view-link {
+  text-decoration: none;
+}
+
+.bg-picture-top{
+content: '';
+position: absolute;
+right: 0;
+top: 400px;
+width: 500px;
+height: 400px;
+background: url(/images/lesson/bg-top.png);
+pointer-events: none;
+z-index: -1; /* 가장 아래로 설정 */
+
+}
+
+.bg-picture-btm {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 329px;
+  width: 561px;
+  height: 781px;
+  background: url(/images/lesson/bg-btm.png);
+  pointer-events: none;
+}
+
+
+
+

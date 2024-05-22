@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.lesson-post-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+#lessonPostFrm {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+#lessonPostFrm > label {
+  display: block;
+  margin-top: 30px;
+  font-size: 18px;
+}
+
+#lessonPostFrm > span {
+  display: block;
+  height: 20px;
+  margin-top: 5px;
+}
+
+/* 필수 작성 */
+.required {
+  color: red;
+  padding: 0 5px;
+}
+
+/* input 태그를 감싸고 있는 div 태그 */
+.lesson-input-area {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px;
+  border-bottom: 2px solid #ddd;
+  flex-wrap: wrap; /* Allow items to wrap */
+}
+
+.lesson-input-area > input,
+.lesson-input-area > select,
+.lesson-input-area > label {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+
+.lesson-input-area > input[type="file"] {
+  padding: 0;
+}
+
+.lesson-input-area > button {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid gray;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.lesson-input-area > button:hover {
+  background-color: #f0f0f0;
+}
+
+/* :focus-within : 내부 input 요소에 포커스가 맞춰졌을 때 */
+.lesson-input-area:focus-within {
+  border-bottom-color: #992BF2;
+}
+
+/* 입력 관련 메세지 */
+.signUp-message {
+  font-size: 14px;
+  letter-spacing: -1px;
+  margin-top: 5px;
+}
+
+/* 메세지 색상 지정 */
+.confirm {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+/* 게시하기 버튼 */
+#lessonPostBtn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 30px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #992BF2;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#lessonPostBtn:hover {
+  background-color: #6a1ea8;
+}
+
+#lessonPostBtn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  #lessonPostFrm {
+    padding: 15px;
+  }
+
+  .lesson-input-area {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lesson-input-area > button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #lessonPostFrm > label {
+    font-size: 16px;
+  }
+
+  #lessonPostBtn {
+    font-size: 18px;
+  }
+}
