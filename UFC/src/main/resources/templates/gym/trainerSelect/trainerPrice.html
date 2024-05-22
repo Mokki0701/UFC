@@ -73,6 +73,7 @@
       </div>
   </div>
 
+  <div th:text="${memberNo}"></div>
   <div th:text="${param.ptCount}">pt 횟수</div>
   
   <button onclick="requestPay()" id="gym_pay_button" >결제하기</button>
@@ -80,7 +81,9 @@
   <script th:inline="javascript">
     const calcResult = /*[[${calcResult}]]*/ 100; // spring에서 타임리프 사용 방법
     const memberPhone = /*[[${trainer.memberPhone}]]*/ 0;
-    const ptCount = /*[${param.ptCount}]*/ 0;
+    const ptCount = /*[[${param.ptCount}]]*/ 0;
+    const trainerNo = /*[[${trainer.trainerNo}]]*/ 0;
+    const memberNo = /*[[${memberNo}]]*/ 0;
 
     let ptLkroom  = 0;
 
@@ -100,12 +103,12 @@
       var strDate = document.getElementById("startDate").value;
         
       // 운동 시작일 값 확인
-      console.log("운동 시작일: " + startDate);
+      console.log("운동 시작일: " + strDate);
 
       IMP.request_pay({
         pg: "kakaopay",
         pay_method: "kakaopay",
-        merchant_uid: "test_lwehztzg12",
+        merchant_uid: "test_lwehztzg52",
         name: "PT 결제",
         amount: calcResult,
         buyer_tel: memberPhone,
@@ -117,7 +120,9 @@
           var result = {
             ptCount: ptCount,
             ptPrice: calcResult,
-            ptLkroom : ptLkroom,
+            ptLkroom : ptLkroom,  
+            memberNo : memberNo,
+            trainerNo : trainerNo,
             strDate : strDate,
           }
           console.log(result);
@@ -129,7 +134,8 @@
           })
           .then(resp => resp.json())
           .then(data => {
-            console.log('Success', date);
+            console.log('Success', data);
+            alert("결제 성공")
             location.href = "/gym/gymMain"
           })
           .catch((error) =>{
