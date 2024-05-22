@@ -5,17 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter 
+@Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class LessonListDTO {
+@NoArgsConstructor
+public class AttendanceDTO {
 	
-	private String lessonTitle;
 	private int lessonNo;
-	private int lessonStar;
-	private int memberNo;
 	private String date;
-	private String fullName;
-
+	private int memberNo; // 학생번호
+	
 }

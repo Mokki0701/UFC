@@ -24,7 +24,7 @@
 }
 
 .less_attendance, .less_schedule, .less_lectures, .less_rating {
-  background-color: #808080;
+  background-color: #d9d9d9;
   padding: 20px;
   border-radius: 10px;
   flex: 1 1 45%;
@@ -77,7 +77,7 @@
 
 .less_lectures li a {
   text-decoration: none;
-  color: #fff;
+  color: #000;
 }
 
 .less_remove_star {
@@ -148,6 +148,65 @@
 
 #reviewBtn{
   cursor: pointer;
+}
+
+/* 강사 강의 목록 */
+#lecture_list{
+  /* 강의 리스트가 많을 경우 스크롤로 보이게 */
+  height: 80%;
+  overflow-y: auto;
+}
+
+/* 출석부 팝업 레이어 */
+
+#less_attendancePopup{
+  /* 나중에 display flex로 수정하기 */
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  border: 3px solid pink;
+  background: whitesmoke;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.less_popup_content{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 10px;
+}
+
+.popup_close_btn{
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#less_attendanceForm{
+  height: 400px;
+  position: relative;
+}
+
+#less_attendanceForm > input{
+  height: 20px;
+}
+
+#less_attendance_ny{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* x버튼 클릭시 팝업 숨기기 */
+.less_popup_hidden{
+  display: none;
 }
 
 
