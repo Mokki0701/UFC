@@ -1,8 +1,12 @@
+*{
+  user-select: none;
+}
+
 #spaceShip {
 
   display: flex;
   flex-direction: column;
-  border: 3px solid black;
+  border: 1px solid black;
   width: 600px; /* 전체 레이아웃 너비 */
   height: 500px; /* 전체 레이아웃 높이 */
   margin: 0 auto;
@@ -22,6 +26,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin: 0px 200px;
 }
 
 #secondSpaceSack {
@@ -40,7 +46,7 @@
 
 #secondSpaceSack .space:first-child {
   margin-right: 100px;
-  margin-top: 100px;
+  margin-top: 50px;
 
   border-bottom: none;
 
@@ -52,7 +58,7 @@
 
 #secondSpaceSack .space:last-child {
   margin-left: auto;
-  margin-top: 100px;
+  margin-top: 50px;
 
   border-bottom: none;
 }
@@ -95,4 +101,58 @@
     text-align: center;
     border: 1px solid black;
     height: 50px;
+}
+
+#conditionGuide {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.boxSack {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.conditionBox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+
+.avail {
+  background-color: green;
+}
+
+.nowUsing {
+  background-color: yellow;
+}
+
+.disavail {
+  background-color: red;
+}
+
+/* 버튼 스타일 */
+
+#buttonSack{
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+}
+
+#buttonSack > button{
+  width: 200px;
+  height: 50px;
+}
+
+button{
+  font-size: 20px;
+}
+
+button:hover{
+  cursor: pointer;
+
 }
