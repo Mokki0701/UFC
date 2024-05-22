@@ -15,15 +15,31 @@
   <header></header>
 
   <!-- 도서관 전용 헤더 -->
-  <th:block th:replace ="~{common/lib/libNavVar}"></th:block>
+  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
 
   <h1>자리 연장 페이지 입니다</h1>
 
 
-  현재 로그인 한 회원 번호 : <span th:text="${session.loginMember.memberNo}"></span>
-  <br>
 
-  내가 이용 중인 자리 번호 : <span th:if = "${session.loginMember.memberNo != null && session.loginMember}"></span>
+
+  <div>
+    <h2>현재 로그인한 회원 정보</h2>
+    <p>회원 번호: <span th:text="${session.loginMember.memberNo}"></span></p>
+
+    <!-- 세션에 memberAndSeatSession이 있고, loginMember가 있는 경우에만 좌석 번호 출력 -->
+    <div th:if="${session.memberAndSeatSession != null}">
+      <th:block
+        th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
+        <p>회원님이 사용 중인 좌석 번호:
+          <span th:text="${seatNo}"></span>
+        </p>
+      </th:block>
+    </div>
+    <div th:if="${session.memberAndSeatSession == null}">
+      <p>이용 중인 좌석이 없습니다.</p>
+    </div>
+  </div>
+
   <br>
 
   이용 시작한 시간 :
@@ -48,7 +64,7 @@
 
   <!-- 공용 푸터 -->
   <footer></footer>
+  <script src="/js/lib/extendSeat.js"></script>
 </body>
-<script src="js/lib/extendSeat.js"></script>
 
 </html>

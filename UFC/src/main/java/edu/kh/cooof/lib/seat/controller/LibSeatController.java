@@ -85,17 +85,25 @@ public class LibSeatController {
 			// 이용 가능한 좌석이며, 현재 회원이 이용 중인 좌석이 없을 경우
 			// -1 : 이용 등록 성공
 			int useSeatResult = service.useSeat(libSeat.getSeatNo(), memberNo);
-			
+
 			// 이용 등록 성공한 경우
 			if (useSeatResult == -1) {
 				message = "좌석 이용 등록 성공!";
 				result = "success";
-				
+
 				// 회원이 이용 중인 자리 session에 저장하기
-				Map<Integer, Integer> memberAndSeatSession = new HashMap<>();
-				memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
-				
-				session.setAttribute("memberAndSeatSession", memberAndSeatSession);
+				Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session.getAttribute("memberAndSeatSession");
+                if (memberAndSeatSession == null) {
+                    memberAndSeatSession = new HashMap<>();
+                }
+                memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
+                
+                session.setAttribute("memberAndSeatSession", memberAndSeatSession);
+                
+                System.out.println("이용시작 회원번호 : 자리번호(DB): " + memberAndSeatSession);
+                
+
+
 			} else {
 				message = "좌석 이용 실패...";
 				result = "fail";
@@ -111,28 +119,34 @@ public class LibSeatController {
 	}
 
 	// 열람실 이용 종료하기
-	// 회원 번호, 회원이 이용중인 자리, 자리 이용 현황을 담은 RENT_SEAT 테이블
-	@PostMapping("/stopUsingSeat")
-	public ResponseEntity<Map<String, String>> stopUsingSeat(@SessionAttribute("loginMember") Member loginMember) {
-		int memberNo = loginMember.getMemberNo();
-		int seatNo = service.stopUsingSeat(memberNo);
+    @PostMapping("/stopUsingSeat")
+    public ResponseEntity<Map<String, String>> stopUsingSeat(@SessionAttribute("loginMember") Member loginMember, HttpSession session) {
+        int memberNo = loginMember.getMemberNo();
+        int seatNo = service.stopUsingSeat(memberNo);
 
-		String message;
-		String result;
-		if (seatNo > 0) {
-			message = "좌석 이용 종료 성공!";
-			result = "success";
-		} else {
-			message = "이용 중인 좌석이 없습니다.";
-			result = "fail";
-		}
+        String message;
+        String result;
+        if (seatNo > 0) {
+            // 세션에서 회원과 자리 정보를 담은 맵 가져오기
+            Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session.getAttribute("memberAndSeatSession");
+            if (memberAndSeatSession != null) {
+                memberAndSeatSession.remove(memberNo);
+            }
+            
+            System.out.println("이용종료 회원번호 : 자리번호(DB): " + memberAndSeatSession);
 
-		Map<String, String> response = new HashMap<>();
-		response.put("message", message);
-		response.put("result", result);
-		response.put("seatNo", String.valueOf(seatNo));
+            message = "좌석 이용 종료 성공!";
+            result = "success";
+        } else {
+            message = "이용 중인 좌석이 없습니다.";
+            result = "fail";
+        }
 
-		return ResponseEntity.ok(response);
-	}
+        Map<String, String> response = new HashMap<>();
+        response.put("message", message);
+        response.put("result", result);
+        response.put("seatNo", String.valueOf(seatNo));
 
+        return ResponseEntity.ok(response);
+    }
 }
