@@ -13,139 +13,115 @@
         </div>
         
         <div class="less_main_content">
-            <div class="less_attendance">
-                <h2>출석률</h2>
-                <div class="less_attendance_rate">
-                    <div class="less_circle">
-                        <span>85%</span>
-                    </div>
-                    <div class="less_details">
-                        <p>이번 달</p>
-                        <p>85%</p>
+            <div class="left_column">
+                <div class="less_attendance">
+                    <h2>출석률</h2>
+                    <div class="less_attendance_rate">
+                        <div class="less_circle">
+                            <span>85%</span>
+                        </div>
                     </div>
                 </div>
+
+                <!-- 관리자인 경우 즐겨찾기 안보이게 -->
+                <th:block th:unless="${session.loginMember.memberNo} == 9">
+                    <div class="less_lectures">
+                        <h2>내 즐겨찾기 강의 목록</h2>
+                        
+                        <ul id="lecture_list">
+                            <li>
+                                <a href="">강의 1</a>
+                                <button class="less_remove_btn">x</button>
+                            </li>
+                        </ul>
+                    </div>
+                </th:block>
+
+                <!-- 강사인 경우 본인 강의 보이게 -->
+                <th:block th:if="${session.loginMember.memberAuthority} == 3">
+                    <div class="less_lectures">
+                        <h2>강의 리스트</h2>
+                        
+                        <ul id="lecture_list">
+                            <li th:each="instructorLesson : ${instructorLessons}">
+                                <a href="#" th:text="${instructorLesson.lessonTitle}" class="lecture-link"  
+                                th:data-lesson-id="${instructorLesson.lessonNo}"
+                                >강의 1</a>
+                            </li>
+                        </ul>
+                    </div>
+                </th:block>
             </div>
 
-            <div class="less_schedule">
-                <h2>스케쥴</h2>
-                <div id="lessCalendar"></div>
-            </div>
-
-            <!-- 관리자인 경우 즐겨찾기 안보이게 -->
-            <th:block th:unless="${session.loginMember.memberNo} == 9">
-                <div class="less_lectures">
-                    <h2>내 즐겨찾기 강의 목록</h2>
-                    
-                    <ul id="lecture_list">
-                        <li>
-                            <a href="">강의 1</a>
-                            <button class="less_remove_btn">x</button>
-                        </li>
-                    </ul>
+            <div class="right_column">
+                <div class="less_schedule">
+                    <h2>스케쥴</h2>
+                    <div id="lessCalendar"></div>
                 </div>
-            </th:block>
 
-            <!-- 강사인 경우 본인 강의 보이게 -->
-            <th:block th:if="${session.loginMember.memberAuthority} == 3">
-                <div class="less_lectures">
-                    <h2>강의 리스트</h2>
-                    
-                    <ul id="lecture_list">
-                        <li th:each="instructorLesson : ${instructorLessons}">
-                            <a href="#" th:text="${instructorLesson.lessonTitle}" class="lecture-link"  
-                            th:data-lesson-id="${instructorLesson.lessonNo}"
-                            >강의 1</a>
-                        </li>
-                    </ul>
-                </div>
-            </th:block>
-
-            <!-- 일반 회원인 경우만 강의 평점 쓰기 -->
-            <th:block th:if="${session.loginMember.memberAuthority} == 0">
-                <div id="less_star_rating" class="less_rating">
-                    <h2>강의 평점 쓰기</h2>
-                    <div class="less_rating_section">
-                        <!-- 수강하는 강의 이름 나오게 -->
-                        <label for="lectureSelect">강의 선택:</label>
-                        <select id="lectureSelect">
-                            <option>강의선택</option>
-                            <option th:each="lesson : ${lessonList}" th:value="${lesson.lessonNo}" th:text="${lesson.lessonTitle}" >강의 1</option>
-                        </select>
-                        <div class="stars">
-                        <div class="content-star">
-                            <!-- <em class="star-average">별점 평균 4.5</em> -->
-                            <div class="star_point_container">
-                                <div class="star_background">
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="1" title="별로에요.."
-                                        alt="1" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="2" title="그저 그래요"
-                                        alt="2" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="3" title="괜찮아요"
-                                        alt="3" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="4" title="좋아요!"
-                                        alt="4" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="5" title="완전 강추!!"
-                                        alt="5" />
-                                </div>
-                                <button class="less_remove_star">
-                                    <img src="/images/icon_remove_star.svg" alt="별점 제거" />
-                                </button>
-                            </div>
-                        </div>
-                        </div>
-                        <button id="reviewBtn">평점 제출</button>
-                    </div>
-                </div>
-            </th:block> 
-            <!-- 일반회원 강의평점 쓰기  -->
-
-            <!-- 강사 과목 평점 보기 -->
-            <th:block th:if="${session.loginMember.memberAuthority} == 3">
-                <div id="instructor_star" class="less_rating">
-                    <h2>강의 평점</h2>
-                    <div class="less_rating_section">
-                        <!-- 수강하는 강의 이름 나오게 -->
-                        <label for="lectureSelect">강의 선택:</label>
-                        <select id="lectureSelect">
-                            <option>강의선택</option>
-                            <option th:each="lesson : ${instructorLessons}" th:value="${lesson.lessonNo}" th:text="${lesson.lessonTitle}" >강의 1</option>
-                        </select>
-                        <div class="stars">
-                        <div class="content-star">
-                            <!-- <em class="star-average">별점 평균 4.5</em> -->
-                            <div class="star_point_container">
-                                <div class="star_background">
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="1" title="별로에요.."
-                                        alt="1" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="2" title="그저 그래요"
-                                        alt="2" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="3" title="괜찮아요"
-                                        alt="3" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="4" title="좋아요!"
-                                        alt="4" />
-                                    <img class="star" src="/images/icon_empty_star.png" data-point="5" title="완전 강추!!"
-                                        alt="5" />
+                <!-- 강의 평점과 평점 쓰기 섹션 -->
+                <div class="less_rating_section">
+                    <!-- 강의 평점 보기 -->
+                    <th:block th:if="${session.loginMember.memberAuthority} == 3">
+                        <div id="instructor_star" class="less_rating">
+                            <h2>강의 평점</h2>
+                            <div class="less_rating_content">
+                                <label for="lectureSelect">강의 선택:</label>
+                                <select id="lectureSelect">
+                                    <option>강의선택</option>
+                                    <option th:each="lesson : ${instructorLessons}" th:value="${lesson.lessonNo}" th:text="${lesson.lessonTitle}">강의 1</option>
+                                </select>
+                                <div class="stars">
+                                    <div class="content-star">
+                                        <div class="star_point_container">
+                                            <div class="star_background">
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="1" title="별로에요.." alt="1" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="2" title="그저 그래요" alt="2" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="3" title="괜찮아요" alt="3" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="4" title="좋아요!" alt="4" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="5" title="완전 강추!!" alt="5" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                </div>
-            </th:block> 
+                    </th:block>
 
+                    <!-- 일반 회원인 경우만 강의 평점 쓰기 -->
+                    <th:block th:if="${session.loginMember.memberAuthority} == 0">
+                        <div id="less_star_rating" class="less_write_rating">
+                            <h2>강의 평점 쓰기</h2>
+                            <div class="less_rating_content">
+                                <label for="lectureSelect">강의 선택:</label>
+                                <select id="lectureSelect">
+                                    <option>강의선택</option>
+                                    <option th:each="lesson : ${lessonList}" th:value="${lesson.lessonNo}" th:text="${lesson.lessonTitle}">강의 1</option>
+                                </select>
+                                <div class="stars">
+                                    <div class="content-star">
+                                        <div class="star_point_container">
+                                            <div class="star_background">
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="1" title="별로에요.." alt="1" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="2" title="그저 그래요" alt="2" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="3" title="괜찮아요" alt="3" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="4" title="좋아요!" alt="4" />
+                                                <img class="star" src="/images/icon_empty_star.png" data-point="5" title="완전 강추!!" alt="5" />
+                                            </div>
+                                            <button class="less_remove_star">
+                                                <img src="/images/icon_remove_star.svg" alt="별점 제거" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="reviewBtn">평점 제출</button>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- 팝업레이어 -->
     <div id="less_attendancePopup">
@@ -155,6 +131,7 @@
             <form id="less_attendanceForm">
                 <input id="attendanceDateInput" type="date" name="date">
                 <button id="less_student_list">검색</button>
+                <button id="less_Attendance_status">출결 현황</button>
                 <table id="less_attendanceTable">
                     <!-- 출석부 내용은 JavaScript로 동적으로 추가 -->
                 </table>

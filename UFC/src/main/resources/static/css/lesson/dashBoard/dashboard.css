@@ -1,4 +1,3 @@
-
 .less_dashboard {
   max-width: 1400px;
   margin: auto;
@@ -11,7 +10,7 @@
   border-bottom: 2px solid #333;
 }
 
-.less_header_display{
+.less_header_display {
   color: #2a2a4a;
 }
 
@@ -20,21 +19,66 @@
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 20px;
-  justify-content: space-between;
 }
 
-.less_attendance, .less_schedule, .less_lectures, .less_rating {
+.left_column {
+  flex: 1 1 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right_column {
+  flex: 1 1 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.less_attendance {
   background-color: #d9d9d9;
   padding: 20px;
   border-radius: 10px;
-  flex: 1 1 45%;
-  max-width: 45%;
+  box-sizing: border-box;
+}
+
+.less_attendance > h2 {
+  text-align: center;
+}
+
+.less_schedule {
+  background-color: #d9d9d9;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+
+.less_lectures {
+  background-color: #d9d9d9;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.less_rating {
+  background-color: #d9d9d9;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.less_write_rating {
+  background-color: #d9d9d9;
+  padding: 20px;
+  border-radius: 10px;
   box-sizing: border-box;
 }
 
 .less_attendance_rate {
   display: flex;
-  align-items: center;
+  justify-content: center
 }
 
 .less_circle {
@@ -58,7 +102,7 @@
 }
 
 .less_schedule #lessCalendar {
-  height: 300px;
+  height: 500px; /* 높이 증가 */
   background-color: #444;
 }
 
@@ -93,10 +137,16 @@
 .less_rating_section {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+.less_rating_content {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.less_rating_section label, .less_rating_section select, .less_rating_section .stars, .less_rating_section button {
+.less_rating_content label, .less_rating_content select, .less_rating_content .stars, .less_rating_content button {
   background-color: #333;
   border: none;
   color: #fff;
@@ -104,22 +154,7 @@
   border-radius: 5px;
 }
 
-/* .rating-section .stars {
-  display: flex;
-  gap: 5px;
-} */
-
-/* .rating-section .stars span {
-  cursor: pointer;
-  font-size: 24px;
-} */
-
-/* .star-average {
-  display: block;
-  margin-bottom: 16px;
-} */
-
-#lectureSelect{
+#lectureSelect {
   cursor: pointer;
 }
 
@@ -130,12 +165,9 @@
 
 .star_background {
   display: flex;
-  /* width: 250px;
-  height: 50px; */
 }
 
 .star_background img {
-  /* width: auto; */
   width: 50px;
   cursor: pointer;
 }
@@ -146,21 +178,17 @@
   margin-left: 12px;
 }
 
-#reviewBtn{
+#reviewBtn {
   cursor: pointer;
 }
 
-/* 강사 강의 목록 */
-#lecture_list{
-  /* 강의 리스트가 많을 경우 스크롤로 보이게 */
+#lecture_list {
   height: 80%;
   overflow-y: auto;
 }
 
 /* 출석부 팝업 레이어 */
-
-#less_attendancePopup{
-  /* 나중에 display flex로 수정하기 */
+#less_attendancePopup {
   display: flex;
   flex-direction: column;
   width: 500px;
@@ -175,39 +203,35 @@
   right: 0;
 }
 
-.less_popup_content{
+.less_popup_content {
   display: flex;
   flex-direction: column;
   position: relative;
   padding: 10px;
 }
 
-.popup_close_btn{
+.popup_close_btn {
   cursor: pointer;
   position: absolute;
   right: 10px;
   top: 10px;
 }
 
-#less_attendanceForm{
+#less_attendanceForm {
   height: 400px;
   position: relative;
 }
 
-#less_attendanceForm > input{
+#less_attendanceForm > input {
   height: 20px;
 }
 
-#less_attendance_ny{
+#less_attendance_ny {
   position: absolute;
   bottom: 10px;
   right: 10px;
 }
 
-/* x버튼 클릭시 팝업 숨기기 */
-.less_popup_hidden{
+.less_popup_hidden {
   display: none;
 }
-
-
-
