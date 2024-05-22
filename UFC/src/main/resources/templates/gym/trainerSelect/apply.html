@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>트레이너 지원하기</title>
+    <link rel="stylesheet" href="/css/gym/apply.css">
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+</head>
+<body>
+
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
+
+    <h3>트레이너 지원하기</h3>
+
+    <form action="/trainerSelect/apply" method="post" id="applicationForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <p>지원 분야</p>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="new-trainer" name="position" value="신입트레이너" required>
+                    <label for="new-trainer">신입 트레이너</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="experienced-trainer" name="position" value="경력트레이너" required>
+                    <label for="experienced-trainer">경력 트레이너</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="apply-route">지원 경로</label>
+            <input type="text" id="apply-route" name="apply-route" required>
+        </div>
+
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">연락처</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="resume-cover-letter">이력서 및 자기소개서</label>
+            <input type="file" id="resume-cover-letter" name="resume-cover-letter" accept=".pdf,.doc,.docx" required>
+        </div>
+
+        <button type="submit" id="applyBtn">제출</button>
+    </form>
+
+    <script src="/js/gym/apply.js"></script>
+</body>
+</html>

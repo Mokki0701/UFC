@@ -78,9 +78,12 @@ public class TrainerSelectController {
 		
 		return "/gym/trainerSelect/trainerSelect";
 	}
-	
-	
-	
+  
+	@GetMapping("apply")
+	public String apply(){
+		
+		return "gym/trainerSelect/apply";
+	}
 	
 	@PostMapping("gymPay")
 	public String gymPayment(@RequestBody PaymentRequest request,                    

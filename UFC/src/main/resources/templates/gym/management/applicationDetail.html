@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지원서 상세 조회</title>
+    <link rel="stylesheet" href="/css/gym/apply.css">
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+</head>
+<body>
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
+    <h3>지원서 상세 조회</h3>
+
+    <div>
+        <p><strong>지원서 번호:</strong> <span th:text="${application.applicationNo}"></span></p>
+        <p><strong>지원 분야:</strong> <span th:text="${application.position}"></span></p>
+        <p><strong>지원 경로:</strong> <span th:text="${application.applyRoute}"></span></p>
+        <p><strong>회원 번호:</strong> <span th:text="${application.memberNo}"></span></p>
+        <p><strong>성:</strong> <span th:text="${application.memberLastName}"></span></p>
+        <p><strong>이름:</strong> <span th:text="${application.memberFirstName}"></span></p>
+        <p><strong>연락처:</strong> <span th:text="${application.memberPhone}"></span></p>
+        <p><strong>이메일:</strong> <span th:text="${application.memberEmail}"></span></p>
+        <p><strong>이력서:</strong> <a th:href="@{/download/${application.resumePath}}" th:text="${application.resumePath}"></a></p>
+        <p><strong>지원 날짜:</strong> <span th:text="${application.applyDate}"></span></p>
+    </div>
+
+    <div>
+        <form action="/trainerSelect/approve" method="post">
+            <input type="hidden" name="applicationNo" th:value="${application.applicationNo}">
+            <button type="submit">승인</button>
+        </form>
+        <form action="/trainerSelect/reject" method="post">
+            <input type="hidden" name="applicationNo" th:value="${application.applicationNo}">
+            <button type="submit">거절</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -7,4 +7,5 @@ public interface MemberService {
 	// 빠른 로그인
 	Member quickLogin(String memberEmail);
 
+
 }

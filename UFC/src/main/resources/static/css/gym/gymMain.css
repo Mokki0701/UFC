@@ -1,64 +1,125 @@
+/* 전체 페이지 스타일 */
+body {
+    margin: 0;
+    padding: 0;
+}
 
+/* 헤더 스타일 */
+.gym_headerMenu {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 2px solid black;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-          /* 전체 페이지 스타일 */
-          body {
-            margin: 0;
-            padding: 0;
-        }
+.gym_header {
+    font-size: 31px;
+    margin: 10px 0;
+    text-align: left;
+    width: 100%;
+}
 
-        /* 헤더 스타일 */
-        #gym_headerMenu {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            border-radius: 30%;
-        }
+.gym_main_logo {
+    list-style-type: none; /* 불릿 제거 */
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
 
-        .gym_main_logo {
-            list-style-type: none;
-            padding: 0;
-        }
+.gym_main_logo li {
+    position: relative; /* 드롭다운을 위한 position 설정 */
+    margin-right: 20px;
+}
 
-        .gym_main_logo li {
-            display: inline;
-            margin-right: 20px;
-        }
+.gym_main_logo li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    transition-duration: 0.1s;
+}
 
-        .gym_main_logo li a {
-            color: #fff;
-            text-decoration: none;
-        }
+.gym_main_logo li a:hover {
+    text-decoration: underline;
+}
 
-        .gym_main_logo li a:hover {
-            text-decoration: underline;
-        }
+/* 드롭다운 메뉴 스타일 추가 */
+.dropdown-content {
+    list-style-type: none; /* 불릿 제거 */
+    display: none;
+    position: absolute;
+    background-color: #333; /* 배경색을 더 어두운 색으로 변경 */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%; /* 부모 항목 아래에 위치시킴 */
+    left: 50%; /* 부모 항목의 가운데에 위치시킴 */
+    transform: translateX(-50%); /* 가운데 정렬 */
+    text-align: center; /* 글자 가운데 정렬 */
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 0; /* 기본 마진 제거 */
+}
 
-        /* 사진 스타일 */
-        .gym_photo {
-            float: left;
-            margin-right: 20px;
-            max-width: 30%;
-            display: flex;
-            
-        }
+.dropdown-content li {
+    display: flex; /* 플렉스 박스 설정 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    padding: 10px 0; /* 상하 패딩 추가 */
+}
 
-        .gym_photo img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
+.dropdown-content a {
+    color: #fff; /* 글자 색상을 흰색으로 변경 */
+    margin-left: 20px;
+    text-decoration: none;
+    display: flex; /* 플렉스 박스로 설정 */
+    justify-content: center; /* 가로로 가운데 정렬 */
+    align-items: center; /* 세로로 가운데 정렬 */
+    width: 100%; /* a 태그를 li 태그의 전체 너비로 설정 */
+}
 
-        .gym_time{
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            height: 30vh;
-        }
+.dropdown-content a:hover {
+    background-color: #575757; /* 호버 시 배경색을 약간 더 어두운 색으로 변경 */
+}
 
-        .gym_time_info{
-            display: flex;
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-        }
+/* 사진 스타일 */
+.gym_photo {
+    float: left;
+    margin-right: 20px;
+    max-width: 30%;
+    display: flex;
+}
 
-        
+.gym_photo img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.gym_time {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 30vh;
+}
+
+.gym_time_info {
+    display: flex;
+}
+
+.gym_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
