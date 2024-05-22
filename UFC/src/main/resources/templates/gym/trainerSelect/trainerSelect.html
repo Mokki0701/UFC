@@ -12,25 +12,40 @@
 
     <h1>Trainer List</h1>
     
-    <div th:each=" trainer : ${trainers}">
-        <div>
-            <span>
-                <img src="/images/gym/health.jpg" alt="헬스트레이너">
-            </span>
-        </div>
-        <div >
-          <span th:text="${trainer.trainerNo}">트레이너 이름</span> 
-        </div>
-        <div>
+    <div th:each="trainer : ${trainers}" th:data-trainer-no="${trainer.trainerNo}">
+      <div>
+          <span>
+              <img th:src="@{/images/gym/health.jpg}" alt="헬스트레이너">
+          </span>
+      </div>
+      <div>
+          <span th:text="${trainer.trainerName}">트레이너 이름</span>
+      </div>
+      <div>
           <span>트레이너 소개</span>
-        </div>
-        <div>
-          <a href="/trainerSelect/trainerPrice"><button th:text="'1회 가격: ' + ${trainer.trainerPrice} + '원'" class="gym_price"></button></a>
-          <button th:text="'5회 가격: ' + (${trainer.trainerPrice} * 5) + '원'">5회 가격</button>
-          <button th:text="'10회 가격: ' + (${trainer.trainerPrice} * 10) + '원'">10회 가격</button>
-        </div>
-        
-    </div>
+
+      </div>
+      <div>
+        <button class="gym_price" data-pt-count="1"  th:text="'1회 가격: '  + ${trainer.trainerPrice}        + '원'">1회 가격</button>
+        <button class="gym_price" data-pt-count="5"  th:text="'5회 가격: '  + (${trainer.trainerPrice} * 5)  + '원'">5회 가격</button>
+        <button class="gym_price" data-pt-count="10" th:text="'10회 가격: ' + (${trainer.trainerPrice} * 10) + '원'">10회 가격</button>
+
+
+          <!-- <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice})}" id="tenTimesLink" data-pt-count="1">
+          </a>
+          <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice * 5})}" id="tenTimesLink" data-pt-count="5">
+          </a>
+          <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice * 10})}" id="tenTimesLink" data-pt-count="10">
+          </a> -->
+      </div>
+  </div>
+
+  
+  <script src="/js/gym/trainerPrice.js"></script>
+
+
+  
+
     
 
     

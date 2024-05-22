@@ -20,7 +20,6 @@ public class Member {
 	private String memberFirstName;
 	private String memberBirthday;
 	private String memberPhone;
-	
 	// ... 
 	private int memberAuthority;
 	
