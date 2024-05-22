@@ -44,7 +44,7 @@ gymPrices.forEach(btn => {
         input2.name = "trainerNo";
         input2.value = btn.parentElement.parentElement.dataset.trainerNo;
         
-
+        
         // form태그를 화면에 추가
         form.append(input1, input2);
         document.querySelector("body").append(form);
@@ -54,3 +54,18 @@ gymPrices.forEach(btn => {
 
     })
 })
+
+const gymName = document.querySelector("#gym-name");
+const gymPayButton = document.querySelector("#gym_pay_button");
+
+/* 이름이 같은지 확인 */
+
+gymName.addEventListener("input", e =>{
+
+    const inputName = e.target.value;
+
+    // 1) 입력을 안했을 때
+    if(inputName.trim().length === 0){
+      nick
+    }
+});

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -85,10 +86,14 @@ public class TrainerSelectController {
 		return "gym/trainerSelect/apply";
 	}
 	
+	
+	
+	
+	@ResponseBody
 	@PostMapping("gymPay")
-	public String gymPayment(@RequestBody PaymentRequest request,                    
-	                         Model model) {
-	    
+	public int gymPayment(@RequestBody PaymentRequest request                    
+	                          ) {
+		
 	    return service.gymPayment(request);
 	    
 	}

@@ -18,6 +18,7 @@ public class Trainer {
 	private int memberNo;
 	private int price;
 	
+	
 	// member 전화번호
 	private String memberPhone;
 	
