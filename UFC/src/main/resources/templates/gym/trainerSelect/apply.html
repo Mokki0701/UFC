@@ -9,11 +9,11 @@
 </head>
 <body>
 
-    <th:black th:replace="~{gym/gymHeader}"></th:black>
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
 
     <h3>트레이너 지원하기</h3>
 
-    <form action="apply" method="post" enctype="multipart/form-data">
+    <form action="/trainerSelect/apply" method="post" id="applicationForm" enctype="multipart/form-data">
         <div class="form-group">
             <p>지원 분야</p>
             <div class="radio-group">
@@ -53,9 +53,9 @@
             <input type="file" id="resume-cover-letter" name="resume-cover-letter" accept=".pdf,.doc,.docx" required>
         </div>
 
-        <button id="submit">제출</button>
+        <button type="submit" id="applyBtn">제출</button>
     </form>
 
-    <script src="/js/apply.js"></script>
+    <script src="/js/gym/apply.js"></script>
 </body>
 </html>

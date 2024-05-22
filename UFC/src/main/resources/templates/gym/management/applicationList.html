@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지원서 목록</title>
+    <link rel="stylesheet" href="/css/gym/apply.css">
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+</head>
+<body>
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
+    <h3>지원서 목록</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>지원서 번호</th>
+                <th>지원 분야</th>
+                <th>지원 경로</th>
+                <th>회원 번호</th>
+                <th>성</th>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>이메일</th>
+                <th>지원 날짜</th>
+                <th>상세 보기</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="application : ${applications}">
+                <td th:text="${application.applicationNo}"></td>
+                <td th:text="${application.position}"></td>
+                <td th:text="${application.applyRoute}"></td>
+                <td th:text="${application.memberNo}"></td>
+                <td th:text="${application.memberLastName}"></td>
+                <td th:text="${application.memberFirstName}"></td>
+                <td th:text="${application.memberPhone}"></td>
+                <td th:text="${application.memberEmail}"></td>
+                <td th:text="${application.applyDate}"></td>
+                <td><a th:href="@{/trainerSelect/applicationDetail(applicationNo=${application.applicationNo})}">상세 보기</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="/js/gym/applyManagement.js"></script>
+</body>
+</html>

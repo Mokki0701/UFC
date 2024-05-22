@@ -18,6 +18,8 @@ public class Member {
 	private String memberPw;
 	private String memberLastName; 
 	private String memberFirstName;
+	private String memberBirthday;
+	private String memberPhone;
 	
 	// ... 
 	private int memberAuthority;

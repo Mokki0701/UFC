@@ -31,21 +31,6 @@ public class MemberServiceImpl implements MemberService{
 		return loginMember;
 	}
 	
-    @Override
-    public Member findEmail(String email) {
-        return mapper.findEmail(email);
-    }
-    
-    @Override
-    public Member findById(int memberNo) {
-        return mapper.findById(memberNo);
-    }
-
-    @Override
-    public int updateMemberAuthority(int memberNo, int memberAuthority) {
-        return mapper.updateMemberAuthority(memberNo, memberAuthority);
-    }
-	
 	
 	
 	

@@ -7,12 +7,8 @@ import edu.kh.cooof.gym.application.model.dto.Application;
 
 @Mapper
 public interface ApplicationMapper {
-	
-	
-    // 지원서 삽입
-    int insertApplication(Application application);
 
-    // 지원서 조회
-    Application findApplicationById(@Param("applicationNo") int applicationNo);
+	int insertApplication(Application inputApply);
+	
 	
 }
