@@ -4,9 +4,20 @@
 	
 	<select id="getAllTrainers">
 	  SELECT * FROM TRAINER
-
 	</select>
 	
+	<select id="selectTrainer">
+	  
+	  SELECT TRAINER.*, MEMBER.MEMBER_PHONE 
+	  FROM TRAINER
+	  INNER JOIN MEMBER ON TRAINER.MEMBER_NO = MEMBER.MEMBER_NO
+	  WHERE TRAINER_NO = #{trainerNo}
+	</select>
 
+	<insert id="gymPayment">	 
+		INSERT INTO PT (PT_NO, PT_YN , PT_PRICE , PT_LKROOM  , MEMBER_NO , TRAINER_NO , PT_STRDATE )
+    	VALUES (PT_NO_SEQ.NEXTVAL, #{ptCount}, #{ptPrice}, #{ptLkroom}, 
+    	#{trainerNo}, #{memberNo} , TO_DATE(#{strDate}, 'YYYY-MM-DD') )
+	</insert>
 
 </mapper>
