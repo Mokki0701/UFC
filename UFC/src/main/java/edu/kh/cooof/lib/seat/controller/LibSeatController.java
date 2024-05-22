@@ -92,17 +92,16 @@ public class LibSeatController {
 				result = "success";
 
 				// 회원이 이용 중인 자리 session에 저장하기
-				Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session.getAttribute("memberAndSeatSession");
-                if (memberAndSeatSession == null) {
-                    memberAndSeatSession = new HashMap<>();
-                }
-                memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
-                
-                session.setAttribute("memberAndSeatSession", memberAndSeatSession);
-                
-                System.out.println("이용시작 회원번호 : 자리번호(DB): " + memberAndSeatSession);
-                
+				Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
+						.getAttribute("memberAndSeatSession");
+				if (memberAndSeatSession == null) {
+					memberAndSeatSession = new HashMap<>();
+				}
+				memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
 
+				session.setAttribute("memberAndSeatSession", memberAndSeatSession);
+
+				System.out.println("이용시작 회원번호 : 자리번호(DB): " + memberAndSeatSession);
 
 			} else {
 				message = "좌석 이용 실패...";
@@ -118,35 +117,66 @@ public class LibSeatController {
 		return ResponseEntity.ok(response);
 	}
 
+	// 현재 회원의 열람실 이용 정보 가져오기
+	@GetMapping("/seatUsage")
+	@ResponseBody
+	public LibSeatDTO getSeatUsage(HttpSession session) {
+		// 세션에서 로그인한 회원 정보 가져오기
+		Member loginMember = (Member) session.getAttribute("loginMember");
+
+		if (loginMember != null) {
+			int memberNo = loginMember.getMemberNo();
+			// 회원 번호로 좌석 이용 정보 조회
+			return service.getSeatUsageByMemberNo(memberNo);
+		}
+		return null;
+	}
+
 	// 열람실 이용 종료하기
-    @PostMapping("/stopUsingSeat")
-    public ResponseEntity<Map<String, String>> stopUsingSeat(@SessionAttribute("loginMember") Member loginMember, HttpSession session) {
-        int memberNo = loginMember.getMemberNo();
-        int seatNo = service.stopUsingSeat(memberNo);
+	@PostMapping("/stopUsingSeat")
+	public ResponseEntity<Map<String, String>> stopUsingSeat(@SessionAttribute("loginMember") Member loginMember,
+			HttpSession session) {
+		int memberNo = loginMember.getMemberNo();
+		int seatNo = service.stopUsingSeat(memberNo);
 
-        String message;
-        String result;
-        if (seatNo > 0) {
-            // 세션에서 회원과 자리 정보를 담은 맵 가져오기
-            Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session.getAttribute("memberAndSeatSession");
-            if (memberAndSeatSession != null) {
-                memberAndSeatSession.remove(memberNo);
-            }
-            
-            System.out.println("이용종료 회원번호 : 자리번호(DB): " + memberAndSeatSession);
+		String message;
+		String result;
+		if (seatNo > 0) {
+			// 세션에서 회원과 자리 정보를 담은 맵 가져오기
+			Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
+					.getAttribute("memberAndSeatSession");
+			if (memberAndSeatSession != null) {
+				memberAndSeatSession.remove(memberNo);
+			}
 
-            message = "좌석 이용 종료 성공!";
-            result = "success";
-        } else {
-            message = "이용 중인 좌석이 없습니다.";
-            result = "fail";
-        }
+			System.out.println("이용종료 회원번호 : 자리번호(DB): " + memberAndSeatSession);
 
-        Map<String, String> response = new HashMap<>();
-        response.put("message", message);
-        response.put("result", result);
-        response.put("seatNo", String.valueOf(seatNo));
+			message = "좌석 이용 종료 성공!";
+			result = "success";
+		} else {
+			message = "이용 중인 좌석이 없습니다.";
+			result = "fail";
+		}
 
-        return ResponseEntity.ok(response);
-    }
+		Map<String, String> response = new HashMap<>();
+		response.put("message", message);
+		response.put("result", result);
+		response.put("seatNo", String.valueOf(seatNo));
+
+		return ResponseEntity.ok(response);
+	}
+
+	// 열람실 자리 연장하기
+	@PostMapping("/extend")
+	@ResponseBody
+	public String extendSeat(HttpSession session) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
+
+		if (loginMember != null) {
+			int memberNo = loginMember.getMemberNo();
+			boolean result = service.extendSeat(memberNo);
+			return result ? "success" : "fail";
+		}
+		return "fail";
+	}
 }

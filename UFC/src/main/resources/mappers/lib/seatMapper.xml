@@ -82,7 +82,13 @@
         WHERE SEAT_NO = #{seatNo}
     </update>
 
-
+	<update id="extendSeat">
+        UPDATE RENT_SEAT
+        SET READING_DONE = READING_DONE + INTERVAL '4' HOUR,
+            READING_EXTEND = READING_EXTEND - 1
+        WHERE MEMBER_NO = #{memberNo}
+          AND READING_EXTEND > 0
+    </update>
 
 
 

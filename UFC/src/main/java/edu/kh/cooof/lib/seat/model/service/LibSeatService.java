@@ -20,8 +20,15 @@ public interface LibSeatService {
 	// 현재 회원이 이용 중인 좌석이 있는지 확인
 	int isMemberUsing(int memberNo);
 	
+	// 특정 회원의 좌석 이용 정보 조회
+	LibSeatDTO getSeatUsageByMemberNo(int memberNo);
+	
 	// 이용 중인 좌석 종료하기
 	int stopUsingSeat(int memberNo);
+	
+	// 열람실 연장하기
+	boolean extendSeat(int memberNo);
 
+	
 
 }

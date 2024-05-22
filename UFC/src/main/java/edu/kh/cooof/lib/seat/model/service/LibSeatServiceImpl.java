@@ -54,6 +54,11 @@ public class LibSeatServiceImpl implements LibSeatService {
 
 		return mapper.useSeat(params);
 	}
+	
+	@Override
+    public LibSeatDTO getSeatUsageByMemberNo(int memberNo) {
+        return mapper.getSeatUsageByMemberNo(memberNo);
+    }
 
 	// 열람실 이용 종료하기
 	@Override
@@ -65,5 +70,12 @@ public class LibSeatServiceImpl implements LibSeatService {
             mapper.clearConditionFromSeat(seatNo);
         }
         return seatNo;
+    }
+	
+	// 열람실 연장하기
+	@Override
+    public boolean extendSeat(int memberNo) {
+        int updatedRows = mapper.extendSeat(memberNo);
+        return updatedRows > 0;
     }
 }

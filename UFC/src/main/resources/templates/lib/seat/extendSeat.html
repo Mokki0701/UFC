@@ -34,30 +34,32 @@
           <span th:text="${seatNo}"></span>
         </p>
       </th:block>
+      <p>회원님의 남은 연장 기회 : <span id="remainingExtensions"></span></p>
+
     </div>
     <div th:if="${session.memberAndSeatSession == null}">
       <p>이용 중인 좌석이 없습니다.</p>
     </div>
   </div>
 
-  <br>
+  <p>현재 시간 : <span id="currentTime"></span></p>
+  <div id="seatUsageInfo">
+    <p>이용 시작한 시간: <span id="readingStart"></span></p>
+    <p>이용 종료 예정 시간: <span id="readingDone"></span></p>
 
-  이용 시작한 시간 :
-  <br>
 
-  이용 종료 예정 시간 :
-  <br>
+  </div>
 
-  현재 시간 :
-  <br>
 
-  <button>연장하기</button>
-  <br>
 
-  <button>그만 이용하기</button>
-  <br>
 
-  <button>자리 이동하기</button>
+
+
+  <button id="extendSeat">연장하기</button>
+  <br>
+  <button id="stopUsing">그만 이용하기</button>
+  <br>
+  <button id="moveSeat">자리 이동하기</button>
   <br>
 
 
