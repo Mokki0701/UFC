@@ -119,6 +119,19 @@ public class DashBoardController {
 		}
 		
 		
+		//강사 별점 리뷰 확인
+		@GetMapping("dashboard/review")
+		@ResponseBody
+		private int reviewStar(
+				@RequestParam("lessonNo") int lessonNo
+				) {
+			
+			int grade = service.checkReview(lessonNo);
+			
+			
+			return grade;
+		}
+		
 		
 	
 }

@@ -24,6 +24,8 @@ public class DashBoardServiceImpl implements DashBoardService {
 	//회원이 듣는 강의 리스트 조회
 	@Override
 	public List<LessonListDTO> findLesson(int loginMemberId) {
+		
+		
 		return mapper.findLesson(loginMemberId);
 	}
 	
@@ -56,7 +58,10 @@ public class DashBoardServiceImpl implements DashBoardService {
 	//내가 등록한 강의의 별점 찾기
 	@Override
 	public int findStar(LessonListDTO lessonList) {
-		return mapper.findStar(lessonList);
+		
+		int result = mapper.findStar(lessonList);
+		
+		return result;
 	}
 	
 	
@@ -91,12 +96,24 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Override
 	public int addList(List<AttendanceDTO> attendanceList) {
 		
+		
+		
+		
 		int result = mapper.addList(attendanceList);
 		//날짜,회원번호 모두 같은 경우 수정도 가능하게 하기
 		
 		return result;
 	}
 	
-	
+	//강사 별점 리뷰 확인
+	@Override
+	public int checkReview(int lessonNo) {
+		
+		int result = mapper.checkReview(lessonNo);
+		
+		
+		
+		return result;
+	}
 
 }

@@ -35,43 +35,46 @@ const isLockedPoint =()=>{
 //별점 1~5점 가져오는 변수
 let reviewPoint;
 
-starBackground.addEventListener('mousemove',e=>{
+const starRating = document.querySelector("#less_star_rating");
 
-  //lockStarPoint true인 경우(별점 고정)
-  if(isLockedPoint()){
-    //클릭시 마우스무브 기능을 멈춤(이벤트 중지)
-    return;
-  }
+if(starRating != null){
 
-  const target = e.target;
-  const currentUserPoint = e.offsetX;
+  starBackground.addEventListener('mousemove',e=>{
 
-  //html data-* 속성 값 1~5 
-  //data-* JS로 받으면 문자열이 됨
-  const point = target.dataset.point;
+    //lockStarPoint true인 경우(별점 고정)
+    if(isLockedPoint()){
+      //클릭시 마우스무브 기능을 멈춤(이벤트 중지)
+      return;
+    }
   
-  //이미지들을 배열로 가져왔을때 인덱스값을 맞추기 위해
-  //parseInt 함수는 첫 번째 매개변수로 주어진 문자열을 정수로 변환
-  const starPointIndex = parseInt(point,10)-1 ;
-
-  //요소의 좌표와 크기에 대한 정보를 반환
-  //getClientRects() = 대상 요소에 대한 DOMRect 객체의 컬렉션을 반환
-  // DOMRect 객체는 요소의 크기와 뷰포트에 대한 상대적인 위치 정보를 포함
-  //top, right, bottom, left, width, height 같은 속성들이 포함
-  const [starImageClientRect] = target.getClientRects();
-  //별모양 넚이값
-  const starImageWidth = starImageClientRect.width;
-
-  //마우스 포인터의 위치가 별 중간을 넘어서면 true , false
-  const isOverHalf = starImageWidth/2 < currentUserPoint 
-
-  renderStarPointImages({drawableLimitIndex : starPointIndex, isOverHalf})
-
-  //별점 데이터 전송
-  reviewPoint = point;
-
-});
-
+    const target = e.target;
+    const currentUserPoint = e.offsetX;
+  
+    //html data-* 속성 값 1~5 
+    //data-* JS로 받으면 문자열이 됨
+    const point = target.dataset.point;
+    
+    //이미지들을 배열로 가져왔을때 인덱스값을 맞추기 위해
+    //parseInt 함수는 첫 번째 매개변수로 주어진 문자열을 정수로 변환
+    const starPointIndex = parseInt(point,10)-1 ;
+  
+    //요소의 좌표와 크기에 대한 정보를 반환
+    //getClientRects() = 대상 요소에 대한 DOMRect 객체의 컬렉션을 반환
+    // DOMRect 객체는 요소의 크기와 뷰포트에 대한 상대적인 위치 정보를 포함
+    //top, right, bottom, left, width, height 같은 속성들이 포함
+    const [starImageClientRect] = target.getClientRects();
+    //별모양 넚이값
+    const starImageWidth = starImageClientRect.width;
+  
+    //마우스 포인터의 위치가 별 중간을 넘어서면 true , false
+    const isOverHalf = starImageWidth/2 < currentUserPoint 
+  
+    renderStarPointImages({drawableLimitIndex : starPointIndex, isOverHalf})
+  
+    //별점 데이터 전송
+    reviewPoint = point;
+  
+  });
 
 //select 태그 가져오기
 const lessonSelect = document.querySelector("#lectureSelect");
@@ -90,7 +93,7 @@ lessonSelect.addEventListener("change",()=>{
     return;
   } 
 
-  //console.log(lessonCode); //코드 나오는거 확인
+  console.log(lessonCode); //코드 나오는거 확인
   fetch('/lesson/dashboard/star?lessonNo='+lessonCode)
   .then(res => res.text())
   .then(result =>{
@@ -104,16 +107,6 @@ lessonSelect.addEventListener("change",()=>{
     }
   })
 })
-
-
-//별점 UI 함수
-const setStarRating= (result)=>{
-  renderStarPointImages({drawableLimitIndex: result - 1, isOverHalf: false});
-
-  //별점 고정
-  lockStarPoint();
-  
-}
 
 
 //평점제출 reviewBtn
@@ -162,6 +155,83 @@ function search(){
   })
 }
 
+
+
+//마우스 클릭시 별점 고정(lockStarPoint)
+starBackground.addEventListener("click",()=>{
+  lockStarPoint();
+})
+
+//별점제거 
+starPointResetButton.addEventListener("click",()=>{
+  unlockStarPoint();
+  resetStarPointImages();
+});
+
+
+//마우스 아웃일 경우 별점이 고정 상태가 아닌 경우 별점 초기화
+starBackground.addEventListener("mouseout",()=>{
+  //&& 연산자는 첫번째 연산자가 true인경우 다음 연산자를 반환
+  //별점 상태가 고정이 아닌 경우 resetStarPointImages 실행
+  !isLockedPoint() && resetStarPointImages();
+})
+
+
+//select의 옵션 1 선택 
+const setDefaultLecture = ()=>{
+
+  const selectElement = document.getElementById('lectureSelect');
+
+  //selectElement.length
+  //<select> 요소 내에 포함된 <option> 요소의 개수
+    if (selectElement.length > 1) { // 옵션이 두 개 이상 있는지 확인 (기본 옵션 포함)
+      //select option 요소의 인덱스
+      selectElement.selectedIndex = 0; 
+    }
+}
+}
+/* ===== 수강생 별점 후기 끝 ==================================== */
+
+/* 강사 강의 평점 보기======================= */
+const instructorStar = document.querySelector("#instructor_star");
+
+if(instructorStar != null){
+
+  //select 태그 가져오기
+const lessonSelect = document.querySelector("#lectureSelect");
+
+// 등록한 별점 불러오기 
+lessonSelect.addEventListener("change",()=>{
+  const lessonCode = lessonSelect.options[lessonSelect.selectedIndex].value;
+
+  const lessonText = lessonSelect.options[lessonSelect.selectedIndex].text;
+
+  const label = document.querySelector("[for='lectureSelect']");
+  label.innerText = lessonText;
+
+  if(lessonSelect.value == "강의선택"){
+    resetStarPointImages();
+    return;
+  } 
+  
+  //console.log(lessonCode);출력 확인
+  fetch('/lesson/dashboard/review?lessonNo='+lessonCode)
+  .then(res => res.text())
+  .then(result =>{
+  
+    if(result>0){
+      //별점 UI 함수
+      setStarRating(result)
+    }else{
+      //초기화
+      resetStarPointImages();
+    }
+  })
+})
+}
+
+
+
 //별 이미지 full/empty 결정
 function renderStarPointImages(payload={}){
 
@@ -191,44 +261,21 @@ function renderStarPointImages(payload={}){
 
 }
 
+//별점 UI 함수
+const setStarRating= (result)=>{
+  renderStarPointImages({drawableLimitIndex: result - 1, isOverHalf: false});
 
-//마우스 클릭시 별점 고정(lockStarPoint)
-starBackground.addEventListener("click",()=>{
+  //별점 고정
   lockStarPoint();
-})
-
-//별점제거 
-starPointResetButton.addEventListener("click",()=>{
-  unlockStarPoint();
-  resetStarPointImages();
-});
+  
+}
 
 //별점 제거 함수
 const resetStarPointImages = ()=>{
   renderStarPointImages();
 }
 
-//마우스 아웃일 경우 별점이 고정 상태가 아닌 경우 별점 초기화
-starBackground.addEventListener("mouseout",()=>{
-  //&& 연산자는 첫번째 연산자가 true인경우 다음 연산자를 반환
-  //별점 상태가 고정이 아닌 경우 resetStarPointImages 실행
-  !isLockedPoint() && resetStarPointImages();
-})
 
-
-//select의 옵션 1 선택 
-const setDefaultLecture = ()=>{
-
-  const selectElement = document.getElementById('lectureSelect');
-
-  //selectElement.length
-  //<select> 요소 내에 포함된 <option> 요소의 개수
-    if (selectElement.length > 1) { // 옵션이 두 개 이상 있는지 확인 (기본 옵션 포함)
-      //select option 요소의 인덱스
-      selectElement.selectedIndex = 0; 
-    }
-}
-/* ===== 별점 후기 끝 ==================================== */
 /** 즐겨찾기 리스트 ********************* */
 
 
@@ -392,8 +439,9 @@ function submitAttendance() {
                 
             };
             attendanceData.push(attendanceRecord);
-        
-        }
+        }//if문
+
+
       }
   });
 

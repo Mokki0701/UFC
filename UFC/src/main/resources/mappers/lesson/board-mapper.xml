@@ -36,7 +36,7 @@
     
     <select id="findStar">
     	
-    	SELECT LESSON_STAR  
+    	SELECT NVL(AVG(LESSON_STAR),0) 
 		FROM STAR_MANAGEMENT
 		WHERE LESSON_NO = #{lessonNo}
 		AND MEMBER_NO = #{memberNo}
@@ -96,7 +96,14 @@
 	
 	</insert>
 	
+	<!-- 강사 별점 리뷰 확인 -->
+	<select id="checkReview" resultType="_int">
 	
+		SELECT ROUND(NVL(AVG(LESSON_STAR),0))  
+		FROM STAR_MANAGEMENT
+		WHERE LESSON_NO = #{lessonNo}
+	
+	</select>
 	
 	
 	
