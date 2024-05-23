@@ -1,5 +1,60 @@
 // DOMContentLoaded 이벤트 리스너는 페이지가 로드될 때
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* 페이지가 로드될 때 마다 URL에 있는 태그 값들 다시 clicked class 부여하기 시작 */
+
+    // 현재 페이지의 URL을 가져옵니다.
+    const currentUrl = window.location.href;
+
+    // URL 객체를 사용하여 현재 URL을 파싱합니다.
+    const url = new URL(currentUrl);
+
+    // URLSearchParams 객체를 생성하여 쿼리 파라미터를 파싱합니다.
+    const params = new URLSearchParams(url.search);
+
+    // 'tags' 파라미터의 값을 가져옵니다.
+    const tags = params.get('tags');
+
+    // 'tags' 값이 있는지 확인합니다.
+    if (tags) {
+        // 'tags' 값을 ','로 분리하여 배열로 만듭니다.
+        const tagIds = tags.split(',');
+
+        // 각 tagId에 대해 해당 ID를 가진 요소에 'clicked' 클래스를 추가합니다.
+        tagIds.forEach(tagId => {
+            const element = document.getElementById(tagId);
+            if (element) {
+                element.classList.add('clicked');
+            }
+        });
+    }
+    /* 페이지가 로드될 때 마다 URL에 있는 태그 값들 다시 clicked class 부여하기 끝 */
+
+    /* 상세 검색에 clicked 클래스를 가진 요소가 있다면 display:none에서 block으로 바꾸는 코드 시작 */
+
+    // 'advanced-search-options' ID를 가진 div 요소 선언
+    const advancedSearchOptions = document.getElementById('advanced-search-options');
+
+    if (advancedSearchOptions) {
+
+        // 'advanced-search-options' div 내에 'checked' 클래스를 가진 요소를 찾습니다.
+        const clickedElement = advancedSearchOptions.querySelector('.clicked');
+
+        // 'checked' 클래스를 가진 요소가 있는지 확인합니다.
+        if (clickedElement) {
+            // 'advanced-search-options' div의 display 속성을 block으로 변경합니다.
+            advancedSearchOptions.style.display = 'block';
+        }
+    }
+
+    /* 상세 검색에 clicked 클래스를 가진 요소가 있다면 display:none에서 block으로 바꾸는 코드 끝 */
+
+
+
+
+
+
+
     // 검색 버튼을 변수로 저장합니다.
     const searchButton = document.querySelector('.search-bar button[type="submit"]');
     // 상세 검색 버튼들을 변수로 저장합니다.
@@ -11,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const orderInput = document.getElementById('orderInput');
 
     // 검색 버튼 클릭 이벤트 리스너를 추가합니다.
-    searchButton.addEventListener('click', function(event) {
+    searchButton.addEventListener('click', function (event) {
         event.preventDefault(); // 기본 동작(폼 제출)을 막습니다.
         const query = document.getElementById('searchQuery').value; // 검색어를 가져옵니다.
         const order = orderInput.value; // 정렬 순서를 가져옵니다.
@@ -20,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 각 상세 검색 버튼에 클릭 이벤트 리스너를 추가합니다.
     advancedSearchButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             this.classList.toggle('clicked'); // 클릭된 상태를 토글합니다.
             const query = document.getElementById('searchQuery').value; // 검색어를 가져옵니다.
             const order = orderInput.value; // 정렬 순서를 가져옵니다.
@@ -41,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // 정렬 버튼 클릭 이벤트 리스너를 추가합니다.
-    orderBtn.addEventListener('click', function() {
+    orderBtn.addEventListener('click', function () {
         const currentOrder = this.getAttribute('data-order');
         const newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
         this.setAttribute('data-order', newOrder);
@@ -53,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // 페이지네이션 버튼 클릭 이벤트 리스너를 추가합니다.
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         const target = event.target.closest('a'); // 클릭된 요소가 링크인지 확인합니다.
         if (target && target.hasAttribute('data-page')) { // 링크가 페이지 속성을 가지고 있는지 확인합니다.
             event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
@@ -108,7 +163,7 @@ function fetchSearchResults(query, tags = null, page = 1, pushState = true, orde
 }
 
 // popstate 이벤트 리스너를 추가합니다.
-window.addEventListener('popstate', function(event) {
+window.addEventListener('popstate', function (event) {
     if (event.state) {
         const query = event.state.query; // 히스토리 상태에서 검색어를 가져옵니다.
         const tags = event.state.tags; // 히스토리 상태에서 태그를 가져옵니다.
@@ -120,7 +175,7 @@ window.addEventListener('popstate', function(event) {
 
 /* 상세 검색 드롭 다운 메뉴 시작 */
 // 상세 검색 토글 버튼 클릭 이벤트 리스너를 추가합니다.
-document.getElementById('advanced-search-toggle').addEventListener('click', function() {
+document.getElementById('advanced-search-toggle').addEventListener('click', function () {
     var options = document.getElementById('advanced-search-options'); // 상세 검색 옵션을 가져옵니다.
     if (options.style.display === 'none' || options.style.display === '') { // 상세 검색 옵션의 표시 상태를 확인합니다.
         options.style.display = 'block'; // 표시 상태를 변경합니다.
