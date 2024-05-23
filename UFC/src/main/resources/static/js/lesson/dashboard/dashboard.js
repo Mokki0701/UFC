@@ -421,6 +421,8 @@ function submitAttendance() {
 
   rows.forEach(row => {
       const memberNo = row.querySelector('input[type="radio"]').name.split('_')[1];
+      console.log(">>>>>>>>>",memberNo);
+      console.log(">>>>>>>>>",attendanceDate);
       //const attendance = row.querySelector('input[type="radio"]:checked').value;
       const checkedRadio = row.querySelector('input[type="radio"]:checked');
 
@@ -474,12 +476,12 @@ function submitAttendance() {
 }
 
 /* 출결 현황 보기 ===================== */
-const attendanceStatus = document.querySelector("#less_Attendance_status");
+// const attendanceStatus = document.querySelector("#less_Attendance_status");
 
-attendanceStatus.addEventListener("click",e=>{
-  e.preventDefault();
+// attendanceStatus.addEventListener("click",e=>{
+//   e.preventDefault();
   
 
-})
+// })
 
 

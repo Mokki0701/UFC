@@ -36,7 +36,7 @@
                 </div>
 
                 <!-- 관리자인 경우 즐겨찾기 안보이게 -->
-                <th:block th:unless="${session.loginMember.memberNo} == 9">
+                <th:block th:if="${session.loginMember.memberAuthority} == 0">
                     <div class="less_lectures">
                         <h2>내 즐겨찾기 강의 목록</h2>
                         
@@ -50,7 +50,7 @@
                 </th:block>
 
                 <!-- 강사인 경우 본인 강의 보이게 -->
-                <th:block th:if="${session.loginMember.memberAuthority} == 3">
+                <th:block th:if="${session.loginMember.memberAuthority} == 1">
                     <div class="less_lectures">
                         <h2>강의 리스트</h2>
                         
@@ -74,7 +74,7 @@
                 <!-- 강의 평점과 평점 쓰기 섹션 -->
                 <div class="less_rating_section">
                     <!-- 강의 평점 보기 -->
-                    <th:block th:if="${session.loginMember.memberAuthority} == 3">
+                    <th:block th:if="${session.loginMember.memberAuthority} == 1">
                         <div id="instructor_star" class="less_rating">
                             <h2>강의 평점</h2>
                             <div class="less_rating_content">
@@ -143,7 +143,7 @@
             <form id="less_attendanceForm">
                 <input id="attendanceDateInput" type="date" name="date">
                 <button id="less_student_list">검색</button>
-                <button id="less_Attendance_status">출결 현황</button>
+                <!-- <button id="less_Attendance_status">출결 현황</button> -->
                 <table id="less_attendanceTable">
                     <!-- 출석부 내용은 JavaScript로 동적으로 추가 -->
                 </table>

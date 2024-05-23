@@ -77,15 +77,15 @@
     </select>
     
     <!-- 출석 모두 등록 -->
-	<insert id="addList" parameterType="list">
+ 	<insert id="addList" parameterType="list">
 		INSERT INTO "LESSONS_ATTENDANCE"
 		
 		<foreach collection="list" item="student" separator=" UNION">
-		SELECT #{student.lessonNo},#{student.date},#{student.memberNo}
+		SELECT #{student.date},#{student.memberNo},#{student.lessonNo}
 		FROM DUAL
 		</foreach>
 	
-	</insert>
+	</insert> 
 	
 	<!-- 강사 별점 리뷰 확인 -->
 	<select id="checkReview" resultType="_int">
