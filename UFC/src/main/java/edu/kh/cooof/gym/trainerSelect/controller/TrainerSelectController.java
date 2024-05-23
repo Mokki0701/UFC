@@ -67,12 +67,16 @@ public class TrainerSelectController {
 		if(loginMember != null) {
 			
 			 int memberNo = loginMember.getMemberNo(); 
+			 String memberLname = loginMember.getMemberLastName();
+			 String memberFname = loginMember.getMemberFirstName();
+			 String memberGender = loginMember.getMemberGender();
 			 
 			 Trainer trainer = service.selectTrainer(trainerNo);
 			
 			model.addAttribute("trainer", trainer);
 			model.addAttribute("calcResult", trainer.getTrainerPrice() * ptCount);
-			model.addAttribute("memberNo", memberNo);
+			model.addAttribute("member", loginMember);
+			
 
 			return "/gym/trainerSelect/trainerPrice"; // ${param.ptCount}
 		}
