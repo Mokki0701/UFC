@@ -278,6 +278,15 @@ public class EditBoardController {
 	}
 	
 	
+	// 수정화면 전환
+	@GetMapping("update")
+	public String lessonUpdate(
+
+	) {
+
+		return "lesson/lessonList/lessonUpdate";
+	}
+	
 	
 	
 	

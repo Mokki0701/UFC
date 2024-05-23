@@ -29,8 +29,21 @@ gobackBtn.addEventListener("click", () => {
   // console.log('/lesson/list/search' + queryParams);
   location.href = '/lesson/list/search' + queryParams;
   
-
-
-
   
 })
+
+if(updateBtn != null){
+updateBtn.addEventListener("click", () => {
+
+  // 현재 URL 예시 '/lesson/list/22'
+
+
+  location.href = location.pathname 
+  + "/update";
+
+
+
+})
+
+}
+

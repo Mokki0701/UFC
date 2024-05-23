@@ -105,7 +105,7 @@ public class LessonListController {
     @GetMapping("{lessonNo:[0-9]+}")
     public String lessonDetail(
             @PathVariable("lessonNo") int lessonNo, // 클릭된 수업의 lessonNo 저장
-            @SessionAttribute(name = "loginMember", required = false) Optional<Member> loginMember,
+            @SessionAttribute(name = "loginMember", required = false) Optional<Member> loginMember, // 필수X optional 활용
             Model model,
             RedirectAttributes ra
     ) {
@@ -173,6 +173,9 @@ public class LessonListController {
 		return path; // 리스트로 리다이렉트
 		
 	}
+	
+	
+	
     
 
 }
