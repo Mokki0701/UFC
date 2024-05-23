@@ -53,6 +53,7 @@ public class ApplicationController {
 
             // Application 객체 설정
             Application inputApply = new Application();
+            
             inputApply.setMemberNo(memberNo);
             inputApply.setPosition(position);
             inputApply.setApplyRoute(applyRoute);
@@ -104,4 +105,8 @@ public class ApplicationController {
         }
         return newFileName;
     }
+    
+    
+    
+    
 }
