@@ -473,4 +473,13 @@ function submitAttendance() {
   }
 }
 
+/* 출결 현황 보기 ===================== */
+const attendanceStatus = document.querySelector("#less_Attendance_status");
+
+attendanceStatus.addEventListener("click",e=>{
+  e.preventDefault();
+  
+
+})
+
 
