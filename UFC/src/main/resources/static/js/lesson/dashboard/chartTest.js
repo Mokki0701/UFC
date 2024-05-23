@@ -4,7 +4,7 @@ new Chart(document.getElementById("bar-chart-horizontal"), {
     labels: ["강의1", "강의2", "강의3", "강의4", "강의5"],
     datasets: [
       {
-        label: "Population (millions)",
+        label: "attendance rate (%)",
         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
         data: [10,25,50,75,100]
       }
