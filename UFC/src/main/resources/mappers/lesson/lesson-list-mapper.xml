@@ -139,6 +139,13 @@
 		#{lessonNo}, #{memberNo}, 1
 		)
 	</insert>
+	
+	<select id="signupCheck" resultType="_int">
+	SELECT COUNT(*) 
+	FROM STUDENT_ENROLLMENTS 
+	WHERE MEMBER_NO = #{memberNo}
+	AND LESSON_NO = #{lessonNo}
+	</select>
    
     
 </mapper>

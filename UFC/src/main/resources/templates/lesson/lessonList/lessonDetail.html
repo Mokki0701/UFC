@@ -200,7 +200,7 @@
         <!-- 수업 개요 끝 -->
 
         <div class="lesson-btn-container">
-            <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0}">
+            <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0 and checkSignup == 0}">
                 <button type="button" id="signupBtn" class="signupBtn btn">신청하기</button>
             </th:block>
             <button type="button" id="gobackBtn" class="gobackBtn btn">목록으로</button>
