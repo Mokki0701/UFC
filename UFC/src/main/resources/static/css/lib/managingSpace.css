@@ -1,0 +1,113 @@
+*{
+  user-select: none;
+}
+
+.resize-handle {
+  width: 10px;
+  height: 10px;
+  background-color: #ff0000;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+}
+
+
+
+
+.spaceManager {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#exitSack{
+  display: flex;
+  justify-content: space-between;
+  width: 750px;
+}
+
+.exit{
+  display: flex; /* 플렉스 박스로 설정 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    width: 200px;
+    text-align: center;
+    border: 1px solid black;
+    height: 50px;
+}
+
+.etcSack{
+  width: 750px;
+  display: flex;
+  flex-direction: row;
+}
+
+#controlPanel {
+  width: 200px;
+  background-color: #ececec;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+
+}
+
+#drawingArea {
+  width: 750px;
+  height: 500px;
+  background-color: #f0f0f0;
+  position: relative;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.drawnDiv {
+  position: absolute;
+  border: 1px solid #000;
+  background-color: rgba(0, 0, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: bold;
+  cursor: move;
+}
+
+button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+#saveData{
+  background-color: rgb(15, 136, 91);
+}
+
+#loadData{
+  background-color: rgb(136, 25, 25);
+}
+
+#sizeForm {
+  background: white;
+  border: 1px solid #000;
+  padding: 10px;
+  display: none;
+
+  margin-left: 50px;
+}
+
+#applySize{
+  margin-top: 100px;
+}
+
+/* 크기 입력란 크기 조절 */
+.setSize{
+  width: 30%;
+}
