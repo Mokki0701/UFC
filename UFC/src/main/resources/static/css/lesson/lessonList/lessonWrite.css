@@ -100,7 +100,7 @@
 }
 
 /* 게시하기 버튼 */
-#lessonPostBtn {
+#lessonPostBtn, #lessonUpdateBtn {
   width: 100%;
   padding: 15px;
   margin-top: 30px;
@@ -114,11 +114,11 @@
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-#lessonPostBtn:hover {
+#lessonPostBtn:hover, #lessonUpdateBtn:hover {
   background-color: #6a1ea8;
 }
 
-#lessonPostBtn:active {
+#lessonPostBtn:active, #lessonUpdateBtn:active {
   transform: scale(0.95);
 }
 
@@ -144,7 +144,7 @@
     font-size: 16px;
   }
 
-  #lessonPostBtn {
+  #lessonPostBtn, #lessonUpdateBtn {
     font-size: 18px;
   }
 }

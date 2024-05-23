@@ -38,7 +38,7 @@ updateBtn.addEventListener("click", () => {
   // 현재 URL 예시 '/lesson/list/22'
 
 
-  location.href = location.pathname 
+  location.href = location.pathname.replace('list', 'listEdit')
   + "/update";
 
 
