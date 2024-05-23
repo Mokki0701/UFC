@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,14 @@ public class SpaceController {
         return ResponseEntity.ok(insertedCount);
     }
 	
+	@GetMapping("/getSpaces")
+    public ResponseEntity<List<SpaceDTO>> getSpaces() {
+        List<SpaceDTO> spaces = service.getAllSpaces();
+        spaces.forEach(space -> {
+            System.out.println(space); // 로그에 출력하여 데이터 확인
+        });
+        return ResponseEntity.ok(spaces);
+    }
 	
 	
 }

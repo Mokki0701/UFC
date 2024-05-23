@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.kh.cooof.lib.space.model.mapper.SpaceMapper">
+<mapper
+	namespace="edu.kh.cooof.lib.space.model.mapper.SpaceMapper">
 
 	<!-- spaceTable 지워버리기 -->
 	<delete id="delTbSpace">
 		DELETE FROM SPACE
-	
 	</delete>
-
 
 	<!-- 편집 내용 저장하기 -->
 	<insert id="saveManagement">
-	
-		INSERT INTO SPACE (SPACE_NO, SPACE_NAME, SPACE_AVAIL, LEFT, TOP, WIDTH, HEIGHT)
-        VALUES (#{spaceNo}, #{spaceNo} || '번 방', DEFAULT, #{left}, #{top}, #{width}, #{height})
+		INSERT INTO SPACE (SPACE_NO, SPACE_NAME, SPACE_AVAIL, LEFT, TOP, WIDTH,
+		HEIGHT)
+		VALUES (#{spaceNo}, #{spaceNo} || '번 방', DEFAULT, #{left}, #{top}, #{width},
+		#{height})
 	</insert>
+
+	<!-- 저장된 공간 정보 불러오기 -->
+	<select id="getAllSpaces" resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
+        SELECT SPACE_NO as spaceNo, SPACE_AVAIL as spaceAvail, LEFT as left, TOP as top, WIDTH as width, HEIGHT as height
+        FROM SPACE
+    </select>
 
 </mapper>
