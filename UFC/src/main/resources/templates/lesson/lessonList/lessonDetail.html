@@ -200,6 +200,12 @@
         <!-- 수업 개요 끝 -->
 
         <div class="lesson-btn-container">
+
+            <th:block th:if="${checkSignup == 1}">
+                <button type="button" id="signupedBtn" class="signupBtn btn">신청완료</button>
+
+            </th:block>
+
             <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0 and checkSignup == 0}">
                 <button type="button" id="signupBtn" class="signupBtn btn">신청하기</button>
             </th:block>

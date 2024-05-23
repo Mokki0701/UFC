@@ -52,11 +52,11 @@
     <select id="getSearchCount">
     SELECT COUNT(*)
     FROM "LESSONS"
-    <if test="tags != null">
+     <if test="tags != null and tags.length() > 0">
         JOIN LESSON_CATEGORY USING (LESSON_NO)
     </if>
     WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
-    <if test="tags != null">
+    <if test="tags != null and tags.length() > 0">
         AND SMALL_CODE IN (${tags})
     </if>
     </select>
@@ -85,11 +85,11 @@
 
 	LESSON_REMAINS
 	FROM "LESSONS"
-    <if test="tags != null">
+     <if test="tags != null and tags.length() > 0">
         JOIN LESSON_CATEGORY USING (LESSON_NO)
     </if>
     WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
-    <if test="tags != null">
+     <if test="tags != null and tags.length() > 0">
         AND SMALL_CODE IN (${tags})
     </if>
     
