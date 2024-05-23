@@ -168,17 +168,22 @@
         </div>
 
         <!-- 이미지 경로 -->
-        <label for="inputImg">이미지 선택</label>
+        <label for="inputImg">썸네일 선택</label>
 
+        
         <div class="lesson-input-area">
-          <input type="file" name="inputImg" id="inputImg" class="inputImg" accept="image/*">
+          <img id="previewImg" src="" alt="썸네일 프리뷰">
         </div>
+
+        <button type="button" id="customButton">이미지 선택</button>
+        <input type="file" name="inputImg" id="inputImg" class="inputImg" accept="image/*">
 
         <button type="submit" id="lessonPostBtn">게시하기</button>
       </form>
     </section>
 
   </main>
+
 
 
   <!-- lessonCommon 들어가는곳 시작 -->
@@ -190,7 +195,7 @@
   <!-- 푸터 부분 끝 -->
 
   <!-- 수업 게시 JS 연결 시작 -->
-  <!-- <script src="/js/member/signup.js"></script> -->
+  <script src="/js/lesson/lessonList/lessonWrite.js"></script>
   <!-- 수업 게시 JS 연결 끝 -->
 
 
