@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>수업 게시</title>
+  <title>수업 수정</title>
 
   <link rel="stylesheet" href="/css/lesson/lessonList/lessonWrite.css">
 
@@ -22,8 +22,9 @@
 
     <section class="lesson-post-content">
 
-      <form action="/lesson/listEdit/insert" method="POST" name="lessonPostFrm" id="lessonPostFrm"
+      <form th:action="@{update}" method="POST" name="lessonPostFrm" id="lessonPostFrm"
         enctype="multipart/form-data">
+        
 
         <!-- 수업명 입력 -->
         <label for="lessonTitle">
@@ -32,7 +33,7 @@
 
         <div class="lesson-input-area">
           <input type="text" name="lessonTitle" id="lessonTitle" placeholder="수업명 작성해주세요." maxlength="30"
-            autocomplete="off">
+            autocomplete="off" th:value="${lesson.lessonTitle}">
         </div>
 
         <!-- 수업 개요 입력 -->
@@ -42,7 +43,7 @@
 
         <div class="lesson-input-area">
           <input type="text" name="lessonDetail" id="lessonDetail" placeholder="수업 개요 작성해주세요." maxlength="100"
-            autocomplete="off">
+            autocomplete="off" th:value="${lesson.lessonDetail}">
         </div>
 
         <!-- 강의실 입력 -->
@@ -51,7 +52,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <select name="lessonRoom" id="lessonRoom">
+          <select name="lessonRoom" id="lessonRoom" >
             <option value="A 강의실">A 강의실</option>
             <option value="B 강의실">B 강의실</option>
             <option value="C 강의실">C 강의실</option>
@@ -64,6 +65,9 @@
             <option value="J 강의실">J 강의실</option>
           </select>
         </div>
+
+
+
 
         <!-- 수업 시간 -->
         <label for="lessonScheduleDay">
@@ -98,7 +102,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="date" name="lessonStartDate" id="lessonStartDate">
+          <input type="date" name="lessonStartDate" id="lessonStartDate" th:value="${lesson.lessonStartDate}">
         </div>
 
         <!-- 수업 종료 날짜 -->
@@ -107,7 +111,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="date" name="lessonEndDate" id="lessonEndDate">
+          <input type="date" name="lessonEndDate" id="lessonEndDate" th:value="${lesson.lessonEndDate}">
         </div>
 
         <!-- 수업 정원 -->
@@ -116,7 +120,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="number" name="lessonCapacity" id="lessonCapacity" placeholder="수업 정원 작성해주세요." min="1">
+          <input type="number" name="lessonCapacity" id="lessonCapacity" placeholder="수업 정원 작성해주세요." min="1" th:value="${lesson.lessonCapacity}">
         </div>
 
         <!-- 수업 수강료 -->
@@ -125,7 +129,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="number" name="lessonTuitionFee" id="lessonTuitionFee" placeholder="수업 수강료 작성해주세요." min="0">
+          <input type="number" name="lessonTuitionFee" id="lessonTuitionFee" placeholder="수업 수강료 작성해주세요." min="0" th:value="${lesson.lessonTuitionFee}">
         </div>
 
         <!-- 수업 재료비 -->
@@ -134,7 +138,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="number" name="lessonMaterialFee" id="lessonMaterialFee" placeholder="수업 재료비 작성해주세요." min="0">
+          <input type="number" name="lessonMaterialFee" id="lessonMaterialFee" placeholder="수업 재료비 작성해주세요." min="0" th:value="${lesson.lessonMaterialFee}">
         </div>
 
         <!-- 수업 대상 -->
@@ -155,7 +159,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="date" name="lessonRegisterStart" id="lessonRegisterStart">
+          <input type="date" name="lessonRegisterStart" id="lessonRegisterStart" th:value="${lesson.lessonRegisterStart}">
         </div>
 
         <!-- 수업 등록 종료 날짜 -->
@@ -164,7 +168,7 @@
         </label>
 
         <div class="lesson-input-area">
-          <input type="date" name="lessonRegisterEnd" id="lessonRegisterEnd">
+          <input type="date" name="lessonRegisterEnd" id="lessonRegisterEnd" th:value="${lesson.lessonRegisterEnd}">
         </div>
 
         <!-- 이미지 경로 -->
@@ -178,12 +182,12 @@
         <button type="button" id="customButton" class="custom-button">이미지 선택</button>
         <input type="file" name="inputImg" id="inputImg" class="inputImg" accept="image/*">
 
-        <button type="submit" id="lessonPostBtn">게시하기</button>
+
+        <button type="submit" id="lessonUpdateBtn">수정하기</button>
       </form>
     </section>
 
   </main>
-
 
 
   <!-- lessonCommon 들어가는곳 시작 -->
@@ -195,9 +199,100 @@
   <!-- 푸터 부분 끝 -->
 
   <!-- 수업 게시 JS 연결 시작 -->
-  <script src="/js/lesson/lessonList/lessonWrite.js"></script>
+  <script src="/js/lesson/lessonList/lessonUpdate.js"></script>
   <!-- 수업 게시 JS 연결 끝 -->
 
+
+  <script th:inline="javascript">
+
+    /* 기존에 선택된 강의실 미리 세팅하기 시작 */
+    const selectRoom = /*[[${lesson.lessonRoom}]]*/ "기존에 선택된 강의실";
+    const lessonRoom = document.querySelector("#lessonRoom");
+    
+    for(let opt of lessonRoom.options){
+      if(opt.innerText == selectRoom) {
+        opt.selected = true;
+        break;
+      }
+    }
+    /* 기존에 선택된 강의실 미리 선택되있게 하기 끝 */
+
+    /* 기존에 선택된 수업 요일 및 시간 세팅하기 시작 */
+    const selectDay = /*[[${lesson.lessonScheduleDay}]]*/ "기존에 선택된 요일";
+    const lessonScheduleDay = document.querySelector("#lessonScheduleDay");
+
+    for(let opt of lessonScheduleDay.options){
+      if(opt.innerText == selectDay) {
+        opt.selected = true;
+        break;
+      }
+    }
+
+    const selectTime = /*[[${lesson.lessonScheduleTime}]]*/ "기존에 선택된 수업 시간";
+    const lessonSchedule = document.querySelector("#lessonSchedule");
+
+    for(let opt of lessonSchedule.options){
+      if(opt.innerText == selectTime) {
+        opt.selected = true;
+        break;
+      }
+    }
+
+
+    /* 기존에 선택된 수업 요일 및 시간 세팅하기 끝 */
+
+    /* 기존에 선택된 수업 대상 세팅하기 시작 */
+    const selectTarget = /*[[${lesson.lessonTargetAudience}]]*/ "기존에 선택된 수업 대상";
+    const lessonTargetAudience = document.querySelector("#lessonTargetAudience");
+
+    for(let opt of lessonTargetAudience.options){
+      if(opt.innerText == selectTarget) {
+        opt.selected = true;
+        break;
+      }
+    }
+    /* 기존에 선택된 수업 대상 세팅하기 끝 */
+
+
+    /* 이미지 프리뷰 시작 */
+    /* 이미지 프리뷰 시작 */
+
+// 가짜 버튼 클릭 시 파일 인풋 선택으로 연결
+document.getElementById('customButton').addEventListener('click', function() {
+  // 'inputImg' 요소를 클릭하여 파일 선택 대화 상자를 엶
+  document.getElementById('inputImg').click();
+});
+
+
+// 'inputImg' 요소에 이벤트 리스너를 추가하여 사용자가 파일을 선택할 때 실행되도록 설정
+document.getElementById('inputImg').addEventListener('change', function (event) {
+  // 선택한 파일을 가져옴
+  const file = event.target.files[0];
+  // 파일이 존재하는 경우
+  if (file) {
+    // FileReader 객체를 생성
+    const reader = new FileReader();
+    // 파일을 다 읽었을 때 실행될 함수 설정
+    reader.onload = function (e) {
+      // 'previewImg' 요소를 가져옴
+      const previewImg = document.getElementById('previewImg');
+      // 읽은 파일의 데이터 URL을 이미지의 src 속성에 설정
+      previewImg.src = e.target.result;
+      // 이미지를 화면에 표시
+      previewImg.style.display = 'block';
+    };
+    // 파일을 데이터 URL로 읽기 시작
+    reader.readAsDataURL(file);
+  }
+});
+/* 이미지 프리뷰 끝 */
+
+
+    /* 이미지 프리뷰 끝 */
+
+    
+
+    </script>
 
 </body>
 

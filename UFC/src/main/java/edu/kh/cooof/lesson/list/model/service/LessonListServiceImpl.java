@@ -106,5 +106,11 @@ public class LessonListServiceImpl implements LessonListService {
 	public int lessonSignup(Map<String, Integer> map) {
 		return mapper.lessonSignup(map);
 	}
+	
+	// 현재 로그인한 회원이 해당 수업에 가입해 있는지 여부 확인
+	@Override
+	public int signupCheck(Map<String, Integer> map) {
+		return mapper.signupCheck(map);
+	}
 
 }
