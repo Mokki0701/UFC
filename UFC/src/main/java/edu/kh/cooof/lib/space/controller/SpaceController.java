@@ -1,4 +1,4 @@
-package edu.kh.cooof.lib.space;
+package edu.kh.cooof.lib.space.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -50,37 +50,28 @@ public class SpaceController {
 	// 회원의 공간 이용 요청 보내기
 	@PostMapping("/wannaUseSpace")
 	public String postMethodName(
-		HttpSession session,
-		HttpServletRequest request,
-		@RequestParam int spaceNo,
-		Model model
-		) {
-		
-		String message = null;
-		String path = null;
-		
-		Member loginMember = (Member) session.getAttribute("loginMember");
-		int memberNo = loginMember.getMemberNo();
-		
-		// 나중에 구현 : 가능한 자리에만 반응하게 하기
-		// int spaceAvail = SpaceDTO.getSpaceAvail();
-		
-		// 로그인 되어 있는 경우에만 실행하기
-		if(loginMember == null) {
-			message = "로그인 후 이용해 주세요";
-			path = "redirect:/";
-		}
-		
-	
-		if(loginMember != null) {
-			int letUseSpace =  service.useSpace(memberNo, spaceNo);
-			
-			System.out.printf("letUseSpace : ", letUseSpace);
-		}
-		
-		model.addAttribute("message", message);
-		
-		return path;
+	    HttpSession session,
+	    @RequestParam("spaceNo") int spaceNo,
+	    Model model) {
+
+	    String message = null;
+	    String path = null;
+
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    if (loginMember == null) {
+	        message = "로그인 후 이용해 주세요";
+	        path = "redirect:/";
+	    } else {
+	        int memberNo = loginMember.getMemberNo();
+	        int letUseSpace = service.useSpace(memberNo, spaceNo);
+	        System.out.printf("letUseSpace : %d%n", letUseSpace);
+	        message = "이용 요청이 처리되었습니다.";
+	        path = "redirect:/"; // 원하는 경로로 설정
+	    }
+
+	    model.addAttribute("message", message);
+
+	    return path;
 	}
 
 

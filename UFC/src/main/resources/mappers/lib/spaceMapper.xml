@@ -23,7 +23,7 @@
     </select>
     
     <!-- 공간 이용하기 -->
-    <update id="useSpace">
+    <update id="useSpace" parameterType='map'>
     	<![CDATA[
     	BEGIN
 	    	UPDATE "SPACE" 
