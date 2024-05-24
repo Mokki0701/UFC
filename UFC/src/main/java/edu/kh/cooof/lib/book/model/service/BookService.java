@@ -12,4 +12,8 @@ public interface BookService {
 
 	List<String> categoryList(String storageName);
 
+	Map<String, Object> searchBook(Map<String, Object> paramMap);
+
+	Map<String, Object> getBookDetail(int bookNo);
+
 }

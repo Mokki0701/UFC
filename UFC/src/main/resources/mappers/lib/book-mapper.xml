@@ -39,5 +39,156 @@
 		WHERE CAT_NAME IN (#{string})
 		ORDER BY BOOK_NO
 	</select>
+	
+	<select id="searchCount">
+		SELECT COUNT(*)
+		FROM BOOK_INFO
+		WHERE BOOK_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY BOOK_NO
+	</select>
+	
+	<select id="searchCount2">
+		SELECT COUNT(*)
+		FROM "BOOK_INFO"
+		JOIN "BOOK_CATEGORY" USING(CAT_NO)
+		WHERE CAT_NAME IN (#{string})
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY BOOK_NO
+	</select>
+	
+	<select id="searchBook">
+		SELECT * FROM BOOK_INFO
+		WHERE BOOK_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY BOOK_NO
+	</select>
+	
+	<select id="searchBook2">
+		SELECT * FROM BOOK_INFO
+		WHERE BOOK_TITLE LIKE '%' || #{query} || '%'
+		AND CAT_NAME IN (#{string})
+		ORDER BY BOOK_NO
+	</select>
+	
+	<select id="selectBook">
+		SELECT * 
+		FROM BOOK_INFO
+		WHERE BOOK_NO = #{bookNo}
+	</select>
+	
+	<select id="selectBrowsingList">
+		SELECT * FROM (
+		    SELECT 
+		        BI.BOOK_TITLE, 
+		        BI.AUTHOR_LAST_NAME, 
+		        BI.AUTHOR_FIRST_NAME, 
+		        BI.BOOK_PUBLISHER,
+		        ROWNUM AS rnum
+		    FROM 
+		        BOOK_INFO BI
+		    JOIN 
+		        BOOK_CATEGORY BC ON BI.CAT_NO = BC.CAT_NO
+		    WHERE 
+		        BC.STORAGE_NO = (
+		            SELECT 
+		                BC.STORAGE_NO 
+		            FROM 
+		                BOOK_INFO BI 
+		            JOIN 
+		                BOOK_CATEGORY BC ON BI.CAT_NO = BC.CAT_NO
+		            WHERE 
+		                BI.BOOK_NO = #{bookNo}
+		        )
+		    ORDER BY 
+		        BI.BOOK_LIKE_NUM DESC
+		)
+		<![CDATA[
+		WHERE rnum <= 16
+		]]>
+	</select>
+	
+	
+	<select id="selectLoanList">
+		SELECT * FROM (
+		    SELECT 
+		        BI.BOOK_TITLE,
+		        BI.AUTHOR_LAST_NAME,
+		        BI.AUTHOR_FIRST_NAME,
+		        BI.BOOK_PUBLISHER,
+		        ROWNUM AS rnum
+		    FROM 
+		        LOAN_BOOK LB1
+		    JOIN 
+		        LOAN_BOOK LB2 ON LB1.MEMBER_NO = LB2.MEMBER_NO
+		    JOIN 
+		        BOOK_INFO BI ON LB2.BOOK_NO = BI.BOOK_NO
+		    WHERE 
+		        LB1.BOOK_NO = #{bookNo}
+		        AND LB2.BOOK_NO != #{bookNo}
+		    ORDER BY 
+		        LB2.LOAN_BOOK_NO 
+		)
+		<![CDATA[
+		WHERE rnum <= 16
+		]]>
+	</select>
+	
+	<select id="selectThemeList">
+		SELECT 
+		    BI.BOOK_TITLE,
+		    BI.AUTHOR_LAST_NAME,
+		    BI.AUTHOR_FIRST_NAME,
+		    BI.BOOK_PUBLISHER
+		FROM 
+		    BOOK_INFO BI
+		JOIN 
+		    BOOK_CATEGORY BC ON BI.CAT_NO = BC.CAT_NO
+		WHERE 
+		    BI.CAT_NO = (
+		        SELECT 
+		            CAT_NO 
+		        FROM 
+		            BOOK_INFO 
+		        WHERE 
+		            BOOK_NO = #{bookNo}
+		    )
+		ORDER BY 
+		    BI.BOOK_LIKE_NUM DESC
+		FETCH FIRST 16 ROWS ONLY
+	</select>
+	
+	<select id="selectAgeStatistics" resultType="java.lang.Integer">
+		SELECT
+            TRUNC((SYSDATE - M.MEMBER_BIRTHDAY) / 365.25 / 10) * 10 AS AGE_GROUP,
+            COUNT(*) AS LOAN_COUNT
+        FROM
+            LOAN_BOOK LB
+        JOIN
+            MEMBER M ON LB.MEMBER_NO = M.MEMBER_NO
+        WHERE
+            LB.BOOK_NO = #{bookNo}
+        GROUP BY
+            TRUNC((SYSDATE - M.MEMBER_BIRTHDAY) / 365.25 / 10) * 10
+        ORDER BY
+            AGE_GROUP
+	</select>
+	
+	<select id="selectYearStatistics">
+		SELECT
+		    EXTRACT(YEAR FROM LB.BOOK_START) AS YEAR,
+		    COUNT(*) AS LOAN_COUNT
+		FROM
+		    LOAN_BOOK LB
+		WHERE
+		    LB.BOOK_NO = #{bookNo}
+		    AND EXTRACT(YEAR FROM LB.BOOK_START) BETWEEN 2015 AND 2024
+		GROUP BY
+		    EXTRACT(YEAR FROM LB.BOOK_START)
+		ORDER BY
+		    YEAR
+	</select>
+	
+	
+	
+	
 
 </mapper>

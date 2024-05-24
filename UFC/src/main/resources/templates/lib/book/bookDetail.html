@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Information</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/lib/bookDetail.css">
+</head>
+<body>
+
+    <div class="book-info" th:object="${book}">
+
+        <div class="book-main">
+            <img src="path/to/book-image.jpg" alt="Book Image" class="book-image">
+            <div class="book-details">
+                <h2 th:text="*{bookTitle}">레드셔츠</h2>
+                <p>저자: <span th:text="*{authorFirstName}">존</span> <span th:text="*{authorLastName}">스칼지</span></p>
+                <p>출판사: <span th:text="*{bookPublisher}">폴라북스</span></p>
+                <p>발행 연도: <span th:text="*{bookYear}">2014</span></p>
+                <p>ISBN: <span th:text="*{storageDetail}">978-89-01-23456-7</span></p>
+                <p>상태: <span th:text="*{lrFlag}">대출 가능</span></p>
+                <button class="reserve-button">예약하기</button>
+            </div>
+        </div>
+
+        <div class="book-description">
+            <h3>책소개</h3>
+            <p th:text="*{bookTmi}">2013년 휴고상 수상작. 필립 K. 딕 상...</p>
+        </div>
+    </div>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
+                <div th:each="browsingBook : ${chunk}">
+                    <img src="path/to/image1.jpg" alt="책 1">
+                    <span th:text="*{bookTitle}"></span>
+                    <span th:text="*{authorFirstName}">존</span> <span th:text="*{authorLastName}">스칼지</span>
+                    <span th:text="*{bookPublisher}">폴라북스</span>
+                </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+
+    <!-- 함께 대출한 자료 -->
+    <div class="related-section">
+        <h3>이 자료와 함께 대출한 자료</h3>
+        <div class="carousel">
+            <button class="prev">&lt;</button>
+            <div class="carousel-inner">
+                <!-- Book items will be inserted here -->
+                <div class="book-item"><img src="path/to/book4.jpg" alt="Book 4"></div>
+                <div class="book-item"><img src="path/to/book5.jpg" alt="Book 5"></div>
+                <div class="book-item"><img src="path/to/book6.jpg" alt="Book 6"></div>
+            </div>
+            <button class="next">&gt;</button>
+        </div>
+    </div>
+
+    <!-- 같은 주제의 자료 -->
+    <div class="related-section">
+        <h3>이 자료와 같은 주제의 자료</h3>
+        <div class="carousel">
+            <button class="prev">&lt;</button>
+            <div class="carousel-inner">
+                <!-- Book items will be inserted here -->
+                <div class="book-item"><img src="path/to/book7.jpg" alt="Book 7"></div>
+                <div class="book-item"><img src="path/to/book8.jpg" alt="Book 8"></div>
+                <div class="book-item"><img src="path/to/book9.jpg" alt="Book 9"></div>
+            </div>
+            <button class="next">&gt;</button>
+        </div>
+    </div>
+
+    <!-- 통계 자료 -->
+    <div class="statistics">
+        <h3>통계자료</h3>
+        <div class="chart">
+            <!-- Chart will be inserted here -->
+            <img src="path/to/chart.jpg" alt="Chart Image">
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/js/lib/bookDetail.js"></script>
+</body>
+</html>
