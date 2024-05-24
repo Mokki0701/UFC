@@ -5,7 +5,7 @@
   <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UFC</title>
-  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="/css/common/header.css">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
       <button class="quickLoginBtn">testMem01@naver.com</button>
       <button class="quickLoginBtn">testMem02@naver.com</button>
       <br>
-      관리자 회원 : 
+      관리자 회원 :
       <button class="quickLoginBtn">testMem03@naver.com</button>
     </div>
 
@@ -54,10 +54,15 @@
 
   </div>
 
+  <!-- 여기에 만든 화면 추가 -->
+  <main class="common-main-container">
 
 
-  <div> 푸터가 들어갈 자리 </div>
->>>>>>> a765853cac839320dff9ecfab3a2924233a16166
+  </main>
+
+
+
+  <th:block th:replace="~{/common/footer}">footer</th:block>
 
 </body>
 <script src="/js/index.js"></script>
@@ -65,7 +70,7 @@
 <script th:inline="javascript">
   const message =  /*[[${message}]]*/ "전달 받은 message";
 
-  if(message != null) alert(message);
+  if (message != null) alert(message);
 </script>
 
 </html>
