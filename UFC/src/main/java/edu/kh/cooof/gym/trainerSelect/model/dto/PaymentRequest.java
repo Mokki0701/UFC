@@ -11,10 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PaymentRequest {
 
+	private int ptNo;
 	private int ptCount;
     private int ptPrice;
-    private String strDate;
     private String ptLkroom;
     private int memberNo;
     private int trainerNo;
+    private String strDate;
+    
 }

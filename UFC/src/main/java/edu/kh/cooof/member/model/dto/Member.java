@@ -22,6 +22,7 @@ public class Member {
 	private String memberPhone;
 	// ... 
 	private int memberAuthority;
+	private String memberGender;
 	
 	// 현재 이용 중인 좌석 번호
 	private int curUsingSeatNo;

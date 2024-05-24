@@ -3,6 +3,7 @@ package edu.kh.cooof.gym.trainerSelect.model.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.cooof.gym.trainerSelect.model.dto.PaymentRequest;
 import edu.kh.cooof.gym.trainerSelect.model.dto.Trainer;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TrainerSelectServiceImpl implements TrainerSelectService {
 
 	private final TrainerSelectMapper mapper;
@@ -30,7 +32,7 @@ public class TrainerSelectServiceImpl implements TrainerSelectService {
 
 	
 	@Override
-	public String gymPayment(PaymentRequest request) {
+	public int gymPayment(PaymentRequest request) {
 		return mapper.gymPayment(request);
 	}
 	
