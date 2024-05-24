@@ -22,7 +22,8 @@
             <p><strong>이름:</strong> <span th:text="${app.memberFirstName}"></span></p>
             <p><strong>연락처:</strong> <span th:text="${app.memberPhone}"></span></p>
             <p><strong>이메일:</strong> <span th:text="${app.memberEmail}"></span></p>
-            <p><strong>이력서:</strong> <a th:href="@{/uploads/${applappication.resumePath}}" th:text="${app.resumePath}"></a></p>
+            <p><strong>이력서:</strong> <a th:href="@{/management/download/{applicationNo}(applicationNo=${app.applicationNo})}"
+                                           th:text="${app.resumePath}">다운로드</a></p>
             <p><strong>지원 날짜:</strong> <span th:text="${app.applyDate}"></span></p>
         </div>
 
