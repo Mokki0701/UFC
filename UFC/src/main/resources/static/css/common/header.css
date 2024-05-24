@@ -1,0 +1,224 @@
+@font-face {
+    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMonggeulmonggeulR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+    margin: 0;
+    padding: 0;
+
+}
+
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    font-size: 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+.header-logo-container h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header-logo-container img {
+    height: 100px;
+    margin-right: 20px;
+
+}
+
+.header-login-container {
+    position: absolute;
+    right: 20px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+
+}
+
+.header-login-container span {
+    margin: 0 10px;
+    font-size: 1em;
+}
+
+
+.header-logo-container a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.header-logo-container :hover {
+    text-decoration: underline;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    margin-top: 80px;
+    /* header 높이만큼 여백 추가 */
+}
+
+.header-menu {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    width: 200px;
+    box-sizing: border-box;
+    position: fixed;
+    right: 0;
+    top: 80px;
+    /* header 높이만큼 아래로 이동 */
+    height: calc(100% - 80px);
+    /* header 높이만큼 높이 조정 */
+    align-items: center;
+    /* 가운데 정렬 */
+}
+
+.header-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1em;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    /* 세로 가운데 정렬 */
+    margin: 10px 0;
+    border-radius: 50%;
+    background-color: rgb(85, 43, 8, 0.8);
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.header-menu b {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1em;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    /* 세로 가운데 정렬 */
+    margin: 10px 0;
+    border-radius: 50%;
+    background-color: rgb(185, 204, 174);
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.header-menu c {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1em;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    /* 세로 가운데 정렬 */
+    margin: 10px 0;
+    border-radius: 50%;
+    background-color: rgb(139, 168, 128);
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.header-menu d {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.0em;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    /* 세로 가운데 정렬 */
+    margin: 10px 0;
+    border-radius: 50%;
+    background-color: rgb(84, 108, 72);
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.header-menu :hover {
+    text-decoration: underline;
+}
+
+
+.header-container {
+    height: 150px;
+
+}
+
+
+/*  footer */
+
+footer {
+    background-color: rgba(85, 43, 8, 0.6);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+@font-face {
+    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMonggeulmonggeulR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.footer-wave {
+    position: absolute;
+    bottom: 100%;
+    /* SVG가 푸터 위쪽에 위치하도록 설정 */
+    left: 0;
+    width: 100%;
+    height: 100px;
+    /* SVG의 높이 */
+    overflow: hidden;
+    /* 넘치는 부분을 숨김 */
+    line-height: 0;
+}
+
+.footer-wave svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    /* SVG가 화면 전체를 덮도록 */
+    height: 100px;
+}
+
+.shape-fill {
+    fill: #333;
+    /* SVG 모양 색상 */
+}
+
+
+body {
+    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.common-main-container {
+    flex-grow: 1;
+}

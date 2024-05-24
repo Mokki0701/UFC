@@ -1,32 +1,24 @@
-<link rel="stylesheet" href="/css/headerFooter.css">
+<div class="header-container">
+  <article class="header-login-container">
+      <span>로그인</span>
+      |
+      <span>정보수정</span>
+  </article>
 
-<body>
-  <div class="TopBoard">
-    <!-- 로고 -->
-    <div id="logo">
 
-    </div>
+  <header class="header-logo-container">
+      
+       <img  src="/images/logo.jpg" alt="logo">
+      
 
-    <!-- 로그인화면 이동 버튼, 마이페이지 이동 버튼 -->
-    <div>
+      <div class="my-page">MY PAGE</div>
+  </header>
 
-      <!-- 로그인이 안된 경우 -->
-      <th:block th:if="${session.loginMember == null}">
-        <span id="login">로그인 하기</span>
-        <span> / </span>
-        <span id="join">회원가입 </span>
-      </th:block>
+  <nav class="header-menu">
+      <a href="#home">HOME</a>
+      <b href="#">도서관</b>
+      <c href="#">헬스장</c>
+      <d href="#">문화센터</d>
+  </nav>
+</div>
 
-      <!-- 로그인 된 경우 -->
-      <th:block th:if="${session.loginMember != null}">
-        <span> 공용 헤더입니다</span>
-        <br>
-        <span id="myInfo">내 정보 수정</span>
-      </th:block>
-    </div>
-
-    <!-- 로그아웃 버튼 -->
-    
-  </div>
-
-</body>
