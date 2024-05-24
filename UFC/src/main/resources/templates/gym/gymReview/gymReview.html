@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>후기 게시판</title>
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+</head>
+<body>
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
+
+    <h1>후기 게시판</h1>
+    <section class="gym-list">
+        <button>글쓰기</button>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>글번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 게시글 목록 반복 출력 -->
+                    <tr th:each="gym : ${gymList}">
+                        <td th:text="${gym.gymNo}"></td>
+                        <td> 
+                          <a th:href="@{/reviews/view(gymNo=${gym.gymNo})}" th:text="${gym.gymTitle}"></a>
+                        </td>
+                        <td th:text="${gym.memberLastName} + '**' "></td>
+                        <td th:text="${gym.gymWriteDate}"></td>
+                        <td th:text="${gym.gymDelFl}"></td>    
+                    </tr>
+                    <!-- 게시글이 없을 때 -->
+                    <tr th:if="${#lists.isEmpty(gymList)}">
+                        <td colspan="5">게시글이 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
