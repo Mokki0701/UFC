@@ -40,5 +40,11 @@ public class SpaceServiceImpl implements SpaceService {
 		
 		return mapper.getAllSpaces();
 	}
+	
+	@Override
+	public int useSpace(int memberNo, int spaceNo) {
+		
+		return mapper.useSpace(memberNo, spaceNo);
+	}
 
 }

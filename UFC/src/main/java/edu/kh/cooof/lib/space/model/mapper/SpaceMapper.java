@@ -18,4 +18,7 @@ public interface SpaceMapper {
 	// 저장된 공간 정보 불러오기
 	List<SpaceDTO> getAllSpaces();
 
+	// 공간 이용하기
+	int useSpace(int memberNo, int spaceNo);
+
 }

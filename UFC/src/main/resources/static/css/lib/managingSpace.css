@@ -1,4 +1,4 @@
-*{
+* {
   user-select: none;
 }
 
@@ -23,35 +23,51 @@
   align-items: center;
 }
 
-#exitSack{
+#exitSack {
   display: flex;
   justify-content: space-between;
   width: 750px;
 }
 
-.exit{
-  display: flex; /* 플렉스 박스로 설정 */
-    justify-content: center; /* 수평 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
-    width: 200px;
-    text-align: center;
-    border: 1px solid black;
-    height: 50px;
+.exit {
+  display: flex;
+  /* 플렉스 박스로 설정 */
+  justify-content: center;
+  /* 수평 가운데 정렬 */
+  align-items: center;
+  /* 수직 가운데 정렬 */
+  width: 200px;
+  text-align: center;
+  border: 1px solid black;
+  height: 50px;
 }
 
-.etcSack{
+#trashCan {
+  border: 2px dashed red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.etcSack {
   width: 750px;
   display: flex;
   flex-direction: row;
 }
 
-#controlPanel {
+.controlPanel {
   width: 200px;
   background-color: #ececec;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 10;
 
+}
+
+
+.panelSack {
+  width: 200px;
 }
 
 #drawingArea {
@@ -73,6 +89,7 @@
   color: black;
   font-weight: bold;
   cursor: move;
+  border-radius: 10px;
 }
 
 button {
@@ -86,11 +103,11 @@ button {
   width: 100%;
 }
 
-#saveData{
+#saveData {
   background-color: rgb(15, 136, 91);
 }
 
-#loadData{
+#loadData {
   background-color: rgb(136, 25, 25);
 }
 
@@ -100,14 +117,14 @@ button {
   padding: 10px;
   display: none;
 
-  margin-left: 50px;
+  margin-left: 5px;
 }
 
-#applySize{
-  margin-top: 100px;
+#applySize {
+  margin-top: 50px;
 }
 
 /* 크기 입력란 크기 조절 */
-.setSize{
+.setSize {
   width: 30%;
 }

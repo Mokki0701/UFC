@@ -29,22 +29,27 @@
     </div>
 
     <!-- 생성된 div가 표시되는 부분 -->
-    <div id="drawingArea"></div>
+    <div id="drawingArea">
+      
+    </div>
 
     <!-- 컨트롤 패널 -->
     <div class="etcSack">
 
       <!-- 컨트롤 일반 -->
-      <div id="controlPanel">
+      <div class="controlPanel">
         <button id="createButton">공간 생성하기</button>
         <button id="assignButton">번호 부여하기</button>
         <button id="editButton">수동 편집</button>
+      </div>
+
+      <div class="controlPanel">
         <button id="saveData"> 공간 편집 저장하기 </button>
         <button id="loadData"> 이전 편집 불러오기 </button>
         <button id="clearAll"> 편집 중인 모든 공간 지우기 </button>
       </div>
 
-      <!-- 생성된 div 크기 조정 -->
+
       <div id="sizeForm">
         <br><br><br>
         <label for="width">가로 길이:</label>
@@ -53,8 +58,12 @@
         <input type="number" id="height" name="height" class="setSize"> px<br><br><br>
         <button id="applySize">적용</button>
       </div>
-    
     </div>
+
+    <!-- 생성된 div 크기 조정 -->
+    
+
+  </div>
 
   </div>
 

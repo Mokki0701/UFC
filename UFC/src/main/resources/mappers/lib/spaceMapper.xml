@@ -21,5 +21,21 @@
         SELECT SPACE_NO as spaceNo, SPACE_AVAIL as spaceAvail, LEFT as left, TOP as top, WIDTH as width, HEIGHT as height
         FROM SPACE
     </select>
+    
+    <!-- 공간 이용하기 -->
+    <update id="useSpace">
+    	<![CDATA[
+    	BEGIN
+	    	UPDATE "SPACE" 
+			SET SPACE_AVAIL = 1 
+			WHERE SPACE_NO = #{spaceNo}
+			
+			INSERT INTO RENT_SPACE
+			(RENT_SPACE_NO, SPACE_START, SPACE_DONE, SPACE_EXTEND, SPACE_NO2, MEMBER_NO)
+			VALUES(SEQ_RENT_SPACE_NO.NEXTVAL, DEFAULT, SYSDATE + INTERVAL '4' HOUR, DEFAULT, #{spaceNo}, #{memberNo});
+		END;  
+    	]]>
+    </update>
+    
 
 </mapper>
