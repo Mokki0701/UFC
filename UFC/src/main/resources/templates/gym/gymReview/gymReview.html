@@ -34,10 +34,7 @@
                         <td th:text="${gym.gymWriteDate}"></td>
                         <td th:text="${gym.gymDelFl}"></td>    
                     </tr>
-                    <!-- 게시글이 없을 때 -->
-                    <tr th:if="${#lists.isEmpty(gymList)}">
-                        <td colspan="5">게시글이 없습니다.</td>
-                    </tr>
+                   
                 </tbody>
             </table>
         </div>

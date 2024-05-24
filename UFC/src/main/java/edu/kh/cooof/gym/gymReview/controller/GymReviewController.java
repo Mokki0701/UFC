@@ -22,8 +22,7 @@ public class GymReviewController {
 	@GetMapping("reviews/gymReview")
 	public String reviews(Model model) {
 		
-		List<GymReview> gymList = service.getAllGym();
-		
+		List<GymReview> gymList = service.getAllGym();	
 		model.addAttribute("gymList", gymList);
 		
 		
