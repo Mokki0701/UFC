@@ -1,5 +1,7 @@
 package edu.kh.cooof.gym.gymReview.model.dto;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -16,9 +18,11 @@ public class GymReview {
 	private int gymNo;
 	private String gymTitle;
 	private String gymContent;
-	private String gymUpdateDate;
-	private String gymWriteDate;
+	private Date gymUpdateDate;
+	private Date gymWriteDate;
 	private int gymDelFl;
 	private int memberNo;
-	
+	private int viewCount;
+	private String memberLastName; 
+	private String memberFirstName;
 }

@@ -2,7 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.gym.gymReview.model.mapper.GymReviewMapper">
 	
-
+	<select id="getAllGym">
+		SELECT 
+   		g.GYM_NO,
+	    g.GYM_TITLE,
+	    g.GYM_CONTENT,
+	    g.GYM_WRITE_DATE,
+	    g.GYM_UPDATE_DATE,
+	    g.GYM_DEL_FL,
+	    g.MEMBER_NO,
+	    m.MEMBER_LAST_NAME ,
+	    m.MEMBER_FIRST_NAME 
+	FROM 
+    	GYM g
+	JOIN 
+    	MEMBER m ON g.MEMBER_NO = m.MEMBER_NO 
+	</select>
+	
+	<select id="getGymByNo">
+	   SELECT g.*, m.MEMBER_LAST_NAME, m.MEMBER_FIRST_NAME
+  	   FROM GYM g
+ 	   LEFT JOIN MEMBER m ON g.MEMBER_NO = m.MEMBER_NO
+  	   WHERE g.GYM_NO = #{gymNo}
+	</select>
 	
 
 
