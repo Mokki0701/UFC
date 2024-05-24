@@ -33,6 +33,7 @@ gobackBtn.addEventListener("click", () => {
 })
 
 /* 수정 버튼 기능 */
+const updateBtn = document.querySelector("#updateBtn");
 if(updateBtn != null){
 updateBtn.addEventListener("click", () => {
 
@@ -50,16 +51,17 @@ updateBtn.addEventListener("click", () => {
 
 // 삭제 버튼
 const deleteBtn = document.querySelector("#deleteBtn");
-if(deleteBtn != null){
+if (deleteBtn != null) {
   deleteBtn.addEventListener("click", () => {
-  
-    // 현재 URL 예시 '/lesson/list/22'
-  
-    location.href = location.pathname.replace('list', 'listEdit')
-    + "/delete";
-  
-  
-  
+
+    if (confirm("정말 수업을 삭제하시겠습니까?")) {
+
+      // 현재 URL 예시 '/lesson/list/22'
+      location.href = location.pathname.replace('list', 'listEdit')
+        + "/delete";
+
+    }
+
   })
-  
-  }
+
+}

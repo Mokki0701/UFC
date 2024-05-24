@@ -22,4 +22,10 @@ public interface EditLessonListService {
 	 */
 	int lessonUpdate(Lesson inputLesson, MultipartFile inputImg) throws IllegalStateException, IOException;
 
+	/** 수업 삭제 후 결과 반환
+	 * @param lessonNo
+	 * @return 결과
+	 */
+	int lessonDelete(int lessonNo);
+
 }

@@ -48,9 +48,9 @@
 	#{lessonRegisterEnd},
 	#{lessonCapacity},
 	#{imgPath},
-	#{lessonDetail}
+	#{lessonDetail},
+	0
 	)
-	  	
 	</insert>
 	
 	<update id="lessonUpdate">
@@ -72,5 +72,31 @@
 	WHERE
 	LESSON_NO = #{lessonNo}
 	</update>
+
+	<!-- 게시글 삭제 처리 -->	
+	<update id="lessonDelete">
+	UPDATE "LESSONS"
+	SET
+	DELETE_YN = 1
+	WHERE LESSON_NO = #{lessonNo}
+	</update>
+
+	<select id="getSmallCodeBySmallName" parameterType="String"
+		resultType="Integer">
+		SELECT SMALL_CODE
+		FROM CATEGORY_SMALL
+		WHERE SMALL_NAME = #{smallName}
+	</select>
+	
+	<insert id="insertLessonCategory" parameterType="map">
+	INSERT INTO LESSON_CATEGORY (LESSON_NO, SMALL_CODE)
+	VALUES (#{lessonNo}, #{smallCode})
+	</insert>
+	
+	<delete id="deleteTags" parameterType="Integer">
+	DELETE FROM LESSON_CATEGORY
+	WHERE LESSON_NO = #{lessonNo}	
+	</delete>
+	
 
 </mapper>
