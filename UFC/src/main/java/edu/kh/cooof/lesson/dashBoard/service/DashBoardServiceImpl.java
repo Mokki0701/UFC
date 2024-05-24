@@ -97,9 +97,10 @@ public class DashBoardServiceImpl implements DashBoardService {
 	public int addList(List<AttendanceDTO> attendanceList) {
 		
 		
-		
-		
 		int result = mapper.addList(attendanceList);
+		
+		
+		
 		//날짜,회원번호 모두 같은 경우 수정도 가능하게 하기
 		
 		return result;
@@ -114,6 +115,12 @@ public class DashBoardServiceImpl implements DashBoardService {
 		
 		
 		return result;
+	}
+	
+	// 출석현황
+	@Override
+	public List<AttendanceDTO> statusCheck(List<AttendanceDTO> attendanceStatus) {
+		return mapper.statusCheck(attendanceStatus);
 	}
 
 }

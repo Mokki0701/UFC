@@ -25,7 +25,7 @@ public interface TrainerSelectMapper {
 	 * @param request
 	 * @return
 	 */
-	String gymPayment(PaymentRequest request);
+	int gymPayment(PaymentRequest request);
 
 	
 	

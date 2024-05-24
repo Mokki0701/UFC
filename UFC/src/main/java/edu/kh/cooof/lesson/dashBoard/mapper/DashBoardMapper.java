@@ -44,6 +44,9 @@ public interface DashBoardMapper {
 	//강사 별점 리뷰 확인
 	int checkReview(int lessonNo);
 
+	//출석현황
+	List<AttendanceDTO> statusCheck(List<AttendanceDTO> attendanceStatus);
+
 	
 	
 

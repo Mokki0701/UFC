@@ -31,4 +31,9 @@ public interface LessonListService {
 	 */
 	int lessonSignup(Map<String, Integer> map);
 
+	/** 로그인한 회원이 해당 수업에 가입을 했는지 여부 확인
+	 * @param map
+	 */
+	int signupCheck(Map<String, Integer> map);
+
 }

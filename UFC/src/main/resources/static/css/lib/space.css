@@ -91,16 +91,18 @@
 #exitSack{
   display: flex;
   justify-content: space-between;
+  width: 750px;
 }
 
 .exit{
   display: flex; /* 플렉스 박스로 설정 */
     justify-content: center; /* 수평 가운데 정렬 */
     align-items: center; /* 수직 가운데 정렬 */
-    width: 30%;
+    width: 200px;
     text-align: center;
     border: 1px solid black;
     height: 50px;
+    
 }
 
 #conditionGuide {
@@ -154,5 +156,57 @@ button{
 
 button:hover{
   cursor: pointer;
+
+}
+
+/* ------------------------- 생성된 공간 관련 css ------------------------------------------ */
+
+.spaceManager {
+
+  
+  margin: 20px 0px 0px 0px ;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+#exitSack{
+  display: flex;
+  justify-content: space-between;
+  width: 750px;
+}
+
+#drawingArea {
+  width: 750px;
+  height: 500px;
+  background-color: #f0f0f0;
+  position: relative;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.drawnDiv {
+  position: absolute;
+  border: 1px solid #000;
+  background-color: rgba(0, 0, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  border-radius: 10px;
+}
+
+/* 클래스 토글 표시 */
+.chosen{
+  background-color: rgba(0, 187, 34, 0.502);
+  color: teal;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
 }
