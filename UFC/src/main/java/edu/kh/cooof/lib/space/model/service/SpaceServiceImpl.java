@@ -48,7 +48,7 @@ public class SpaceServiceImpl implements SpaceService {
 		Map<String, Object> params = new HashMap<>();
 	    params.put("memberNo", memberNo);
 	    params.put("spaceNo", spaceNo);
-		return mapper.useSpace(memberNo, spaceNo);
+		return mapper.useSpace(params);
 	}
 
 }
