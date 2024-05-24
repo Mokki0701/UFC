@@ -5,6 +5,7 @@
     <select id="getLessonCount">
         SELECT COUNT(*)
         FROM "LESSONS"
+        WHERE DELETE_YN = 0
     </select>
     
     <select id="selectLessonList">
@@ -34,6 +35,7 @@
 	LESSON_REMAINS
 	FROM LESSONS
 	JOIN "MEMBER" USING(MEMBER_NO)
+	WHERE DELETE_YN = 0
 
 	<choose>
 		<when test="order == 'asc'">
@@ -52,11 +54,12 @@
     <select id="getSearchCount">
     SELECT COUNT(*)
     FROM "LESSONS"
-    <if test="tags != null">
+     <if test="tags != null and tags.length() > 0">
         JOIN LESSON_CATEGORY USING (LESSON_NO)
     </if>
-    WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
-    <if test="tags != null">
+    WHERE DELETE_YN = 0
+    AND LESSON_TITLE LIKE '%' || #{query} || '%'
+    <if test="tags != null and tags.length() > 0">
         AND SMALL_CODE IN (${tags})
     </if>
     </select>
@@ -85,11 +88,15 @@
 
 	LESSON_REMAINS
 	FROM "LESSONS"
-    <if test="tags != null">
+     <if test="tags != null and tags.length() > 0">
         JOIN LESSON_CATEGORY USING (LESSON_NO)
     </if>
-    WHERE LESSON_TITLE LIKE '%' || #{query} || '%'
-    <if test="tags != null">
+    
+    WHERE DELETE_YN = 0
+    AND LESSON_TITLE LIKE '%' || #{query} || '%'
+    
+    
+     <if test="tags != null and tags.length() > 0">
         AND SMALL_CODE IN (${tags})
     </if>
     
@@ -125,7 +132,9 @@
 	TO_CHAR(LESSON_REGISTER_END, 'YYYY-MM-DD') LESSON_REGISTER_END,
 	LESSON_REMAINS,
 	IMG_PATH,
-	LESSON_DETAIL
+	LESSON_DETAIL,
+	SUBSTR(LESSON_SCHEDULE, 1, 1) LESSON_SCHEDULE_DAY,
+	SUBSTR(LESSON_SCHEDULE, 3, 15) LESSON_SCHEDULE_TIME
 	FROM LESSONS
 	WHERE LESSON_NO =
 	#{lessonNo}
@@ -139,6 +148,13 @@
 		#{lessonNo}, #{memberNo}, 1
 		)
 	</insert>
+	
+	<select id="signupCheck" resultType="_int">
+	SELECT COUNT(*) 
+	FROM STUDENT_ENROLLMENTS 
+	WHERE MEMBER_NO = #{memberNo}
+	AND LESSON_NO = #{lessonNo}
+	</select>
    
     
 </mapper>

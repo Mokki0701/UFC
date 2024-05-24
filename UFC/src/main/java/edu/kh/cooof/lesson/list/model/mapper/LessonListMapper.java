@@ -47,5 +47,11 @@ public interface LessonListMapper {
 	 */
 	int lessonSignup(Map<String, Integer> map);
 
+	/** 현재 로그인한 회원이 해당 수업에 가입해 있는지 여부 확인
+	 * @param map
+	 * @return
+	 */
+	int signupCheck(Map<String, Integer> map);
+
 
 }

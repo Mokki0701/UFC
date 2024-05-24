@@ -20,6 +20,7 @@
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  position: relative; /* 자식 요소들의 위치를 상대적으로 설정 가능하게 함 */
 }
 
 #lessonPostFrm > label {
@@ -100,7 +101,7 @@
 }
 
 /* 게시하기 버튼 */
-#lessonPostBtn {
+#lessonPostBtn, #lessonUpdateBtn {
   width: 100%;
   padding: 15px;
   margin-top: 30px;
@@ -114,11 +115,11 @@
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-#lessonPostBtn:hover {
+#lessonPostBtn:hover, #lessonUpdateBtn:hover {
   background-color: #6a1ea8;
 }
 
-#lessonPostBtn:active {
+#lessonPostBtn:active, #lessonUpdateBtn:active {
   transform: scale(0.95);
 }
 
@@ -144,7 +145,47 @@
     font-size: 16px;
   }
 
-  #lessonPostBtn {
+  #lessonPostBtn, #lessonUpdateBtn {
     font-size: 18px;
   }
+}
+
+.lesson-input-area img {
+  max-width: 100%; /* 이미지가 부모 요소의 최대 너비를 초과하지 않도록 설정 */
+  height: auto; /* 이미지의 종횡비를 유지 */
+  display: none; /* 이미지가 기본적으로 숨겨지도록 설정 */
+  margin-top: 10px; /* 이미지와 입력 필드 사이에 약간의 여백 추가 */
+}
+
+.lesson-input-area img {
+  width: 100%;
+  max-width: 100%; /* 이미지가 폼의 최대 너비를 초과하지 않도록 설정 */
+  height: auto; /* 이미지의 종횡비를 유지 */
+  display: none; /* 기본적으로 이미지를 숨김 */
+}
+
+.custom-button {
+  width: 150px;
+  padding: 15px;
+  margin-top: 30px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #992BF2;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.custom-button:hover {
+  background-color: #6a1ea8;
+}
+
+.custom-button:active {
+  transform: scale(0.95);
+}
+
+.inputImg {
+  display: none;
 }

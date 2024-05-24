@@ -93,7 +93,7 @@ lessonSelect.addEventListener("change",()=>{
     return;
   } 
 
-  console.log(lessonCode); //코드 나오는거 확인
+  //console.log(lessonCode); //코드 나오는거 확인
   fetch('/lesson/dashboard/star?lessonNo='+lessonCode)
   .then(res => res.text())
   .then(result =>{
@@ -285,14 +285,14 @@ const resetStarPointImages = ()=>{
 
 /**============================================== */
 /* 강사 출석부 리스트 팝업 */
-const popupCloseBtn = document.querySelector(".popup_close_btn");
-const popupContainer = document.querySelector("#less_attendancePopup");
+//const popupCloseBtn = document.querySelector(".popup_close_btn");
 //const date = document.querySelector("#less_attendanceForm > input");
 
-popupCloseBtn.addEventListener("click",()=>{
-  popupContainer.style.display = 'none';
-})
-
+// popupCloseBtn.addEventListener("click",()=>{
+  //   popupContainer.style.display = 'none';
+  // })
+  
+const popupContainer = document.querySelector("#less_attendancePopup");
 
 // 강의리스트들 가져오기
 const lectureLinks = document.querySelectorAll(".lecture-link");
@@ -326,12 +326,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 검색 버튼에 이벤트 리스너 추가
   const searchButton = document.getElementById('less_student_list');
-  searchButton.addEventListener('click', () => {
+  searchButton.addEventListener('click', e => {
+    e.preventDefault();
     const lessonId = popupContainer.dataset.lessonId; // 팝업 컨테이너에서 lessonId 가져오기
     const attendanceDateInput = document.getElementById('attendanceDateInput');
     const attendanceDate = attendanceDateInput.value; // 선택한 날짜 가져오기
-    console.log('lessonId:', lessonId);
-    console.log('attendanceDate:', attendanceDate);
+    //console.log('lessonId:', lessonId);
+    //console.log('attendanceDate:', attendanceDate);
     fetchAttendance(lessonId, attendanceDate); // 강의 ID와 날짜로 출석부 데이터 가져오기
   });
 
@@ -359,7 +360,7 @@ function fetchAttendance(lessonId, attendanceDate) {
 
           // 기존 테이블 내용 지우기
           attendanceTable.innerHTML = '';
-           //forEach((value, index) =>{})
+
           data.forEach(student => {
             const row = document.createElement('tr');
 
@@ -375,8 +376,6 @@ function fetchAttendance(lessonId, attendanceDate) {
             presentInput.type = 'radio';
             presentInput.name = `attendance_${student.memberNo}`; 
             presentInput.value = 'Y'; // 출석 값 설정
-            //student.attendance === 'N': student.attendance가 'N'과 같은지 비교하는 조건
-            // 비교가 참이면 true를, 거짓이면 false를 반환
             presentInput.checked = student.attendance === 'Y'; // 조건에 따라 체크 상태 설정
 
             // 결석 라디오 버튼 생성
@@ -387,24 +386,17 @@ function fetchAttendance(lessonId, attendanceDate) {
             absentInput.checked = student.attendance === 'N'; // 조건에 따라 체크 상태 설정
 
             // 셀에 라디오 버튼 및 텍스트 노드 추가
-            attendanceCell.appendChild(presentInput);
-            attendanceCell.appendChild(document.createTextNode(' 출석 '));
-            attendanceCell.appendChild(absentInput);
-            attendanceCell.appendChild(document.createTextNode(' 결석 '));
-          
+            attendanceCell.append(presentInput, ' 출석 ', absentInput, ' 결석 ');
 
             // 행에 이름 셀 및 출석 상태 셀 추가
-            row.appendChild(nameCell);
-            row.appendChild(attendanceCell);
+            row.append(nameCell, attendanceCell);
 
             // 테이블에 행 추가
-            attendanceTable.appendChild(row);
-
-            // 중복된 코드 제거
-            nameCell.textContent = student.fullName;
+            attendanceTable.append(row);
           });
       })
 }
+
 
 //-------------- 출석 체크 db 제출 -------------------------------------
 
@@ -421,6 +413,8 @@ function submitAttendance() {
 
   rows.forEach(row => {
       const memberNo = row.querySelector('input[type="radio"]').name.split('_')[1];
+      // console.log(">>>>>>>>>",memberNo);
+      // console.log(">>>>>>>>>",attendanceDate);
       //const attendance = row.querySelector('input[type="radio"]:checked').value;
       const checkedRadio = row.querySelector('input[type="radio"]:checked');
 
@@ -439,8 +433,7 @@ function submitAttendance() {
                 
             };
             attendanceData.push(attendanceRecord);
-        }//if문
-
+        }//if문 끝
 
       }
   });
@@ -473,5 +466,51 @@ function submitAttendance() {
       });
   }
 }
+
+//출석현황 조회 
+//해당 날짜 , 레슨 넘버 보내서 데이터 조회
+
+const studentStatusBtn = document.querySelector("#less_student_status");
+
+studentStatusBtn.addEventListener("click", e=>{
+
+  e.preventDefault();
+  attendanceTable.innerHTML='';
+  
+  //input 날짜 가져오기
+  const date = document.getElementById('attendanceDateInput').value;
+
+  //레슨 넘버 (컨테이너에 있음! -> 꺼내오기 )
+  const lessonId = popupContainer.dataset.lessonId;
+
+  console.log(">>>>>>>>",date);
+  console.log(">>>>>>>>",lessonId);
+ //-> console에 찍힘
+
+  const attendance = {
+    "lessonNo" : lessonId,
+    "date" : date
+  }
+  
+  
+
+  // fetch('/lesson/dashboard/attendanceStatus',{
+  //   method :'POST',
+  //   headers:{
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body : JSON.stringify(attendance)
+  // })
+  // .then(response => response.text())
+  // .then(res=>{
+  //   console.log(res);
+  // })
+    
+});
+
+
+
+
+
 
 

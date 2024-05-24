@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,20 +20,28 @@
     <h2>상품 정보</h2>
     <div th:text="${trainer.trainerName}">trainer</div>
     <div th:text="${param.ptCount} + '회' + ${calcResult} + '원'"></div>
-    <h2>구매자 정보</h2>
-    <div>이름</div>
-    <input type="text" placeholder="이름을 입력해 주세요.">
-
+    <div>
+      <h2>구매자 정보</h2>
+      <div>
+        <div>이름:</div>
+        <div th:text="${member.memberLastName} + '' + ${member.memberFirstName}"></div>
+      </div>
+      <div>
+        <div>휴대폰 번호</div>
+        <div th:text="${trainer.memberPhone}"></div>
+      </div>
+      
+    </div>
     <div>성별</div>
-    <button>남자</button>
-    <button>여자</button>
-
-    <div>휴대폰번호</div>
-    <input type="text">
+    <div th:text="${member.memberGender}"></div>
+    
 
     <div>락커룸 사용 여부(추가 금액 없음)</div>
-    <button id="lockerYes">O</button> 
-    <button id="lockerNo">X</button>
+    <div id="gym-locker">
+      <button id="lockerYes">O</button> 
+      <button id="lockerNo">X</button>
+    </div>
+
     <div>
       <div>
          최종 결재 금액
@@ -48,6 +56,9 @@
         <label for="startDate">운동 시작일:</label>
         <input type="date" id="startDate" name="startDate" required>
       </div>
+      <div>
+        <span class="date-message" id="dateMessage">내일 날짜부터 입력해주세요</span>
+      </div>
     </div>
 
     <div class="agreement-container">
@@ -57,12 +68,12 @@
           <label for="selectAll" class="bold">전체 동의</label>
       </div>
       <div>
-          <input type="checkbox" class="agreement" onclick="checkSelectAll()">
+          <input type="checkbox" class="agreement" data-required="true" onclick="checkSelectAll()">
           <label for="agreement1">(필수) 약관 1 동의</label>
           <a href="">내용보기</a> <!-- 동의에 대한 내용 보기 -->
       </div>
       <div>
-          <input type="checkbox" class="agreement" onclick="checkSelectAll()">
+          <input type="checkbox" class="agreement" data-required="true" onclick="checkSelectAll()">
           <label for="agreement2">(필수) 약관 2 동의</label>
           <a href="">내용보기</a>
       </div>
@@ -73,80 +84,19 @@
       </div>
   </div>
 
-  <div th:text="${memberNo}"></div>
-  <div th:text="${param.ptCount}">pt 횟수</div>
   
-  <button onclick="requestPay()" id="gym_pay_button" >결제하기</button>
+  <button id="gym_pay_button" >결제하기</button>
 
   <script th:inline="javascript">
     const calcResult = /*[[${calcResult}]]*/ 100; // spring에서 타임리프 사용 방법
     const memberPhone = /*[[${trainer.memberPhone}]]*/ 0;
-    const ptCount = /*[[${param.ptCount}]]*/ 0;
+    const ptCount = /*[[${param.ptCount[0]}]]*/ 0;
     const trainerNo = /*[[${trainer.trainerNo}]]*/ 0;
+
     const memberNo = /*[[${memberNo}]]*/ 0;
+  </script>
 
-    let ptLkroom  = 0;
-
-    document.getElementById("lockerYes").addEventListener("click", function() {
-        ptLkroom  = 1;
-    });
-
-    document.getElementById("lockerNo").addEventListener("click", function() {
-        ptLkroom  = 0;
-    });
-
-    IMP.init("imp50442418");
-    
-    function requestPay() {
-
-      // 운동 시작일(input 태그)의 값을 가져옴
-      var strDate = document.getElementById("startDate").value;
-        
-      // 운동 시작일 값 확인
-      console.log("운동 시작일: " + strDate);
-
-      IMP.request_pay({
-        pg: "kakaopay",
-        pay_method: "kakaopay",
-        merchant_uid: "test_lwehztzg10004444",
-        name: "PT 결제",
-        amount: calcResult,
-        buyer_tel: memberPhone,
-      }, 
-      function (rsp) {
-        console.log(rsp);
-        if (rsp.success){
-          var msg = "결제가 완료되었습니다.";
-          var result = {
-            ptCount: ptCount,
-            ptPrice: calcResult,
-            ptLkroom : ptLkroom,  
-            memberNo : memberNo,
-            trainerNo : trainerNo,
-            strDate : strDate,
-          }
-          console.log(result);
-
-          fetch("/trainerSelect/gymPay", {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(result)
-          })
-          .then(resp => resp.json())
-          .then(data => {
-            console.log('Success', data);
-            alert("결제 성공")
-            location.href = "/gym/gymMain"
-          })
-          .catch((error) =>{
-            console.error('Error:', error);
-          });
-          
-        }
-      })
-    }
-    </script>
-
+  
   <script src="/js/gym/trainerPrice.js"></script>
 </body>
 </html>

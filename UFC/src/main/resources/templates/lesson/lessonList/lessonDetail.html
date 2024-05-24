@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 안내/신청</title>
-    <link rel="stylesheet" href="styles.css">
+    
 
     <style>
         body {
@@ -14,6 +14,7 @@
             margin: 0;
             padding: 20px;
         }
+        
 
         .program-info {
             max-width: 800px;
@@ -112,6 +113,8 @@
 
         }
 
+        .deleteBtn,
+        .updateBtn,
         .signupBtn,
         .gobackBtn {
             display: block;
@@ -119,7 +122,7 @@
             float: left;
             width: 120px;
             padding: 0;
-            margin: 10px 20px 10px 0;
+            margin: 10px 5px 10px 0;
             font-weight: 600;
             text-align: center;
             line-height: 30px;
@@ -129,7 +132,7 @@
             background: #992BF2;
             border: none;
         }
-
+        .deleteBtn:hover,
         .signupBtn:hover,
         .gobackBtn:hover {
             background: #7b23c3;
@@ -137,7 +140,7 @@
 
         .lesson-btn-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
         }
     </style>
 
@@ -199,12 +202,28 @@
         </div>
         <!-- 수업 개요 끝 -->
 
+
+        <!-- 버튼 영역 시작 -->
         <div class="lesson-btn-container">
-            <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0}">
+            
+            <!-- 로그인한 정보가 있고, 그 로그인한 회원이 레슨의 게시자라면 표시 -->
+            <th:block th:if="${session?.loginMember?.memberNo == lesson.memberNo}">
+                <button type="button" id="updateBtn" class="updateBtn btn">수정하기</button>
+                <button type="button" id="deleteBtn" class="deleteBtn btn">삭제하기</button>
+            </th:block>
+
+            <!-- 해당 레슨에 신청 이력이 있다면 표시 -->
+            <th:block th:if="${checkSignup == 1}">
+                <button type="button" id="signupedBtn" class="signupBtn btn">신청완료</button>
+            </th:block>
+            
+            <!-- 로그인을 했고, 회원 권한이 일반 회원이면서, 해당 레슨에 신청 이력이 없을 때 표시 -->
+            <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0 and checkSignup == 0}">
                 <button type="button" id="signupBtn" class="signupBtn btn">신청하기</button>
             </th:block>
             <button type="button" id="gobackBtn" class="gobackBtn btn">목록으로</button>
         </div>
+        <!-- 버튼 영역 끝 -->
 
 
 
@@ -214,6 +233,12 @@
     <!-- JS 연결 -->
     <script src="/js/lesson/lessonList/lessonDetail.js"></script>
     <!-- JS 연결 끝 -->
+
+    <!-- lessonCommon 들어가는 곳 시작 -->
+    <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+    <!-- lessonCommon 들어가는 곳 끝 -->
+
+    
 
 </body>
 
