@@ -413,8 +413,8 @@ function submitAttendance() {
 
   rows.forEach(row => {
       const memberNo = row.querySelector('input[type="radio"]').name.split('_')[1];
-      console.log(">>>>>>>>>",memberNo);
-      console.log(">>>>>>>>>",attendanceDate);
+      // console.log(">>>>>>>>>",memberNo);
+      // console.log(">>>>>>>>>",attendanceDate);
       //const attendance = row.querySelector('input[type="radio"]:checked').value;
       const checkedRadio = row.querySelector('input[type="radio"]:checked');
 
@@ -468,15 +468,43 @@ function submitAttendance() {
 }
 
 //출석현황 조회 
+//해당 날짜 , 레슨 넘버 보내서 데이터 조회
+
 const studentStatusBtn = document.querySelector("#less_student_status");
 
 studentStatusBtn.addEventListener("click", e=>{
 
   e.preventDefault();
   attendanceTable.innerHTML='';
-
   
-    
+  //input 날짜 가져오기
+  const date = document.getElementById('attendanceDateInput').value;
+
+  //레슨 넘버 (컨테이너에 있음! -> 꺼내오기 )
+  const lessonId = popupContainer.dataset.lessonId;
+
+  console.log(">>>>>>>>",date);
+  console.log(">>>>>>>>",lessonId);
+ //-> console에 찍힘
+
+  const attendance = {
+    "lessonNo" : lessonId,
+    "date" : date
+  }
+  
+  
+
+  // fetch('/lesson/dashboard/attendanceStatus',{
+  //   method :'POST',
+  //   headers:{
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body : JSON.stringify(attendance)
+  // })
+  // .then(response => response.text())
+  // .then(res=>{
+  //   console.log(res);
+  // })
     
 });
 

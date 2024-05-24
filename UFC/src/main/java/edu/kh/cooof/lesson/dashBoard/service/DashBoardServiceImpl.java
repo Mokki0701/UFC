@@ -116,5 +116,11 @@ public class DashBoardServiceImpl implements DashBoardService {
 		
 		return result;
 	}
+	
+	// 출석현황
+	@Override
+	public List<AttendanceDTO> statusCheck(List<AttendanceDTO> attendanceStatus) {
+		return mapper.statusCheck(attendanceStatus);
+	}
 
 }

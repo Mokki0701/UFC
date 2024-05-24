@@ -4,8 +4,8 @@ fetch('/lesson/api/attendance?memberNo='+loginMemberNo)
 .then(res => res.json())
 .then(data=>{
 
-  console.log(data);
-  //출석률 구하고 추가하기
+  //console.log(data);
+  //출석률 구하고 
   //const attendanceData = data.map(item => item.attendance);
   //개수 제한
   const limitedData = data.slice(0, 4);

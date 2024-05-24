@@ -132,7 +132,7 @@ public class DashBoardController {
 			return grade;
 		}
 		
-
+		//출석률 테스트 -> 나중에 수정하기 
 		@GetMapping("api/attendance")
 		@ResponseBody
 		private List<LessonListDTO> getAttendance(@RequestParam("memberNo") int memberNo){
@@ -140,6 +140,19 @@ public class DashBoardController {
 			List<LessonListDTO> lessonList = service.findLesson(memberNo);
 			
 			return lessonList;
+		}
+		
+		
+		// 출석현황
+		@PostMapping("dashboard/attendanceStatus")
+		@ResponseBody
+		private List<AttendanceDTO> attendanceStatus(
+				@RequestBody List<AttendanceDTO> attendanceStatus
+				){
+			
+			List<AttendanceDTO> attendanceCheck = service.statusCheck(attendanceStatus); 
+			
+			return attendanceCheck;
 		}
 		
 	
