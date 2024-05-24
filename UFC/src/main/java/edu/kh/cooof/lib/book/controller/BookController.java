@@ -56,7 +56,7 @@ public class BookController {
 	}
 	
 	@Async
-	@GetMapping("search")
+	@GetMapping("category")
 	public String searchCategory(
 			@SessionAttribute(value="loginMember", required = false) Member loginMember,
 			@RequestParam(value="catNo", required = false, defaultValue= "0") int catNo,
@@ -66,7 +66,6 @@ public class BookController {
 			@RequestParam("check") int check,
 			@RequestParam("catName") String catName,
 			@RequestParam Map<String, Object> paramMap,
-			// 이거 catList Session에 저장된 값은 interceptor에서 다른 주소에 있을 때 지우겠다는거 설정해야함
 			@SessionAttribute(value="catList", required = false) List<String> catList,
 			Model model
 			) {
@@ -107,6 +106,33 @@ public class BookController {
  		return "lib/book/bookList :: searchBook";
 	}
 	
+	@GetMapping("search")
+	public String searchBook(
+			@SessionAttribute(value="loginMember", required = false) Member loginMember,
+			@RequestParam(value="catNo", required = false, defaultValue= "0") int catNo,
+			@RequestParam(value="storageNo", required = false, defaultValue= "0") int storageNo,
+			@RequestParam(value="limit", required = false, defaultValue="10") int limit,
+			@RequestParam(value="cp", required = false , defaultValue="1") int cp,
+			@RequestParam Map<String, Object> paramMap,
+			@SessionAttribute(value="catList", required = false) List<String> catList,
+			Model model
+			) {
+		
+		paramMap.put("catNo", catNo);
+		paramMap.put("cp", cp);
+		paramMap.put("limit", limit);
+		
+		if(catList != null) {
+			paramMap.put("catList", catList);
+		}
+		
+		Map<String, Object> mapList = service.searchBook(paramMap);
+		
+		model.addAttribute("bookList", mapList.get("bookList"));
+		model.addAttribute("pagination", mapList.get("pagination"));
+		
+		return "lib/book/bookList :: searchBook";
+	}
 	
 	@GetMapping("catList")
 	@ResponseBody
@@ -116,6 +142,35 @@ public class BookController {
 		
 		return service.categoryList(storageName);
 	}
+	
+	@GetMapping("bookDetail")
+	public String bookDetail(
+			@SessionAttribute(value="loginMember", required = false) Member loginMember,
+			@RequestParam("bookNo") int bookNo,
+			Model model
+			) {
+		
+		Map<String, Object> paramMap = service.getBookDetail(bookNo);
+		
+		model.addAttribute("book", paramMap.get("book"));
+		model.addAttribute("browsingList", paramMap.get("browsingList"));
+		model.addAttribute("loanList", paramMap.get("loanList"));
+		model.addAttribute("themeList", paramMap.get("themeList"));
+		model.addAttribute("ageStatistics", paramMap.get("ageStatistics"));
+		model.addAttribute("yearStatistics", paramMap.get("yearStatistics"));
+		
+		return "lib/book/bookDetail";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

@@ -117,8 +117,6 @@ public class BookServiceImpl implements BookService {
 			
 		}
 		
-		// 전체 도서 수 검색
-		
 		Map<String, Object> mapList = new HashMap<>();
 		
 		if(!search.containsKey("catName")) {
@@ -133,11 +131,121 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
+	public Map<String, Object> searchBook(Map<String, Object> paramMap) {
+		
+		// 1. listCount 수 세기
+		int listCount = 0;
+		
+		// 카테고리가 되있을 때
+		if(paramMap.get("catList") == null) {
+			listCount = mapper.searchCount(paramMap);
+		}
+		
+		// 카테고리가 되어있지 않을 때
+		else {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			List<String> catList = (List<String>)paramMap.get("catList");
+			
+			catList.forEach(catName -> {
+				
+				if(sb.length() > 0) {
+					sb.append(", ");
+				}
+				
+				sb.append(catName);
+				
+			});
+			
+			paramMap.put("string", sb.toString());
+			
+			
+			listCount = mapper.searchCount2(paramMap);
+		}
+		
+		LibPagination pagination = new LibPagination((int)paramMap.get("cp"), listCount, (int)paramMap.get("limit"));
+		
+		int offset = ((int)paramMap.get("cp") - 1) * (int)paramMap.get("limit");
+		
+		RowBounds rowBounds = new RowBounds(offset, (int)paramMap.get("limit"));
+		
+		List<Book> bookList = new ArrayList<>();
+		
+		if(paramMap.get("catList") == null) {
+			bookList = mapper.searchBook(paramMap);
+		}
+		else {
+			StringBuilder sb = new StringBuilder();
+			
+			List<String> catList = (List<String>)paramMap.get("catList");
+			
+			catList.forEach(catName -> {
+				
+				if(sb.length() > 0) {
+					sb.append(", ");
+				}
+				
+				sb.append(catName);
+				
+			});
+			paramMap.put("string", sb.toString());
+			
+			bookList = mapper.searchBook2(paramMap);
+			
+		}
+		
+		Map<String, Object> mapList = new HashMap<>();
+			
+		mapList.put("bookList", bookList);
+		mapList.put("pagination", pagination);
+		
+		return mapList;
+	}
+		
+
+	
+	
+	@Override
 	public List<String> categoryList(String storageName) {
 		
 		return mapper.categoryList(storageName);
 	}
 	
+	
+	@Override
+	public Map<String, Object> getBookDetail(int bookNo) {
+		
+		// 1. 일단 선택 도서 조회
+		Book book = mapper.selectBook(bookNo);
+		
+		// 2. 서가 브라우징 리스트 조회
+		List<Book> browsingList = mapper.selectBrowsingList(bookNo);
+		
+		// 3. 함께 대출한 자료 리스트 조회
+		List<Book> loanList = mapper.selectLoanList(bookNo);
+		
+		// 4. 주제가 같은 자료 리스트 조회
+		List<Book> themeList = mapper.selectThemeList(bookNo);		
+		
+		// 6. 통계 자료
+		// 6.1 연령별 통계 자료
+		List<Integer> ageStatistics = mapper.selectAgeStatistics(bookNo);
+		
+		// 6.2 년도별 통계 자료
+		List<Integer> yearStatistics = mapper.selectYearStatistics(bookNo);
+
+		Map<String, Object> intergratedMap = new HashMap<>();
+		
+		intergratedMap.put("book", book);
+		intergratedMap.put("browsingList", browsingList);
+		intergratedMap.put("loanList", loanList);
+		intergratedMap.put("themeList", themeList);
+		intergratedMap.put("ageStatistics", ageStatistics);
+		intergratedMap.put("yearStatistics", yearStatistics);
+		
+		return intergratedMap;
+	}
 	
 	
 }

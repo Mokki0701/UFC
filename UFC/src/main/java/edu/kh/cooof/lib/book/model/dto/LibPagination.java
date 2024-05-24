@@ -14,7 +14,7 @@ public class LibPagination {
 	
 	private int prevPage;
 	private int nextPage;
-	
+		
 	public LibPagination(int currentPage, int listCount, int limit) {
 		super();
 		this.currentPage = currentPage;
