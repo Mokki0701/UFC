@@ -10,11 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AttendanceDTO {
-	
-	private int lessonNo;
-	private String date;
-	private int memberNo; // 학생번호
-	
-	private String attendanceStatus; // N or Y
-	
+    private int lessonNo;
+    private String date;
+    private int memberNo; // 학생번호
+    private String lessonsDate;
+    private String attendanceStatus; // N or Y
 }

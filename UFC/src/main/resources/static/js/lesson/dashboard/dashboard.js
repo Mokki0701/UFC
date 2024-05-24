@@ -491,20 +491,22 @@ studentStatusBtn.addEventListener("click", e=>{
     "lessonNo" : lessonId,
     "date" : date
   }
+
+  console.log(attendance);
   
   
 
-  // fetch('/lesson/dashboard/attendanceStatus',{
-  //   method :'POST',
-  //   headers:{
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body : JSON.stringify(attendance)
-  // })
-  // .then(response => response.text())
-  // .then(res=>{
-  //   console.log(res);
-  // })
+  fetch('/lesson/dashboard/attendanceStatus',{
+    method :'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body : JSON.stringify(attendance)
+  })
+  .then(response => response.text())
+  .then(res=>{
+    console.log(res + "되냐?");
+  })
     
 });
 

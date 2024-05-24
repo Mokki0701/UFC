@@ -147,7 +147,7 @@ public class DashBoardController {
 		@PostMapping("dashboard/attendanceStatus")
 		@ResponseBody
 		private List<AttendanceDTO> attendanceStatus(
-				@RequestBody List<AttendanceDTO> attendanceStatus
+				@RequestBody AttendanceDTO attendanceStatus
 				){
 			
 			List<AttendanceDTO> attendanceCheck = service.statusCheck(attendanceStatus); 

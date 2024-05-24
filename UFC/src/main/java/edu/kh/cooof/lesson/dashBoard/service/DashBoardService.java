@@ -32,7 +32,7 @@ public interface DashBoardService {
 	int checkReview(int lessonNo);
 
 	// 출석현황
-	List<AttendanceDTO> statusCheck(List<AttendanceDTO> attendanceStatus);
+	List<AttendanceDTO> statusCheck(AttendanceDTO attendanceStatus);
 
 	
 
