@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.gym.management.model.mapper.ManagementMapper">
+	
+<select id="selectApplications">
+
+	SELECT APPLICATION_NO,
+		   "POSITION",
+		   APPLY_ROUTE,
+		   MEMBER_NO,
+		   MEMBER_LAST_NAME,
+		   MEMBER_FIRST_NAME,
+		   MEMBER_PHONE,
+		   MEMBER_EMAIL,
+		   RESUME_PATH,
+		   APPLY_DATE 
+	FROM "APPLICATION"
+	JOIN "MEMBER" USING(MEMBER_NO)
+	
+</select>
+
+<select id="selectApplicationNo" parameterType="_int">
+    SELECT 
+        APPLICATION_NO,
+        POSITION,
+        APPLY_ROUTE,
+        RESUME_PATH,
+        APPLY_DATE,
+        MEMBER_NO,
+        MEMBER_LAST_NAME,
+        MEMBER_FIRST_NAME,
+        MEMBER_PHONE,
+        MEMBER_EMAIL
+    FROM "APPLICATION"
+    JOIN "MEMBER" USING(MEMBER_NO)
+    WHERE APPLICATION_NO = #{applicationNo}
+</select>
+
+</mapper>

@@ -22,5 +22,9 @@ public class Application {
     private String applyRoute;
     private String resumePath;
     private Date applyDate;
+    private String memberLastName;
+    private String memberFirstName;
+    private String memberPhone;
+    private String memberEmail;
 	
 }
