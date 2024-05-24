@@ -1,5 +1,12 @@
-
 /* 이미지 프리뷰 시작 */
+
+// 가짜 버튼 클릭 시 파일 인풋 선택으로 연결
+document.getElementById('customButton').addEventListener('click', function() {
+  // 'inputImg' 요소를 클릭하여 파일 선택 대화 상자를 엶
+  document.getElementById('inputImg').click();
+});
+
+
 // 'inputImg' 요소에 이벤트 리스너를 추가하여 사용자가 파일을 선택할 때 실행되도록 설정
 document.getElementById('inputImg').addEventListener('change', function (event) {
   // 선택한 파일을 가져옴

@@ -11,11 +11,15 @@ public interface EditLessonListService {
 	/** 레슨 작성
 	 * @param inputLesson
 	 * @param inputImg
-	 * @return
+	 * @return lessonNo
 	 */
 	int lessonInsert(Lesson inputLesson, MultipartFile inputImg) throws IllegalStateException, IOException;
-	
 
-	
-	
+	/** 레슨 수정
+	 * @param inputLesson
+	 * @param inputImg
+	 * @return result
+	 */
+	int lessonUpdate(Lesson inputLesson, MultipartFile inputImg) throws IllegalStateException, IOException;
+
 }

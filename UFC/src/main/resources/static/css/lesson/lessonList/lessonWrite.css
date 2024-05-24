@@ -164,4 +164,28 @@
   display: none; /* 기본적으로 이미지를 숨김 */
 }
 
+.custom-button {
+  width: 150px;
+  padding: 15px;
+  margin-top: 30px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #992BF2;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
 
+.custom-button:hover {
+  background-color: #6a1ea8;
+}
+
+.custom-button:active {
+  transform: scale(0.95);
+}
+
+.inputImg {
+  display: none;
+}

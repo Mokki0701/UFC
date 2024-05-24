@@ -38,6 +38,7 @@ public class EditLessonListController {
 		return "lesson/lessonList/lessonWrite";
 	}
 	
+	// 게시글 작성
 	@PostMapping("insert")
 	public String  listInsert(
 			@SessionAttribute("loginMember") Member loginMember,
@@ -78,7 +79,7 @@ public class EditLessonListController {
 	
 	// 수정화면 전환
 	@GetMapping("{lessonNo:[0-9]+}/update")
-	public String lessonUpdate(
+	public String lessonUpdateView(
 			@PathVariable("lessonNo") int lessonNo,
 			Model model,
 			RedirectAttributes ra
@@ -93,6 +94,29 @@ public class EditLessonListController {
 		// 수정 화면으로 포워드
 		return "lesson/lessonList/lessonUpdate";
 	}
+	
+	// 수업 수정
+	@PostMapping("{lessonNo:[0-9]+}/update")
+	public String lessonUpdate(
+			@PathVariable("lessonNo") int lessonNo,
+			@ModelAttribute Lesson inputLesson, // 커맨드 객체
+			@RequestParam("inputImg") MultipartFile inputImg, // 입력받은 썸네일 이미지
+			Model model,
+			RedirectAttributes ra
+			) throws IllegalStateException, IOException {
+		
+			inputLesson.setLessonNo(lessonNo); // 수정할 레슨 번호 lessonNo에 삽입
+		
+			// 작성된 내용 전부 INSERT하는 서비스 호출 + 결과로 레슨 번호 반환
+			int result = service.lessonUpdate(inputLesson, inputImg);
+		
+		
+			
+		return "redirect:/lesson/list/" + lessonNo; // 확인해야됨 주소!!!!!!!
+	}
+	
+	
+	
 	
 
 }

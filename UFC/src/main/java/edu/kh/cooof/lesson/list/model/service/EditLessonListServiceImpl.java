@@ -43,45 +43,72 @@ public class EditLessonListServiceImpl implements EditLessonListService {
 		
 		// 이미지 처리
 		if (inputImg != null && !inputImg.isEmpty()) { // 이미지가 존재할 경우
-			
+
 			String inputImgName = inputImg.getOriginalFilename();
-			
-			
+
 			// 업로드 경로 지정
 			File uploadDir = new File(folderPath);
-			
+
 			// 업로드 경로가 없을 경우 생성
 			if (!uploadDir.exists()) {
-			    uploadDir.mkdirs();
+				uploadDir.mkdirs();
 			}
-			
+
 			File uploadFile = new File(uploadDir, inputImgName);
 			inputImg.transferTo(uploadFile);
 
 			// 파일명 가져와서 커맨드 객체에 넣기
 			inputLesson.setImgPath(inputImgName);
-			
+
 			// 전부 insert
 			int result = mapper.lessonInsert(inputLesson);
-			
+
 			// 생성된 레슨의 레슨번호 반환
 			int lessonNo = inputLesson.getLessonNo();
-			
-			
-			
-			
-			return lessonNo;
-			
-	    } else { // 이미지가 존재하지 않을 경우 -1 반환
-	        return -1;
-	    }
 
-		
-		
-		
-		
+			return lessonNo;
+
+		} else { // 이미지가 존재하지 않을 경우 -1 반환
+			return -1;
+		}
+	}
+	
+	/** 
+	 * 게시글 수정
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@Override
+	public int lessonUpdate(Lesson inputLesson, MultipartFile inputImg) throws IllegalStateException, IOException {
+		// 이미지 처리
+		if (inputImg != null && !inputImg.isEmpty()) { // 이미지가 존재할 경우
+
+			String inputImgName = inputImg.getOriginalFilename();
+
+			// 업로드 경로 지정
+			File uploadDir = new File(folderPath);
+
+			// 업로드 경로가 없을 경우 생성
+			if (!uploadDir.exists()) {
+				uploadDir.mkdirs();
+			}
+
+			// 이미지 업로드
+			File uploadFile = new File(uploadDir, inputImgName);
+			inputImg.transferTo(uploadFile);
+
+			// 파일명 가져와서 커맨드 객체에 넣기
+			inputLesson.setImgPath(inputImgName);
+
+			// 전부 업데이트 실행
+			return mapper.lessonUpdate(inputLesson);
+
+		} else { // 이미지가 존재하지 않을 경우 -1 반환
+			return -1;
+		}
 		
 	}
+	
 	
 
 }

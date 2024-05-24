@@ -112,6 +112,7 @@
 
         }
 
+        .deleteBtn,
         .updateBtn,
         .signupBtn,
         .gobackBtn {
@@ -130,7 +131,7 @@
             background: #992BF2;
             border: none;
         }
-
+        .deleteBtn:hover,
         .signupBtn:hover,
         .gobackBtn:hover {
             background: #7b23c3;
@@ -204,9 +205,10 @@
         <!-- 버튼 영역 시작 -->
         <div class="lesson-btn-container">
             
-            <!-- 로그인한 정보가 있고, 그 로그인한 회원이 레슨의 강사라면 표시 -->
+            <!-- 로그인한 정보가 있고, 그 로그인한 회원이 레슨의 게시자라면 표시 -->
             <th:block th:if="${session?.loginMember?.memberNo == lesson.memberNo}">
                 <button type="button" id="updateBtn" class="updateBtn btn">수정하기</button>
+                <button type="button" id="deleteBtn" class="deleteBtn btn">삭제하기</button>
             </th:block>
 
             <!-- 해당 레슨에 신청 이력이 있다면 표시 -->

@@ -32,6 +32,7 @@ gobackBtn.addEventListener("click", () => {
   
 })
 
+/* 수정 버튼 기능 */
 if(updateBtn != null){
 updateBtn.addEventListener("click", () => {
 
@@ -47,3 +48,18 @@ updateBtn.addEventListener("click", () => {
 
 }
 
+// 삭제 버튼
+const deleteBtn = document.querySelector("#deleteBtn");
+if(deleteBtn != null){
+  deleteBtn.addEventListener("click", () => {
+  
+    // 현재 URL 예시 '/lesson/list/22'
+  
+    location.href = location.pathname.replace('list', 'listEdit')
+    + "/delete";
+  
+  
+  
+  })
+  
+  }
