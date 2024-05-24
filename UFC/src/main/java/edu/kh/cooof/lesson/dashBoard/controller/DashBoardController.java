@@ -132,6 +132,15 @@ public class DashBoardController {
 			return grade;
 		}
 		
+
+		@GetMapping("api/attendance")
+		@ResponseBody
+		private List<LessonListDTO> getAttendance(@RequestParam("memberNo") int memberNo){
+			
+			List<LessonListDTO> lessonList = service.findLesson(memberNo);
+			
+			return lessonList;
+		}
 		
 	
 }
