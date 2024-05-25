@@ -14,24 +14,9 @@
 <body>
 
     <!-- 헤더 들어가는 곳 시작 -->
-    <!--     <header>
-        <div class="header-container">
-            <img src="logo.png" alt="Logo" class="logo">
-            <nav>
-                <ul>
-                    <li><a href="#">행복센터 소개</a></li>
-                    <li><a href="#">평생교육 프로그램</a></li>
-                    <li><a href="#">정보마당</a></li>
-                    <li><a href="#">시설이용</a></li>
-                    <li><a href="#">키즈카페</a></li>
-                </ul>
-            </nav>
-            <div class="user-options">
-                <a href="#">로그인</a>
-                <a href="#">검색</a>
-            </div>
-        </div>
-    </header> -->
+
+    <!-- 넣어야 함!! -->
+
     <!-- 헤더 들어가는 곳 끝 -->
     <main>
 
@@ -85,7 +70,8 @@
                 <div class="filter-options">
 
                     <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority != 0}">
-                        <button onclick="location.href='listEdit/insert'" type="button" class="writeBtn" id="writeBtn">수업 게시</button>
+                        <button onclick="location.href='listEdit/insert'" type="button" class="writeBtn"
+                            id="writeBtn">수업 게시</button>
                     </th:block>
 
                     <button type="button" class="clicked" id="orderBtn" data-order="desc">등록일순 &#9660;</button>
@@ -98,9 +84,9 @@
         </form>
         <!-- 검색창 끝 -->
 
-                <!-- 배경 그림 좌측 상단 시작 -->
-                <div class="bg-picture-top"></div>
-                <!-- 배경 그림 좌측 상단 끝 -->
+        <!-- 배경 그림 좌측 상단 시작 -->
+        <div class="bg-picture-top"></div>
+        <!-- 배경 그림 좌측 상단 끝 -->
 
 
 
@@ -118,7 +104,8 @@
 
 
 
-                        <a class="detail-view-link" th:href="@{/lesson/list/{lessonNo} (lessonNo=${lesson.lessonNo}, query=${param.query}, tags=${param.tags}, cp=${pagination.currentPage}, order=${param.order})}">
+                        <a class="detail-view-link"
+                            th:href="@{/lesson/list/{lessonNo} (lessonNo=${lesson.lessonNo}, query=${param.query}, tags=${param.tags}, cp=${pagination.currentPage}, order=${param.order})}">
                             <h3 th:text="${lesson.lessonTitle}"></h3>
                         </a>
 
@@ -237,7 +224,7 @@
         </th:block>
         <!-- 부분 조회 끝 -->
 
-        
+
 
         <!-- 배경 그림 우측 하단 시작 -->
         <!-- <div class="bg-picture-btm"></div> -->

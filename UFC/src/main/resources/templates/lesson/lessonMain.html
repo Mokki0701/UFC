@@ -5,124 +5,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>신청방법</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/lesson/lessonList/lessonMain.css">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-        }
-
-        .steps {
-            margin-top: 20px;
-        }
-
-        h2 {
-            font-size: 20px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-        }
-
-        h3 {
-            font-size: 16px;
-            color: #333;
-            display: block;
-        }
-
-        .steps-row {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .steps .step {
-            display: inline-block;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 5px 0;
-        }
-
-        .step span {
-            font-weight: bold;
-            color: white;
-            background-color: #9932cc;
-            padding: 5px 10px;
-            border-radius: 10px;
-        }
-
-        .online,
-        .offline {
-            margin-bottom: 20px;
-            display: flex;
-        }
-
-        .pageInfo {
-            width: 80%;
-            text-align: center;
-            display: block;
-        }
-
-    </style>
 </head>
 
-<body>
+<body class="body-class">
 
     <!-- 세미 헤더 들어가는 곳 시작 -->
     <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
     <!-- 세미 헤더 들어가는 곳 끝 -->
     <div class="container">
-    
-    <h1 class="pageInfo">수강 규정 및 신청 방법</h1>
+
+        <h1 class="pageInfo">수강 규정 및 신청 방법</h1>
+
+        <section class="guidelines">
+            <h3>수강신청 안내</h3>
+            <ul class="custom-list">
+                <li>신청자격: 주민등록상 주소지가 OO군인 만 19세 이상의 성인</li>
+                <li>※ 인터넷 강좌: 강좌 조회 후 신청</li>
+                <li>신청기간: 추후 공지</li>
+            </ul>
+            <table class="table-container">
+                <thead>
+                    <tr>
+                        <th>정원 내</th>
+                        <th>정원 초과 시</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>신청자 전원 수강 가능</td>
+                        <td>신청자 전원 대상 추첨 진행</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
         <section class="steps">
-            <h2>신청방법</h2>
-            <h3>강화군 행복센터 인터넷 홈페이지를 통한 신청</h3>
+            <h2 class="h2-class">신청방법</h2>
+            <h3 class="h3-class">OO군 행복센터 인터넷 홈페이지를 통한 신청</h3>
             <div class="online">
-                <div class="step">
-                    <span>STEP 01.</span>
-                     행복센터 홈페이지 로그인
+                <div class="step step-column">
+                    <span class="step-num">STEP 01.</span>
+                    <span>행복센터 홈페이지 로그인</span>
                 </div>
-                <div class="step">
-                    <span>STEP 02.</span> 평생교육 프로그램 > 프로그램 안내/신청 클릭
+                <div class="step step-column">
+                    <span class="step-num">STEP 02.</span>
+                    <span>평생교육 프로그램 > 프로그램 안내/신청 클릭</span>
                 </div>
-                <div class="step">
-                    <span>STEP 03.</span> 원하는 프로그램 클릭
+                <div class="step step-column">
+                    <span class="step-num">STEP 03.</span>
+                    <span>원하는 프로그램 클릭</span>
                 </div>
-                <div class="step">
-                    <span>STEP 04.</span> 수강신청하기
+                <div class="step step-column">
+                    <span class="step-num">STEP 04.</span>
+                    <span>수강 신청하기</span>
                 </div>
             </div>
 
-            <h3>방문신청</h3>
+            <h3 class="h3-class">방문신청</h3>
             <div class="offline">
-                <div class="step">
-                    <span>STEP 01.</span> 행복센터 사무실 방문(신분증 지참)
+                <div class="step step-column">
+                    <span class="step-num">STEP 01.</span>
+                    <span>행복센터 사무실 방문(신분증 지참)</span>
                 </div>
-                <div class="step">
-                    <span>STEP 02.</span> 수강신청서 작성
+                <div class="step step-column">
+                    <span class="step-num">STEP 02.</span>
+                    <span>수강신청서 작성</span>
                 </div>
-                <div class="step">
-                    <span>STEP 03.</span> 제출
+                <div class="step step-column">
+                    <span class="step-num">STEP 03.</span>
+                    <span>제출</span>
                 </div>
             </div>
+        </section>
+
+        <section class="guidelines">
+            <h3>유의사항</h3>
+            <ul class="custom-list">
+                <li>신청인원이 정원의 70% 미만일 경우 폐강 또는 반합반</li>
+                <li>타인 명의(명의도용 포함) 신청 불가</li>
+                <li>강의 및 실습에 필요한 물품(교재, 응용재료 등)은 본인 부담</li>
+                <li>개강 후 모집정원의 50% 미만 시 폐강</li>
+                <li>반 변경은 개강 첫 주에만 신청 가능</li>
+                <li>반 변경은 1회만 가능, 프로그램 변경 불가</li>
+            </ul>
+        </section>
+
+        <section class="fees">
+            <h3>수료기준</h3>
+            <ul class="custom-list">
+                <li>전체 교육기간 중 80% 이상 출석자</li>
+                <li>추가모집 수강자는 모집 종료 후 수료증이 발급되지 않을 수 있으며, 수료증은 신청자에 한해 발급됩니다.</li>
+            </ul>
+        </section>
+
+        <section class="restrictions">
+            <h3>수강제한</h3>
+            <ul class="custom-list">
+                <li>1년간 5회 이상 무단 결석한 자</li>
+                <li>타인 명의로 신청한 자</li>
+                <li>대리 수강자</li>
+            </ul>
         </section>
     </div>
 </body>
