@@ -12,11 +12,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("lesson")
 @RequiredArgsConstructor
 public class LessonController {
-	
+
 	@GetMapping("") // get 요청은 바로 레슨 메인으로
 	public String lessonMainPage() {
-		
+
 		return "lesson/lessonMain";
+	}
+
+	// 테스트용 링크
+	@GetMapping("test")
+	public String lessonTest() {
+
+		return "lesson/lessonTest";
 	}
 
 }
