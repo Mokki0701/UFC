@@ -2,5 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.lesson.calendar.mapper.LessonCalendarMapper">
 
+	<select id="selectCalendar" resultType="Lesson">
+	
+	SELECT * FROM LESSONS WHERE MEMBER_NO = #{memberNo}
+	
+	</select>
+
 
 </mapper>
