@@ -246,3 +246,15 @@
   display: none;
 }
 
+#less_attendanceTable{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+#less_attendanceTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}

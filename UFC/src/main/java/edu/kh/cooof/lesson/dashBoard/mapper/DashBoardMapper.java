@@ -47,6 +47,13 @@ public interface DashBoardMapper {
 	//출석현황
 	List<AttendanceDTO> statusCheck(AttendanceDTO attendanceStatus);
 
+	//전체 수업일자
+	int getTotalLessonDays(int lessonNo);
+
+	//특정 회원의 특정 강의에 대한 출석 일수 
+	int getAttendanceCount(AttendanceDTO attendanceDTO);
+
+
 	
 	
 

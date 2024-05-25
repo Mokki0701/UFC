@@ -132,16 +132,7 @@ public class DashBoardController {
 			return grade;
 		}
 		
-		//출석률 테스트 -> 나중에 수정하기 
-		@GetMapping("api/attendance")
-		@ResponseBody
-		private List<LessonListDTO> getAttendance(@RequestParam("memberNo") int memberNo){
-			
-			List<LessonListDTO> lessonList = service.findLesson(memberNo);
-			
-			return lessonList;
-		}
-		
+	
 		
 		// 출석현황
 		@PostMapping("dashboard/attendanceStatus")
@@ -153,6 +144,16 @@ public class DashBoardController {
 			List<AttendanceDTO> attendanceCheck = service.statusCheck(attendanceStatus); 
 			
 			return attendanceCheck;
+		}
+		
+		//출석률 테스트 -> 나중에 수정하기 
+		@GetMapping("api/attendance")
+		@ResponseBody
+		private List<Map<String, Object>> getAttendanceRate(
+				@RequestParam("memberNo") int memberNo
+				){
+			
+			return service.getAttendanceRates(memberNo);
 		}
 		
 	

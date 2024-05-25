@@ -34,6 +34,9 @@ public interface DashBoardService {
 	// 출석현황
 	List<AttendanceDTO> statusCheck(AttendanceDTO attendanceStatus);
 
+	// 출석률
+	List<Map<String, Object>> getAttendanceRates(int memberNo);
+
 	
 
 

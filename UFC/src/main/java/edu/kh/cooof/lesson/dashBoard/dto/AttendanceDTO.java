@@ -15,4 +15,6 @@ public class AttendanceDTO {
     private int memberNo; // 학생번호
     private String lessonsDate;
     private String attendanceStatus; // N or Y
+    private String fullName;
+    private int attendanceRate;
 }

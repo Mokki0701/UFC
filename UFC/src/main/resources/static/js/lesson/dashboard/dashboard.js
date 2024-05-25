@@ -365,6 +365,8 @@ function fetchAttendance(lessonId, attendanceDate) {
             const row = document.createElement('tr');
 
             // 학생 이름 -> (td) 생성 / 텍스트 설정
+            // textContent 해당 요소 내의 모든 HTML 태그는 무시
+            //->  오직 텍스트 내용만 설정
             const nameCell = document.createElement('td');
             nameCell.textContent = student.fullName;
 
@@ -483,8 +485,8 @@ studentStatusBtn.addEventListener("click", e=>{
   //레슨 넘버 (컨테이너에 있음! -> 꺼내오기 )
   const lessonId = popupContainer.dataset.lessonId;
 
-  console.log(">>>>>>>>",date);
-  console.log(">>>>>>>>",lessonId);
+  // console.log(">>>>>>>>",date);
+  // console.log(">>>>>>>>",lessonId);
  //-> console에 찍힘
 
   const attendance = {
@@ -493,9 +495,6 @@ studentStatusBtn.addEventListener("click", e=>{
   }
 
   console.log(attendance);
-  
-  
-
   fetch('/lesson/dashboard/attendanceStatus',{
     method :'POST',
     headers:{
@@ -503,12 +502,27 @@ studentStatusBtn.addEventListener("click", e=>{
     },
     body : JSON.stringify(attendance)
   })
-  .then(response => response.text())
+  .then(response => response.json())
   .then(res=>{
-    console.log(res + "되냐?");
+    //console.log(res);
+
+    res.forEach(std =>{
+
+      const row = document.createElement('tr');
+
+      const nameCell = document.createElement('td');
+      nameCell.textContent = std.fullName;
+      const attendanceDate = document.createElement('td');
+      attendanceDate.textContent = std.lessonsDate;
+      const Status = document.createElement('td');
+      Status.textContent = std.attendanceStatus;
+  
+      row.append(nameCell,attendanceDate,Status);
+      attendanceTable.append(row);
+    })
   })
-    
 });
+
 
 
 
