@@ -131,8 +131,8 @@ nav ul li a {
 }
 
 .program-card img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 200px;
   margin-right: 20px;
   object-fit: cover;
 }

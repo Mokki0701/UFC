@@ -72,7 +72,6 @@
 
 .pageInfo {
   width: 80%; /* 너비를 부모 요소의 80%로 설정 */
-  text-align: center; /* 텍스트를 중앙 정렬 */
   display: block; /* 요소를 블록 요소로 설정 */
 }
 
