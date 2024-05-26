@@ -1,6 +1,7 @@
 package edu.kh.cooof.lesson.dashBoard.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -111,9 +112,13 @@ public class DashBoardController {
 		@ResponseBody
 		public int saveAttendance(
 				@RequestBody List<AttendanceDTO> attendanceList
+				, Model model
 				){
 			
+			
+			int del = service.deleteList(attendanceList);
 			int result = service.addList(attendanceList);
+//			model.addAttribute("msg", "성공함");
 			
 			return result;
 		}

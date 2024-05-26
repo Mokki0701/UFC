@@ -151,13 +151,20 @@ public class DashBoardServiceImpl implements DashBoardService {
 			}
 			
 			Map<String, Object> result = new HashMap<>();
-			//result.put("lessonTitle", l)
+			result.put("attendanceRate", attendanceRate);
+			result.put("lessonTitle", lesson.getLessonTitle());
 			
-		
+			attendanceRates.add(result);
+			
 		}
 		
 		
-		return null;
+		return attendanceRates;
 	}
 
+	@Override
+	public int deleteList(List<AttendanceDTO> attendanceList) {
+		return mapper.deleteList(attendanceList);
+	}
+	
 }

@@ -16,5 +16,6 @@ public class AttendanceDTO {
     private String lessonsDate;
     private String attendanceStatus; // N or Y
     private String fullName;
+    private String attendYn;
     private int attendanceRate;
 }

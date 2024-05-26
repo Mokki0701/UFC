@@ -77,15 +77,61 @@
     </select>
     
     <!-- 출석 모두 등록 -->
- 	<insert id="addList" parameterType="list">
-		INSERT INTO "LESSONS_ATTENDANCE"
+<!--   	<insert id="addList" parameterType="list"> -->
+<!-- 		INSERT INTO "LESSONS_ATTENDANCE" -->
 		
-		<foreach collection="list" item="student" separator=" UNION">
-		SELECT #{student.date},#{student.memberNo},#{student.lessonNo}
-		FROM DUAL
-		</foreach>
+<!-- 		<foreach collection="list" item="student" separator=" UNION"> -->
+<!-- 		SELECT #{student.date},#{student.memberNo},#{student.lessonNo} -->
+<!-- 		FROM DUAL -->
+<!-- 		</foreach> -->
 	
-	</insert> 
+<!-- 	</insert>   -->
+	
+ 	<insert id="addList2" parameterType="list">
+	
+		MERGE INTO "LESSONS_ATTENDANCE" T1
+		USING(
+			<foreach collection="list" item="student" separator=" UNION">
+			<if test="student.attendYn == 'Y'.toString()">
+				SELECT 
+				#{student.date} AS LESSONS_DATE
+				,#{student.memberNo} AS MEMBER_NO
+				,#{student.lessonNo} AS LESSON_NO
+				FROM DUAL
+			</if>
+			</foreach>
+			
+		) T2
+		ON (T1.MEMBER_NO = T2.MEMBER_NO AND T1.LESSON_NO = T2.LESSON_NO AND)
+		WHEN NOT MATCHED THEN
+			INSERT(LESSONS_DATE,MEMBER_NO,LESSON_NO) VALUES(T2.LESSONS_DATE , T2.MEMBER_NO, T2.LESSON_NO)
+	</insert>
+	
+	<insert id="addList" parameterType="list">
+    
+        
+   MERGE INTO "LESSONS_ATTENDANCE" T1
+    USING (
+        <foreach collection="list" item="student" separator=" UNION ALL">
+            <choose>
+                <when test='student.attendYn != null and student.attendYn.equals("Y")'>
+                    SELECT 
+                        #{student.date} AS LESSONS_DATE,
+                        #{student.memberNo} AS MEMBER_NO,
+                        #{student.lessonNo} AS LESSON_NO
+                    FROM DUAL
+                </when>
+                <otherwise>
+                    SELECT NULL as LESSONS_DATE, NULL AS MEMBER_NO, NULL AS LESSON_NO FROM DUAL WHERE 1=0
+                </otherwise>
+            </choose>
+        </foreach>
+    ) T2
+    ON (T1.MEMBER_NO = T2.MEMBER_NO AND T1.LESSON_NO = T2.LESSON_NO AND T1.LESSONS_DATE = T2.LESSONS_DATE)
+    WHEN NOT MATCHED THEN
+        INSERT (LESSONS_DATE, MEMBER_NO, LESSON_NO) 
+        VALUES (T2.LESSONS_DATE, T2.MEMBER_NO, T2.LESSON_NO)     
+</insert>
 	
 	<!-- 강사 별점 리뷰 확인 -->
 	<select id="checkReview" resultType="_int">
@@ -160,9 +206,18 @@
 	
 	
 	
-	
+	<delete id="deleteList" parameterType="list"> 
+		DELETE FROM LESSONS_ATTENDANCE
+		<where> 
+			<foreach collection="list" item="student" open="" close="" separator="OR"> 
+			
+			(LESSONS_DATE = #{student.date} AND LESSON_NO = #{student.lessonNo} AND MEMBER_NO = #{student.memberNo} AND 'N' = #{student.attendYn})
+			 
+			</foreach> 
+		</where> 
+		
+	</delete>
 
-
-	
+			
 
 </mapper>

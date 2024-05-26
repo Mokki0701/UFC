@@ -336,6 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAttendance(lessonId, attendanceDate); // 강의 ID와 날짜로 출석부 데이터 가져오기
   });
 
+
+
+ 
   document.getElementById('less_attendanceForm').addEventListener('submit', event => {
       event.preventDefault(); // 기본 폼 제출 동작 방지
       submitAttendance(); // 폼 제출 처리 함수 호출
@@ -427,16 +430,19 @@ function submitAttendance() {
     } else {
         const attendance = checkedRadio.value;
         // 출석이 'Y'인 경우에만 데이터를 배열에 추가
-        if (attendance === 'Y') {
-            const attendanceRecord = {
-                lessonNo: lessonId,
-                date: attendanceDate,
-                memberNo: memberNo
-                
-            };
-            attendanceData.push(attendanceRecord);
-        }//if문 끝
+        const attendanceRecord = {
+          lessonNo: lessonId,
+          date: attendanceDate,
+          memberNo: memberNo
+        };
 
+        if (attendance === 'Y') {
+            attendanceRecord.attendYn = "Y";
+        }//if문 끝
+        else {
+          attendanceRecord.attendYn = "N";
+        }
+        attendanceData.push(attendanceRecord);
       }
   });
 
@@ -457,14 +463,15 @@ function submitAttendance() {
       .then(response => response.text())
       .then(result => {
         const intResult = parseInt(result, 10);
-        if (intResult > 0) {
-            alert("출석 정보가 저장되었습니다.");
-            //팝업창 닫기
-            popupContainer.style.display = 'none';
+        alert("출석 정보가 저장되었습니다.");
+        // if (intResult > 0) {
+        //     alert("출석 정보가 저장되었습니다.");
+        //     //팝업창 닫기
+        //     popupContainer.style.display = 'none';
 
-        } else {
-            alert("출석 정보 저장에 실패했습니다.");
-        }
+        // } else {
+        //     alert("출석 정보 저장에 실패했습니다.");
+        // }
       });
   }
 }

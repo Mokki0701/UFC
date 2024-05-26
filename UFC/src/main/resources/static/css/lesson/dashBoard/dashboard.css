@@ -111,9 +111,9 @@
   margin: 0;
 }
 
-.less_schedule #lessCalendar {
+.less_schedule #calendar {
   height: 500px; /* 높이 증가 */
-  background-color: #444;
+  z-index: 100;
 }
 
 .less_lectures ul {

@@ -53,6 +53,9 @@ public interface DashBoardMapper {
 	//특정 회원의 특정 강의에 대한 출석 일수 
 	int getAttendanceCount(AttendanceDTO attendanceDTO);
 
+	//중복삭제
+	int deleteList(List<AttendanceDTO> attendanceList);
+
 
 	
 	

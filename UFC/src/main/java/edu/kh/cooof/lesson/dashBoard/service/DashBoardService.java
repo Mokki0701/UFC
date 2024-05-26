@@ -37,6 +37,9 @@ public interface DashBoardService {
 	// 출석률
 	List<Map<String, Object>> getAttendanceRates(int memberNo);
 
+	// 중복 삭제
+	int deleteList(List<AttendanceDTO> attendanceList);
+
 	
 
 
