@@ -102,17 +102,33 @@ public class LessonListServiceImpl implements LessonListService {
 		return mapper.selectDetail(lessonNo);
 	}
 	
+	// 수업 신청
 	@Override
 	public int lessonSignup(Map<String, Integer> map) {
+
+		// 잔여 좌석 확인하기
+		int remainsCheck = mapper.remainsCheck(map);
+
+		if (remainsCheck <= 0) { // 잔여좌석이 없을 경우
+
+			// -1 반환
+			return -1;
+			
+		} else { // 있을 경우
+			// 수업 신청 넣기
+			int result = mapper.lessonSignup(map);
+
+			if (result > 0) { // 신청이 문제없이 진행됐을 시, 잔여 좌석 깎기
+				// 잔여 좌석 깎기
+				mapper.lessonCapacityDecrease(map);
+			}
+
+			// 결과 반환
+			return result;
+		}
 		
-		int result = mapper.lessonSignup(map);
-		
-		if (result > 0) { // 신청되었을 시
-			mapper.lessonCapacityDecrease(map);
-		} 
 		
 		
-		return result;
 	}
 	
 	// 현재 로그인한 회원이 해당 수업에 가입해 있는지 여부 확인

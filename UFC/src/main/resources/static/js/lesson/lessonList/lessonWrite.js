@@ -68,7 +68,7 @@ document.getElementById('lessonPostFrm').addEventListener('submit', function (ev
   }
 
   if (!isValid) {
-    alert('다음 필드를 채워주세요: ' + missingFields.join(', '));
+    alert('다음 항목들을 작성해주세요: ' + missingFields.join(', '));
     event.preventDefault();
   }
 });

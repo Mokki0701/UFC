@@ -58,5 +58,11 @@ public interface LessonListMapper {
 	 */
 	void lessonCapacityDecrease(Map<String, Integer> map);
 
+	/** 잔여 좌석 확인하기
+	 * @param map
+	 * @return
+	 */
+	int remainsCheck(Map<String, Integer> map);
+
 
 }

@@ -161,6 +161,12 @@
 	WHERE MEMBER_NO = #{memberNo}
 	AND LESSON_NO = #{lessonNo}
 	</select>
+	
+	<select id="remainsCheck" resultType="_int">
+	SELECT LESSON_REMAINS
+	FROM LESSONS
+	WHERE LESSON_NO = #{lessonNo}
+	</select>
    
     
 </mapper>

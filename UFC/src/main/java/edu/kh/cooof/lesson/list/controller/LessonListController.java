@@ -163,7 +163,7 @@ public class LessonListController {
 		path = "redirect:/lesson/list";
 		
 		} else { // 신청 실패 시
-			ra.addFlashAttribute("message", "신청 실패");
+			ra.addFlashAttribute("message", "신청 실패, 잔여 좌석을 확인해주세요!");
 			path = "redirect:/lesson/list/" + lessonNo;
 		}
 		
