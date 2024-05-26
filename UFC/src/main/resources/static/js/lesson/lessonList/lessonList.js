@@ -186,3 +186,31 @@ document.getElementById('advanced-search-toggle').addEventListener('click', func
     }
 });
 /* 상세 검색 드롭 다운 메뉴 끝 */
+
+/* 즐겨찾기 버튼 시작 */
+function addWish(button) {
+
+    // 즐찾 버튼에서 가장 가까운 부모 클래스 tags-container 선택하고 해당 요소 ID 얻어오기
+    const parentDiv = button.closest('.tags-container');
+    const lessonNo = parentDiv.id;
+    //
+
+
+    fetch(`/lesson/list/wishlistAdd?lessonNo=${lessonNo}`)
+        .then(response => {
+
+
+            if (response.ok) {
+                // 요청이 성공하면 아이콘을 변경
+                button.innerHTML = '<i class="fa-regular fa-star" style="color: #FFD43B;"></i>';
+            } else {
+                console.error('Request failed:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+}
+
+/* 즐겨찾기 버튼 끝 */
+

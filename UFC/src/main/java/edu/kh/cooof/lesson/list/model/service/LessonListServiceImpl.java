@@ -136,5 +136,27 @@ public class LessonListServiceImpl implements LessonListService {
 	public int signupCheck(Map<String, Integer> map) {
 		return mapper.signupCheck(map);
 	}
+	
+	// 즐겨찾기 기능 구현
+	@Override
+	public int toggleWishlist(Map<String, Integer> map) {
+		 // 기존 즐겨찾기 존재 여부 확인
+        int count = mapper.checkWishlist(map);
+
+        if (count > 0) {
+            // 존재하면 삭제
+            return mapper.deleteWishlist(map);
+        } else {
+            // 존재하지 않으면 삽입
+            return mapper.insertWishlist(map);
+        }
+		
+	}
+	
+	// 로그인한 회원 번호로 수업별 즐찾 여부 확인
+	@Override
+	public boolean isWishlisted(int lessonNo, int memberNo) {
+		return false;
+	}
 
 }

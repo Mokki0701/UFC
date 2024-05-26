@@ -64,5 +64,23 @@ public interface LessonListMapper {
 	 */
 	int remainsCheck(Map<String, Integer> map);
 
+	/** 즐겨찾기 여부 확인
+	 * @param map
+	 * @return
+	 */
+	int checkWishlist(Map<String, Integer> map);
+
+	/** 기존에 등록된 즐겨찾기 삭제
+	 * @param map
+	 * @return
+	 */
+	int deleteWishlist(Map<String, Integer> map);
+
+	/** 즐겨찾기 추가
+	 * @param map
+	 * @return
+	 */
+	int insertWishlist(Map<String, Integer> map);
+
 
 }

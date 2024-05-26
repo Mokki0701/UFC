@@ -343,6 +343,11 @@ z-index: -1; /* 가장 아래로 설정 */
   pointer-events: none;
 }
 
+.wish-btn {
+  margin-top: 10px;
+  cursor: pointer;
+  width: 18px;
+}
 
 
 
