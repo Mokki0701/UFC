@@ -101,10 +101,10 @@ public class LessonListController {
     	return "lesson/lessonList/lessonList";
     }
     
- // 게시글 상세 조회
+    // 게시글 상세 조회
     @GetMapping("{lessonNo:[0-9]+}")
     public String lessonDetail(
-            @PathVariable("lessonNo") int lessonNo, // 클릭된 수업의 lessonNo 저장
+			@PathVariable("lessonNo") int lessonNo, // 클릭된 수업의 lessonNo 저장
             @SessionAttribute(name = "loginMember", required = false) Optional<Member> loginMember, // 필수X optional 활용
             Model model,
             RedirectAttributes ra
@@ -140,7 +140,6 @@ public class LessonListController {
 
     
     // http://localhost/lesson/list/17/signup 요청 주소 예시
-	// !!!!! 한번 신청했으면 안되게 막아야됌 !!!!!!!!    
 	@GetMapping("{lessonNo:[0-9]+}/signup")
 	public String lessonSignup (
 			@PathVariable("lessonNo") Integer lessonNo,

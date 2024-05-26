@@ -53,5 +53,10 @@ public interface LessonListMapper {
 	 */
 	int signupCheck(Map<String, Integer> map);
 
+	/** 레슨 신청 성공 시 잔여 -1 하기
+	 * @param map
+	 */
+	void lessonCapacityDecrease(Map<String, Integer> map);
+
 
 }

@@ -148,6 +148,12 @@
 		#{lessonNo}, #{memberNo}, 1
 		)
 	</insert>
+
+	<update id="lessonCapacityDecrease">
+	UPDATE "LESSONS"
+	SET LESSON_REMAINS = LESSON_REMAINS - 1
+	WHERE LESSON_NO = #{lessonNo}
+	</update>
 	
 	<select id="signupCheck" resultType="_int">
 	SELECT COUNT(*) 
