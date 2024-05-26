@@ -81,11 +81,22 @@ public class LessonListController {
     @GetMapping("/search2")
     public String searchLessons2(
             @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+            @SessionAttribute(name = "loginMember", required = false) Member loginMember,
             @RequestParam Map<String, Object> paramMap,
             Model model) {
         
         // 검색 서비스 호출
         Map<String, Object> map = service.searchList(paramMap, cp);
+        
+        
+		// 각 수업에 대해 로그인한 사용자가 즐겨찾기 했는지 여부를 확인
+		if (loginMember != null) {
+			List<Lesson> lessonList = (List<Lesson>) map.get("lessonList");
+			for (Lesson lesson : lessonList) {
+				boolean isWishlisted = service.isWishlisted(lesson.getLessonNo(), loginMember.getMemberNo());
+				lesson.setWishListYN(isWishlisted ? 1 : 0);
+			}
+		}
 
         // 검색 결과 모델에 등록
         model.addAttribute("lessonList", map.get("lessonList"));
@@ -99,11 +110,21 @@ public class LessonListController {
     @GetMapping("/search")
     public String searchLessons(
     		@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+    		@SessionAttribute(name = "loginMember", required = false) Member loginMember,
     		@RequestParam Map<String, Object> paramMap,
     		Model model) {
     	
     	// 검색 서비스 호출
     	Map<String, Object> map = service.searchList(paramMap, cp);
+    	
+    	// 각 수업에 대해 로그인한 사용자가 즐겨찾기 했는지 여부를 확인
+	    if (loginMember != null) {
+	        List<Lesson> lessonList = (List<Lesson>) map.get("lessonList");
+	        for (Lesson lesson : lessonList) {
+	            boolean isWishlisted = service.isWishlisted(lesson.getLessonNo(), loginMember.getMemberNo());
+	            lesson.setWishListYN(isWishlisted ? 1 : 0);
+	        }
+	    }
     	
     	// 검색 결과 모델에 등록
     	model.addAttribute("lessonList", map.get("lessonList"));

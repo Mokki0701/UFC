@@ -106,7 +106,15 @@
                             <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
                             <span class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
                         
-                            <div class="wish-btn" id="wish-btn" onclick="addWish(this)"><i class="fa-solid fa-star" style="color: #FFD43B;"></i></div>
+                            <div class="wish-btn" onclick="addWish(this)">
+                                <i th:classappend="${lesson.wishListYN == 1} ? 'fa-solid fa-star' : 'fa-regular fa-star'" style="color: #FFD43B;"></i>
+                            </div >
+
+                            <!-- <div th:text="${lesson.wishListYN == 0 ? '안됌' : '즐찾됌'}"></div> -->
+
+<!--                             <div class="wish-btn" onclick="addWish(this)" th:classappend="${lesson.wishListYN == 1} ? ' wished' : ''">
+                                <i th:classappend="${lesson.wishListYN == 1} ? 'fa-regular fa-star' : 'fa-solid fa-star'" style="color: #FFD43B;"></i>
+                            </div> -->
                         
                         
                         

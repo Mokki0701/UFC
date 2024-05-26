@@ -156,7 +156,9 @@ public class LessonListServiceImpl implements LessonListService {
 	// 로그인한 회원 번호로 수업별 즐찾 여부 확인
 	@Override
 	public boolean isWishlisted(int lessonNo, int memberNo) {
-		return false;
+		
+		// 수업 번호와 회원 번호를 맵으로 묶고, 결과가 있을 경우 true 없을 경우 false 반환
+		return mapper.checkWishlist(Map.of("lessonNo", lessonNo, "memberNo", memberNo)) > 0;
 	}
 
 }
