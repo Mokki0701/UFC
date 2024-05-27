@@ -1,6 +1,7 @@
 package edu.kh.cooof.lesson.list.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,6 +36,7 @@ public class LessonListController {
 	@GetMapping("") // get 요청은 바로 레슨 메인으로
 	public String lessonListMainPage(
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, // 페이지네이션용
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			Model model,
 			@RequestParam Map<String, Object> paramMap // key 값 받기 용
 			) {
@@ -54,6 +56,16 @@ public class LessonListController {
 			map = service.searchList(paramMap, cp);
 		}
 		
+		// 각 수업에 대해 로그인한 사용자가 즐겨찾기 했는지 여부를 확인
+	    if (loginMember != null) {
+	        List<Lesson> lessonList = (List<Lesson>) map.get("lessonList");
+	        for (Lesson lesson : lessonList) {
+	            boolean isWishlisted = service.isWishlisted(lesson.getLessonNo(), loginMember.getMemberNo());
+	            lesson.setWishListYN(isWishlisted ? 1 : 0);
+	        }
+	    }
+		
+		
 		// 페이지네이션 모델에 등록
 		model.addAttribute("pagination", map.get("pagination"));
 		
@@ -69,11 +81,22 @@ public class LessonListController {
     @GetMapping("/search2")
     public String searchLessons2(
             @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+            @SessionAttribute(name = "loginMember", required = false) Member loginMember,
             @RequestParam Map<String, Object> paramMap,
             Model model) {
         
         // 검색 서비스 호출
         Map<String, Object> map = service.searchList(paramMap, cp);
+        
+        
+		// 각 수업에 대해 로그인한 사용자가 즐겨찾기 했는지 여부를 확인
+		if (loginMember != null) {
+			List<Lesson> lessonList = (List<Lesson>) map.get("lessonList");
+			for (Lesson lesson : lessonList) {
+				boolean isWishlisted = service.isWishlisted(lesson.getLessonNo(), loginMember.getMemberNo());
+				lesson.setWishListYN(isWishlisted ? 1 : 0);
+			}
+		}
 
         // 검색 결과 모델에 등록
         model.addAttribute("lessonList", map.get("lessonList"));
@@ -87,11 +110,21 @@ public class LessonListController {
     @GetMapping("/search")
     public String searchLessons(
     		@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+    		@SessionAttribute(name = "loginMember", required = false) Member loginMember,
     		@RequestParam Map<String, Object> paramMap,
     		Model model) {
     	
     	// 검색 서비스 호출
     	Map<String, Object> map = service.searchList(paramMap, cp);
+    	
+    	// 각 수업에 대해 로그인한 사용자가 즐겨찾기 했는지 여부를 확인
+	    if (loginMember != null) {
+	        List<Lesson> lessonList = (List<Lesson>) map.get("lessonList");
+	        for (Lesson lesson : lessonList) {
+	            boolean isWishlisted = service.isWishlisted(lesson.getLessonNo(), loginMember.getMemberNo());
+	            lesson.setWishListYN(isWishlisted ? 1 : 0);
+	        }
+	    }
     	
     	// 검색 결과 모델에 등록
     	model.addAttribute("lessonList", map.get("lessonList"));
@@ -101,10 +134,10 @@ public class LessonListController {
     	return "lesson/lessonList/lessonList";
     }
     
- // 게시글 상세 조회
+    // 게시글 상세 조회
     @GetMapping("{lessonNo:[0-9]+}")
     public String lessonDetail(
-            @PathVariable("lessonNo") int lessonNo, // 클릭된 수업의 lessonNo 저장
+			@PathVariable("lessonNo") int lessonNo, // 클릭된 수업의 lessonNo 저장
             @SessionAttribute(name = "loginMember", required = false) Optional<Member> loginMember, // 필수X optional 활용
             Model model,
             RedirectAttributes ra
@@ -140,7 +173,6 @@ public class LessonListController {
 
     
     // http://localhost/lesson/list/17/signup 요청 주소 예시
-	// !!!!! 한번 신청했으면 안되게 막아야됌 !!!!!!!!    
 	@GetMapping("{lessonNo:[0-9]+}/signup")
 	public String lessonSignup (
 			@PathVariable("lessonNo") Integer lessonNo,
@@ -164,7 +196,7 @@ public class LessonListController {
 		path = "redirect:/lesson/list";
 		
 		} else { // 신청 실패 시
-			ra.addFlashAttribute("message", "신청 실패");
+			ra.addFlashAttribute("message", "신청 실패, 잔여 좌석을 확인해주세요!");
 			path = "redirect:/lesson/list/" + lessonNo;
 		}
 		
@@ -174,6 +206,33 @@ public class LessonListController {
 		
 	}
 	
+	// 즐겨찾기 기능
+	@GetMapping("wishlistAdd")
+	public String addWishlist(
+			@RequestParam("lessonNo") int lessonNo, // 즐찾 누른 레슨의 레슨 번호
+			@SessionAttribute("loginMember") Member loginMember, // 로그인한 멤버의 회원 번호
+            RedirectAttributes ra 
+			) {
+		
+		// 정보 담을 맵
+		Map<String, Integer> map = new HashMap<>();
+		
+		map.put("lessonNo", lessonNo);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		 // 서비스 호출
+	    int result = service.toggleWishlist(map);
+
+	    if(result > 0) {
+	        ra.addFlashAttribute("message", "즐겨찾기가 추가되었습니다.");
+	    } else {
+	        ra.addFlashAttribute("message", "즐겨찾기가 삭제되었습니다.");
+	    }
+
+	    return "redirect:/lesson/list";
+	    
+	}
+
 	
 	
     

@@ -102,15 +102,63 @@ public class LessonListServiceImpl implements LessonListService {
 		return mapper.selectDetail(lessonNo);
 	}
 	
+	// 수업 신청
 	@Override
 	public int lessonSignup(Map<String, Integer> map) {
-		return mapper.lessonSignup(map);
+
+		// 잔여 좌석 확인하기
+		int remainsCheck = mapper.remainsCheck(map);
+
+		if (remainsCheck <= 0) { // 잔여좌석이 없을 경우
+
+			// -1 반환
+			return -1;
+			
+		} else { // 있을 경우
+			// 수업 신청 넣기
+			int result = mapper.lessonSignup(map);
+
+			if (result > 0) { // 신청이 문제없이 진행됐을 시, 잔여 좌석 깎기
+				// 잔여 좌석 깎기
+				mapper.lessonCapacityDecrease(map);
+			}
+
+			// 결과 반환
+			return result;
+		}
+		
+		
+		
 	}
 	
 	// 현재 로그인한 회원이 해당 수업에 가입해 있는지 여부 확인
 	@Override
 	public int signupCheck(Map<String, Integer> map) {
 		return mapper.signupCheck(map);
+	}
+	
+	// 즐겨찾기 기능 구현
+	@Override
+	public int toggleWishlist(Map<String, Integer> map) {
+		 // 기존 즐겨찾기 존재 여부 확인
+        int count = mapper.checkWishlist(map);
+
+        if (count > 0) {
+            // 존재하면 삭제
+            return mapper.deleteWishlist(map);
+        } else {
+            // 존재하지 않으면 삽입
+            return mapper.insertWishlist(map);
+        }
+		
+	}
+	
+	// 로그인한 회원 번호로 수업별 즐찾 여부 확인
+	@Override
+	public boolean isWishlisted(int lessonNo, int memberNo) {
+		
+		// 수업 번호와 회원 번호를 맵으로 묶고, 결과가 있을 경우 true 없을 경우 false 반환
+		return mapper.checkWishlist(Map.of("lessonNo", lessonNo, "memberNo", memberNo)) > 0;
 	}
 
 }
