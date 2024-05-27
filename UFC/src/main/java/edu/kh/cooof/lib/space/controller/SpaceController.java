@@ -54,6 +54,8 @@ public class SpaceController {
 			@RequestParam("spaceNo") int spaceNo,
 			Model model) {
 
+		
+		
 		String message = null;
 		String path = request.getHeader("Referer"); // 이전 페이지 URL 가져오기
 
