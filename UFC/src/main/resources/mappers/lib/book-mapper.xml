@@ -74,7 +74,7 @@
 		FROM BOOK_INFO
 		WHERE BOOK_NO = #{bookNo}
 	</select>
-	
+	 
 	<select id="selectBrowsingList">
 		SELECT * FROM (
 		    SELECT 
