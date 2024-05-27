@@ -4,25 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>기구 사용법 상세</title>
+    
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+    <link rel="stylesheet" href="css/information/UseMachineDetail.css">
 </head>
 
-<style>
-    .gym_detail_container {
-        padding: 20px;
-    }
-    .gym_video {
-        margin-bottom: 20px;
-    }
-    .gym_info h3 {
-        margin-top: 20px;
-    }
-    .gym_info p {
-        white-space: pre-wrap; /* 줄 바꿈을 처리하기 위해 사용 */
-    }
-</style>
-
 <body>
-    <th:block th:replace="~{common/header}"></th:block>
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
 
     <div class="gym_detail_container">
         <h2 th:text="${useMachine.name}">기구 이름</h2>

@@ -30,8 +30,14 @@ public class Lesson {
 	private int memberNo;
 	private String lessonRegisterStart;
 	private String lessonRegisterEnd;
+	private int lessonRemains;
+	private String imgPath;
+	private String lessonDetail;
+	private int deleteYn;
 	
-	// 추후 추가 예정
+	// 데이터 가공해서 써야되는 것들
+	private String lessonScheduleDay; // 수업 요일만 나옴
+	private String lessonScheduleTime; // 수업 시간만 나옴
 	
 
 }

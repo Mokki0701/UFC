@@ -18,9 +18,15 @@ public class Member {
 	private String memberPw;
 	private String memberLastName; 
 	private String memberFirstName;
-	
+	private String memberBirthday;
+	private String memberPhone;
 	// ... 
 	private int memberAuthority;
+	private String memberGender;
+	
+	// 현재 이용 중인 좌석 번호
+	private int curUsingSeatNo;
+	
 	
 	// 이후에 추가..
 }

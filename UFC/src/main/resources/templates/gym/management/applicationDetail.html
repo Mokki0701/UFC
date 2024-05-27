@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지원서 상세 조회</title>
+    <link rel="stylesheet" href="/css/gym/apply.css">
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+    <link rel="stylesheet" href="/css/gym/applicationDetail.css">
+</head>
+<body>
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
+    <section class="application-detail">
+        <h3 th:text="|${app.memberLastName} ${app.memberFirstName} 의 지원서|">지원서</h3>
+
+        <div class="detail-wrapper">
+            <p><strong>지원서 번호:</strong> <span th:text="${app.applicationNo}"></span></p>
+            <p><strong>지원 분야:</strong> <span th:text="${app.position}"></span></p>
+            <p><strong>지원 경로:</strong> <span th:text="${app.applyRoute}"></span></p>
+            <p><strong>회원 번호:</strong> <span th:text="${app.memberNo}"></span></p>
+            <p><strong>성:</strong> <span th:text="${app.memberLastName}"></span></p>
+            <p><strong>이름:</strong> <span th:text="${app.memberFirstName}"></span></p>
+            <p><strong>연락처:</strong> <span th:text="${app.memberPhone}"></span></p>
+            <p><strong>이메일:</strong> <span th:text="${app.memberEmail}"></span></p>
+            <p><strong>이력서:</strong> <a th:href="@{/management/download/{applicationNo}(applicationNo=${app.applicationNo})}"
+                                           th:text="${app.resumePath}">다운로드</a></p>
+            <p><strong>지원 날짜:</strong> <span th:text="${app.applyDate}"></span></p>
+        </div>
+
+        <div class="button-wrapper">
+            <form action="/trainerSelect/approve" method="post">
+                <input type="hidden" name="applicationNo" th:value="${app.applicationNo}">
+                <button type="submit" class="btn btn-approve">승인</button>
+            </form>
+            <form action="/trainerSelect/reject" method="post">
+                <input type="hidden" name="applicationNo" th:value="${app.applicationNo}">
+                <button type="submit" class="btn btn-reject">거절</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

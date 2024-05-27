@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UFC 도서관 공간대여</title>
+  <!-- 도서관 전용 헤더 스타일로만 사용하기!! -->
+  <link rel="stylesheet" href="/css/libMain.css">
+  <link rel="stylesheet" href="/css/lib/space.css">
+</head>
+
+<body>
+
+  <!-- 공용 헤더 -->
+  <header th:replace="~{common/header}"></header>
+
+  <!-- 도서관 전용 헤더 -->
+  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
+
+
+
+
+  <!-- 세션의 회원 정보 얻어오기 -->
+  <div class="spaceManager">
+
+    <h1>일반 회원이 공간을 대여하는 페이지</h1>
+
+    <!-- 출입구 표시 -->
+    <div id="exitSack">
+      <div class="exit">출입구</div>
+      <div class="exit">출입구</div>
+    </div>
+
+    <!-- 생성된 div가 표시되는 부분 -->
+    <div id="drawingArea"></div>
+
+    <!-- 생성된 div 크기 조정 -->
+
+
+  </div>
+
+
+
+  <!-- 방의 상태 창 -->
+  <div id="conditionGuide">
+
+    <div class="boxSack ">
+      <div class="conditionBox avail"></div>
+      <p>: 이용 가능 / </p>
+    </div>
+
+    <div class="boxSack ">
+      <div class="conditionBox nowUsing"></div>
+      <p>: 현재 사용 중 /</p>
+    </div>
+
+    <div class="boxSack">
+      <div class="conditionBox disavail"></div>
+      <p>: 점검 중. 이용 불가</p>
+    </div>
+
+  </div>
+
+  <!-- 필요한 정보 일반 -->
+  <!-- 다음과 같은 정보가 필요 할 것.
+    1. 로그인한 회원의 번호 표시
+    2. 선택한 방의 번호
+    3. 현재 이용 중인 공간의 번호
+      - 이용 중인 공간이 있으면 공간 이용 불가
+    4. 현재 이용 중인 열람실의 번호
+      - 이용 중인 열람실이 있으면 공간 이용 불가
+      confirm. 현재 이용 중인 열람실이 있습니다. 열람실 이용을 해제할까요?
+        - yes 선택 : alert. 열람실 이용 해제, 공간 이용 등록 성공
+        - no 선택 : alert. 열람실 이용을 계속합니다. 공간 이용 등록 취소.
+  -->
+
+  <!-- 필요한 정보 표시 -->
+  <div>
+
+    <!-- 1. 로그인한 회원의 번호 -->
+    <div>
+      회원님의 회원 번호 : <span th:text="${session.loginMember.memberNo}"></span>
+    </div>
+
+    <br>
+
+    <div>
+      <span>현재 선택한 공간 번호 : <span id="currentSelectSpace"></span> </span> <br>
+    </div>
+
+    <!-- 이용 중인 열람실 좌석이 없을 경우 -->
+    <div th:if="${session.memberAndSeatSession == null}">
+      <p>이용 중인 열람실 : 없음</p>
+    </div>
+
+    <!-- 이용중인 열람실 좌석이 있을 경우에만 표시 -->
+    <div th:if="${session.memberAndSeatSession != null}">
+      <th:block
+        th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
+        <p>회원님이 사용 중인 열람실 좌석 번호:
+          <span th:text="${seatNo}"></span>
+        </p>
+      </th:block>
+    </div>
+
+    <!-- <th:block
+      th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
+      <p>회원님이 사용 중인 대여공간 번호:
+        <span th:text="${seatNo}"></span>
+      </p>
+    </th:block> -->
+  </div>
+
+
+  <div id="buttonSack">
+    <form id="actionForm" action="/lib/space/wannaUseSpace" method="post">
+      <input type="hidden" name="action" id="actionInput" value="">
+      <button type="button" onclick="wannaUseSpace()">이용하기</button>
+      <button type="button" onclick="stopUsingSpace()">그만 사용하기</button>
+    </form>
+  </div>
+
+</body>
+
+<script src="/js/lib/spaceUsing.js"></script>
+
+</html>

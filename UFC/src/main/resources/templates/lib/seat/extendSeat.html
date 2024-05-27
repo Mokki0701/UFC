@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style link=""></style>
+  <link rel="stylesheet" href="/css/libMain.css">
+  <title>자리 연장 페이지</title>
+</head>
+
+<body>
+
+  <!-- 공용 헤더 -->
+  <header></header>
+
+  <!-- 도서관 전용 헤더 -->
+  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
+
+  <h1>자리 연장 페이지 입니다</h1>
+
+
+
+
+  <div>
+    <h2>현재 로그인한 회원 정보</h2>
+    <p>회원 번호: <span th:text="${session.loginMember.memberNo}"></span></p>
+
+    <!-- 세션에 memberAndSeatSession이 있고, loginMember가 있는 경우에만 좌석 번호 출력 -->
+    <div th:if="${session.memberAndSeatSession != null}">
+      <th:block
+        th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
+        <p>회원님이 사용 중인 좌석 번호:
+          <span th:text="${seatNo}"></span>
+        </p>
+      </th:block>
+      <p>회원님의 남은 연장 기회 : <span id="remainingExtensions"></span></p>
+
+    </div>
+    <div th:if="${session.memberAndSeatSession == null}">
+      <p>이용 중인 좌석이 없습니다.</p>
+    </div>
+  </div>
+
+  <p>현재 시간 : <span id="currentTime"></span></p>
+  <div id="seatUsageInfo">
+    <p>이용 시작한 시간: <span id="readingStart"></span></p>
+    <p>이용 종료 예정 시간: <span id="readingDone"></span></p>
+
+
+  </div>
+
+
+
+
+
+
+  <button id="extendSeat">연장하기</button>
+  <br>
+  <button id="stopUsing">그만 이용하기</button>
+  <br>
+  <button id="moveSeat">자리 이동하기</button>
+  <br>
+
+
+
+  <!-- 공용 푸터 -->
+  <footer></footer>
+  <script src="/js/lib/extendSeat.js"></script>
+</body>
+
+</html>

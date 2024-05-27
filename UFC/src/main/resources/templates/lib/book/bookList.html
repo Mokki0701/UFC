@@ -24,11 +24,17 @@
 
         </div>
 
-        <div>
+        <div class="searchBook" th:fragment="searchBook">
 
             <div>
+
+  
+
                 <!-- 검색 창 -->
-                
+                <input type="text" name="query" id="searchQuery" placeholder="검색어를 입력해주세요.">
+
+                <button id="searchBookBtn">검색</button>
+
             </div>
 
             <div>
@@ -40,10 +46,11 @@
                 <div>
                     <!-- 관심 등록 도서 수(이게 먼저) / 도서 가나다라 조회순 -->
                     <!-- 이건 나중에 생각하면 될듯 이걸 눌렀을 때 비동기 조회니까, 일단 카테고리별, 책별 나열하고 -> 검색, 인기순 조회 기능을 넣을 때 넣자 -->
-                    <div th:each="book : ${bookList}" th:object="${book}">
+                    <div th:each="book : ${bookList}" th:object="${book}"  class="book-detail" th:data-book-no="*{bookNo}">
                         <td th:text="*{bookTitle}">도서 제목</td> 
                         <td th:text="*{authorLastName}">저자 성</td>
                         <td th:text="*{authorFirstName}">저자 명</td>
+                        
                         <td th:text="*{bookPublisher}">출판사</td>
                         <td th:text="*{bookImg}">도서 이미지</td>
                         <td th:text="*{bookTmi}">도서 정보</td>

@@ -1,6 +1,7 @@
 package edu.kh.cooof.lib.main.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -54,7 +55,80 @@ public class LibMainController {
 
 		return path;
 	}
+
+	// 자리 연장 페이지로 이동하기
+	@GetMapping("/toExtendSeat")
+	public String extendSeat(HttpSession session, RedirectAttributes ra) {
+
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		String path = null;
+
+		// 로그인 안된 경우
+		if (loginMember == null) {
+			ra.addFlashAttribute("message", "로그인 후 이용해 주세요");
+			path = "common/error";
+
+		}
+
+		// 로그인 된 경우
+		if (loginMember != null && loginMember.getMemberAuthority() < 3) {
+			path = "lib/seat/extendSeat";
+		}
+
+		return path;
+
+	}
+	// 공간 관리 페이지로 이동하기
+	@GetMapping("managingSpace")
+	public String managingSpace(HttpSession session, RedirectAttributes ra, Model model) {
+		
+		
+		
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		
+		String path = null;
+		// loginMember.memberAuthority == 3 : 관리자 회원만 접근 가능하게 하기
+		int memberAuthority = loginMember.getMemberAuthority();
+		
+		// 관리자가 아닌 경우
+		if(memberAuthority < 3) {
+			ra.addFlashAttribute("message", "해당 기능은 관리자만 이용 가능합니다.");
+			
+			path = "redirect:/";
+		}
+		
+		// 관리자인 경우
+		if(memberAuthority == 3) {
+			path = "lib/space/libSpaceManaging";
+		}
+		
+		model.addAttribute("memberAuthority", memberAuthority);
+		return path;
+		
+	}
 	
-	
+
+	// 공간 이용 페이지로 이동하기
+	@GetMapping("toSpace")
+	public String toSpace(HttpSession session, RedirectAttributes ra) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		String path = null;
+
+		// 로그인 안된 경우
+		if (loginMember == null) {
+			ra.addFlashAttribute("message", "로그인 후 이용해 주세요");
+			path = "common/error";
+
+		}
+
+		// 로그인 된 경우
+		if (loginMember != null && loginMember.getMemberAuthority() < 3) {
+			path = "lib/space/libSpaceUsing";
+		}
+
+		return path;
+
+	}
 
 }

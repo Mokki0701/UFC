@@ -18,6 +18,13 @@ public class MainController {
 
 	private final MainService service; 
 	
+	// 길을 잃은 비로그인 사용자를 옳은 길로 인도하기
+	// 홈으로 보내
+	@GetMapping("goHome")
+	public String goHome() {
+		
+		return"index";
+	}
 
 	// 도서관 메인 페이지로 이동
 	@GetMapping("libMain")

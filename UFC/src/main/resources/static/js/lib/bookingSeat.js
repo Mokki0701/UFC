@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+  
+  
+  
+  
   const seatChart = document.querySelector('.seat-chart');
   const rows = 20;
   const cols = 20;
@@ -32,9 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('dbSeatNo').textContent = a;
 
         // 좌석 상태 표시
-        const seatStatus = seat.classList.contains('availSeat') ? '사용 가능' :
-                           seat.classList.contains('disavailSeat') ? '사용 불가능' :
-                           seat.classList.contains('nowUsing') ? '사용 중' : '없음';
+        const seatStatus = seat.classList.contains('availSeat') && seat.classList.contains('nowUsing') ? '사용 중' :
+                   seat.classList.contains('availSeat') ? '사용 가능' :
+                   seat.classList.contains('disavailSeat') ? '사용 불가능' : '없음';
         document.getElementById('dbSeatAvail').textContent = seatStatus;
 
         // 선택된 좌석 저장
@@ -86,17 +90,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // 버튼 클릭 시 동작
   const useSeatBtn = document.querySelector("#useSeat");
 
+  // 이용 가능한 좌석에만 반응하기
   useSeatBtn.addEventListener("click", () => {
     if (selectedSeat && selectedSeat.classList.contains('availSeat') && !selectedSeat.classList.contains('nowUsing') && !selectedSeat.classList.contains('disavailSeat')) {
       const dbSeatNo = document.getElementById('dbSeatNo').textContent;
+      // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
+      const seatCondition = selectedSeat.classList.contains('availSeat') ? 1 :
+                            selectedSeat.classList.contains('disavailSeat') ? 2 :
+                            0;
       if (dbSeatNo !== '') {
-        fetch(`/lib/seat/useSeat?seatNo=${dbSeatNo}`, {
-          method: 'POST'
+        fetch('/lib/seats/useSeat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ seatNo: dbSeatNo, condition: seatCondition })
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
         .then(data => {
           console.log('Seat usage response:', data);
-          alert("좌석 사용 상태가 업데이트되었습니다.");
+          alert(data.message);
           loadSeatData(); // 좌석 데이터 다시 로드
         })
         .catch(error => console.error('Error using seat:', error));
@@ -106,5 +124,42 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       alert("선택한 좌석은 사용할 수 없습니다.");
     }
+  });
+  
+
+});
+
+// 좌석 이용 종료하기
+const stopUsingSeat = document.querySelector("#stopUsingSeat");
+stopUsingSeat.addEventListener("click", () => {
+  fetch('/lib/seats/stopUsingSeat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    // 서버에서 반환된 메시지를 alert 창으로 띄우기
+    alert(data.message);
+
+    // 메시지에 따라 페이지를 리다이렉트
+    if (data.result === 'success') {
+      // 현재 회원이 이용 중인 좌석의 좌표를 사용하여 nowUsing 클래스를 제거
+      const seatNo = data.seatNo;
+      const seatDiv = document.querySelector(`[data-seat-no="${seatNo}"]`);
+      if (seatDiv) {
+        console.log(`Removing 'nowUsing' class from seat with seatNo: ${seatNo}`);
+        seatDiv.classList.remove('nowUsing');
+      } else {
+        console.warn(`Seat with seatNo ${seatNo} not found`);
+      }
+      // 페이지를 리다이렉트
+      window.location.href = '/';
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('이용 종료 중 오류가 발생했습니다.');
   });
 });

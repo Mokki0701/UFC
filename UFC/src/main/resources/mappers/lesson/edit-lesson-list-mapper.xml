@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lesson.list.model.mapper.EditLessonListMapper">
+
+	<!-- 
+		useGeneratedKeys 속성 : DB 내부적으로 생성한 키 (시퀀스)를
+						전달된 파라미터의 필드로 대입 가능 여부 지정
+		
+		** 동적 SQL **
+		- 프로그램 수행 중 SQL을 변경하는 기능 (마이바티스의 가장 강력한 기능)
+		
+		<selectKey> 태그 : INSERT/UPDATE 시 사용할 키(시퀀스)를
+						조회해서 파라미터의 지정된 필드에 대입
+		
+		order 속성 : 메인 SQL이 수행되기 전/후에 selectkey가 수행되도록 지정
+		전 : BEFORE
+		후 : AFTER
+		
+		keyProperty 속성 : selectKey 조회 결과를 저장할 파라미터의 필드
+	-->
+  
+  
+  
+	<!-- 게시글 작성 -->
+  	<insert id="lessonInsert" useGeneratedKeys="true" parameterType="Lesson">
+  		
+  		<selectKey order="BEFORE" resultType="_int" keyProperty="lessonNo">
+  			SELECT SEQ_LESSON_NO.NEXTVAL FROM DUAL
+  		</selectKey>
+
+	INSERT
+	INTO
+	"LESSONS"
+	VALUES(
+	#{lessonNo},
+	#{lessonTitle},
+	#{lessonRoom},
+	#{lessonScheduleDay} || ' ' || #{lessonSchedule},
+	#{lessonStartDate},
+	#{lessonEndDate},
+	#{lessonCapacity},
+	#{lessonTuitionFee},
+	#{lessonMaterialFee},
+	#{lessonTargetAudience},
+	0,
+	#{memberNo},
+	#{lessonRegisterStart},
+	#{lessonRegisterEnd},
+	#{lessonCapacity},
+	#{imgPath},
+	#{lessonDetail},
+	0
+	)
+	</insert>
+	
+	<update id="lessonUpdate">
+	UPDATE "LESSONS"
+	SET
+	LESSON_TITLE = #{lessonTitle},
+	LESSON_ROOM = #{lessonRoom},
+	LESSON_SCHEDULE = #{lessonScheduleDay} || ' ' || #{lessonSchedule},
+	LESSON_START_DATE = #{lessonStartDate},
+	LESSON_END_DATE = #{lessonEndDate},
+	LESSON_CAPACITY = #{lessonCapacity},
+	LESSON_TUITION_FEE = #{lessonTuitionFee},
+	LESSON_MATERIAL_FEE = #{lessonMaterialFee},
+	LESSON_TARGET_AUDIENCE = #{lessonTargetAudience},
+	LESSON_REGISTER_START = #{lessonRegisterStart},
+	LESSON_REGISTER_END = #{lessonRegisterEnd},
+	IMG_PATH = #{imgPath},
+	LESSON_DETAIL = #{lessonDetail}
+	WHERE
+	LESSON_NO = #{lessonNo}
+	</update>
+
+	<!-- 게시글 삭제 처리 -->	
+	<update id="lessonDelete">
+	UPDATE "LESSONS"
+	SET
+	DELETE_YN = 1
+	WHERE LESSON_NO = #{lessonNo}
+	</update>
+
+	<select id="getSmallCodeBySmallName" parameterType="String"
+		resultType="Integer">
+		SELECT SMALL_CODE
+		FROM CATEGORY_SMALL
+		WHERE SMALL_NAME = #{smallName}
+	</select>
+	
+	<insert id="insertLessonCategory" parameterType="map">
+	INSERT INTO LESSON_CATEGORY (LESSON_NO, SMALL_CODE)
+	VALUES (#{lessonNo}, #{smallCode})
+	</insert>
+	
+	<delete id="deleteTags" parameterType="Integer">
+	DELETE FROM LESSON_CATEGORY
+	WHERE LESSON_NO = #{lessonNo}	
+	</delete>
+	
+
+</mapper>

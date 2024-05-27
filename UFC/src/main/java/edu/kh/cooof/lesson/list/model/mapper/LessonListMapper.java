@@ -35,5 +35,23 @@ public interface LessonListMapper {
 	 */
 	List<Lesson> selectSearchList(Map<String, Object> paramMap, RowBounds rowBounds);
 
+	/** 선택한 수업 내용 상세 조회해오기
+	 * @param lessonNo
+	 * @return
+	 */
+	Lesson selectDetail(int lessonNo);
+
+	/** 레슨 신청 (회원만 강사X, 관리자X)
+	 * @param map
+	 * @return 성공 여부
+	 */
+	int lessonSignup(Map<String, Integer> map);
+
+	/** 현재 로그인한 회원이 해당 수업에 가입해 있는지 여부 확인
+	 * @param map
+	 * @return
+	 */
+	int signupCheck(Map<String, Integer> map);
+
 
 }

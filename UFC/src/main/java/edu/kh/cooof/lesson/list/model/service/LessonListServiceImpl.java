@@ -95,5 +95,22 @@ public class LessonListServiceImpl implements LessonListService {
 		// 5. 결과 반환
 		return map;
 	}
+	
+	// 수업 내용 상세 조회 해오기
+	@Override
+	public Lesson selectDetail(int lessonNo) {
+		return mapper.selectDetail(lessonNo);
+	}
+	
+	@Override
+	public int lessonSignup(Map<String, Integer> map) {
+		return mapper.lessonSignup(map);
+	}
+	
+	// 현재 로그인한 회원이 해당 수업에 가입해 있는지 여부 확인
+	@Override
+	public int signupCheck(Map<String, Integer> map) {
+		return mapper.signupCheck(map);
+	}
 
 }

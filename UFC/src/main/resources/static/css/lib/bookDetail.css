@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.swiper-container {
+    width: 80%;
+    height: 300px;
+    margin: auto;
+}
+.swiper-slide {
+    display: flex;
+    justify-content: space-around;
+}
+.swiper-slide img {
+    max-width: 20%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
