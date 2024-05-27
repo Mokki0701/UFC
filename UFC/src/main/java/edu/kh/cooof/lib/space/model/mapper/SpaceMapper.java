@@ -1,6 +1,7 @@
 package edu.kh.cooof.lib.space.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,6 +20,6 @@ public interface SpaceMapper {
 	List<SpaceDTO> getAllSpaces();
 
 	// 공간 이용하기
-	int useSpace(int memberNo, int spaceNo);
+	int useSpace(Map<String, Object> params);
 
 }

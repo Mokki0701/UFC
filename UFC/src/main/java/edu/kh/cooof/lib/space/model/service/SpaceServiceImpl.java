@@ -1,6 +1,8 @@
 package edu.kh.cooof.lib.space.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,8 +45,10 @@ public class SpaceServiceImpl implements SpaceService {
 	
 	@Override
 	public int useSpace(int memberNo, int spaceNo) {
-		
-		return mapper.useSpace(memberNo, spaceNo);
+		Map<String, Object> params = new HashMap<>();
+	    params.put("memberNo", memberNo);
+	    params.put("spaceNo", spaceNo);
+		return mapper.useSpace(params);
 	}
 
 }
