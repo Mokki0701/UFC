@@ -44,9 +44,10 @@
                         <h2>내 즐겨찾기 강의 목록</h2>
                         
                         <ul id="lecture_list">
-                            <li>
-                                <a href="">강의 1</a>
-                                <button class="less_remove_btn">x</button>
+                            <li id="lessonBookMarkList" th:each="lessonBookMark : ${lessonBookMarks}">
+                                <a href="#"
+                                th:text="|${lessonBookMark.lessonTitle} - ${lessonBookMark.lessonSchedule}|">강의 1</a>
+                                <button class="less_remove_btn" th:data-lesson-id="${lessonBookMark.lessonNo}">x</button>
                             </li>
                         </ul>
                     </div>

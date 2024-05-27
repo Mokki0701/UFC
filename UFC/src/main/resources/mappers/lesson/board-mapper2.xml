@@ -217,6 +217,24 @@
 		</where> 
 		
 	</delete>
+	
+	<!-- 즐겨찾기 -->
+	<select id="bookmarkList" resultType="LessonListDTO">
+	
+		SELECT LESSON_TITLE,LESSON_SCHEDULE,LESSON_NO 
+		FROM LESSONS_WISHLIST lw
+		JOIN LESSONS l USING(LESSON_NO)
+		WHERE lw.MEMBER_NO = #{memberNo}
+	
+	</select>
+	
+	<delete id="bookmarkRemove">
+	
+		DELETE FROM LESSONS_WISHLIST
+		WHERE LESSON_NO = #{lessonNo}
+		AND MEMBER_NO = #{memberNo}
+	
+	</delete>
 
 			
 

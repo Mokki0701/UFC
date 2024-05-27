@@ -277,10 +277,22 @@ const resetStarPointImages = ()=>{
 
 
 /** 즐겨찾기 리스트 ********************* */
-
-
-
-
+//x버튼
+  const bookmarkRemoveBtns = document.querySelectorAll(".less_remove_btn");
+bookmarkRemoveBtns.forEach(btn=>{
+  btn.addEventListener("click", e =>{
+    const lessonNo = btn.getAttribute('data-lesson-id');
+    fetch(`/lesson/bookmarkRemove?lessonNo=${lessonNo}`)
+    .then(response => response.text())
+    .then(result => {
+      const listIem = btn.closest("#lessonBookMarkList")
+      if(result > 0){
+        alert("즐겨찾기 목록이 삭제되었습니다");
+        listIem.remove();
+      }
+    })
+  })
+})
 
 
 /**============================================== */
