@@ -138,34 +138,85 @@ public class SpaceController {
 	// 공간 그만 사용하기
 	@PostMapping("/stopUsingSpace")
 	public String stopUsingSpace(Model model, HttpSession session, HttpServletRequest request) {
-	    String referer = request.getHeader("Referer"); // 이전 페이지 URL 가져오기
-	    String message = null;
+		String referer = request.getHeader("Referer"); // 이전 페이지 URL 가져오기
+		String message = null;
 
-	    Member loginMember = (Member) session.getAttribute("loginMember");
-	    int memberNo = loginMember.getMemberNo();
-	    Map<Integer, Integer> spaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		Map<Integer, Integer> spaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
 
-	    if (spaceSession != null && spaceSession.containsKey(memberNo)) {
-	        int curUsingSpaceNo = spaceSession.get(memberNo);
-	        int stopUseSpace = service.stopUsingSpace(memberNo, curUsingSpaceNo);
+		if (spaceSession != null && spaceSession.containsKey(memberNo)) {
+			int curUsingSpaceNo = spaceSession.get(memberNo);
+			int stopUseSpace = service.stopUsingSpace(memberNo, curUsingSpaceNo);
 
-	        if (stopUseSpace == 2) {
-	            message = "공간 대여 종료 완료.";
-	            System.out.println("대여 종료 성공");
-	            spaceSession.remove(memberNo); // 세션에서 공간 정보 제거
-	        } else {
-	            message = "공간 대여 종료 실패. 관리자에게 문의하세요.";
-	            System.out.println("대여 종료 실패");
-	        }
-	    } else {
-	        message = "현재 사용 중인 공간이 없습니다.";
-	    }
+			if (stopUseSpace == 2) {
+				message = "공간 대여 종료 완료.";
+				System.out.println("대여 종료 성공");
+				spaceSession.remove(memberNo); // 세션에서 공간 정보 제거
+			} else {
+				message = "공간 대여 종료 실패. 관리자에게 문의하세요.";
+				System.out.println("대여 종료 실패");
+			}
+		} else {
+			message = "현재 사용 중인 공간이 없습니다.";
+		}
 
-	    model.addAttribute("message", message);
+		model.addAttribute("message", message);
 
-	    // 현재 페이지로 리다이렉트
-	    return "redirect:" + (referer != null ? referer : "/defaultPage"); // referer가 없을 경우 기본 페이지로 리다이렉트
+		// 현재 페이지로 리다이렉트
+		return "redirect:" + (referer != null ? referer : "/defaultPage"); // referer가 없을 경우 기본 페이지로 리다이렉트
 	}
 
+	// 자리 연장하기
+	@PostMapping("/extendUseSpace")
+	public String extendUseSpace(HttpSession session, Model model, HttpServletRequest request) {
+
+		String path = request.getHeader("Referer"); // 이전 페이지 URL 가져오기
+		String message = null;
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+
+		// memberAndSpaceSession에 담겨 있는 객체 사용할거임
+		Map<Integer, Integer> spaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+
+		// 빌린 자리가 없을 경우
+		if (!spaceSession.containsKey(memberNo)) {
+
+			message = "회원님은 현재 대여 중인 공간이 없습니다.";
+			path = "redirect:" + path; // 현재 페이지로 리다이렉트
+
+		}
+
+		// 빌린 자리가 있을 경우
+		else {
+
+			// 연장 기회 카운트
+			int countExtend = mapper.countExtend(memberNo);
+			
+			// 연장 기회가 남아 없을 경우
+			if (countExtend != 1) {
+				message = "남은 연장 기회가 없습니다..";
+				System.out.println("연장 기회 없음");
+				path = "redirect:" + path; // 현재 페이지로 리다이렉트
+			}
+			
+			// 연장 기회가 있을 경우
+			if (countExtend == 1) {
+				// 자리 연장 수행
+				int extend = mapper.extendUseSpace(memberNo);
+
+				// 결과 값 처리
+				if (extend == 1) {
+					message = "자리 연장 성공.";
+					path = "redirect:" + path; // 현재 페이지로 리다이렉트
+				}
+
+			}
+
+		}
+
+		model.addAttribute("message", message);
+		return path;
+	}
 
 }

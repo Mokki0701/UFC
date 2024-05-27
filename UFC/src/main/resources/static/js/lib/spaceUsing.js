@@ -83,7 +83,17 @@ function stopUsingSpace() {
   if (userConfirmed) {
 
 
-    document.getElementById('actionForm').action = "/lib/space/stopUsingSpace"; 
+    document.getElementById('actionForm').action = "/lib/space/stopUsingSpace";
     document.getElementById('actionForm').submit();
+  }
+}
+
+// 자리 연장하기 기능
+function extendSpace() {
+  let userConfirmed = confirm("자리를 연장하시겠습니까?");
+  if (userConfirmed) {
+    document.getElementById('actionForm').action = "/lib/space/extendUseSpace";
+    document.getElementById('actionForm').submit();
+
   }
 }

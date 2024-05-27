@@ -33,6 +33,13 @@ public interface SpaceMapper {
 	
 	// 공간 이용 기록 지우기
 	int deleteRentSpace(Map<String, Object> params);
+
+	// 자리 연장 기회 카운트
+	int countExtend(int memberNo);
+	
+	// 자리 연장하기
+	int extendUseSpace(int memberNo);
+
 	
 
 }
