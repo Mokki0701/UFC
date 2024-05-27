@@ -43,6 +43,13 @@ fetch('/lesson/api/attendance?memberNo='+loginMemberNo)
       var calendarEl = document.getElementById('calendar');
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
+        eventClick: function (info) {
+          //alert('Event: ' + info.event.title);
+          confirm(info.event.title+' 강의를 수강신청페이지로 이동하시겠습니까?');
+
+          // change the border color just for fun
+          info.el.style.borderColor = 'red';
+        },
         locale: 'ko', // 한국어로 설정
         initialView: 'dayGridMonth',
         headerToolbar: {
@@ -87,6 +94,9 @@ function getRandomColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
+
+
+// 이전 코드---------------------------------------------------------------------------
 // document.addEventListener('DOMContentLoaded', function() {
 //   var calendarEl = document.getElementById('calendar');
 //   var calendar = new FullCalendar.Calendar(calendarEl, {
