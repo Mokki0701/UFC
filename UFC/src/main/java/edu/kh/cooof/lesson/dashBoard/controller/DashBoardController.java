@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
+import edu.kh.cooof.lesson.dashBoard.dto.CalendarDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.service.DashBoardService;
@@ -192,6 +193,16 @@ public class DashBoardController {
 			return removeBookmark;
 		}
 		
+		@GetMapping("/api/events")
+		@ResponseBody
+		private List<CalendarDTO> getEvents(
+				@SessionAttribute("loginMember") Member loginMember
+				){
+			
+			
+			return null;
+			
+		}
 		
 	
 }
