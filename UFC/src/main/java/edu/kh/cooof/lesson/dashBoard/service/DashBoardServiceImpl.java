@@ -1,6 +1,7 @@
 package edu.kh.cooof.lesson.dashBoard.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,8 +120,51 @@ public class DashBoardServiceImpl implements DashBoardService {
 	
 	// 출석현황
 	@Override
-	public List<AttendanceDTO> statusCheck(List<AttendanceDTO> attendanceStatus) {
+	public List<AttendanceDTO> statusCheck(AttendanceDTO attendanceStatus) {
 		return mapper.statusCheck(attendanceStatus);
 	}
+	
+	//출석률
+	@Override
+	public List<Map<String, Object>> getAttendanceRates(int memberNo) {
 
+		List<LessonListDTO> lessons = mapper.findLesson(memberNo);
+		List<Map<String, Object>> attendanceRates = new ArrayList<>();
+		
+		for(LessonListDTO lesson : lessons) {
+			
+			int lessonNo = lesson.getLessonNo();
+			
+			int totalDays = mapper.getTotalLessonDays(lessonNo);
+			
+			AttendanceDTO attendanceDTO = new AttendanceDTO();
+			attendanceDTO.setMemberNo(memberNo);
+			attendanceDTO.setLessonNo(lessonNo);
+			
+			int attendanceCount = mapper.getAttendanceCount(attendanceDTO);
+			
+			//출석률
+			double attendanceRate = 0.0;
+			
+			if(totalDays > 0) {
+				attendanceRate = (double) attendanceCount / totalDays * 100;
+			}
+			
+			Map<String, Object> result = new HashMap<>();
+			result.put("attendanceRate", attendanceRate);
+			result.put("lessonTitle", lesson.getLessonTitle());
+			
+			attendanceRates.add(result);
+			
+		}
+		
+		
+		return attendanceRates;
+	}
+
+	@Override
+	public int deleteList(List<AttendanceDTO> attendanceList) {
+		return mapper.deleteList(attendanceList);
+	}
+	
 }

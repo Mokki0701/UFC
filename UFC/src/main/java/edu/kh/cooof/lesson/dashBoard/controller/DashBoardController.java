@@ -1,6 +1,7 @@
 package edu.kh.cooof.lesson.dashBoard.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -111,9 +112,13 @@ public class DashBoardController {
 		@ResponseBody
 		public int saveAttendance(
 				@RequestBody List<AttendanceDTO> attendanceList
+				, Model model
 				){
 			
+			
+			int del = service.deleteList(attendanceList);
 			int result = service.addList(attendanceList);
+//			model.addAttribute("msg", "성공함");
 			
 			return result;
 		}
@@ -132,27 +137,28 @@ public class DashBoardController {
 			return grade;
 		}
 		
-		//출석률 테스트 -> 나중에 수정하기 
-		@GetMapping("api/attendance")
-		@ResponseBody
-		private List<LessonListDTO> getAttendance(@RequestParam("memberNo") int memberNo){
-			
-			List<LessonListDTO> lessonList = service.findLesson(memberNo);
-			
-			return lessonList;
-		}
-		
+	
 		
 		// 출석현황
 		@PostMapping("dashboard/attendanceStatus")
 		@ResponseBody
 		private List<AttendanceDTO> attendanceStatus(
-				@RequestBody List<AttendanceDTO> attendanceStatus
+				@RequestBody AttendanceDTO attendanceStatus
 				){
 			
 			List<AttendanceDTO> attendanceCheck = service.statusCheck(attendanceStatus); 
 			
 			return attendanceCheck;
+		}
+		
+		//출석률 테스트 -> 나중에 수정하기 
+		@GetMapping("api/attendance")
+		@ResponseBody
+		private List<Map<String, Object>> getAttendanceRate(
+				@RequestParam("memberNo") int memberNo
+				){
+			
+			return service.getAttendanceRates(memberNo);
 		}
 		
 	

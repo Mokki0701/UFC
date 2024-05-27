@@ -336,6 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAttendance(lessonId, attendanceDate); // 강의 ID와 날짜로 출석부 데이터 가져오기
   });
 
+
+
+ 
   document.getElementById('less_attendanceForm').addEventListener('submit', event => {
       event.preventDefault(); // 기본 폼 제출 동작 방지
       submitAttendance(); // 폼 제출 처리 함수 호출
@@ -365,6 +368,8 @@ function fetchAttendance(lessonId, attendanceDate) {
             const row = document.createElement('tr');
 
             // 학생 이름 -> (td) 생성 / 텍스트 설정
+            // textContent 해당 요소 내의 모든 HTML 태그는 무시
+            //->  오직 텍스트 내용만 설정
             const nameCell = document.createElement('td');
             nameCell.textContent = student.fullName;
 
@@ -425,16 +430,19 @@ function submitAttendance() {
     } else {
         const attendance = checkedRadio.value;
         // 출석이 'Y'인 경우에만 데이터를 배열에 추가
-        if (attendance === 'Y') {
-            const attendanceRecord = {
-                lessonNo: lessonId,
-                date: attendanceDate,
-                memberNo: memberNo
-                
-            };
-            attendanceData.push(attendanceRecord);
-        }//if문 끝
+        const attendanceRecord = {
+          lessonNo: lessonId,
+          date: attendanceDate,
+          memberNo: memberNo
+        };
 
+        if (attendance === 'Y') {
+            attendanceRecord.attendYn = "Y";
+        }//if문 끝
+        else {
+          attendanceRecord.attendYn = "N";
+        }
+        attendanceData.push(attendanceRecord);
       }
   });
 
@@ -455,14 +463,15 @@ function submitAttendance() {
       .then(response => response.text())
       .then(result => {
         const intResult = parseInt(result, 10);
-        if (intResult > 0) {
-            alert("출석 정보가 저장되었습니다.");
-            //팝업창 닫기
-            popupContainer.style.display = 'none';
+        alert("출석 정보가 저장되었습니다.");
+        // if (intResult > 0) {
+        //     alert("출석 정보가 저장되었습니다.");
+        //     //팝업창 닫기
+        //     popupContainer.style.display = 'none';
 
-        } else {
-            alert("출석 정보 저장에 실패했습니다.");
-        }
+        // } else {
+        //     alert("출석 정보 저장에 실패했습니다.");
+        // }
       });
   }
 }
@@ -483,30 +492,44 @@ studentStatusBtn.addEventListener("click", e=>{
   //레슨 넘버 (컨테이너에 있음! -> 꺼내오기 )
   const lessonId = popupContainer.dataset.lessonId;
 
-  console.log(">>>>>>>>",date);
-  console.log(">>>>>>>>",lessonId);
+  // console.log(">>>>>>>>",date);
+  // console.log(">>>>>>>>",lessonId);
  //-> console에 찍힘
 
   const attendance = {
     "lessonNo" : lessonId,
     "date" : date
   }
-  
-  
 
-  // fetch('/lesson/dashboard/attendanceStatus',{
-  //   method :'POST',
-  //   headers:{
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body : JSON.stringify(attendance)
-  // })
-  // .then(response => response.text())
-  // .then(res=>{
-  //   console.log(res);
-  // })
-    
+  console.log(attendance);
+  fetch('/lesson/dashboard/attendanceStatus',{
+    method :'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body : JSON.stringify(attendance)
+  })
+  .then(response => response.json())
+  .then(res=>{
+    //console.log(res);
+
+    res.forEach(std =>{
+
+      const row = document.createElement('tr');
+
+      const nameCell = document.createElement('td');
+      nameCell.textContent = std.fullName;
+      const attendanceDate = document.createElement('td');
+      attendanceDate.textContent = std.lessonsDate;
+      const Status = document.createElement('td');
+      Status.textContent = std.attendanceStatus;
+  
+      row.append(nameCell,attendanceDate,Status);
+      attendanceTable.append(row);
+    })
+  })
 });
+
 
 
 
