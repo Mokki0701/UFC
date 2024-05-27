@@ -55,7 +55,6 @@ function wannaUseSpace() {
 function stopUsingSpace() {
   let userConfirmed = confirm("그만 사용하시겠습니까?");
   if (userConfirmed) {
-    // 여기서도 필요한 로직을 추가하세요.
     document.getElementById('actionForm').action = "/lib/space/stopUsingSpace"; // 예시로 설정
     document.getElementById('actionForm').submit();
   }
