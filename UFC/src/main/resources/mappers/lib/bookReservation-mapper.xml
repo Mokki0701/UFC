@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lib.book.model.mapper.BookReservationMapper">
+
+	<select id="checkReservation">
+		SELECT COUNT(*)
+		FROM RENT_BOOK
+		WHERE BOOK_NO = #{bookNo}
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<insert id="insertCheckBook">
+		INSERT INTO RENT_BOOK
+		VALUES(SEQ_RENT_BOOK_NO.NEXTVAL, #{memberNo}, #{bookNo}, SYSDATE, DEFAULT)
+	</insert>
+	
+	<select id="reserveRentList">
+		SELECT BOOK_TITLE, AUTHOR_LAST_NAME , AUTHOR_FIRST_NAME , BOOK_PUBLISHER , BOOK_YEAR , BOOK_IMG , BOOK_TMI, BOOK_NO
+		FROM RENT_BOOK RB
+		LEFT JOIN BOOK_INFO BI USING(BOOK_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		AND RENT_BOOK_CHECK = 1
+		ORDER BY BOOK_RESERVE
+	</select>
+	
+	<select id="getTotalCount">
+		SELECT COUNT(*)
+		FROM RENT_BOOK
+		WHERE MEMBER_NO =  #{memberNo}
+		AND RENT_BOOK_CHECK = 1
+	</select>
+	
+	<delete id="reserveDelete">
+		DELETE FROM RENT_BOOK
+		WHERE BOOK_NO = #{bookNo}
+		AND MEMBER_NO = #{memberNo}
+	</delete>
+	
+	
+	
+	
+
+</mapper>

@@ -20,7 +20,7 @@
                 <p>발행 연도: <span th:text="*{bookYear}">2014</span></p>
                 <p>ISBN: <span th:text="*{storageDetail}">978-89-01-23456-7</span></p>
                 <p>상태: <span th:text="*{lrFlag}">대출 가능</span></p>
-                <button class="reserve-button">예약하기</button>
+                <button id="reserveBtn">예약하기</button>
             </div>
         </div>
 
@@ -30,64 +30,166 @@
         </div>
     </div>
 
+    <br>
+
+    <!-- 서가 브라우징 -->
     <div class="swiper-container">
         <h3>서가 브라우징</h3>
         <div class="swiper-wrapper">
             <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
                 <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}">
                     <img src="path/to/image1.jpg" alt="책 1">
-                    <span th:text="*{bookTitle}"></span>
-                    <span th:text="*{authorFirstName}">존</span> <span th:text="*{authorLastName}">스칼지</span>
-                    <span th:text="*{bookPublisher}">폴라북스</span>
+                    <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
+                    <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
+                    <span th:text="*{bookPublisher}"></span>
                 </div>
             </div>
         </div>
-        <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
-        <!-- Add Navigation -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
 
+    <br>
 
     <!-- 함께 대출한 자료 -->
-    <div class="related-section">
-        <h3>이 자료와 함께 대출한 자료</h3>
-        <div class="carousel">
-            <button class="prev">&lt;</button>
-            <div class="carousel-inner">
-                <!-- Book items will be inserted here -->
-                <div class="book-item"><img src="path/to/book4.jpg" alt="Book 4"></div>
-                <div class="book-item"><img src="path/to/book5.jpg" alt="Book 5"></div>
-                <div class="book-item"><img src="path/to/book6.jpg" alt="Book 6"></div>
+    <div class="swiper-container">
+        <h3>함께 대출한 자료</h3>
+        <div class="swiper-wrapper">
+            <div th:each="chunk : ${#lists.partition(themeList,4)}" class="swiper-slide">
+                <div th:each="themeBook : ${chunk}" th:object="${themeBook}">
+                    <img src="path/to/image1.jpg" alt="책 1">
+                    <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
+                    <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
+                    <span th:text="*{bookPublisher}"></span>
+                </div>
             </div>
-            <button class="next">&gt;</button>
         </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
+
+    <br>
 
     <!-- 같은 주제의 자료 -->
-    <div class="related-section">
-        <h3>이 자료와 같은 주제의 자료</h3>
-        <div class="carousel">
-            <button class="prev">&lt;</button>
-            <div class="carousel-inner">
-                <!-- Book items will be inserted here -->
-                <div class="book-item"><img src="path/to/book7.jpg" alt="Book 7"></div>
-                <div class="book-item"><img src="path/to/book8.jpg" alt="Book 8"></div>
-                <div class="book-item"><img src="path/to/book9.jpg" alt="Book 9"></div>
+    <div class="swiper-container">
+        <h3>같은 주제의 자료</h3>
+        <div class="swiper-wrapper">
+            <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
+                <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}">
+                    <img src="path/to/image1.jpg" alt="책 1">
+                    <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
+                    <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
+                    <span th:text="*{bookPublisher}"></span>
+                </div>
             </div>
-            <button class="next">&gt;</button>
         </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
 
-    <!-- 통계 자료 -->
-    <div class="statistics">
-        <h3>통계자료</h3>
-        <div class="chart">
-            <!-- Chart will be inserted here -->
-            <img src="path/to/chart.jpg" alt="Chart Image">
+    <br>
+
+
+    <div class="container">
+        <h1>연령대별 대출권 수</h1>
+        <div class="buttons">
+            <button class="divisionBtn" value="age">나이별</button>
+            <button class="divisionBtn" value="year">년도별</button>
         </div>
+        <div class="chart">
+            <div class="bar" id="bar-0" style="left: 0%; height: 0%;">
+                <div class="bar-label">10대 미만</div>
+            </div>
+            <div class="bar" id="bar-1" style="left: 10%; height: 0%;">
+                <div class="bar-label">10대</div>
+            </div>
+            <div class="bar" id="bar-2" style="left: 20%; height: 0%;">
+                <div class="bar-label">20대</div>
+            </div>
+            <div class="bar" id="bar-3" style="left: 30%; height: 0%;">
+                <div class="bar-label">30대</div>
+            </div>
+            <div class="bar" id="bar-4" style="left: 40%; height: 0%;">
+                <div class="bar-label">40대</div>
+            </div>
+            <div class="bar" id="bar-5" style="left: 50%; height: 0%;">
+                <div class="bar-label">50대</div>
+            </div>
+            <div class="bar" id="bar-6" style="left: 60%; height: 0%;">
+                <div class="bar-label">60대</div>
+            </div>
+            <div class="bar" id="bar-7" style="left: 70%; height: 0%;">
+                <div class="bar-label">70대</div>
+            </div>
+            <div class="bar" id="bar-8" style="left: 80%; height: 0%;">
+                <div class="bar-label">80대</div>
+            </div>
+            <div class="bar" id="bar-9" style="left: 90%; height: 0%;">
+                <div class="bar-label">90대</div>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>연령대</th>
+                    <th>대출수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="loan-label">10대 미만</td>
+                    <td id="loan-0">0</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">10대</td>
+                    <td id="loan-1">1</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">20대</td>
+                    <td id="loan-2">3</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">30대</td>
+                    <td id="loan-3">0</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">40대</td>
+                    <td id="loan-4">3</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">50대</td>
+                    <td id="loan-5">0</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">60대</td>
+                    <td id="loan-6">0</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">70대</td>
+                    <td id="loan-7">0</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">80대</td>
+                    <td id="loan-8">0</td>
+                </tr>
+                <tr>
+                    <td class="loan-label">90대</td>
+                    <td id="loan-9">0</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <script th:inline="javascript">
+        // 대출 데이터를 설정합니다.
+        const ageLoanData = /*[[${ageStatistics}]]*/ "나이";
+        const yearLoanDate = /*[[${yearStatistics}]]*/ "년도";
+
+        const bookNo2 = /*[[${book.bookNo}]]*/ "책 번호";
+
+    </script>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="/js/lib/bookDetail.js"></script>
