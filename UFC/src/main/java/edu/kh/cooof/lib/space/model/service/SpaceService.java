@@ -15,4 +15,7 @@ public interface SpaceService {
 	// 공간 이용하기
 	int useSpace(int memberNo, int spaceNo);
 
+	// 그만 이용하기
+	int stopUsingSpace(int memberNo, int curUsingSpaceNo);
+
 }

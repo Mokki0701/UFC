@@ -22,4 +22,17 @@ public interface SpaceMapper {
 	// 공간 이용하기
 	int useSpace(Map<String, Object> params);
 
+	// 공간 이용 가능여부 확인하기
+	int checkAvail(int spaceNo);
+
+	// 이용 요청한 회원이 현재 이용 중인 공간이 있는지 확인
+	int memberSpaceUsingCheck(int memberNo);
+
+	// 그만 이용하기
+	int stopUsingSpace(Map<String, Object> params);
+	
+	// 공간 이용 기록 지우기
+	int deleteRentSpace(Map<String, Object> params);
+	
+
 }

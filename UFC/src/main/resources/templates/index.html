@@ -6,6 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UFC</title>
   <link rel="stylesheet" href="/css/common/header.css">
+
+  <style>
+    .tempLink{
+      font-size: 20px;
+      width: 200px;
+      height: 50px;
+      margin: 10px;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -15,16 +25,19 @@
   <!-- 여기에 메인 화면을 구성 -->
   <div id="mainField">
 
-    <div>UFC 프로젝트 임시 메인 페이지</div>
+    <div>UFC 프로젝트 임시 메인 페이지</div> <br>
 
     <!-- 빠른로그인 버튼 모음  -->
     <div class="quickLoginBtnSack">
-      <button class="quickLoginBtn">testMem01@naver.com</button>
+      일반회원 <br>
+      <button class="quickLoginBtn">testMem01@naver.com</button> <br>
       <button class="quickLoginBtn">testMem02@naver.com</button>
-      <br>
+      <br> <br>
       관리자 회원 :
       <button class="quickLoginBtn">testMem03@naver.com</button>
     </div>
+
+    <br>
 
     <!-- 로그인이 된 경우 -->
     <th:block th:if="${session.loginMember != null}">
@@ -32,6 +45,7 @@
       <span th:text="${session.loginMember.memberEmail}">현재 로그인한 회원 이메일</span>
     </th:block>
 
+    <br>
 
     <div>
       <a class="logoutBtn" href="/member/logout">
@@ -41,16 +55,21 @@
 
   </div>
 
+  <br>
+
   <!-- 임시 링크 -->
   <div>
 
-    <a href="main/libMain">도서관</a>
-    <a href=""></a>
 
+    <a class="tempLink" href="main/libMain">도서관</a>
 
-    <a href="/gym/gymMain">헬스장</a>
+    <br> <br>
 
-    <a href="/lesson">평생교육 프로그램</a>
+    <a class="tempLink" href="/gym/gymMain">헬스장</a>
+
+    <br><br>
+
+    <a class="tempLink" href="/lesson">평생교육 프로그램</a>
 
   </div>
 

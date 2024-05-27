@@ -105,23 +105,33 @@
       </th:block>
     </div>
 
-    <!-- <th:block
-      th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
-      <p>회원님이 사용 중인 대여공간 번호:
-        <span th:text="${seatNo}"></span>
-      </p>
-    </th:block> -->
-  </div>
+    <!-- 이용 중인 공간이 없을 경우 -->
+    <!-- 아니 왜 안나오냐고 -->
+    <!-- <th:block th:with="loginMember=${session.loginMember}, memberNo=${loginMember.memberNo}, memberAndSpaceSession=${session.memberAndSpaceSession}, spaceNo=${memberAndSpaceSession[memberNo]}"
+th:if="${spaceNo == null}">
+<p> 회원님이 사용 중인 대여공간 번호 :
+<span> 없음 </span>
+</p>
+</th:block> -->
+
+    <!-- 이용 중인 공간이 있을 경우 -->
+    <!-- 왜 안나옴? -->
+    <!-- <th:block th:with="loginMember=${session.loginMember}, memberNo=${loginMember.memberNo}, memberAndSpaceSession=${session.memberAndSpaceSession}, spaceNo=${memberAndSpaceSession[memberNo]}"
+th:if="${spaceNo != null}">
+<p>회원님이 사용 중인 대여공간 번호:
+<span th:text="${spaceNo}"></span>
+</p>
+</th:block> -->
 
 
-  <div id="buttonSack">
-    <form id="actionForm" action="/lib/space/wannaUseSpace" method="post">
-      <input type="hidden" name="spaceNo" id="actionInput" >
-      <button type="button" onclick="wannaUseSpace()">이용하기</button>
-      <button type="button" onclick="stopUsingSpace()">그만 사용하기</button>
-    </form>
-  </div>
-  
+    <div id="buttonSack">
+      <form id="actionForm" action="/lib/space/wannaUseSpace" method="post">
+        <input type="hidden" name="spaceNo" id="actionInput">
+        <button type="button" onclick="wannaUseSpace()">이용하기</button>
+        <button type="button" onclick="stopUsingSpace()">그만 사용하기</button>
+      </form>
+    </div>
+
 
 </body>
 
