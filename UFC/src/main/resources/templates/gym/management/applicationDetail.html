@@ -17,26 +17,33 @@
             <p><strong>지원서 번호:</strong> <span th:text="${app.applicationNo}"></span></p>
             <p><strong>지원 분야:</strong> <span th:text="${app.position}"></span></p>
             <p><strong>지원 경로:</strong> <span th:text="${app.applyRoute}"></span></p>
-            <p><strong>회원 번호:</strong> <span th:text="${app.memberNo}"></span></p>
+            <p><strong>회원 번호:</strong> <span id="memberNo" th:text="${app.memberNo}"></span></p>
             <p><strong>성:</strong> <span th:text="${app.memberLastName}"></span></p>
             <p><strong>이름:</strong> <span th:text="${app.memberFirstName}"></span></p>
             <p><strong>연락처:</strong> <span th:text="${app.memberPhone}"></span></p>
-            <p><strong>이메일:</strong> <span th:text="${app.memberEmail}"></span></p>
+            <p><strong>이메일:</strong> <span id="memberEmail" th:text="${app.memberEmail}"></span></p>
             <p><strong>이력서:</strong> <a th:href="@{/management/download/{applicationNo}(applicationNo=${app.applicationNo})}"
                                            th:text="${app.resumePath}">다운로드</a></p>
             <p><strong>지원 날짜:</strong> <span th:text="${app.applyDate}"></span></p>
         </div>
 
         <div class="button-wrapper">
-            <form action="/trainerSelect/approve" method="post">
-                <input type="hidden" name="applicationNo" th:value="${app.applicationNo}">
-                <button type="submit" class="btn btn-approve">승인</button>
-            </form>
-            <form action="/trainerSelect/reject" method="post">
-                <input type="hidden" name="applicationNo" th:value="${app.applicationNo}">
-                <button type="submit" class="btn btn-reject">거절</button>
-            </form>
+            <div class="okArea">
+                <button id="approve" type="button">승인</button>
+            </div>
+
+            <div class="noArea">
+                <button id="refuse" type="button">거절</button>
+            </div>
+
+            <div class="changeArea" style="display: none;">
+                <button id="trainerChange" type="button">트레이너 변경하기</button>
+            </div>
+            
+            
         </div>
     </section>
+
+    <script src="/js/gym/appManagement.js"></script>
 </body>
 </html>

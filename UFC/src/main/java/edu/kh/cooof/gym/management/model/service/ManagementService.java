@@ -10,4 +10,7 @@ public interface ManagementService {
 
 	Application getApplicationNo(int applicationNo);
 
+	boolean sendEmail(String email);
+
+
 }

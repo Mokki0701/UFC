@@ -36,8 +36,18 @@ body {
 }
 
 .button-wrapper {
+    padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+}
+
+.okArea {
+    margin: 10px 100px;
+}
+
+.noArea{
+    margin: 10px 100px;
 }
 
 .btn {
@@ -49,12 +59,12 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.btn-approve {
+#approve {
     background-color: #4CAF50;
     color: white;
 }
 
-.btn-reject {
+#refuse {
     background-color: #f44336;
     color: white;
 }
