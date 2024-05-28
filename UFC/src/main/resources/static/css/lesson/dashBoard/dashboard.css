@@ -203,7 +203,7 @@
 
 /* 출석부 팝업 레이어 */
 #less_attendancePopup {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 500px;
   height: 500px;
@@ -262,4 +262,13 @@
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+}
+
+/* 풀캘린더  */
+.fc-event-time{
+  display: block !important;
+}
+
+.fc-daygrid-dot-event{
+  display: block;
 }

@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
+    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+
     eventClick: function (info) {
       if (confirm(info.event.title + ' 강의를 수강신청페이지로 이동하시겠습니까?')) {
         location.href = 'list/' + info.event.extendedProps.lessonNo;
