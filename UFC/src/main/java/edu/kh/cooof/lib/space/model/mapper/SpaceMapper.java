@@ -37,8 +37,12 @@ public interface SpaceMapper {
 	// 자리 연장 기회 카운트
 	int countExtend(int memberNo);
 	
+	// 연장 성공 시 연장 기회 차감
+	int updateRentSpace(int memberNo);
+
 	// 자리 연장하기
 	int extendUseSpace(int memberNo);
+
 
 	
 

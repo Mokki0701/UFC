@@ -183,6 +183,7 @@ public class SpaceController {
 		if (!spaceSession.containsKey(memberNo)) {
 
 			message = "회원님은 현재 대여 중인 공간이 없습니다.";
+			System.out.println("현재 대여 중인 공간 없음");
 			path = "redirect:" + path; // 현재 페이지로 리다이렉트
 
 		}
@@ -192,22 +193,25 @@ public class SpaceController {
 
 			// 연장 기회 카운트
 			int countExtend = mapper.countExtend(memberNo);
-			
+
 			// 연장 기회가 남아 없을 경우
 			if (countExtend != 1) {
 				message = "남은 연장 기회가 없습니다..";
 				System.out.println("연장 기회 없음");
 				path = "redirect:" + path; // 현재 페이지로 리다이렉트
 			}
-			
+
 			// 연장 기회가 있을 경우
 			if (countExtend == 1) {
+				// 연장 기회 차감
+				int updateRentSpace = mapper.updateRentSpace(memberNo);
 				// 자리 연장 수행
 				int extend = mapper.extendUseSpace(memberNo);
 
 				// 결과 값 처리
 				if (extend == 1) {
 					message = "자리 연장 성공.";
+					System.out.println("자리 연장 성공");
 					path = "redirect:" + path; // 현재 페이지로 리다이렉트
 				}
 

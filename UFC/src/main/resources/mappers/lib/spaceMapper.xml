@@ -69,31 +69,40 @@
 	<update id="stopUsingSpace">
 		UPDATE SPACE
 		SET SPACE_AVAIL = 0
-		WHERE SPACE_NO = #{curUsingSpaceNo}
+		WHERE SPACE_NO =
+		#{curUsingSpaceNo}
 	</update>
 
 	<!-- 회원의 공간 대여 기록 지우기 -->
 	<delete id="deleteRentSpace">
 		DELETE FROM RENT_SPACE
-		WHERE SPACE_NO2 = #{curUsingSpaceNo}
+		WHERE SPACE_NO2 =
+		#{curUsingSpaceNo}
 		AND MEMBER_NO = #{memberNo}
 	</delete>
 
+	<!-- 자리 연장 기회 카운트 -->
 	<select id="countExtend">
 		SELECT COUNT(*)
 		FROM RENT_SPACE
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE MEMBER_NO =
+		#{memberNo}
 		AND SPACE_EXTEND = 1
-		
+	</select>
+	
+	<!-- 연장 기회 차감하기 -->
+	<update id="updateRentSpace">
 		UPDATE RENT_SPACE
 		SET SPACE_EXTEND = 0
-	</select>
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 
 	<!-- 자리 연장하기 -->
 	<update id="extendUseSpace">
 		UPDATE RENT_SPACE
-		SET SPACE_DONE = SPACE_DONE + INTERVAL '4' HOUR
+		SET SPACE_DONE = SPACE_DONE +
+		INTERVAL '4' HOUR
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
