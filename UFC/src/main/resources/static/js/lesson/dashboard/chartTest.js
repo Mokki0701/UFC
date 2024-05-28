@@ -64,17 +64,29 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
           console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
           if (Array.isArray(data)) {
-            var events = data.map(lesson => {
+            var events = [];
+            data.forEach(lesson => {
               let backgroundColor = lesson.wishListYN === 1 ? 'red' : getRandomColor();
-              return {
-                title: lesson.lessonTitle,
-                start: lesson.lessonStartDate,
-                end: lesson.lessonEndDate,
-                backgroundColor: backgroundColor, // 색상 설정
-                extendedProps: {
-                  lessonNo: lesson.lessonNo // lessonNo 추가
+              let lessonDays = lesson.lessonSchedule.split(' '); // 수업 요일 및 시간 배열로 변환
+              let lessonDay = convertDayToNumber(lessonDays[0]); // 수업 요일만 숫자로 변환
+              let currentDate = new Date(lesson.lessonStartDate);
+              //console.log(">>>>>>>>>"+currentDate);
+              let endDate = new Date(lesson.lessonEndDate);
+
+              while (currentDate <= endDate) {
+                if (currentDate.getDay() === lessonDay) {
+                  events.push({
+                    title: lesson.lessonTitle,
+                    start: new Date(currentDate), // 이벤트 시작 날짜
+                    end: new Date(currentDate), // 이벤트 종료 날짜
+                    backgroundColor: backgroundColor, // 색상 설정
+                    extendedProps: {
+                      lessonNo: lesson.lessonNo // lessonNo 추가
+                    }
+                  });
                 }
-              };
+                currentDate.setDate(currentDate.getDate() + 1); // 다음 날짜로 이동
+              }
             });
             successCallback(events);
           } else {
@@ -92,11 +104,88 @@ document.addEventListener('DOMContentLoaded', function () {
   calendar.render();
 });
 
+// 요일을 숫자로 변환하는 함수 (0: 일요일, 1: 월요일, ..., 6: 토요일)
+function convertDayToNumber(day) {
+  switch(day) {
+    case '일': return 0;
+    case '월': return 1;
+    case '화': return 2;
+    case '수': return 3;
+    case '목': return 4;
+    case '금': return 5;
+    case '토': return 6;
+    default: return -1; // 유효하지 않은 요일
+  }
+}
+
 // 이벤트 랜덤 색상
 function getRandomColor() {
   let colors = ["#D4A5A5", "#6A8EAE", "#8BA590", "#9F7A93", "#D1B055"];
   return colors[Math.floor(Math.random() * colors.length)];
 }
+
+
+
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   var calendarEl = document.getElementById('calendar');
+
+//   var calendar = new FullCalendar.Calendar(calendarEl, {
+//     eventClick: function (info) {
+//       if (confirm(info.event.title + ' 강의를 수강신청페이지로 이동하시겠습니까?')) {
+//         location.href = 'list/' + info.event.extendedProps.lessonNo;
+//       }
+
+//       // change the border color just for fun
+//       info.el.style.borderColor = 'red';
+//     },
+//     locale: 'ko', // 한국어로 설정
+//     initialView: 'dayGridMonth',
+//     headerToolbar: {
+//       left: 'prev,next today',
+//       center: 'title',
+//       right: 'dayGridMonth,timeGridWeek,timeGridDay'
+//     },
+//     events: function (fetchInfo, successCallback, failureCallback) {
+//       fetch('/lesson/calendar')
+//         .then(response => response.json())
+//         .then(data => {
+//           console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
+//           if (Array.isArray(data)) {
+//             var events = data.map(lesson => {
+//               let backgroundColor = lesson.wishListYN === 1 ? 'red' : getRandomColor();
+//               return {
+//                 title: lesson.lessonTitle,
+//                 start: lesson.lessonStartDate,
+//                 end: lesson.lessonEndDate,
+//                 backgroundColor: backgroundColor, // 색상 설정
+//                 extendedProps: {
+//                   lessonNo: lesson.lessonNo // lessonNo 추가
+//                 }
+//               };
+//             });
+//             successCallback(events);
+//           } else {
+//             console.error('Error: data is not an array');
+//             failureCallback(new Error('Data is not an array'));
+//           }
+//         })
+//         .catch(error => {
+//           console.error('Error fetching events:', error);
+//           failureCallback(error);
+//         });
+//     }
+//   });
+
+//   calendar.render();
+// });
+
+// // 이벤트 랜덤 색상
+// function getRandomColor() {
+//   let colors = ["#D4A5A5", "#6A8EAE", "#8BA590", "#9F7A93", "#D1B055"];
+//   return colors[Math.floor(Math.random() * colors.length)];
+// }
 
 
 
