@@ -11,7 +11,8 @@
 
     <h1>후기 게시판</h1>
     <section class="gym-list">
-        <button>글쓰기</button>
+        <button id="gymReviewWrite">글쓰기</button>
+      
         <div>
             <table>
                 <thead>
@@ -34,13 +35,21 @@
                         <td th:text="${gym.gymWriteDate}"></td>
                         <td th:text="${gym.gymDelFl}"></td>    
                     </tr>
-                    <!-- 게시글이 없을 때 -->
-                    <tr th:if="${#lists.isEmpty(gymList)}">
-                        <td colspan="5">게시글이 없습니다.</td>
-                    </tr>
+                   
                 </tbody>
             </table>
         </div>
     </section>
+
+    <script src="/js/gym/gymReview.js"></script>
+    <script th:inline="javascript">
+        
+        var message = /*[[${message}]]*/ '';
+        if (message) {
+            alert(message);
+        }
+       
+    </script>
+   
 </body>
 </html>

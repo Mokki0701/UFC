@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/gym/gymMain.css">
+</head>
+<body>
+    
+    <main>
+        <th:block th:replace="~{common/header}"></th:block>
+        <th:block th:replace="~{gym/gymHeader}"></th:block>
+
+       
+        <form th:action="@{gymWrite/insert}" 
+            th:object="${gym}"
+            method="POST"  class="gym-write" id="gymWriteFrm" enctype="multipart/form-data">  
+            <!-- enctype : 제출하는 데이터의 표기  -->
+
+            <h1>리뷰 작성</h1>
+
+            <!-- 제목 -->
+            <h1 class="gym-title">
+                <input type="text" name="gymTitle" placeholder="제목" value="">
+            </h1>
+
+
+            <!-- 내용 -->
+            <div class="gym-content">
+                <textarea name="gymContent"></textarea>
+            </div>
+
+
+            <!-- 버튼 영역 -->
+            <div class="gym-btn-area">
+                <button type="submit" id="writebtn">등록</button>
+            </div>
+
+            
+        </form>
+
+    </main>
+
+
+
+    <script src="/js/gym/gymReview"></script>
+    <script>
+       
+    </script>
+</body>
+</html>
