@@ -12,6 +12,7 @@
     <h1>후기 게시판</h1>
     <section class="gym-list">
         <button id="gymReviewWrite">글쓰기</button>
+      
         <div>
             <table>
                 <thead>
@@ -40,6 +41,15 @@
         </div>
     </section>
 
-    <script src="/gym/gymReview.js"></script>
+    <script src="/js/gym/gymReview.js"></script>
+    <script th:inline="javascript">
+        
+        var message = /*[[${message}]]*/ '';
+        if (message) {
+            alert(message);
+        }
+       
+    </script>
+   
 </body>
 </html>
