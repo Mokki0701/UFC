@@ -5,144 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 안내/신청</title>
-    
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-        
+    <link rel="stylesheet" href="/css/lesson/lessonList/lessonDetail.css">
 
-        .program-info {
-            max-width: 800px;
-            margin: 15px auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .breadcrumb {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .program-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .program-title h2 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .tags {
-            display: flex;
-        }
-
-        .target-audience-tag {
-            background-color: green;
-            color: #fff;
-            padding: 5px 10px;
-            margin-left: 5px;
-            border-radius: 3px;
-
-            border-radius: 180px;
-        }
-
-        .closeyn-tag {
-            background-color: red;
-            color: #fff;
-            padding: 5px 10px;
-            margin-left: 5px;
-            border-radius: 3px;
-
-            border-radius: 180px;
-        }
-
-        .program-details,
-        .course-fees,
-        .course-outline,
-        .curriculum {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .program-details th,
-        .program-details td,
-        .course-fees th,
-        .course-fees td,
-        .course-outline th,
-        .course-outline td,
-        .curriculum th,
-        .curriculum td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        .program-details th,
-        .course-fees th,
-        .course-outline th,
-        .curriculum th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-
-        .course-description {
-            margin-top: 20px;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .curriculum thead {
-            background-color: #f2f2f2;
-        }
-
-        .lesson-thumbnail {
-
-            display: block;
-            margin: 10px auto;
-            width: 750px;
-            height: 450px;
-
-        }
-
-        .deleteBtn,
-        .updateBtn,
-        .signupBtn,
-        .gobackBtn {
-            display: block;
-            position: relative;
-            float: left;
-            width: 120px;
-            padding: 0;
-            margin: 10px 5px 10px 0;
-            font-weight: 600;
-            text-align: center;
-            line-height: 30px;
-            color: #FFF;
-            border-radius: 180px;
-            transition: all 0.2s;
-            background: #992BF2;
-            border: none;
-        }
-        .deleteBtn:hover,
-        .signupBtn:hover,
-        .gobackBtn:hover {
-            background: #7b23c3;
-        }
-
-        .lesson-btn-container {
-            display: flex;
-            justify-content: flex-end;
-        }
-    </style>
 
 </head>
 
@@ -205,7 +70,7 @@
 
         <!-- 버튼 영역 시작 -->
         <div class="lesson-btn-container">
-            
+
             <!-- 로그인한 정보가 있고, 그 로그인한 회원이 레슨의 게시자라면 표시 -->
             <th:block th:if="${session?.loginMember?.memberNo == lesson.memberNo}">
                 <button type="button" id="updateBtn" class="updateBtn btn">수정하기</button>
@@ -216,9 +81,10 @@
             <th:block th:if="${checkSignup == 1}">
                 <button type="button" id="signupedBtn" class="signupBtn btn">신청완료</button>
             </th:block>
-            
+
             <!-- 로그인을 했고, 회원 권한이 일반 회원이면서, 해당 레슨에 신청 이력이 없을 때 표시 -->
-            <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0 and checkSignup == 0}">
+            <th:block
+                th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0 and checkSignup == 0}">
                 <button type="button" id="signupBtn" class="signupBtn btn">신청하기</button>
             </th:block>
             <button type="button" id="gobackBtn" class="gobackBtn btn">목록으로</button>
@@ -238,7 +104,7 @@
     <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
     <!-- lessonCommon 들어가는 곳 끝 -->
 
-    
+
 
 </body>
 

@@ -44,7 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function wannaUseSpace() {
   let userConfirmed = confirm("이용하시겠습니까?");
   if (userConfirmed) {
-    document.getElementById('actionInput').value = 'use';
+    const useDiv = document.querySelector(".chosen");
+    const spaceNo = parseInt(useDiv.innerText.match(/\d+/)[0]);
+    document.getElementById('actionInput').value = spaceNo;
     document.getElementById('actionForm').action = "/lib/space/wannaUseSpace"; // 절대 경로로 설정
     document.getElementById('actionForm').submit();
   }
@@ -53,7 +55,6 @@ function wannaUseSpace() {
 function stopUsingSpace() {
   let userConfirmed = confirm("그만 사용하시겠습니까?");
   if (userConfirmed) {
-    document.getElementById('actionInput').value = 'stop';
     document.getElementById('actionForm').action = "/lib/space/stopUsingSpace"; // 예시로 설정
     document.getElementById('actionForm').submit();
   }

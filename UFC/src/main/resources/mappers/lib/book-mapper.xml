@@ -74,10 +74,11 @@
 		FROM BOOK_INFO
 		WHERE BOOK_NO = #{bookNo}
 	</select>
-	
+	 
 	<select id="selectBrowsingList">
 		SELECT * FROM (
 		    SELECT 
+		    	BI.BOOK_NO,
 		        BI.BOOK_TITLE, 
 		        BI.AUTHOR_LAST_NAME, 
 		        BI.AUTHOR_FIRST_NAME, 
@@ -110,6 +111,7 @@
 	<select id="selectLoanList">
 		SELECT * FROM (
 		    SELECT 
+		    	BI.BOOK_NO,
 		        BI.BOOK_TITLE,
 		        BI.AUTHOR_LAST_NAME,
 		        BI.AUTHOR_FIRST_NAME,
@@ -134,6 +136,7 @@
 	
 	<select id="selectThemeList">
 		SELECT 
+			BI.BOOK_NO,
 		    BI.BOOK_TITLE,
 		    BI.AUTHOR_LAST_NAME,
 		    BI.AUTHOR_FIRST_NAME,
@@ -157,34 +160,36 @@
 	</select>
 	
 	<select id="selectAgeStatistics" resultType="java.lang.Integer">
-		SELECT
-            TRUNC((SYSDATE - M.MEMBER_BIRTHDAY) / 365.25 / 10) * 10 AS AGE_GROUP,
-            COUNT(*) AS LOAN_COUNT
-        FROM
-            LOAN_BOOK LB
-        JOIN
-            MEMBER M ON LB.MEMBER_NO = M.MEMBER_NO
-        WHERE
-            LB.BOOK_NO = #{bookNo}
-        GROUP BY
-            TRUNC((SYSDATE - M.MEMBER_BIRTHDAY) / 365.25 / 10) * 10
-        ORDER BY
-            AGE_GROUP
+		WITH AgeGroups AS (
+		    SELECT LEVEL * 10 - 10 AS AgeGroupStart
+		    FROM dual
+		    <![CDATA[
+		    CONNECT BY LEVEL <= 10
+		    ]]>
+		)
+		SELECT 
+		       NVL(COUNT(LB.MEMBER_NO), 0) AS LOAN_COUNT
+		FROM AgeGroups AG
+		LEFT JOIN MEMBER M ON TRUNC((SYSDATE - M.MEMBER_BIRTHDAY) / 365.25 / 10) * 10 = AG.AgeGroupStart
+		LEFT JOIN LOAN_BOOK LB ON LB.MEMBER_NO = M.MEMBER_NO AND LB.BOOK_NO = #{bookNo}
+		GROUP BY AG.AgeGroupStart
+		ORDER BY AG.AgeGroupStart
 	</select>
 	
 	<select id="selectYearStatistics">
-		SELECT
-		    EXTRACT(YEAR FROM LB.BOOK_START) AS YEAR,
-		    COUNT(*) AS LOAN_COUNT
-		FROM
-		    LOAN_BOOK LB
-		WHERE
-		    LB.BOOK_NO = #{bookNo}
-		    AND EXTRACT(YEAR FROM LB.BOOK_START) BETWEEN 2015 AND 2024
-		GROUP BY
-		    EXTRACT(YEAR FROM LB.BOOK_START)
-		ORDER BY
-		    YEAR
+		WITH YEAR_MEMBER AS(
+			SELECT 2014 + LEVEL AS YEAR_GROUP
+			FROM DUAL
+			<![CDATA[
+		    CONNECT BY LEVEL <= 10
+		    ]]>
+		)
+		
+		SELECT NVL(COUNT(LB.BOOK_END), 0) AS "COUNT"
+		FROM YEAR_MEMBER YM
+		LEFT JOIN LOAN_BOOK LB ON EXTRACT(YEAR FROM LB.BOOK_END) = YEAR_GROUP AND LB.BOOK_NO = #{bookNo}
+		GROUP BY YM.YEAR_GROUP
+		ORDER BY YM.YEAR_GROUP
 	</select>
 	
 	

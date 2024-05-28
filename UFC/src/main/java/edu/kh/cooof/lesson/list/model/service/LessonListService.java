@@ -36,4 +36,17 @@ public interface LessonListService {
 	 */
 	int signupCheck(Map<String, Integer> map);
 
+	/** 즐겨찾기 기능
+	 * @param map
+	 * @return
+	 */
+	int toggleWishlist(Map<String, Integer> map);
+
+	/** 로그인한 회원 번호로 수업별 즐찾 여부 확인
+	 * @param lessonNo
+	 * @param memberNo
+	 * @return
+	 */
+	boolean isWishlisted(int lessonNo, int memberNo);
+
 }

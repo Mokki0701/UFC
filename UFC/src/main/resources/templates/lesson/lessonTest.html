@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캘린더 테스트</title>
+  <script src="
+  https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js
+  "></script>
+</head>
+<body>
+
+  <h1>테스트용임 ㅎㅎ;</h1>
+  <div id="calendar"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'ko', // 한국어로 설정
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: function(fetchInfo, successCallback, failureCallback) {
+          fetch('/lesson/calendar')
+            .then(response => response.json())
+            .then(data => {
+              console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
+              if (Array.isArray(data)) {
+                var events = data.map(lesson => {
+                  return {
+                    title: lesson.lessonTitle,
+                    start: lesson.lessonStartDate,
+                    end: lesson.lessonEndDate
+                  };
+                });
+                successCallback(events);
+              } else {
+                console.error('Error: data is not an array');
+                failureCallback(new Error('Data is not an array'));
+              }
+            })
+            .catch(error => {
+              console.error('Error fetching events:', error);
+              failureCallback(error);
+            });
+        }
+      });
+
+      calendar.render();
+    });
+  </script>
+
+</body>
+</html>

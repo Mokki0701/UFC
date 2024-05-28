@@ -45,9 +45,25 @@ public interface DashBoardMapper {
 	int checkReview(int lessonNo);
 
 	//출석현황
-	List<AttendanceDTO> statusCheck(List<AttendanceDTO> attendanceStatus);
+	List<AttendanceDTO> statusCheck(AttendanceDTO attendanceStatus);
 
+	//전체 수업일자
+	int getTotalLessonDays(int lessonNo);
+
+	//특정 회원의 특정 강의에 대한 출석 일수 
+	int getAttendanceCount(AttendanceDTO attendanceDTO);
+
+	//중복삭제
+	int deleteList(List<AttendanceDTO> attendanceList);
 	
+	//즐겨찾기
+	List<LessonListDTO> bookmarkList(int loginMemberId);
+
+	//즐겨찾기 삭제
+	int bookmarkRemove(LessonListDTO lessonList);
+
+
+
 	
 
 

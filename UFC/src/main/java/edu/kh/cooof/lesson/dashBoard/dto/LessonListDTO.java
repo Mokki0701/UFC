@@ -17,5 +17,7 @@ public class LessonListDTO {
 	private int memberNo;
 	private String date;
 	private String fullName;
+	//즐겨찾기
+	private String lessonSchedule; 
 
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서 장바구니</title>
+    <link rel="stylesheet" href="/css/lib/bookReservation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container reservationBook" th:fragment="reservationBook">
+        <div class="summary">
+            <div class="book-count" th:text="|도서 개수 : ${totalCount}개|">도서 개수: 0개</div>
+            <button class="reserve-btn" id="reserveBtn">예약하기</button>
+        </div>
+
+        <div class="cart-item" th:each="rent : ${rentList}" th:object="${rent}">
+            <img src="https://via.placeholder.com/120x160" alt="책 사진">
+            <div class="cart-item-details">
+                <p><strong>책 제목:</strong> <span th:text="*{bookTitle}">책 제목</span></p>
+                <p><strong>책 내용:</strong> <span th:text="*{bookTmi}">책 내용</span></p>
+                <p><strong>출판사:</strong> <span th:text="*{bookPublisher}">출판사</span></p>
+                <p><strong>저자:</strong> <span th:text="*{authorFirstName}">저자</span> <span th:text="*{authorLastName}"></span></p>
+                <p><strong>출판일:</strong> <span th:text="*{bookYear}">책 출판일</span></p>
+            </div>
+            <input type="checkbox" class="reserveCheck">
+            <div style="display: none;" th:text="*{bookNo}"></div>
+            <button class="remove-btn">삭제</button>
+        </div>
+
+    </div>
+    
+
+    <script src="/js/lib/bookReservation.js"></script>
+
+</body>
+</html>

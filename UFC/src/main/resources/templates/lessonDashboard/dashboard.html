@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>강의 대시보드</title>
     <link rel="stylesheet" href="/css/lesson/dashBoard/dashboard.css">
+    <!-- 그래프 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <!-- 풀캘린더 -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js'></script>
 
 </head>
 <body>
@@ -41,9 +44,10 @@
                         <h2>내 즐겨찾기 강의 목록</h2>
                         
                         <ul id="lecture_list">
-                            <li>
-                                <a href="">강의 1</a>
-                                <button class="less_remove_btn">x</button>
+                            <li id="lessonBookMarkList" th:each="lessonBookMark : ${lessonBookMarks}">
+                                <a href="#"
+                                th:text="|${lessonBookMark.lessonTitle} - ${lessonBookMark.lessonSchedule}|">강의 1</a>
+                                <button class="less_remove_btn" th:data-lesson-id="${lessonBookMark.lessonNo}">x</button>
                             </li>
                         </ul>
                     </div>
@@ -68,7 +72,7 @@
             <div class="right_column">
                 <div class="less_schedule">
                     <h2>스케쥴</h2>
-                    <div id="lessCalendar"></div>
+                    <div id="calendar"></div>
                 </div>
 
                 <!-- 강의 평점과 평점 쓰기 섹션 -->
