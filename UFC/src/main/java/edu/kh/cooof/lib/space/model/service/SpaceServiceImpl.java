@@ -34,7 +34,23 @@ public class SpaceServiceImpl implements SpaceService {
 		}
 		return totalInserted;
 	}
-
+	
+	// 관리자 : 공간의 avail 수정하기
+	 @Override
+	    public String updateSpaceStatus(int spaceNo, int status) {
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("spaceNo", spaceNo);
+	        params.put("changAvailCode", status);
+	        int updateCount = mapper.updateSpaceStatus(params);
+	        
+	        if (updateCount > 0) {
+	            return "성공적으로 업데이트되었습니다.";
+	        } else {
+	            return "업데이트에 실패했습니다.";
+	        }
+	    }
+	
+	
 	// 저장된 공간 정보 불러오기
 	@Override
 	public List<SpaceDTO> getAllSpaces() {
@@ -69,5 +85,6 @@ public class SpaceServiceImpl implements SpaceService {
 
 		return result1 + result2;
 	}
+	
 
 }

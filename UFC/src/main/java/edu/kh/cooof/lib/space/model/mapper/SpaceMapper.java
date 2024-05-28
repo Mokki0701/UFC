@@ -19,6 +19,9 @@ public interface SpaceMapper {
 	// 저장된 공간 정보 불러오기
 	List<SpaceDTO> getAllSpaces();
 
+	// 관리자 : 공간의 avail 수정하기
+	int updateSpaceStatus(Map<String, Object> params);
+	
 	// 공간 이용하기
 	int useSpace(Map<String, Object> params);
 
@@ -43,6 +46,7 @@ public interface SpaceMapper {
 	// 자리 연장하기
 	int extendUseSpace(int memberNo);
 
+	
 
 	
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,23 @@ public class SpaceController {
 		int insertedCount = service.saveSpaceManagement(spaceList);
 		return ResponseEntity.ok(insertedCount);
 	}
+
+	// 관리자 : 공간의 avail 여부 수정하기
+    @PostMapping("/updateSpaceStatus")
+    public ResponseEntity<Map<String, String>> updateSpaceStatus(@RequestBody Map<String, Integer> request) {
+        int spaceNo = request.get("spaceNo");
+        int status = request.get("status");
+
+        String result = service.updateSpaceStatus(spaceNo, status);
+
+        Map<String, String> response = Map.of("message", result);
+
+        if ("성공적으로 업데이트되었습니다.".equals(result)) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
 	// 관리자, 일반회원 : 공간 정보 불러오기(위치, 번호)
 	@GetMapping("/getSpaces")
@@ -114,7 +132,8 @@ public class SpaceController {
 				System.out.println("이용요청처리완료");
 
 				// 공간 이용 정보를 map에 담아 session으로 올리기
-				Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+				Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+						.getAttribute("memberAndSpaceSession");
 
 				if (memberAndSpaceSession == null) {
 					memberAndSpaceSession = new HashMap<>();
@@ -142,7 +161,8 @@ public class SpaceController {
 
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
-		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSpaceSession");
 
 		if (memberAndSpaceSession != null && memberAndSpaceSession.containsKey(memberNo)) {
 			int curUsingSpaceNo = memberAndSpaceSession.get(memberNo);
@@ -176,7 +196,8 @@ public class SpaceController {
 		int memberNo = loginMember.getMemberNo();
 
 		// memberAndSpaceSession에 담겨 있는 객체 사용할거임
-		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSpaceSession");
 
 		// 빌린 자리가 없을 경우
 		if (!memberAndSpaceSession.containsKey(memberNo)) {

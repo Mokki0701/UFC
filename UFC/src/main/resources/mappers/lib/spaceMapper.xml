@@ -17,6 +17,14 @@
 		DEFAULT, #{left}, #{top}, #{width},
 		#{height})
 	</insert>
+	
+	<!-- 관리자 : 공간의 Avail 수정하기 -->
+	<update id="updateSpaceStatus" parameterType='map'>
+		UPDATE SPACE
+		SET SPACE_AVAIL = #{changAvailCode}
+		WHERE SPACE_NO = #{spaceNo}
+	
+	</update>
 
 	<!-- 저장된 공간 정보 불러오기 -->
 	<select id="getAllSpaces"
