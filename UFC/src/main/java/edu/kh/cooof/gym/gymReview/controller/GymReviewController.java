@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.cooof.gym.gymReview.model.dto.GymReview;
 import edu.kh.cooof.gym.gymReview.model.service.GymReviewService;
+import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -40,5 +42,7 @@ public class GymReviewController {
 	   
 	    return "gym/gymReview/gymView"; // gymView.html을 반환
 	}
+	
+	
 	
 }
