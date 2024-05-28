@@ -86,27 +86,8 @@
 <!-- 		</foreach> -->
 	
 <!-- 	</insert>   -->
-	
- 	<!-- <insert id="addList2" parameterType="list">
-	
-		MERGE INTO "LESSONS_ATTENDANCE" T1
-		USING(
-			<foreach collection="list" item="student" separator=" UNION">
-			<if test="student.attendYn == 'Y'.toString()">
-				SELECT 
-				#{student.date} AS LESSONS_DATE
-				,#{student.memberNo} AS MEMBER_NO
-				,#{student.lessonNo} AS LESSON_NO
-				FROM DUAL
-			</if>
-			</foreach>
-			
-		) T2
-		ON (T1.MEMBER_NO = T2.MEMBER_NO AND T1.LESSON_NO = T2.LESSON_NO AND)
-		WHEN NOT MATCHED THEN
-			INSERT(LESSONS_DATE,MEMBER_NO,LESSON_NO) VALUES(T2.LESSONS_DATE , T2.MEMBER_NO, T2.LESSON_NO)
-	</insert> -->
-	
+
+	<!-- 출석부 등록 -->
 	<insert id="addList" parameterType="list">
     
         
@@ -115,6 +96,7 @@
 	        <foreach collection="list" item="student" separator=" UNION ALL">
 	            <choose>
 	                <when test='student.attendYn != null and student.attendYn.equals("Y")'>
+	                <!-- <when test="student.attendYn != null and student.attendYn.equals('Y')"> -->
 	                    SELECT 
 	                        #{student.date} AS LESSONS_DATE,
 	                        #{student.memberNo} AS MEMBER_NO,
