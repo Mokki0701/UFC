@@ -153,7 +153,7 @@ gymPayButton.addEventListener("click", function() {
       IMP.request_pay({
         pg: "kakaopay",
         pay_method: "kakaopay",
-        merchant_uid: "test_lwehztzg10000327",
+        merchant_uid: "test_lwehztzg10000328",
         name: "PT 결제",
         amount: calcResult,
         buyer_tel: memberPhone,

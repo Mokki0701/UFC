@@ -78,7 +78,7 @@ public class BookReservationController {
 			
 		}
 		
-		return service.reserveBook(reserveList);
+		return service.reserveBook(reserveList, loginMember.getMemberNo());
 	}
 	
 	

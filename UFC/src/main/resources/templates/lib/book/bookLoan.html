@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/lib/bookLoan.css">
+</head>
+<body>
+
+<div th:fragment="loanBook">
+    
+    <div class="container">
+        <div class="header">
+            도서 대출 현황
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search...">
+            <button id="searchBtn">Search</button>
+        </div>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>대출 번호</th>
+                    <th>책 이름</th>
+                    <th>회원 번호</th>
+                    <th>회원 이름</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="book-list">
+                <tr th:each="loanBook : ${loanList}" th:object="${loanBook}">
+                    <td th:text="*{loanBookNo}">12345</td>
+                    <td th:text="*{bookTitle}">Example Book Title 1</td>
+                    <td th:text="*{memberNo}">001</td>
+                    <td th:text="|*{memberLastName} *{memberFirstName}|">John Doe</td>
+                    <td class="action-buttons">
+                        <button class="approve" onclick="approveLoan(12345)">Approve</button>
+                        <button class="delete" onclick="deleteLoan(12345)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+    
+        <div>
+            <div th:object="${pagination}" class="pagination">
+    
+                <li><a th:href="@{/loan/select(cp=1)}">&lt;&lt;</a></li>
+                <li><a th:href="@{/loan/select(cp=*{prevPage})}">&lt;</a></li>
+    
+                <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
+                    <li class="${i == pagination.currentPage} ? 'active'">
+                        <a th:text="${i}"></a>
+                    </li>
+    
+                    <li th:unless="${i == pagination.currentPage}">
+                        <a th:href="@{/loan/select(cp=${i})}" th:text="${i}"></a>
+                    </li>
+                </th:block>
+    
+                <li><a th:href="@{/loan/select(cp=*{nextPage})}">&gt;</a></li>
+                <li><a th:href="@{/loan/select(cp=*{maxPage})}">&gt;&gt;</a></li>
+    
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="/js/lib/bookLoan.js"></script>
+
+</body>
+</html>
