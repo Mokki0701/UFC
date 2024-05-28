@@ -1,0 +1,134 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #ece9e6, #ffffff);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    max-width: 900px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+.header {
+    background: #007BFF;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: #f7f7f9;
+    border-bottom: 1px solid #e7e7e9;
+}
+.search-container input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+.search-container input[type="text"]:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+.search-container button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+.search-container button:hover {
+    background-color: #0056b3;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+table th, table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+table th {
+    background-color: #f8f9fa;
+    font-weight: 700;
+}
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+.action-buttons button {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.action-buttons .approve {
+    background-color: #28a745;
+}
+.action-buttons .approve:hover {
+    background-color: #218838;
+}
+.action-buttons .delete {
+    background-color: #dc3545;
+}
+.action-buttons .delete:hover {
+    background-color: #c82333;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: #f7f7f9;
+    border-top: 1px solid #e7e7e9;
+    list-style-type: none;
+    margin: 0;
+}
+.pagination li {
+    margin: 0 5px;
+}
+.pagination a {
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #007BFF;
+    text-decoration: none;
+    background: none;
+    border: 1px solid #007BFF;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.pagination a:hover {
+    background: #007BFF;
+    color: #fff;
+}
+.pagination .active a {
+    background: #007BFF;
+    color: #fff;
+    border: 1px solid #007BFF;
+}
