@@ -1,15 +1,16 @@
 <!-- 로그인 안된 경우 -->
-
 <nav th:if="${session.loginMember == null}">
 
   <ul class="navbar">
     <span> 📔도서관 </span>
     <span id="space"></span>
-    <li><a href="">메인</a></li>
+    <li><a href="/libMain/toUfcMain">UFC 메인</a></li>
+    <li><a href="/libMain/toLibMain">도서관 메인</a></li>
+
     <li class="dropdown">
       <a href="#">열람실</a>
       <ul class="dropdown-content">
-        <li><a href="#">📕 빈 자리 확인 / 빌리기</a></li>
+        <li><a href="#" class="memberOnly">📕 빈 자리 확인 / 빌리기</a></li>
         <li><a href="#" class="memberOnly">📘자리 연장 / 이동</a></li>
         <li><a href="#" class="memberOnly">📙자리 예약</a></li>
         <li><a href="#" class="memberOnly">📔관심 자리 등록</a></li>
@@ -19,7 +20,7 @@
     <li class="dropdown">
       <a href="#">공간대여</a>
       <ul class="dropdown-content">
-        <li><a href="">📕 빈 자리 확인 / 빌리기</a></li>
+        <li><a href="#" class="memberOnly">📕 빈 자리 확인 / 빌리기</a></li>
         <li><a href="#" class="memberOnly">📘자리 연장 / 이동</a></li>
         <li><a href="#" class="memberOnly">📙자리 예약</a></li>
         <li><a href="#" class="memberOnly">📔관심 자리 등록</a></li>
@@ -37,7 +38,9 @@
   <ul class="navbar">
     <span> 📔도서관 </span>
     <span id="space"></span>
-    <li><a href="#">메인</a></li>
+    <li><a href="/libMain/toUfcMain">UFC 메인</a></li>
+    <li><a href="/libMain/toLibMain">도서관 메인</a></li>
+
     <li class="dropdown">
       <a href="#">열람실</a>
       <ul class="dropdown-content">
@@ -52,7 +55,7 @@
       <a href="#">공간대여</a>
       <ul class="dropdown-content">
         <li><a href="/libMain/toSpace">📕 빈 공간 확인 / 빌리기</a></li>
-        <li><a href="#">📘 공간 연장</a></li>
+        <li><a href="/libMain/toSpace">📘 공간 연장</a></li>
         <li><a href="/">📙공간 예약</a></li>
         <li><a href="#">📔관심 자리 등록</a></li>
       </ul>
@@ -62,10 +65,10 @@
 
     <th:block th:if="${session.loginMember != null && session.loginMember.memberAuthority == 3}">
 
-    <a href="/libMain/managingSeatPage" style="color: black;">열람실 관리</a>
-    <a href="/libMain/managingSpace" style="color: black;">대여공간 관리</a>
-  
-  </th:block>
+      <a href="/libMain/managingSeatPage" style="color: black;">열람실 관리</a>
+      <a href="/libMain/managingSpace" style="color: black;">대여공간 관리</a>
+
+    </th:block>
 
 
 
@@ -73,5 +76,20 @@
 
 
 
-  
+  <script>
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const memberOnly = document.querySelectorAll(".memberOnly");
+
+      memberOnly.forEach(button => {
+        button.addEventListener("click", event => {
+          event.preventDefault();
+          alert("로그인 후 이용해 주세요");
+          return;
+        });
+      });
+    });
+
+  </script>
 </nav>

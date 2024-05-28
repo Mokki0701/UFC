@@ -124,17 +124,6 @@
   margin-right: 5px;
 }
 
-.avail {
-  background-color: green;
-}
-
-.nowUsing {
-  background-color: yellow;
-}
-
-.disavail {
-  background-color: red;
-}
 
 /* 버튼 스타일 */
 
@@ -190,7 +179,7 @@ button:hover{
 .drawnDiv {
   position: absolute;
   border: 1px solid #000;
-  background-color: rgba(0, 0, 255, 0.3);
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -204,6 +193,23 @@ button:hover{
 }
 
 /* 클래스 토글 표시 */
+
+
+
+.avail {
+  background-color: rgba(0, 0, 255, 0.3);
+}
+
+.nowUsing {
+  background-color: #e68a00c4;
+  cursor: not-allowed;
+}
+
+.disavail {
+  background-color: rgba(255, 0, 0, 0.712);
+  cursor: not-allowed;
+}
+
 .chosen{
   background-color: rgba(0, 187, 34, 0.502);
   color: teal;

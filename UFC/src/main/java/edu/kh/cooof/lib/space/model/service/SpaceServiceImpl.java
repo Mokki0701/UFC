@@ -38,17 +38,36 @@ public class SpaceServiceImpl implements SpaceService {
 	// 저장된 공간 정보 불러오기
 	@Override
 	public List<SpaceDTO> getAllSpaces() {
-		
-		
+
 		return mapper.getAllSpaces();
 	}
-	
+
+	// 공간 이용하기
 	@Override
 	public int useSpace(int memberNo, int spaceNo) {
 		Map<String, Object> params = new HashMap<>();
-	    params.put("memberNo", memberNo);
-	    params.put("spaceNo", spaceNo);
+		params.put("memberNo", memberNo);
+		params.put("spaceNo", spaceNo);
 		return mapper.useSpace(params);
+	}
+
+	// 공간 그만 이용하기
+	@Override
+	public int stopUsingSpace(int memberNo, int curUsingSpaceNo) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberNo", memberNo);
+		params.put("curUsingSpaceNo", curUsingSpaceNo);
+
+		int result1 = mapper.stopUsingSpace(params);
+		if (result1 != 1) {
+			System.out.println("그만 이용하기에서 실패");
+		}
+		int result2 = mapper.deleteRentSpace(params);
+		if (result2 != 1) {
+			System.out.println("기록 지우기에서 실패");
+		}
+
+		return result1 + result2;
 	}
 
 }

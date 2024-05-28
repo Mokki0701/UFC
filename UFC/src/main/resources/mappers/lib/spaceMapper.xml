@@ -10,30 +10,101 @@
 
 	<!-- 편집 내용 저장하기 -->
 	<insert id="saveManagement">
-		INSERT INTO SPACE (SPACE_NO, SPACE_NAME, SPACE_AVAIL, LEFT, TOP, WIDTH,
+		INSERT INTO SPACE (SPACE_NO, SPACE_NAME, SPACE_AVAIL,
+		LEFT, TOP, WIDTH,
 		HEIGHT)
-		VALUES (#{spaceNo}, #{spaceNo} || '번 방', DEFAULT, #{left}, #{top}, #{width},
+		VALUES (#{spaceNo}, #{spaceNo} || '번 방',
+		DEFAULT, #{left}, #{top}, #{width},
 		#{height})
 	</insert>
 
 	<!-- 저장된 공간 정보 불러오기 -->
-	<select id="getAllSpaces" resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
-        SELECT SPACE_NO as spaceNo, SPACE_AVAIL as spaceAvail, LEFT as left, TOP as top, WIDTH as width, HEIGHT as height
-        FROM SPACE
-    </select>
-    
-    <!-- 공간 이용하기 -->
-    <update id="useSpace" parameterType='map'>
-    	  BEGIN
-	        UPDATE SPACE 
-	        SET SPACE_AVAIL = 1 
-	        WHERE SPACE_NO = #{spaceNo};
+	<select id="getAllSpaces"
+		resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
+		SELECT SPACE_NO as spaceNo, SPACE_AVAIL as spaceAvail, LEFT
+		as left, TOP as
+		top, WIDTH as width, HEIGHT as height
+		FROM SPACE
+	</select>
+
+
+
+	<!-- 좌석의 현재 상태 체크하기 -->
+	<select id="checkAvail" parameterType='int'>
+
+		SELECT COUNT(*) FROM SPACE
+		rs
+		WHERE SPACE_NO = #{spaceNo}
+		AND SPACE_AVAIL = 0
+
+	</select>
+
+	<!-- 이용 요청한 회원이 현재 이용 중인 공간이 있는지 확인 -->
+	<select id="memberSpaceUsingCheck">
+		SELECT COUNT(*)
+		FROM RENT_SPACE
+		WHERE MEMBER_NO =
+		#{memberNo}
+
+	</select>
+
+	<!-- 공간 이용하기 -->
+	<update id="useSpace" parameterType='map'>
+		BEGIN
+		UPDATE SPACE
+		SET
+		SPACE_AVAIL = 1
+		WHERE SPACE_NO = #{spaceNo};
+
+		INSERT INTO RENT_SPACE
+		(RENT_SPACE_NO, SPACE_START, SPACE_DONE, SPACE_EXTEND, SPACE_NO2,
+		MEMBER_NO)
+		VALUES (SEQ_RENT_SPACE_NO.NEXTVAL, DEFAULT, SYSDATE +
+		INTERVAL '4' HOUR,
+		DEFAULT, #{spaceNo}, #{memberNo});
+		END;
+	</update>
+
+	<!-- 공간 그만 이용하기 -->
+	<update id="stopUsingSpace">
+		UPDATE SPACE
+		SET SPACE_AVAIL = 0
+		WHERE SPACE_NO =
+		#{curUsingSpaceNo}
+	</update>
+
+	<!-- 회원의 공간 대여 기록 지우기 -->
+	<delete id="deleteRentSpace">
+		DELETE FROM RENT_SPACE
+		WHERE SPACE_NO2 =
+		#{curUsingSpaceNo}
+		AND MEMBER_NO = #{memberNo}
+	</delete>
+
+	<!-- 자리 연장 기회 카운트 -->
+	<select id="countExtend">
+		SELECT COUNT(*)
+		FROM RENT_SPACE
+		WHERE MEMBER_NO =
+		#{memberNo}
+		AND SPACE_EXTEND = 1
+	</select>
 	
-	        INSERT INTO RENT_SPACE
-	        (RENT_SPACE_NO, SPACE_START, SPACE_DONE, SPACE_EXTEND, SPACE_NO2, MEMBER_NO)
-	        VALUES (SEQ_RENT_SPACE_NO.NEXTVAL, DEFAULT, SYSDATE + INTERVAL '4' HOUR, DEFAULT, #{spaceNo}, #{memberNo});
-	    END;
-    </update>
-    
+	<!-- 연장 기회 차감하기 -->
+	<update id="updateRentSpace">
+		UPDATE RENT_SPACE
+		SET SPACE_EXTEND = 0
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+
+	<!-- 자리 연장하기 -->
+	<update id="extendUseSpace">
+		UPDATE RENT_SPACE
+		SET SPACE_DONE = SPACE_DONE +
+		INTERVAL '4' HOUR
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
 
 </mapper>

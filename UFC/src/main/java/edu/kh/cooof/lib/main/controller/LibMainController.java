@@ -20,6 +20,21 @@ public class LibMainController {
 
 	private final LibMainService service;
 
+	// ufc메인으로 이동
+	@GetMapping("/toUfcMain")
+	public String toUfcMain() {
+		return "/index";
+	}
+	
+	
+	// 도서관 메인으로 이동
+	@GetMapping("/toLibMain")
+	public String toLibMain() {
+		
+		return "/liblary/libMain";
+	}
+	
+	
 	// 자리 관리 페이지로 이동
 	@GetMapping("/managingSeatPage")
 	public String managingSeatPage(HttpSession session, RedirectAttributes ra) {
