@@ -131,8 +131,8 @@ nav ul li a {
 }
 
 .program-card img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 200px;
   margin-right: 20px;
   object-fit: cover;
 }
@@ -343,6 +343,11 @@ z-index: -1; /* 가장 아래로 설정 */
   pointer-events: none;
 }
 
+.wish-btn {
+  margin-top: 10px;
+  cursor: pointer;
+  width: 18px;
+}
 
 
 

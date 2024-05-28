@@ -39,5 +39,9 @@ public class Lesson {
 	private String lessonScheduleDay; // 수업 요일만 나옴
 	private String lessonScheduleTime; // 수업 시간만 나옴
 	
+	// 즐겨찾기 관련 컬럼 (LESSONS_WISHLIST)
+	private int wishListYN; // 0 : 즐찾 X, 1 : 즐찾 O
+	
+	
 
 }

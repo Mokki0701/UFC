@@ -1,19 +1,39 @@
 body {
     font-family: Arial, sans-serif;
 }
+
 .swiper-container {
     width: 80%;
     height: 300px;
     margin: auto;
+    position: relative; /* 추가 */
 }
+
+.swiper-wrapper {
+    height: 100%; /* 추가 */
+}
+
 .swiper-slide {
     display: flex;
     justify-content: space-around;
 }
+
 .swiper-slide img {
     max-width: 20%;
     height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
+}
+
+.swiper-pagination {
+    position: absolute; /* 추가 */
+    bottom: 10px; /* 추가 */
+    width: 100%; /* 추가 */
+    text-align: center; /* 추가 */
+}
+
+.swiper-button-next, .swiper-button-prev {
+    top: 50%; /* 중앙 정렬 */
+    transform: translateY(-50%); /* 중앙 정렬 */
 }

@@ -148,6 +148,12 @@
 		#{lessonNo}, #{memberNo}, 1
 		)
 	</insert>
+
+	<update id="lessonCapacityDecrease">
+	UPDATE "LESSONS"
+	SET LESSON_REMAINS = LESSON_REMAINS - 1
+	WHERE LESSON_NO = #{lessonNo}
+	</update>
 	
 	<select id="signupCheck" resultType="_int">
 	SELECT COUNT(*) 
@@ -155,6 +161,33 @@
 	WHERE MEMBER_NO = #{memberNo}
 	AND LESSON_NO = #{lessonNo}
 	</select>
+	
+	<select id="remainsCheck" resultType="_int">
+	SELECT LESSON_REMAINS
+	FROM LESSONS
+	WHERE LESSON_NO = #{lessonNo}
+	</select>
+	
+	<!-- 즐겨찾기 존재 여부 확인 -->
+    <select id="checkWishlist" parameterType="map" resultType="_int">
+	SELECT COUNT(*)
+	FROM LESSONS_WISHLIST
+	WHERE LESSON_NO = #{lessonNo}
+	AND MEMBER_NO = #{memberNo}
+    </select>
+    
+     <!-- 즐겨찾기 삭제 -->
+    <delete id="deleteWishlist" parameterType="map">
+	DELETE FROM LESSONS_WISHLIST
+	WHERE LESSON_NO = #{lessonNo}
+	AND MEMBER_NO = #{memberNo}
+    </delete>
+
+	<!-- 즐겨찾기 추가 -->
+	<insert id="insertWishlist" parameterType="map">
+		INSERT INTO LESSONS_WISHLIST (LESSON_NO, MEMBER_NO)
+		VALUES (#{lessonNo}, #{memberNo})
+	</insert>
    
     
 </mapper>

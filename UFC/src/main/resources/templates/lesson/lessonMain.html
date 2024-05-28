@@ -1,304 +1,119 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>평생교육 프로그램</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
+    <title>신청방법</title>
+    <link rel="stylesheet" href="/css/lesson/lessonList/lessonMain.css">
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #ffffff;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .logo {
-            height: 50px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .user-options a {
-            margin-left: 15px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .program-header {
-            background-color: #af5dde;
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-
-        .program-header .buttons {
-            margin-top: 10px;
-        }
-
-        .program-header button {
-            margin: 5px;
-            padding: 10px 20px;
-            border: none;
-            background-color: #ffffff;
-            color: #af5dde;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .program-header button:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .program-search {
-            background-color: #ffffff;
-            padding: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .breadcrumb {
-            margin-bottom: 10px;
-        }
-
-        .breadcrumb a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .search-bar {
-            display: flex;
-        }
-
-        .search-bar input {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .search-bar button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #5cb85c;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-bar button:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .program-list {
-            padding: 20px;
-        }
-
-        .filter-options {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .filter-options button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            border: 1px solid #ddd;
-            background-color: #f7f7f7;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .filter-options button:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .programs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .program-card {
-            background-color: white;
-            border: 1px solid #ddd;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .program-card img {
-            width: 100px;
-            height: 100px;
-            margin-right: 20px;
-            object-fit: cover;
-        }
-
-        .program-info {
-            flex-grow: 1;
-        }
-
-        .program-info .label {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #ff5a5a;
-            color: white;
-            margin-right: 5px;
-            font-size: 12px;
-        }
-
-        .program-info .category {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #5cb85c;
-            color: white;
-            font-size: 12px;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .pagination a {
-            margin: 0 5px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            text-decoration: none;
-            color: #333;
-            transition: background-color 0.3s;
-        }
-
-        .pagination a.active {
-            background-color: #5cb85c;
-            color: white;
-        }
-
-        .pagination a:hover {
-            background-color: #ffcc00;
-            color: #333;
-        }
-
-        .footer-container {
-            background-color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
-
-        .footer-container p, .footer-container address {
-            margin: 10px 0;
-        }
-
-        .footer-container address {
-            font-style: normal;
-        }
-
-    </style>
 </head>
-<body>
-    <header>
-        <div class="header-container">
-            <img src="logo.png" alt="Logo" class="logo">
-            <nav>
-                <ul>
-                    <li><a href="#">행복센터 소개</a></li>
-                    <li><a href="#">평생교육 프로그램</a></li>
-                    <li><a href="#">정보마당</a></li>
-                    <li><a href="#">시설이용</a></li>
-                    <li><a href="#">키즈카페</a></li>
-                </ul>
-            </nav>
-            <div class="user-options">
-                <a href="#">로그인</a>
-                <a href="#">검색</a>
+
+<body class="body-class">
+
+    <!-- 세미 헤더 들어가는 곳 시작 -->
+    <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
+    <!-- 세미 헤더 들어가는 곳 끝 -->
+    <div class="container">
+
+        <h1 class="pageInfo">수강 규정 및 신청 방법</h1>
+
+        <!-- 풀캘린더 테스트용 링크 지울꺼임 -->
+        <a href="/lesson/test">캘린더 테스트 화면으로 가기</a>
+        <!-- 풀캘린더 테스트용 링크 지울꺼임 -->
+
+
+        <section class="guidelines">
+            <h3>수강신청 안내</h3>
+            <ul class="custom-list">
+                <li>신청자격: 주민등록상 주소지가 OO군인 만 19세 이상의 성인</li>
+                <li>※ 인터넷 강좌: 강좌 조회 후 신청</li>
+                <li>신청기간: 추후 공지</li>
+            </ul>
+            <table class="table-container">
+                <thead>
+                    <tr>
+                        <th>정원 내</th>
+                        <th>정원 초과 시</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>신청자 전원 수강 가능</td>
+                        <td>신청자 전원 대상 추첨 진행</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="steps">
+            <h2 class="h2-class">신청방법</h2>
+            <h3 class="h3-class">OO군 행복센터 인터넷 홈페이지를 통한 신청</h3>
+            <div class="online">
+                <div class="step step-column">
+                    <span class="step-num">STEP 01.</span>
+                    <span>행복센터 홈페이지 로그인</span>
+                </div>
+                <div class="step step-column">
+                    <span class="step-num">STEP 02.</span>
+                    <span>평생교육 프로그램 > 프로그램 안내/신청 클릭</span>
+                </div>
+                <div class="step step-column">
+                    <span class="step-num">STEP 03.</span>
+                    <span>원하는 프로그램 클릭</span>
+                </div>
+                <div class="step step-column">
+                    <span class="step-num">STEP 04.</span>
+                    <span>수강 신청하기</span>
+                </div>
             </div>
-        </div>
-    </header>
-    <main>
 
-
-
-      
-        <!-- 세미 헤더 들어가는 곳 시작 -->
-        <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
-        <!-- 세미 헤더 들어가는 곳 끝 -->
-
-
-
-
-        <section class="program-search">
-            <div class="breadcrumb">
-                <a href="#">평생교육 프로그램</a> &gt; <span>프로그램 안내/신청</span>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="검색어를 입력하세요.">
-                <button>검색</button>
+            <h3 class="h3-class">방문신청</h3>
+            <div class="offline">
+                <div class="step step-column">
+                    <span class="step-num">STEP 01.</span>
+                    <span>행복센터 사무실 방문(신분증 지참)</span>
+                </div>
+                <div class="step step-column">
+                    <span class="step-num">STEP 02.</span>
+                    <span>수강신청서 작성</span>
+                </div>
+                <div class="step step-column">
+                    <span class="step-num">STEP 03.</span>
+                    <span>제출</span>
+                </div>
             </div>
         </section>
-        <section class="program-list">
-            <div class="filter-options">
-                <button>등록일순</button>
-                <button>마감임박</button>
-            </div>
-            <div class="programs">
-               
-            </div>
-            <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">7</a>
-                <a href="#">8</a>
-                <a href="#">9</a>
-                <a href="#">&raquo;</a>
-            </div>
+
+        <section class="guidelines">
+            <h3>유의사항</h3>
+            <ul class="custom-list">
+                <li>신청인원이 정원의 70% 미만일 경우 폐강 또는 반합반</li>
+                <li>타인 명의(명의도용 포함) 신청 불가</li>
+                <li>강의 및 실습에 필요한 물품(교재, 응용재료 등)은 본인 부담</li>
+                <li>개강 후 모집정원의 50% 미만 시 폐강</li>
+                <li>반 변경은 개강 첫 주에만 신청 가능</li>
+                <li>반 변경은 1회만 가능, 프로그램 변경 불가</li>
+            </ul>
         </section>
-    </main>
-    <footer>
-        <div class="footer-container">
-            <p>찾아오시는 길 | 사이트맵</p>
-            <address>
-                [23037] 인천광역시 강화군 남문로 19<br>
-                행복센터 032)934-3901~2 / 키즈카페 032)934-3903 / Fax. 032)724-4009 / 이메일 ghhappy@ghhappy.or.kr<br>
-                Copyright © 2022 Ganghwa-gun District Incheon Metropolitan City. All rights reserved.
-            </address>
-            <p>032-934-3901~2</p>
-            <p>AM 9:00 ~ PM 06:00 (점심시간 12:00~13:00) 일/공휴일 휴무</p>
-        </div>
-    </footer>
 
-  <!-- lessonCommon 들어가는곳 시작 -->
-  <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
-  <!-- lessonCommon 들어가는곳 끝 -->
+        <section class="fees">
+            <h3>수료기준</h3>
+            <ul class="custom-list">
+                <li>전체 교육기간 중 80% 이상 출석자</li>
+                <li>추가모집 수강자는 모집 종료 후 수료증이 발급되지 않을 수 있으며, 수료증은 신청자에 한해 발급됩니다.</li>
+            </ul>
+        </section>
 
+        <section class="restrictions">
+            <h3>수강제한</h3>
+            <ul class="custom-list">
+                <li>1년간 5회 이상 무단 결석한 자</li>
+                <li>타인 명의로 신청한 자</li>
+                <li>대리 수강자</li>
+            </ul>
+        </section>
+    </div>
 </body>
+
 </html>

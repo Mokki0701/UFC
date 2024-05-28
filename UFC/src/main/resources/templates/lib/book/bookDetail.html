@@ -31,9 +31,10 @@
     </div>
 
     <div class="swiper-container">
+        <h3>서가 브라우징</h3>
         <div class="swiper-wrapper">
             <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
-                <div th:each="browsingBook : ${chunk}">
+                <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}">
                     <img src="path/to/image1.jpg" alt="책 1">
                     <span th:text="*{bookTitle}"></span>
                     <span th:text="*{authorFirstName}">존</span> <span th:text="*{authorLastName}">스칼지</span>
