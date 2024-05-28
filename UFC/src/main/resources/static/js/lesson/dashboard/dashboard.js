@@ -222,9 +222,11 @@ lessonSelect.addEventListener("change",()=>{
     if(result>0){
       //별점 UI 함수
       setStarRating(result)
-    }else{
+    }else {
       //초기화
       resetStarPointImages();
+      //초기화가 안돼서 추가 -> 나중에 확인하고 삭제 또는 유지
+      unlockStarPoint();
     }
   })
 })
@@ -277,10 +279,22 @@ const resetStarPointImages = ()=>{
 
 
 /** 즐겨찾기 리스트 ********************* */
-
-
-
-
+//x버튼
+  const bookmarkRemoveBtns = document.querySelectorAll(".less_remove_btn");
+bookmarkRemoveBtns.forEach(btn=>{
+  btn.addEventListener("click", e =>{
+    const lessonNo = btn.getAttribute('data-lesson-id');
+    fetch(`/lesson/bookmarkRemove?lessonNo=${lessonNo}`)
+    .then(response => response.text())
+    .then(result => {
+      const listIem = btn.closest("#lessonBookMarkList")
+      if(result > 0){
+        alert("즐겨찾기 목록이 삭제되었습니다");
+        listIem.remove();
+      }
+    })
+  })
+})
 
 
 /**============================================== */
@@ -338,7 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
- 
   document.getElementById('less_attendanceForm').addEventListener('submit', event => {
       event.preventDefault(); // 기본 폼 제출 동작 방지
       submitAttendance(); // 폼 제출 처리 함수 호출

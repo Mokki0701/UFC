@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
+import edu.kh.cooof.lesson.dashBoard.dto.CalendarDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.service.DashBoardService;
@@ -45,9 +47,14 @@ public class DashBoardController {
 		int loginMemberId = loginMember.getMemberNo();
 		List<LessonListDTO> lessonList = service.findLesson(loginMemberId);
 		List<LessonInstructorDTO> instructorLessons = service.instructorLesson(loginMemberId);
+		List<LessonListDTO> lessonBookMarks = service.bookmarkList(loginMemberId);
+		
+		//즐겨찾기 강의 목록
+		
 		
 		model.addAttribute("lessonList",lessonList);
 		model.addAttribute("instructorLessons",instructorLessons);
+		model.addAttribute("lessonBookMarks",lessonBookMarks);
 		
 		return "lessonDashBoard/dashBoard";
 	}
@@ -159,6 +166,42 @@ public class DashBoardController {
 				){
 			
 			return service.getAttendanceRates(memberNo);
+		}
+		
+		//즐겨찾기 삭제하기
+		@GetMapping("bookmarkRemove")
+		@ResponseBody
+		private int removeBookmark(
+				@RequestParam("lessonNo") int lessonNo,
+				@SessionAttribute("loginMember") Member loginMember,
+				Model model
+				) {
+			
+			LessonListDTO lessonList = new LessonListDTO();
+			lessonList.setLessonNo(lessonNo);
+			lessonList.setMemberNo(loginMember.getMemberNo());
+
+			int removeBookmark = service.bookmarkRemove(lessonList);
+			String message = null;
+			
+			if(removeBookmark > 0) {
+				message = "즐겨찾기 과목이 삭제 되었습니다";
+			}
+			
+			model.addAttribute("message",message);
+			
+			return removeBookmark;
+		}
+		
+		@GetMapping("/api/events")
+		@ResponseBody
+		private List<CalendarDTO> getEvents(
+				@SessionAttribute("loginMember") Member loginMember
+				){
+			
+			
+			return null;
+			
 		}
 		
 	

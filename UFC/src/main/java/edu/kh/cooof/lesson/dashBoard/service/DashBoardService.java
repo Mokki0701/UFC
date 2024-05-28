@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
+import edu.kh.cooof.lesson.dashBoard.dto.CalendarDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.member.model.dto.Member;
@@ -39,6 +40,14 @@ public interface DashBoardService {
 
 	// 중복 삭제
 	int deleteList(List<AttendanceDTO> attendanceList);
+
+	//즐겨찾기
+	List<LessonListDTO> bookmarkList(int loginMemberId);
+
+	//즐겨찾기 삭제
+	int bookmarkRemove(LessonListDTO lessonList);
+
+	
 
 	
 

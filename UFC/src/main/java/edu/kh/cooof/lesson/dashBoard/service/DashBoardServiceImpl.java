@@ -167,4 +167,18 @@ public class DashBoardServiceImpl implements DashBoardService {
 		return mapper.deleteList(attendanceList);
 	}
 	
+	// 즐겨찾기
+	@Override
+	public List<LessonListDTO> bookmarkList(int loginMemberId) {
+		return mapper.bookmarkList(loginMemberId);
+	}
+	
+	
+	//즐겨찾기 삭제
+	@Override
+	public int bookmarkRemove(LessonListDTO lessonList) {
+		return mapper.bookmarkRemove(lessonList);
+	}
+	
+	
 }

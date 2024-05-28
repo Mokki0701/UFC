@@ -4,7 +4,8 @@
 
 	<select id="selectCalendar" resultType="Lesson">
 	
-	SELECT * FROM LESSONS WHERE MEMBER_NO = #{memberNo}
+	SELECT * 
+	FROM LESSONS WHERE MEMBER_NO = #{memberNo}
 	
 	</select>
 
