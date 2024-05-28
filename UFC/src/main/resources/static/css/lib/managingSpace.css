@@ -128,3 +128,9 @@ button {
 .setSize {
   width: 30%;
 }
+
+#delSpace{
+  border: 2px dashed red;
+  background-color:  rgb(255, 0, 0);
+  color: white;
+}

@@ -78,7 +78,7 @@ public class SpaceController {
 		// 회원이 현재 이용중인 열람실이 있을 경우
 		if (isMemberUsing == 1) {
 			message = "열람실을 이용 중이신 회원은 공간 대여가 불가능합니다.";
-			System.out.println("열람실 이용 중임 ㅋㅋ");
+			System.out.println("해당 회원은 열람실 이용 중");
 			// 열람실 이용으로 이동시킬까?
 			path = "redirect:" + path; // 현재 페이지로 리다이렉트
 		}
@@ -99,7 +99,7 @@ public class SpaceController {
 			// 현재 이용 중인 공간 이 있을 경우
 			if (memberSpaceUsingCheck == 1) {
 				message = "회원님은 현재 이용 중인 공간이 있습니다.";
-				System.out.println("너는 지금 이용 중인 공간이 있잖아. 집에나 가라.");
+				System.out.println("해당 회원은 현재 이용 중인 공간이 있음.");
 				// 집으로 가라
 				path = "redirect:/";
 
@@ -114,8 +114,7 @@ public class SpaceController {
 				System.out.println("이용요청처리완료");
 
 				// 공간 이용 정보를 map에 담아 session으로 올리기
-				Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
-						.getAttribute("memberAndSpaceSession");
+				Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
 
 				if (memberAndSpaceSession == null) {
 					memberAndSpaceSession = new HashMap<>();
@@ -143,16 +142,16 @@ public class SpaceController {
 
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
-		Map<Integer, Integer> spaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
 
-		if (spaceSession != null && spaceSession.containsKey(memberNo)) {
-			int curUsingSpaceNo = spaceSession.get(memberNo);
+		if (memberAndSpaceSession != null && memberAndSpaceSession.containsKey(memberNo)) {
+			int curUsingSpaceNo = memberAndSpaceSession.get(memberNo);
 			int stopUseSpace = service.stopUsingSpace(memberNo, curUsingSpaceNo);
 
 			if (stopUseSpace == 2) {
 				message = "공간 대여 종료 완료.";
 				System.out.println("대여 종료 성공");
-				spaceSession.remove(memberNo); // 세션에서 공간 정보 제거
+				memberAndSpaceSession.remove(memberNo); // 세션에서 공간 정보 제거
 			} else {
 				message = "공간 대여 종료 실패. 관리자에게 문의하세요.";
 				System.out.println("대여 종료 실패");
@@ -177,10 +176,10 @@ public class SpaceController {
 		int memberNo = loginMember.getMemberNo();
 
 		// memberAndSpaceSession에 담겨 있는 객체 사용할거임
-		Map<Integer, Integer> spaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
 
 		// 빌린 자리가 없을 경우
-		if (!spaceSession.containsKey(memberNo)) {
+		if (!memberAndSpaceSession.containsKey(memberNo)) {
 
 			message = "회원님은 현재 대여 중인 공간이 없습니다.";
 			System.out.println("현재 대여 중인 공간 없음");

@@ -105,23 +105,25 @@
       </th:block>
     </div>
 
+    <!-- 디버깅을 위한 값 출력 -->
+    <!-- <p th:text="'loginMember: ' + ${session.loginMember}"></p> -->
+
+    <!-- <p th:text="'memberAndSpaceSession: ' + ${session.memberAndSpaceSession}" display="none"  ></p> -->
+    <!-- <p th:text="'이용 중인 공간 번호 : ' + ${session.memberAndSpaceSession[session.loginMember.memberNo]}"></p> -->
+
     <!-- 이용 중인 공간이 없을 경우 -->
-    <!-- 아니 왜 안나오냐고 -->
-    <!-- <th:block th:with="loginMember=${session.loginMember}, memberNo=${loginMember.memberNo}, memberAndSpaceSession=${session.memberAndSpaceSession}, spaceNo=${memberAndSpaceSession[memberNo]}"
-th:if="${spaceNo == null}">
-<p> 회원님이 사용 중인 대여공간 번호 :
-<span> 없음 </span>
-</p>
-</th:block> -->
+    <th:block th:if="${session.memberAndSpaceSession[session.loginMember.memberNo] == null}">
+      <p> 회원님이 사용 중인 대여공간 번호 :
+        <span> 없음 </span>
+      </p>
+    </th:block>
 
     <!-- 이용 중인 공간이 있을 경우 -->
-    <!-- 왜 안나옴? -->
-    <!-- <th:block th:with="loginMember=${session.loginMember}, memberNo=${loginMember.memberNo}, memberAndSpaceSession=${session.memberAndSpaceSession}, spaceNo=${memberAndSpaceSession[memberNo]}"
-th:if="${spaceNo != null}">
-<p>회원님이 사용 중인 대여공간 번호:
-<span th:text="${spaceNo}"></span>
-</p>
-</th:block> -->
+    <th:block th:if="${session.memberAndSpaceSession[session.loginMember.memberNo] != null}">
+      <p>회원님이 사용 중인 대여공간 번호:
+        <span th:text=" '이용 중인 공간 번호 : ' + ${session.memberAndSpaceSession[session.loginMember.memberNo]}"></span>
+      </p>
+    </th:block>
 
 
     <div id="buttonSack">

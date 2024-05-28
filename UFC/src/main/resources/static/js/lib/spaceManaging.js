@@ -10,6 +10,8 @@ const createButton = document.getElementById('createButton');
 const saveData = document.getElementById('saveData');
 const loadDataBtn = document.querySelector("#loadData");
 const SNAP_DISTANCE = 10;
+const currentSelectSpace = document.getElementById('currentSelectSpace');
+
 
 /* 생성된 div 박스를 표시하기 위한 변수 모음 */
 let isDrawing = false;
@@ -90,6 +92,7 @@ function selectDiv(e) {
   widthInput.value = parseInt(selectedDiv.style.width);
   heightInput.value = parseInt(selectedDiv.style.height);
   sizeForm.style.display = 'block';
+  currentSelectSpace.textContent = selectedDiv.innerText.match(/\d+/)[0]; // 선택된 공간 번호 표시
 }
 
 /* 크기 수동으로 조정 */
@@ -249,3 +252,24 @@ const clearAllButton = document.querySelector("#clearAll");
 clearAllButton.addEventListener('click', () => {
   drawingArea.innerHTML = '';
 });
+
+
+
+/* 관리자 : 선택한 공간 지우기 */
+const delSpaceButton = document.getElementById('delSpace');
+
+// 선택한 공간 지우기
+function deleteSelectedDiv() {
+  if (selectedDiv) {
+    drawingArea.removeChild(selectedDiv);
+    selectedDiv = null;
+    widthInput.value = '';
+    heightInput.value = '';
+    currentSelectSpace.textContent = ''; // 선택 해제시 공간 번호 초기화
+    sizeForm.style.display = 'none';
+  }
+}
+
+delSpaceButton.addEventListener('click', deleteSelectedDiv);
+
+/* 관리자 : 공간 상태 변경하기 */
