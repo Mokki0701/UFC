@@ -64,14 +64,18 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
           console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
           if (Array.isArray(data)) {
-            var events = [];
+            const events = [];
+            let colorIndex = 0;
+            let colors = ["#FFD1DC", "#B3E5FC", "#C8F7C5", "#E6E6FA", "#8BA590"]; // 색상 배열
+            colorIndex++; // 다음 색상을 사용하도록 인덱스 증가
             data.forEach(lesson => {
-              let backgroundColor = lesson.wishListYN === 1 ? 'red' : getRandomColor();
-              let lessonDays = lesson.lessonSchedule.split(' '); // 수업 요일 및 시간 배열로 변환
-              let lessonDay = convertDayToNumber(lessonDays[0]); // 수업 요일만 숫자로 변환
-              let currentDate = new Date(lesson.lessonStartDate);
+              const backgroundColor = lesson.wishListYN === 1? 'Gold' : colors[colorIndex % colors.length]; // 색상 순환
+              colorIndex++;
+              const lessonDays = lesson.lessonSchedule.split(' '); // 수업 요일 및 시간 배열로 변환
+              const lessonDay = convertDayToNumber(lessonDays[0]); // 수업 요일만 숫자로 변환
+              const currentDate = new Date(lesson.lessonStartDate);
               //console.log(">>>>>>>>>"+currentDate);
-              let endDate = new Date(lesson.lessonEndDate);
+              const endDate = new Date(lesson.lessonEndDate);
 
               while (currentDate <= endDate) {
                 if (currentDate.getDay() === lessonDay) {
@@ -81,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     end: new Date(currentDate), // 이벤트 종료 날짜
                     backgroundColor: backgroundColor, // 색상 설정
                     extendedProps: {
-                      lessonNo: lesson.lessonNo // lessonNo 추가
+                    lessonNo: lesson.lessonNo // lessonNo 추가
                     }
                   });
                 }
@@ -119,10 +123,10 @@ function convertDayToNumber(day) {
 }
 
 // 이벤트 랜덤 색상
-function getRandomColor() {
-  let colors = ["#D4A5A5", "#6A8EAE", "#8BA590", "#9F7A93", "#D1B055"];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
+// function getRandomColor() {
+//   let colors = ["#D4A5A5", "#6A8EAE", "#8BA590", "#9F7A93", "#D1B055"];
+//   return colors[Math.floor(Math.random() * colors.length)];
+// }
 
 
 
