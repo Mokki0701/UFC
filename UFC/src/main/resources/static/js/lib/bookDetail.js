@@ -1,3 +1,5 @@
+const reserveBtn = document.querySelector("#reserveBtn");
+
 var swiper = new Swiper('.swiper-container', {
     slidesPerView: 1,
     spaceBetween: 30,
@@ -11,3 +13,51 @@ var swiper = new Swiper('.swiper-container', {
         prevEl: '.swiper-button-prev',
     },
 });
+
+const divisionBtn = document.querySelectorAll(".divisionBtn");
+
+for(let i of divisionBtn){
+    i.addEventListener("click", e=>{
+        updateChart(i.value);
+    })
+}
+
+function updateChart(type) {
+    const data = type === 'age' ? ageLoanData : yearLoanDate;
+
+    data.forEach((loanCount, index) => {
+        
+        const bar = document.getElementById(`bar-${index}`);
+        
+        if(type === 'age'){
+            document.getElementsByClassName(`bar-label`)[index].innerText = 10*index + "대";
+            document.getElementsByClassName(`loan-label`)[index].innerText = 10*index + "대";
+        }
+        else{
+            document.getElementsByClassName(`bar-label`)[index].innerText = 2015 + index;
+            document.getElementsByClassName(`loan-label`)[index].innerText = 2015 + index;
+        }
+
+        const heightPercent = (loanCount / 3) * 100; 
+        bar.style.height = `${heightPercent}%`;
+
+        const loan = document.getElementById(`loan-${index}`);
+        loan.innerText = loanCount; 
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateChart('age');
+});
+
+reserveBtn.addEventListener("click", e=>{
+
+    const bookNo = bookNo2;
+
+    location.href= "/reservation/check?bookNo=" + bookNo;
+
+
+});
+
+
+
