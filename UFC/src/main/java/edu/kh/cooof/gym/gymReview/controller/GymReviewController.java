@@ -74,14 +74,27 @@ public class GymReviewController {
 	@PostMapping("gymWrite/insert")
 	public String gymWrite(
 			Model model,
-			@SessionAttribute("loginMember")Member loginMember
+			@SessionAttribute("loginMember")Member loginMember,
+			GymReview gymReview,
+			RedirectAttributes ra
 			) {
 			
 			int memberNo = loginMember.getMemberNo();
+			gymReview.setMemberNo(memberNo);
 			
 			
+			int result = service.insertGymWrite(gymReview);
+			String message = null; 
 		
-		return null;
+			
+			 if (result > 0) {
+		         message = "작성 성공!";
+			     return "redirect:/reviews/gymReview"; // 성공 시 리다이렉트할 경로
+			 }else {
+				 message = "작성 실패!";
+				 return "redirect:/gymWrite/insert";
+			 }
+			 	
 	}
 	
 }

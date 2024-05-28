@@ -17,6 +17,12 @@ public interface GymReviewService {
 	 */
 	GymReview getGymByNo(int gymNo);
 
+	/** 글쓰기 제출값 넣기
+	 * @param gymReview
+	 * @return
+	 */
+	int insertGymWrite(GymReview gymReview);
+
 	
 
 }

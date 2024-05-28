@@ -24,4 +24,9 @@ public class GymReviewServiceImpl implements GymReviewService {
 		
 		return mapper.getGymByNo(gymNo);
 	}
+	
+	@Override
+	public int insertGymWrite(GymReview gymReview) {
+		return mapper.insertGymWrite(gymReview);
+	}
 }

@@ -13,6 +13,8 @@ public interface GymReviewMapper {
 
 	GymReview getGymByNo(int gymNo);
 
+	int insertGymWrite(GymReview gymReview);
+
 	
 
 }

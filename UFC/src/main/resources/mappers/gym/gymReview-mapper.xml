@@ -16,7 +16,9 @@
 	FROM 
     	GYM g
 	JOIN 
-    	MEMBER m ON g.MEMBER_NO = m.MEMBER_NO 
+    	MEMBER m ON g.MEMBER_NO = m.MEMBER_NO
+    ORDER BY
+        g.GYM_NO 
 	</select>
 	
 	<select id="getGymByNo">
@@ -25,6 +27,11 @@
  	   LEFT JOIN MEMBER m ON g.MEMBER_NO = m.MEMBER_NO
   	   WHERE g.GYM_NO = #{gymNo}
 	</select>
+	
+	<insert id="insertGymWrite">
+		  INSERT INTO GYM (GYM_NO, GYM_TITLE, GYM_CONTENT, GYM_WRITE_DATE, GYM_DEL_FL, MEMBER_NO) 
+		  VALUES (GYM_NO_SEQ.NEXTVAL, #{gymTitle}, #{gymContent} , SYSDATE ,  0, #{memberNo})
+	</insert>
 	
 
 
