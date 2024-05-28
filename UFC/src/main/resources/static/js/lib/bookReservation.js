@@ -36,6 +36,9 @@ function reserveBook(){
         num++;
     }
 
+    console.log(num);
+    console.log(checkBoxs);
+
     fetch("/reservation/reserve", {
         method : 'POST',
         headers : {'Content-Type': 'application/json'},
@@ -44,9 +47,11 @@ function reserveBook(){
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
+
         window.location.href = "/main/libMain";
     })
     .catch((error) => {
+
         console.error('Error:', error);
     });
 

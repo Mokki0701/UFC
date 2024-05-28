@@ -36,6 +36,25 @@
 		AND MEMBER_NO = #{memberNo}
 	</delete>
 	
+	<update id="reserveBook">
+		UPDATE RENT_BOOK
+		SET RENT_BOOK_CHECK = 2
+		WHERE BOOK_NO = #{bookNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<select id="searchReserve">
+		SELECT * FROM RENT_BOOK
+		WHERE MEMBER_NO = #{memberNo}
+		AND RENT_BOOK_CHECK = 1
+	</select>
+	
+	<update id="reserveListDelete">
+		UPDATE RENT_BOOK
+		SET RENT_BOOK_CHECK = 0
+		WHERE BOOK_NO = #{bookNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
 	
 	
 	

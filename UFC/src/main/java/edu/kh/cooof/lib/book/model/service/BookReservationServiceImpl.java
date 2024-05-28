@@ -1,5 +1,6 @@
 package edu.kh.cooof.lib.book.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,9 +71,23 @@ public class BookReservationServiceImpl implements BookReservationService {
 	}
 	
 	@Override
-	public int reserveBook(List<RentBook> reserveList) {
+	public int reserveBook(List<RentBook> reserveList, int memberNo) {
 		
-		return 0;
+		for(int i=0; i<reserveList.size(); i++) {
+			
+			mapper.reserveBook(reserveList.get(i));
+			
+		}
+		
+		List<RentBook> rentList = mapper.searchReserve(memberNo);
+		
+		int result = 0;
+		
+		for(int i = 0; i < rentList.size(); i++) {
+			result += mapper.reserveListDelete(rentList.get(i));
+		}
+		
+		return result;	
 	}
 
 	

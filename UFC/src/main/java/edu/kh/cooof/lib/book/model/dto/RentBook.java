@@ -31,5 +31,4 @@ public class RentBook {
 	// 테이블에 없는 조회 요소
 	private int totalCount;
 	
-	
 }

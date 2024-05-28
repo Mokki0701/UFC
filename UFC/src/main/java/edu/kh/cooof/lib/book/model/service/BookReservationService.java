@@ -12,7 +12,9 @@ public interface BookReservationService {
 
 	Map<String, Object> reserveDelete(int bookNo, Member loginMember);
 
-	int reserveBook(List<RentBook> reserveList);
+	int reserveBook(List<RentBook> reserveList, int memberNo);
+
+	
 
 
 	
