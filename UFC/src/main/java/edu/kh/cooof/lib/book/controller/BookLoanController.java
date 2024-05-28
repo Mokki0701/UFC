@@ -25,28 +25,83 @@ public class BookLoanController {
 	public String selectLoanList(
 			Model model,
 			@SessionAttribute("loginMember") Member loginMember,
-			@RequestParam(value="query", required = false, defaultValue = "") String query,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp
 			) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		// 일반 조회
-		if(query.equals("")) {
+		map = service.selectList(cp);
 			
-			map = service.selectList(cp);
-			
-		}
-		// 검색어 조회
-		else{
-			
-			
-		}
 		
 		model.addAttribute("pagination", map.get("pagination"));
 		model.addAttribute("loanList", map.get("loanList"));
 		
 		return "lib/book/bookLoan";
 	}
+	
+	@GetMapping("querySelect")
+	public String selectLoanList(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value="query", required = false, defaultValue = "") String query,
+			Model model
+			) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map = service.selectQueryList(cp, query);	
+		
+		model.addAttribute("pagination", map.get("pagination"));
+		model.addAttribute("loanList", map.get("loanList"));
+		
+		
+		return "lib/book/bookLoan :: loanBook";
+	}
+	
+	@GetMapping("approveLoan")
+	public String approveLoanList(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value="query", required = false, defaultValue = "") String query,
+			@RequestParam("bookNo") int bookNo,
+			@RequestParam("memberNo") int memberNo,
+			Model model
+			) {
+		
+		Map<String, Object> map = new HashMap<>();
+				
+		map = service.approveLoan(cp, query, bookNo, memberNo);	
+		
+		model.addAttribute("pagination", map.get("pagination"));
+		model.addAttribute("loanList", map.get("loanList"));
+		
+		return "lib/book/bookLoan :: loanBook"; 
+	}
+	
+	@GetMapping("deleteLoan")
+	public String deleteLoanList(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value="query", required = false, defaultValue = "") String query,
+			@RequestParam("bookNo") int bookNo,
+			@RequestParam("memberNo") int memberNo,
+			Model model
+			) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map = service.deleteLoan(cp, query, bookNo, memberNo);
+		
+		model.addAttribute("pagination", map.get("pagination"));
+		model.addAttribute("loanList", map.get("loanList"));
+		
+		return "lib/book/bookLoan :: loanBook"; 
+	}
+	
+	
+	
+	
+	
+	
 	
 }

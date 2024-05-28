@@ -10,17 +10,18 @@
 <body>
 
     <div class="book-info" th:object="${book}">
-
         <div class="book-main">
             <img src="path/to/book-image.jpg" alt="Book Image" class="book-image">
             <div class="book-details">
                 <h2 th:text="*{bookTitle}">레드셔츠</h2>
-                <p>저자: <span th:text="*{authorFirstName}">존</span> <span th:text="*{authorLastName}">스칼지</span></p>
-                <p>출판사: <span th:text="*{bookPublisher}">폴라북스</span></p>
-                <p>발행 연도: <span th:text="*{bookYear}">2014</span></p>
-                <p>ISBN: <span th:text="*{storageDetail}">978-89-01-23456-7</span></p>
-                <p>상태: <span th:text="*{lrFlag}">대출 가능</span></p>
-                <button id="reserveBtn">예약하기</button>
+                <div class="book-meta">
+                    <p><strong>저자:</strong> <span th:text="*{authorFirstName}">존</span> <span th:text="*{authorLastName}">스칼지</span></p>
+                    <p><strong>출판사:</strong> <span th:text="*{bookPublisher}">폴라북스</span></p>
+                    <p><strong>발행 연도:</strong> <span th:text="*{bookYear}">2014</span></p>
+                    <p><strong>ISBN:</strong> <span th:text="*{storageDetail}">978-89-01-23456-7</span></p>
+                    <p><strong>상태:</strong> <span th:text="*{lrFlag}">대출 가능</span></p>
+                </div>
+                <button id="reserveBtn" class="btn-primary">예약하기</button>
             </div>
         </div>
 
@@ -30,74 +31,67 @@
         </div>
     </div>
 
-    <br>
-
-    <!-- 서가 브라우징 -->
-    <div class="swiper-container">
-        <h3>서가 브라우징</h3>
-        <div class="swiper-wrapper">
-            <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
-                <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}">
-                    <img src="path/to/image1.jpg" alt="책 1">
-                    <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
-                    <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
-                    <span th:text="*{bookPublisher}"></span>
+    <div class="swiper-section">
+        <!-- 서가 브라우징 -->
+        <div class="swiper-container">
+            <h3>서가 브라우징</h3>
+            <div class="swiper-wrapper">
+                <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
+                    <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}" class="browsing-book">
+                        <img src="path/to/image1.jpg" alt="책 1" class="book-thumbnail">
+                        <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
+                        <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
+                        <span th:text="*{bookPublisher}"></span>
+                    </div>
                 </div>
             </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
 
-    <br>
-
-    <!-- 함께 대출한 자료 -->
-    <div class="swiper-container">
-        <h3>함께 대출한 자료</h3>
-        <div class="swiper-wrapper">
-            <div th:each="chunk : ${#lists.partition(themeList,4)}" class="swiper-slide">
-                <div th:each="themeBook : ${chunk}" th:object="${themeBook}">
-                    <img src="path/to/image1.jpg" alt="책 1">
-                    <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
-                    <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
-                    <span th:text="*{bookPublisher}"></span>
+        <!-- 함께 대출한 자료 -->
+        <div class="swiper-container">
+            <h3>함께 대출한 자료</h3>
+            <div class="swiper-wrapper">
+                <div th:each="chunk : ${#lists.partition(themeList,4)}" class="swiper-slide">
+                    <div th:each="themeBook : ${chunk}" th:object="${themeBook}" class="theme-book">
+                        <img src="path/to/image1.jpg" alt="책 1" class="book-thumbnail">
+                        <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
+                        <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
+                        <span th:text="*{bookPublisher}"></span>
+                    </div>
                 </div>
             </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
 
-    <br>
-
-    <!-- 같은 주제의 자료 -->
-    <div class="swiper-container">
-        <h3>같은 주제의 자료</h3>
-        <div class="swiper-wrapper">
-            <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
-                <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}">
-                    <img src="path/to/image1.jpg" alt="책 1">
-                    <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
-                    <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
-                    <span th:text="*{bookPublisher}"></span>
+        <!-- 같은 주제의 자료 -->
+        <div class="swiper-container">
+            <h3>같은 주제의 자료</h3>
+            <div class="swiper-wrapper">
+                <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
+                    <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}" class="browsing-book">
+                        <img src="path/to/image1.jpg" alt="책 1" class="book-thumbnail">
+                        <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
+                        <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
+                        <span th:text="*{bookPublisher}"></span>
+                    </div>
                 </div>
             </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
     </div>
-
-    <br>
-
 
     <div class="container">
         <h1>연령대별 대출권 수</h1>
         <div class="buttons">
-            <button class="divisionBtn" value="age">나이별</button>
-            <button class="divisionBtn" value="year">년도별</button>
+            <button class="divisionBtn btn-secondary" value="age">나이별</button>
+            <button class="divisionBtn btn-secondary" value="year">년도별</button>
         </div>
         <div class="chart">
             <div class="bar" id="bar-0" style="left: 0%; height: 0%;">
@@ -182,13 +176,13 @@
             </tbody>
         </table>
     </div>
+
     <script th:inline="javascript">
         // 대출 데이터를 설정합니다.
         const ageLoanData = /*[[${ageStatistics}]]*/ "나이";
         const yearLoanDate = /*[[${yearStatistics}]]*/ "년도";
 
         const bookNo2 = /*[[${book.bookNo}]]*/ "책 번호";
-
     </script>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
