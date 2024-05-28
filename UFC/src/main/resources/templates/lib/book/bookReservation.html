@@ -11,7 +11,7 @@
     <div class="container reservationBook" th:fragment="reservationBook">
         <div class="summary">
             <div class="book-count" th:text="|도서 개수 : ${totalCount}개|">도서 개수: 0개</div>
-            <button class="reserve-btn">예약하기</button>
+            <button class="reserve-btn" id="reserveBtn">예약하기</button>
         </div>
 
         <div class="cart-item" th:each="rent : ${rentList}" th:object="${rent}">
@@ -23,7 +23,7 @@
                 <p><strong>저자:</strong> <span th:text="*{authorFirstName}">저자</span> <span th:text="*{authorLastName}"></span></p>
                 <p><strong>출판일:</strong> <span th:text="*{bookYear}">책 출판일</span></p>
             </div>
-            <input type="checkbox">
+            <input type="checkbox" class="reserveCheck">
             <div style="display: none;" th:text="*{bookNo}"></div>
             <button class="remove-btn">삭제</button>
         </div>

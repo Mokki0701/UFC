@@ -69,8 +69,12 @@ public class BookReservationServiceImpl implements BookReservationService {
 		return paramMap;
 	}
 	
-	
-	
+	@Override
+	public int reserveBook(List<RentBook> reserveList) {
+		
+		return 0;
+	}
+
 	
 	
 	

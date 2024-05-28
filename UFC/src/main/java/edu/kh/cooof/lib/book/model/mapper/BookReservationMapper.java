@@ -20,4 +20,6 @@ public interface BookReservationMapper {
 
 	void reserveDelete(Map<String, Object> paramMap);
 
+	int reserveBook(List<RentBook> reserveList);
+
 }
