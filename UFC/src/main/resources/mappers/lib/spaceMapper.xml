@@ -117,17 +117,11 @@
 	
 	<!-- 예약하고자 하는 공간에 다른 예약이 있는지 확인 -->
 	<select id="checkOtherReservation">
-		
 		SELECT *
 		FROM SEAT_SPACE_BOOKING ssb
 		WHERE ssb.SPACE_NO = #{spaceNo}
 		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') BETWEEN ssb.START_BOOKING AND ssb.END_BOOKING
-
 	</select>
-	
-	
-	
-	
 	
 	<!-- 예약시간 겹치는지 확인하기 -->
 	<select id="checkStartTime" parameterType='map'>
@@ -135,7 +129,6 @@
 		FROM RENT_SPACE rs 
 		WHERE SPACE_NO2 = #{spaceNo}
 		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') BETWEEN rs.SPACE_START AND rs.SPACE_DONE
-	
 	</select>
 	
 	<!-- 공간 예약하기 -->

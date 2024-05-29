@@ -34,23 +34,22 @@ public class SpaceServiceImpl implements SpaceService {
 		}
 		return totalInserted;
 	}
-	
+
 	// 관리자 : 공간의 avail 수정하기
-	 @Override
-	    public String updateSpaceStatus(int spaceNo, int status) {
-	        Map<String, Object> params = new HashMap<>();
-	        params.put("spaceNo", spaceNo);
-	        params.put("changAvailCode", status);
-	        int updateCount = mapper.updateSpaceStatus(params);
-	        
-	        if (updateCount > 0) {
-	            return "성공적으로 업데이트되었습니다.";
-	        } else {
-	            return "업데이트에 실패했습니다.";
-	        }
-	    }
-	
-	
+	@Override
+	public String updateSpaceStatus(int spaceNo, int status) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("spaceNo", spaceNo);
+		params.put("changAvailCode", status);
+		int updateCount = mapper.updateSpaceStatus(params);
+
+		if (updateCount > 0) {
+			return "성공적으로 업데이트되었습니다.";
+		} else {
+			return "업데이트에 실패했습니다.";
+		}
+	}
+
 	// 저장된 공간 정보 불러오기
 	@Override
 	public List<SpaceDTO> getAllSpaces() {
@@ -88,54 +87,44 @@ public class SpaceServiceImpl implements SpaceService {
 
 	// 공간 예약하기
 	@Override
-	public int bookSpace(int memberNo, int spaceNo, String startTime) {
+    public int bookSpace(int memberNo, int spaceNo, String startTime) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberNo", memberNo);
+        params.put("spaceNo", spaceNo);
+        params.put("startTime", startTime);
 
-		Map<String, Object> params = new HashMap<>();
-		params.put("memberNo", memberNo);
-		params.put("spaceNo", spaceNo);
-		params.put("startTime", startTime);
-		
-		int result = 2;
-		
-		int reservationSpaceResult = mapper.bookSpace(params);
+        int result = 2;
+        int reservationSpaceResult = mapper.bookSpace(params);
+        if (reservationSpaceResult == 1) {
+            result = 1;
+        } else if (reservationSpaceResult == 0) {
+            result = 0;
+        }
+        return result;
+    }
 
-		if (reservationSpaceResult == 1) {
-			result =  1;
-		} else if (reservationSpaceResult == 0) {
-			
-			result = 0;
-		}
-		
-		return result;
-	}
-	
-	@Override
-	public int checkStartTime(int spaceNo, String startTime) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("spaceNo", spaceNo);
-		params.put("startTime", startTime);
-		
-		int result = 2;
-		// 예약한 시간이 현재 공간의 이용 시간과 겹치는지 확인
-		int checkTime = mapper.checkStartTime(params);
-		// 1이 나오면? -> 겹친다!! -> 이용 불가하다!!
-		if(checkTime == 1) {
-			result = 1;
-		}
-		
-		if(checkTime == 0) {
-			result = 0;
-		}
-		
-		return result;
-	}
+    @Override
+    public int checkOtherReservation(int spaceNo, String startTime) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("spaceNo", spaceNo);
+        params.put("startTime", startTime);
+        return mapper.checkOtherReservation(params);
+    }
 
-	@Override
-	public int checkOtherReservation(int spaceNo, String startTime) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+    @Override
+    public int checkStartTime(int spaceNo, String startTime) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("spaceNo", spaceNo);
+        params.put("startTime", startTime);
+
+        int result = 2;
+        int checkTime = mapper.checkStartTime(params);
+        if (checkTime == 1) {
+            result = 1;
+        } else if (checkTime == 0) {
+            result = 0;
+        }
+        return result;
+    }
 
 }
-
