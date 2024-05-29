@@ -38,13 +38,13 @@ public class GymReviewServiceImpl implements GymReviewService {
     }
 
 	@Override
-    public List<GymReview> getGymReviews(int currentPage, int limit) {
-        int offset = (currentPage - 1) * limit;
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("limit", limit);
-        paramMap.put("offset", offset);
+	public List<GymReview> getGymReviews(int currentPage, int limit) {
+	    int offset = (currentPage - 1) * limit;
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("limit", limit);
+	    paramMap.put("offset", offset);
 
-        return mapper.selectGymReviews(paramMap);
-    }
+	    return mapper.selectGymReviews(paramMap);
+	}
 	
 }

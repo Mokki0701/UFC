@@ -28,19 +28,21 @@ public class GymReviewController {
 	@GetMapping("/reviews/gymReview")
     public String listGymReviews(
             @RequestParam(value = "page", defaultValue = "1") int currentPage,
+            @RequestParam(value = "limit", defaultValue = "10") int limit, // limit 파라미터 받아오기
             Model model) {
 
         int listCount = service.getGymReviewCount(); // 전체 게시글 수 가져오기
         gymPagination pagination = new gymPagination(currentPage, listCount);
         pagination.calculate();
-
+        
         
         List<GymReview> gymList = service.getAllGym();      
-        List<GymReview> reviews = service.getGymReviews(currentPage, pagination.getLimit());
+        List<GymReview> reviews = service.getGymReviews(currentPage, limit);
 
         model.addAttribute("gymList", gymList);
         model.addAttribute("pagination", pagination);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("limit", limit); // limit 값을 모델에 추가
       
       return "gym/gymReview/gymReview";
    }
