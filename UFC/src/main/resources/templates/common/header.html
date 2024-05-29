@@ -1,24 +1,38 @@
 <div class="header-container">
   <article class="header-login-container">
-      <span>로그인</span>
-      |
-      <span>정보수정</span>
+            <!-- 로그인 X -->
+            <th:block th:if="${session.loginMember == null}">
+                <a href="/member/login">로그인</a>
+              </th:block>
+        
+        
+            <!-- 로그인 O -->
+            <th:block th:unless="${session.loginMember == null}">
+              
+                <a href="/member/logout">로그아웃</a>
+
+            </th:block>
+
   </article>
 
 
   <header class="header-logo-container">
       
-       <img  src="/images/logo.jpg" alt="logo">
+       <a href="/">
+        <img  src="/images/logo.jpg" alt="logo" href="/index">
+       </a>
       
 
-      <div class="my-page">MY PAGE</div>
+      <div class="my-page" th:unless="${session.loginMember == null}">
+        <a href="/member/mypage">MY PAGE</a>
+      </div>
   </header>
 
   <nav class="header-menu">
-      <a href="#home">HOME</a>
-      <b href="#">도서관</b>
-      <c href="#">헬스장</c>
-      <d href="#">문화센터</d>
+      <a class="a" href="/">HOME</a>
+      <a class="b" href="/main/libMain">도서관</a>
+      <a class="c" href="/gym/gymMain">헬스장</a>
+      <a class="d" href="/lesson">문화센터</a>
   </nav>
 </div>
 
