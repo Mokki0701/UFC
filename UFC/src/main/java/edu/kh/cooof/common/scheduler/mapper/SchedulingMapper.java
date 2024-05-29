@@ -19,4 +19,9 @@ public interface SchedulingMapper {
 	 */
 	List<Lesson> checkRemains();
 
+	/** 잔여좌석이 없는 수업 마감 처리
+	 * @param lessonNo
+	 */
+	void setCloseYn(int lessonNo);
+
 }

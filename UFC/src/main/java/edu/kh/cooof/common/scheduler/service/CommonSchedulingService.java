@@ -16,4 +16,9 @@ public interface CommonSchedulingService {
 	 */
 	List<Lesson> checkRemains();
 
+	/** 잔여 정원 0인 수업 삭제 처리
+	 * @param lessonNo
+	 */
+	void setCloseYn(int lessonNo);
+
 }

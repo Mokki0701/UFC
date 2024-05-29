@@ -26,4 +26,9 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 		return mapper.checkRemains();
 	}
 	
+	@Override
+	public void setCloseYn(int lessonNo) {
+		mapper.setCloseYn(lessonNo);		
+	}
+	
 }

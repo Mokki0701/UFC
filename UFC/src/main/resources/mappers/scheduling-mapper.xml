@@ -8,9 +8,12 @@
 	</select>
 	
 	<select id="checkRemains" resultType="Lesson">
-	SELECT * FROM LESSONS WHERE LESSON_REMAINS = 0
+	SELECT * FROM LESSONS WHERE LESSON_REMAINS = 0 AND CLOSE_YN = 0
 	</select>
-
+	
+	<update id="setCloseYn">
+	UPDATE LESSONS SET CLOSE_YN = 1 WHERE LESSON_NO = #{lessonNo}
+	</update>
 
 
 </mapper>
