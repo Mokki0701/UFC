@@ -3,20 +3,114 @@
 <mapper namespace="edu.kh.cooof.lib.book.model.mapper.BookLoanMapper">
 
 	<select id="selectList">
-		SELECT LOAN_BOOK_NO, BOOK_TITLE, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME 
+		SELECT RENT_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME 
+		FROM RENT_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE RENT_BOOK_CHECK = 2
+		ORDER BY RENT_BOOK_NO
+	</select>
+	
+	<select id="getListCount">
+		SELECT COUNT(*)
+		FROM RENT_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE RENT_BOOK_CHECK = 2
+	</select>
+	
+	<select id="getQueryListCount">
+		SELECT COUNT(*)
+		FROM RENT_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE RENT_BOOK_CHECK = 2
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+	</select>
+	
+	<select id="selectQueryList">
+		SELECT RENT_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME 
+		FROM RENT_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE RENT_BOOK_CHECK = 2
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY RENT_BOOK_NO
+	</select>
+	
+	<insert id="insertLoan">
+		INSERT INTO LOAN_BOOK
+		VALUES(SEQ_LOAN_BOOK_NO.NEXTVAL, SYSDATE, SYSDATE + 3, DEFAULT, DEFAULT, #{memberNo}, #{bookNo}, DEFAULT)
+	</insert>
+	
+	<update id="deleteRent">
+		UPDATE RENT_BOOK
+		SET RENT_BOOK_CHECK = 0
+		WHERE BOOK_NO = #{bookNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<update id="downBook">
+		UPDATE BOOK_INFO
+		SET AVALABLE_COUNT = AVALABLE_COUNT - 1
+		WHERE BOOK_NO = #{bookNo}
+	</update>
+	
+	<select id="getReturnListCount">
+		SELECT COUNT(*)
+		FROM LOAN_BOOK
+		WHERE LOAN_BOOK_STATUS = 1
+	</select>
+	
+	<select id="selectReturnList">
+		SELECT LOAN_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME, BOOK_START, BOOK_END
 		FROM LOAN_BOOK
 		LEFT JOIN "MEMBER" USING(MEMBER_NO)
 		LEFT JOIN BOOK_INFO USING(BOOK_NO)
 		WHERE LOAN_BOOK_STATUS = 1
+		ORDER BY LOAN_BOOK_NO 
 	</select>
 	
-	<select id="getListCount">
+	<select id="getQueryReturnListCount">
 		SELECT COUNT(*)
 		FROM LOAN_BOOK
 		LEFT JOIN "MEMBER" USING(MEMBER_NO)
 		LEFT JOIN BOOK_INFO USING(BOOK_NO)
 		WHERE LOAN_BOOK_STATUS = 1
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
 	</select>
+	
+	<select id="queryReturnList">
+		SELECT LOAN_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME, BOOK_START, BOOK_END
+		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE LOAN_BOOK_STATUS = 1
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY LOAN_BOOK_NO 
+	</select>
+	
+	<update id="completeLoan">
+		UPDATE LOAN_BOOK
+		SET LOAN_BOOK_STATUS = 0
+		WHERE LOAN_BOOK_NO = #{loanBookNo}
+	</update>
+	
+	<update id="upBook">
+		UPDATE BOOK_INFO
+		SET AVALABLE_COUNT = AVALABLE_COUNT + 1
+		WHERE BOOK_NO = #{bookNo}
+	</update>
+	
+	<update id="loanExtend">
+		UPDATE LOAN_BOOK
+		SET BOOK_END = BOOK_END + 7
+		WHERE LOAN_BOOK_NO = #{loanBookNo}
+	</update>
+	
+	
+	
+	
 	
 
 </mapper>

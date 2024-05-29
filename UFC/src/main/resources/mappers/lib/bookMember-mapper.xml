@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lib.main.model.mapper.BookMemberMapper">
+
+	<select id="selectRentList">
+		SELECT BOOK_NO, MEMBER_NO
+		FROM RENT_BOOK
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectLoanList">
+		SELECT BOOK_NO, MEMBER_NO, BOOK_START, BOOK_END,
+		FROM LOAN_BOOK
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectSeat">
+		SELECT MEMBER_NO, SEAT_NO2, READING_EXTEND, READING_DONE, READING_START
+		FROM RENT_SEAT
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectSpace">
+		SELECT MEMBER_NO, SPACE_NO2, SPACE_EXTEND, SPACE_DONE, SPACE_START
+		FROM RENT_SPACE
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+</mapper>

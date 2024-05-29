@@ -18,6 +18,7 @@ public class LoanBook {
 	private String bookEnd;
 	private int bookExtend;
 	private int bookReturn;
+	private int loanBookStatus;
 	
 	private int memberNo;
 	private int bookNo;

@@ -9,66 +9,110 @@
 </head>
 <body>
 
-<div th:fragment="loanBook">
+
     
     <div class="container">
         <div class="header">
-            도서 대출 현황
+            <button id="loanStatusBtn" class="tab-btn" onclick="showLoanStatus()">도서 대출 현황</button>
+            <button id="returnStatusBtn" class="tab-btn" onclick="showReturnStatus()">대출 반납 현황</button>
         </div>
+        
         <div class="search-container">
             <input type="text" id="search-bar" placeholder="Search...">
             <button id="searchBtn">Search</button>
         </div>
     
-        <table>
-            <thead>
-                <tr>
-                    <th>대출 번호</th>
-                    <th>책 이름</th>
-                    <th>회원 번호</th>
-                    <th>회원 이름</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="book-list">
-                <tr th:each="loanBook : ${loanList}" th:object="${loanBook}">
-                    <td th:text="*{loanBookNo}">12345</td>
-                    <td th:text="*{bookTitle}">Example Book Title 1</td>
-                    <td th:text="*{memberNo}">001</td>
-                    <td th:text="|*{memberLastName} *{memberFirstName}|">John Doe</td>
-                    <td class="action-buttons">
-                        <button class="approve" onclick="approveLoan(12345)">Approve</button>
-                        <button class="delete" onclick="deleteLoan(12345)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="loanBookContainer" class="content-container">
+            <div class="loanBook" th:fragment="loanBook">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>예약 번호</th>
+                            <th>책 번호</th>
+                            <th>책 이름</th>
+                            <th>회원 번호</th>
+                            <th>회원 이름</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="book-list">
+                        <tr th:each="loanBook : ${loanList}" th:object="${loanBook}">
+                            <td th:text="*{rentBookNo}"></td>
+                            <td th:text="*{BookNo}"></td>
+                            <td th:text="*{bookTitle}">Example Book Title 1</td>
+                            <td th:text="*{memberNo}">001</td>
+                            <td th:text="|*{memberLastName} *{memberFirstName}|">John Doe</td>
+                            <td class="action-buttons">
+                                <button class="approve approveBtn" id="approveBtn" onclick="handleApprove(this)">승인</button>
+                                <button class="delete deleteBtn" id="deleteBtn" onclick="handleDelete(this)">삭제</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
     
-    
-        <div>
-            <div th:object="${pagination}" class="pagination">
-    
-                <li><a th:href="@{/loan/select(cp=1)}">&lt;&lt;</a></li>
-                <li><a th:href="@{/loan/select(cp=*{prevPage})}">&lt;</a></li>
-    
-                <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
-                    <li class="${i == pagination.currentPage} ? 'active'">
-                        <a th:text="${i}"></a>
-                    </li>
-    
-                    <li th:unless="${i == pagination.currentPage}">
-                        <a th:href="@{/loan/select(cp=${i})}" th:text="${i}"></a>
-                    </li>
-                </th:block>
-    
-                <li><a th:href="@{/loan/select(cp=*{nextPage})}">&gt;</a></li>
-                <li><a th:href="@{/loan/select(cp=*{maxPage})}">&gt;&gt;</a></li>
-    
+                <div th:object="${pagination}" class="pagination">
+                    <li><a th:href="@{/loan/select(cp=1)}">&lt;&lt;</a></li>
+                    <li><a th:href="@{/loan/select(cp=*{prevPage})}">&lt;</a></li>
+                    <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
+                        <li class="${i == pagination.currentPage} ? 'active'">
+                            <a th:href="@{/loan/select(cp=${i})}" th:text="${i}"></a>
+                        </li>
+                    </th:block>
+                    <li><a th:href="@{/loan/select(cp=*{nextPage})}">&gt;</a></li>
+                    <li><a th:href="@{/loan/select(cp=*{maxPage})}">&gt;&gt;</a></li>
+                </div>
             </div>
         </div>
+    
+        <div id="returnBookContainer" class="content-container" style="display: none;">
+            <!-- 대출 반납 현황 내용 -->
+            <div class="returnBook" th:fragment="returnBook">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>대출 번호</th>
+                            <th>책 번호</th>
+                            <th>책 이름</th>
+                            <th>회원 번호</th>
+                            <th>회원 이름</th>
+                            <th>대여 날짜</th>
+                            <th>반납 날짜</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="return-list">
+                        <tr th:each="returnBook : ${returnList}" th:object="${returnBook}">
+                            <td th:text="*{loanBookNo}"></td>
+                            <td th:text="*{BookNo}"></td>
+                            <td th:text="*{bookTitle}">Example Book Title 1</td>
+                            <td th:text="*{memberNo}">001</td>
+                            <td th:text="|*{memberLastName} *{memberFirstName}|">John Doe</td>
+                            <td th:text="*{bookStart}">2023-01-01</td>
+                            <td th:text="*{bookEnd}">2023-01-01</td>
+                            <td class="action-buttons">
+                                <button class="approve approveBtn" id="approveBtn" onclick="handleComplete(this)">완료</button>
+                                <button class="delete deleteBtn" id="deleteBtn" onclick="handleExtend(this)">연장</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+    
+                <div th:object="${returnPagination}" class="pagination">
+                    <li><button th:onclick="'handlePagination(1)'">&lt;&lt;</button></li>
+                    <li><button th:onclick="'handlePagination(' + *{prevPage} + ')'">&lt;</button></li>
+                    <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
+                        <li th:classappend="${i} == *{currentPage} ? 'active'">
+                            <button th:onclick="'handlePagination(' + ${i} + ')'"
+                                    th:text="${i}"></button>
+                        </li>
+                    </th:block>
+                    <li><button th:onclick="'handlePagination(' + *{nextPage} + ')'">&gt;</button></li>
+                    <li><button th:onclick="'handlePagination(' + *{maxPage} + ')'">&gt;&gt;</button></li>
+                </div>
+            </div>
+        </div>
+    
     </div>
-
-</div>
 
 
 <script src="/js/lib/bookLoan.js"></script>
