@@ -193,16 +193,16 @@ public class DashBoardController {
 			return removeBookmark;
 		}
 		
-		@GetMapping("/api/events")
-		@ResponseBody
-		private List<CalendarDTO> getEvents(
-				@SessionAttribute("loginMember") Member loginMember
-				){
-			
-			
-			return null;
-			
-		}
+//		@GetMapping("/api/events")
+//		@ResponseBody
+//		private List<CalendarDTO> getEvents(
+//				@SessionAttribute("loginMember") Member loginMember
+//				){
+//			
+//			
+//			return null;
+//			
+//		}
 		
 	
 }
