@@ -13,7 +13,7 @@
   width: 80%; /* 컨테이너 너비를 부모 요소의 80%로 설정 */
   margin: 0 auto; /* 컨테이너를 수평 중앙에 배치 */
   padding: 20px; /* 컨테이너 내부에 20px 패딩 적용 */
-  background-color: white; /* 배경색을 흰색으로 설정 */
+  background-color: #f8f8f8; /* 배경색을 연한 회색으로 설정 */
 }
 
 .steps {
