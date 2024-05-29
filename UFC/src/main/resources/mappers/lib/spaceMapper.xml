@@ -113,8 +113,6 @@
 		INTERVAL '4' HOUR
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
-<<<<<<< HEAD
-=======
 	
 	
 	<!-- 예약하고자 하는 공간에 다른 예약이 있는지 확인 -->
@@ -130,7 +128,6 @@
 	
 	
 	
->>>>>>> parent of a2909bb (일단 해봐)
 	
 	<!-- 예약시간 겹치는지 확인하기 -->
 	<select id="checkStartTime" parameterType='map'>
@@ -141,8 +138,6 @@
 	
 	</select>
 	
-<<<<<<< HEAD
-=======
 	<!-- 공간 예약하기 -->
 	<insert id="bookSpace" parameterType='map'>
 		INSERT INTO 
@@ -159,7 +154,6 @@
 		    NULL
 		);
 	</insert>
->>>>>>> parent of a2909bb (일단 해봐)
 
 
 </mapper>
