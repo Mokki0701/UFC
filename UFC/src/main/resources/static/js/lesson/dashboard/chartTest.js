@@ -28,7 +28,7 @@ fetch('/lesson/api/attendance?memberNo=' + loginMemberNo)
         legend: { display: false },
         title: {
           display: true,
-          text: '수강률 또는 출석률'
+          text: '출석률'
         }
       }
     });

@@ -46,6 +46,54 @@
     padding-left: 30px;
   }
 
+  /* css 수정 */
+  .sns-section{
+    display: flex;
+    justify-content: flex-end;
+
+}
+.sns_wrapper {    display: inline-flex; /* Flexbox를 사용하여 컨테이너를 동그랗게 설정 */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* background-color: #00b266; */
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    margin: 5px;
+   
+  }
+
+.sns_wrapper a {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  border-radius: 50%;
+  position: relative;
+}
+
+.sns-share-container > .sns_wrapper:nth-of-type(1)>a{
+  background-color: #00b266;
+}
+.sns-share-container > .sns_wrapper:nth-of-type(2)>a{
+  background-color: #FAE100;
+}
+.sns-share-container > .sns_wrapper:nth-of-type(3)>a{
+  background-color: #1877F2;
+}
+.sns-share-container > .sns_wrapper:last-of-type>a{
+  background-color: #1da1f2;
+}
+
+.sns_wrapper i {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-78%,-50%);
+  font-size: 22px; /* 아이콘 크기 조절 */
+  
+}
+
 
 </style>
 
@@ -56,15 +104,16 @@
     <a href="/lesson/list"><button>프로그램 안내/신청</button></a>
     <a href="/lesson/dashboard"><button>자격증과정 안내</button></a>
   </div>
- 
 </section>
 <section class="sns-section">
   <div class="sns-share-container">
 
     <!-- 네이버 공유 -->
-    <a id="naver-share-link" href="#">
-      <i class="fa-solid fa-blog fa-2xl" style="color: #00b266;"></i>
-    </a>
+    <div class="sns_wrapper">
+      <a id="naver-share-link" href="#">
+        <i class="fa-solid fa-blog fa-2xl" style="color: #000;"></i>
+      </a>
+    </div>
     
 
     <script>
@@ -81,9 +130,11 @@
 
 
     <!-- 카카오 공유 -->
-    <a id="kakaotalk-sharing-btn" href="javascript:;">
-      <i class="fa-solid fa-comment fa-2xl" style="color: #fae100;"></i>
-    </a>
+    <div class="sns_wrapper">
+      <a id="kakaotalk-sharing-btn" href="javascript:;">
+        <i class="fa-solid fa-comment fa-2xl" style="color: #000;"></i>
+      </a>
+    </div>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
       integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
       crossorigin="anonymous"></script>
@@ -99,10 +150,13 @@
     </script>
 
     <!-- 페이스북 공유 -->
-    <a id="facebook-share-btn" href="javascript:;">
-      <i class="fa-brands fa-facebook fa-2xl" style="color: #1877f2;"></i>
-      <!-- <img src="#" alt="페이스북 공유 버튼" /> -->
-    </a>
+    <div class="sns_wrapper">
+      <a id="facebook-share-btn" href="javascript:;">
+        <i class="fa-brands fa-facebook fa-2xl" style="color: #000;"></i>
+        <!-- <img src="#" alt="페이스북 공유 버튼" /> -->
+        </a>
+    </div>
+
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v20.0"
       nonce="xZ20ocGx"></script>
@@ -117,11 +171,13 @@
       }
     </script>
 
-    <!-- 트위터 공유 -->
-    <a id="twitter-share-btn" href="javascript:;">
-      <!-- <img src="#" alt="트위터 공유 버튼" /> -->
-      <i class="fa-brands fa-twitter fa-2xl" style="color: #1da1f2;"></i>
-    </a>
+      <!-- 트위터 공유 -->
+    <div class="sns_wrapper">
+      <a id="twitter-share-btn" href="javascript:;">
+        <!-- <img src="#" alt="트위터 공유 버튼" /> -->
+        <i class="fa-brands fa-twitter fa-2xl" style="color: #000;"></i>
+      </a>
+    </div>
     <script>
       document.getElementById('twitter-share-btn').onclick = function () {
         window.open(

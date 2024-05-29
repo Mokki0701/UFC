@@ -26,11 +26,16 @@
         <div class="less_header">
             <h1 class="less_header_display">강의 대시보드</h1>
         </div>
-        
+
+
+
+        <!-- 강의 대시보드의 구현 -->
         <div class="less_main_content">
             <div class="left_column">
-                <div class="less_attendance">
-                    <h4>출석률</h4>
+
+                <!-- 강사인 경우 출석률 안보이게 -->
+                <div class="less_attendance" th:if="${session.loginMember.memberAuthority} == 0">
+                    <!-- <h4>출석률</h4> -->
                     <div class="less_attendance_rate">
                         <div class="less_circle">
                             <canvas id="bar-chart-horizontal"></canvas>
@@ -45,8 +50,8 @@
                         
                         <ul id="lecture_list">
                             <li id="lessonBookMarkList" th:each="lessonBookMark : ${lessonBookMarks}">
-                                <a href="#"
-                                th:text="|${lessonBookMark.lessonTitle} - ${lessonBookMark.lessonSchedule}|">강의 1</a>
+                                <a th:href="@{|/lesson/list/${lessonBookMark.lessonNo}|}"
+                                    th:text="|${lessonBookMark.lessonTitle} - ${lessonBookMark.lessonSchedule}|">강의 1</a>
                                 <button class="less_remove_btn" th:data-lesson-id="${lessonBookMark.lessonNo}">x</button>
                             </li>
                         </ul>
@@ -71,8 +76,17 @@
 
             <div class="right_column">
                 <div class="less_schedule">
-                    <h2>스케쥴</h2>
+
+                    <!-- 대시보드 추가 설명 -->
+                    <div class="less_description">
+                        <div></div>
+                        <span>즐겨찾기</span>
+                        <div></div>
+                        <span>신청강의</span>
+                    </div>
+                    <h2></h2>
                     <div id="calendar"></div>
+                    
                 </div>
 
                 <!-- 강의 평점과 평점 쓰기 섹션 -->

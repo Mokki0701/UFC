@@ -39,7 +39,6 @@ public class FileConfig implements WebMvcConfigurer {
 	@Value("${my.profile.resource-location}")
 	private String profileResourceLocation; // 프로필 이미지 요청 시 연결할 서버 폴더 경로
 	
-	
 	//  게시글 이미지 요청 주소
 	@Value("${my.board.resource-handler}")
 	private String boardResourceHandler;  
@@ -55,6 +54,16 @@ public class FileConfig implements WebMvcConfigurer {
 	// 평생 교육 이미지 요청 시 연결할 서버 폴더 경로
 	@Value("${lesson.resource-location}")
 	private String lessonResourceLocation;
+	
+	// 헬스장 이력서 파일 요청 주소
+	@Value("${gym.resource-handler}")
+	private String gymResourceHandler;
+	
+    // 헬스장 서버 폴더 경로
+    @Value("${gym.resource-path}")
+    private String gymResourcePath;
+	
+	
 	
 	
 	
@@ -85,6 +94,11 @@ public class FileConfig implements WebMvcConfigurer {
 		registry
 		.addResourceHandler(lessonResourceHandler)
 		.addResourceLocations(lessonResourceLocation);
+		
+        // 헬스장 이력서 파일 요청 - 서버 폴더 연결 추가
+        registry
+        .addResourceHandler(gymResourceHandler)
+        .addResourceLocations(gymResourcePath);
 		
 		
 	}
