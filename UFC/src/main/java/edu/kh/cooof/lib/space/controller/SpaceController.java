@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.cooof.lib.seat.model.service.LibSeatService;
 import edu.kh.cooof.lib.space.model.dto.SpaceDTO;
@@ -41,6 +43,23 @@ public class SpaceController {
 	public ResponseEntity<Integer> saveSpaceManagement(@RequestBody List<SpaceDTO> spaceList) {
 		int insertedCount = service.saveSpaceManagement(spaceList);
 		return ResponseEntity.ok(insertedCount);
+	}
+
+	// 관리자 : 공간의 avail 여부 수정하기
+	@PostMapping("/updateSpaceStatus")
+	public ResponseEntity<Map<String, String>> updateSpaceStatus(@RequestBody Map<String, Integer> request) {
+		int spaceNo = request.get("spaceNo");
+		int status = request.get("status");
+
+		String result = service.updateSpaceStatus(spaceNo, status);
+
+		Map<String, String> response = Map.of("message", result);
+
+		if ("성공적으로 업데이트되었습니다.".equals(result)) {
+			return ResponseEntity.ok(response);
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
 	}
 
 	// 관리자, 일반회원 : 공간 정보 불러오기(위치, 번호)
@@ -114,7 +133,8 @@ public class SpaceController {
 				System.out.println("이용요청처리완료");
 
 				// 공간 이용 정보를 map에 담아 session으로 올리기
-				Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+				Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+						.getAttribute("memberAndSpaceSession");
 
 				if (memberAndSpaceSession == null) {
 					memberAndSpaceSession = new HashMap<>();
@@ -142,7 +162,8 @@ public class SpaceController {
 
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
-		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSpaceSession");
 
 		if (memberAndSpaceSession != null && memberAndSpaceSession.containsKey(memberNo)) {
 			int curUsingSpaceNo = memberAndSpaceSession.get(memberNo);
@@ -176,7 +197,8 @@ public class SpaceController {
 		int memberNo = loginMember.getMemberNo();
 
 		// memberAndSpaceSession에 담겨 있는 객체 사용할거임
-		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session.getAttribute("memberAndSpaceSession");
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSpaceSession");
 
 		// 빌린 자리가 없을 경우
 		if (!memberAndSpaceSession.containsKey(memberNo)) {
@@ -222,4 +244,65 @@ public class SpaceController {
 		return path;
 	}
 
+	// 공간 예약하기
+
+	@PostMapping("bookSpace")
+	public String bookSpace(@RequestBody SpaceDTO bookingRequest, Model model, HttpSession session,
+			HttpServletRequest request) {
+
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		int spaceNo = bookingRequest.getSpaceNo();
+		String startTime = bookingRequest.getStartTime();
+
+		// 가능 여부 나타내는 플래그
+		int flag = 0;
+		String message = null;
+		String tempURL = request.getHeader("Referer"); // 이전 페이지 URL 가져오기
+		String path = "redirect:" + tempURL;
+
+		// 1. 회원이 현재 이용 중인 공간이 있는지 확인하기
+		int memberSpaceUsingCheck = mapper.memberSpaceUsingCheck(memberNo);
+		if (memberSpaceUsingCheck == 1) {
+			message = "회원님은 현재 이용 중인 공간이 있습니다.";
+			flag = 1;
+		}
+
+		// 2. 회원이 현재 이용 중인 열람실 있는지 확인하기
+		int isMemberUsing = seatService.isMemberUsing(memberNo);
+		if (flag == 0 && isMemberUsing == 1) {
+			message = "회원님은 현재 이용 중인 열람실이 있습니다.";
+			flag = 1;
+		}
+
+		// 3. 같은 시간에 다른 예약 건이 있는지 확인
+		int checkOtherReservation = service.checkOtherReservation(spaceNo, startTime);
+		if (flag == 0 && checkOtherReservation == 1) {
+			message = "요청하신 예약 시간에 다른 예약이 있습니다.";
+			flag = 1;
+		}
+
+		// 4. 현재 공간을 다른 사람이 이용 중이라면 예약 시작 시간이 해당 공간의 이용 시작~종료시간 사이에 있으면 안된다
+		int spaceAvail = mapper.checkAvail(spaceNo);
+		if (flag == 0 && spaceAvail == 0) {
+			int checkStartTime = service.checkStartTime(spaceNo, startTime);
+			if (checkStartTime == 1) {
+				message = "해당 공간에는 선순위 예약이 존재합니다.";
+				flag = 1;
+			} else {
+				int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
+				if (bookSpace == 1) {
+					message = "공간 예약 성공!";
+				} else if (bookSpace == 0) {
+					message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0000";
+				} else if (bookSpace == 2) {
+					message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0002";
+				}
+			}
+		}
+
+		model.addAttribute("message", message);
+		return path;
+
+	}
 }

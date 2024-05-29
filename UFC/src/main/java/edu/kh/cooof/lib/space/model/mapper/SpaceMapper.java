@@ -19,6 +19,9 @@ public interface SpaceMapper {
 	// 저장된 공간 정보 불러오기
 	List<SpaceDTO> getAllSpaces();
 
+	// 관리자 : 공간의 avail 수정하기
+	int updateSpaceStatus(Map<String, Object> params);
+	
 	// 공간 이용하기
 	int useSpace(Map<String, Object> params);
 
@@ -42,7 +45,18 @@ public interface SpaceMapper {
 
 	// 자리 연장하기
 	int extendUseSpace(int memberNo);
+	
+	// 예약하고자 하는 공간에 다른 예약이 있는지 확인하기
+	int checkOtherReservation(Map<String, Object> params);
+	
+	// 예약 시작 시간이 해당 좌석 종료 예정 시간 이후인지 확인
+	int checkStartTime(Map<String, Object> params);
 
+	// 자리 예약하기
+	int bookSpace(Map<String, Object> params);
+
+
+	
 
 	
 

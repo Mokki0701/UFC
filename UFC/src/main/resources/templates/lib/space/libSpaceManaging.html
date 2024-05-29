@@ -31,7 +31,7 @@
 
     <!-- 생성된 div가 표시되는 부분 -->
     <div id="drawingArea">
-      
+
     </div>
 
     <!-- 컨트롤 패널 -->
@@ -67,10 +67,23 @@
     </div>
 
     <!-- 생성된 div 크기 조정 -->
-    
+
 
   </div>
 
+  </div>
+
+
+  <!-- 공간 상태 변경에 사용되는 모달 -->
+  <div id="customModal" class="modal">
+    <div class="modalContent">
+      <span class="closeButton">&times;</span>
+      <p>변경할 공간 상태를 선택하세요</p>
+      <p> 현재 공간의 상태 : <span id="currentSpaceStatus"></span> </p>
+      <button class="modalOption" data-option="0">사용 가능으로 설정</button>
+      <button class="modalOption" data-option="2">사용 불가능으로 설정</button>
+      <button class="modalOption" data-option="3">변경 사항 저장하기</button>
+    </div>
   </div>
 
 

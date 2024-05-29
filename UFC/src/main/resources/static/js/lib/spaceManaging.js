@@ -187,11 +187,20 @@ function loadSpaces() {
         newDiv.style.width = `${space.width}px`;
         newDiv.style.height = `${space.height}px`;
         newDiv.innerText = `${space.spaceNo}번 방`;
+        newDiv.setAttribute('data-spaceAvail', space.spaceAvail); // spaceAvail 속성 설정
         newDiv.addEventListener('mousedown', startDrag); // 불러온 div에도 이벤트 리스너 추가
         drawingArea.appendChild(newDiv);
       });
     })
     .catch(error => console.error('불러오기 실패', error));
+}
+
+// 선택한 공간을 모달에서 업데이트
+function updateSpaceStatus(option) {
+  if (selectedDiv) {
+    selectedDiv.setAttribute('data-spaceAvail', option);
+    updateSpaceStatusDisplay(parseInt(option, 10));
+  }
 }
 
 /* 각 기능들 버튼에 매핑 */
@@ -272,4 +281,89 @@ function deleteSelectedDiv() {
 
 delSpaceButton.addEventListener('click', deleteSelectedDiv);
 
-/* 관리자 : 공간 상태 변경하기 */
+/* 관리자 : 공간 상태 변경하기 모달 설정 */
+const modal = document.getElementById("customModal");
+const closeButton = document.querySelector(".closeButton");
+const optionButtons = document.querySelectorAll(".modalOption");
+const currentSpaceStatus = document.getElementById("currentSpaceStatus");
+let spaceAvail = 0; // 공간 상태를 저장할 변수
+
+function openModal() {
+  if (selectedDiv) {
+    spaceAvail = selectedDiv.getAttribute('data-spaceAvail');
+    updateSpaceStatusDisplay(spaceAvail);
+    modal.style.display = "block";
+  }
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+function updateSpaceStatusDisplay(status) {
+  switch (status) {
+    case '0':
+      currentSpaceStatus.textContent = '사용 가능';
+      break;
+    case '1':
+      currentSpaceStatus.textContent = '현재 이용 중인 회원 있음';
+      break;
+    case '2':
+      currentSpaceStatus.textContent = '사용 불가능';
+      break;
+    default:
+      currentSpaceStatus.textContent = '알 수 없음';
+  }
+}
+
+function updateSpaceStatus(option) {
+  if (selectedDiv) {
+    selectedDiv.setAttribute('data-spaceAvail', option);
+    updateSpaceStatusDisplay(option);
+  }
+}
+
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", (event) => {
+  if (event.target == modal) {
+    closeModal();
+  }
+});
+
+optionButtons.forEach(button => {
+  button.addEventListener("click", (event) => {
+    const selectedOption = event.target.getAttribute("data-option");
+    if (selectedOption !== '3') {
+      updateSpaceStatus(selectedOption);
+    } else {
+      saveSpaceStatus();
+      closeModal();
+    }
+  });
+});
+
+// 버튼 클릭 시 모달 열기 
+document.getElementById("changeAvail").addEventListener("click", openModal);
+
+// 공간 상태 저장 기능 (서버로 전송하는 로직)
+function saveSpaceStatus() {
+  const spaceNo = selectedDiv.innerText.match(/\d+/)[0]; // 공간 번호 추출
+  const status = selectedDiv.getAttribute('data-spaceAvail');
+
+  // 서버로 공간 상태를 전송하는 로직 추가
+  fetch('/lib/space/updateSpaceStatus', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ spaceNo, status })
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data.message);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
