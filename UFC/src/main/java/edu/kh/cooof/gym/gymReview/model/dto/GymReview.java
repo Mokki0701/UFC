@@ -25,4 +25,7 @@ public class GymReview {
 	private int viewCount;
 	private String memberLastName; 
 	private String memberFirstName;
+	
+	
+	
 }

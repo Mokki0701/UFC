@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.gym.gymReview.model.dto.GymReview;
+import edu.kh.cooof.gym.gymReview.model.dto.gymPagination;
 import edu.kh.cooof.gym.gymReview.model.service.GymReviewService;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +25,26 @@ public class GymReviewController {
 
 	private final GymReviewService service;
 	
-	@GetMapping("reviews/gymReview")
-	public String reviews(Model model) {
-		
-		List<GymReview> gymList = service.getAllGym();	
-		model.addAttribute("gymList", gymList);
-		
-		
-		return "gym/gymReview/gymReview";
-	}
+	@GetMapping("/reviews/gymReview")
+    public String listGymReviews(
+            @RequestParam(value = "page", defaultValue = "1") int currentPage,
+            Model model) {
+
+        int listCount = service.getGymReviewCount(); // 전체 게시글 수 가져오기
+        gymPagination pagination = new gymPagination(currentPage, listCount);
+        pagination.calculate();
+
+        
+        List<GymReview> gymList = service.getAllGym();      
+        List<GymReview> reviews = service.getGymReviews(currentPage, pagination.getLimit());
+
+        model.addAttribute("gymList", gymList);
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("reviews", reviews);
+      
+      return "gym/gymReview/gymReview";
+   }
+   
 	
 	
 	

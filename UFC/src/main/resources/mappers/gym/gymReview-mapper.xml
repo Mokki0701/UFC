@@ -33,6 +33,31 @@
 		  VALUES (GYM_NO_SEQ.NEXTVAL, #{gymTitle}, #{gymContent} , SYSDATE ,  0, #{memberNo})
 	</insert>
 	
+	<select id="selectGymReviews" >
+        <![CDATA[
+    SELECT *
+    FROM (
+        SELECT ROWNUM AS RNUM, GYM.*
+        FROM (
+            SELECT *
+            FROM GYM
+            ORDER BY GYM_NO DESC
+        ) GYM
+        WHERE ROWNUM <= #{limit} + #{offset}
+    )
+    WHERE RNUM >= #{offset} + 1
+    ]]>
+    </select>
+
+    <!-- 리뷰 수 조회 쿼리 -->
+    <select id="countGymReviews" >
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM GYM g
+        JOIN MEMBER m ON g.MEMBER_NO = m.MEMBER_NO
+        ]]>
+    </select>
+	
 
 
 </mapper>

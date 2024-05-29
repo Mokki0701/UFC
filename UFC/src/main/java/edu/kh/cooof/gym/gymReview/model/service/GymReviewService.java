@@ -23,6 +23,10 @@ public interface GymReviewService {
 	 */
 	int insertGymWrite(GymReview gymReview);
 
+	int getGymReviewCount();
+
+	List<GymReview> getGymReviews(int currentPage, int limit);
+
 	
 
 }

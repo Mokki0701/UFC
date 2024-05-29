@@ -1,6 +1,8 @@
 package edu.kh.cooof.gym.gymReview.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -29,4 +31,20 @@ public class GymReviewServiceImpl implements GymReviewService {
 	public int insertGymWrite(GymReview gymReview) {
 		return mapper.insertGymWrite(gymReview);
 	}
+	
+	@Override
+    public int getGymReviewCount() {
+        return mapper.countGymReviews();
+    }
+
+	@Override
+    public List<GymReview> getGymReviews(int currentPage, int limit) {
+        int offset = (currentPage - 1) * limit;
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("limit", limit);
+        paramMap.put("offset", offset);
+
+        return mapper.selectGymReviews(paramMap);
+    }
+	
 }
