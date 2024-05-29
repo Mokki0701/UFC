@@ -34,11 +34,16 @@
   /* 여기서부터 SNS 링크들 CSS */
   .sns-share-container {
     display: flex;
+    height: auto;
     flex-direction: row-reverse;
     margin-top: 30px;
-    margin-right: 50px;
-    margin-bottom: 30px;
+    margin-right: 300px;
+    margin-bottom: 5px;
     padding: 3px;
+  }
+
+  .fa-2xl {
+    padding-left: 30px;
   }
 
 
@@ -58,7 +63,7 @@
 
     <!-- 네이버 공유 -->
     <a id="naver-share-link" href="#">
-      <i class="fa-solid fa-blog" style="color: #00b266;"></i>
+      <i class="fa-solid fa-blog fa-2xl" style="color: #00b266;"></i>
     </a>
     
 
@@ -77,7 +82,7 @@
 
     <!-- 카카오 공유 -->
     <a id="kakaotalk-sharing-btn" href="javascript:;">
-      <i class="fa-solid fa-comment" style="color: #fae100;"></i>
+      <i class="fa-solid fa-comment fa-2xl" style="color: #fae100;"></i>
     </a>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
       integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
@@ -95,7 +100,7 @@
 
     <!-- 페이스북 공유 -->
     <a id="facebook-share-btn" href="javascript:;">
-      <i class="fa-brands fa-facebook" style="color: #1877f2;"></i>
+      <i class="fa-brands fa-facebook fa-2xl" style="color: #1877f2;"></i>
       <!-- <img src="#" alt="페이스북 공유 버튼" /> -->
     </a>
     <div id="fb-root"></div>
@@ -115,7 +120,7 @@
     <!-- 트위터 공유 -->
     <a id="twitter-share-btn" href="javascript:;">
       <!-- <img src="#" alt="트위터 공유 버튼" /> -->
-      <i class="fa-brands fa-twitter" style="color: #1da1f2;"></i>
+      <i class="fa-brands fa-twitter fa-2xl" style="color: #1da1f2;"></i>
     </a>
     <script>
       document.getElementById('twitter-share-btn').onclick = function () {
