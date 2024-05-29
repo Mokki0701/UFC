@@ -90,7 +90,7 @@ public class ApplicationController {
         // 파일 이름에 타임스탬프 추가하여 충돌 방지
         String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
         String newFileName = timeStamp + "_" + fileName;
-        String uploadDir = "C:\\uploadFiles\\UFC"; // 실제 파일 저장 경로 설정
+        String uploadDir = "C:\\uploadFiles\\gym"; // 실제 파일 저장 경로 설정
 
         try {
             Path uploadPath = Paths.get(uploadDir);

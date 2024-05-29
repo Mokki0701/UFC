@@ -25,6 +25,7 @@
                     <th>성</th>
                     <th>이름</th>
                     <th>지원날짜</th>
+                    <th>현재상태</th>
                     <th>상세보기</th>
                 </tr>
             </thead>
@@ -36,6 +37,12 @@
                     <td th:text="${app.memberLastName}"></td>
                     <td th:text="${app.memberFirstName}"></td>
                     <td th:text="${app.applyDate}"></td>
+                    <td>
+                        <span th:if="${app.memberAuthority} == 0">일반 회원</span>
+                        <span th:if="${app.memberAuthority} == 1">강사</span>
+                        <span th:if="${app.memberAuthority} == 2">트레이너</span>
+                        <span th:if="${app.memberAuthority} == 3">관리자</span>
+                    </td>
                     <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}">상세 보기</a></td>
                 </tr>
 

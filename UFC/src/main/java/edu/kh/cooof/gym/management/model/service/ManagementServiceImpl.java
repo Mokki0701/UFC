@@ -82,6 +82,11 @@ public class ManagementServiceImpl implements ManagementService{
     }
     
     
-    
+    // 회원 권한 업데이트
+    @Override
+    public int updateMemberAuthority(Integer memberNo) {
+    	
+    	return mapper.updateAuthority(memberNo);
+    }
 	
 }

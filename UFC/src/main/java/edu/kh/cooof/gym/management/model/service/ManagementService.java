@@ -12,5 +12,7 @@ public interface ManagementService {
 
 	boolean sendEmail(String email);
 
+	int updateMemberAuthority(Integer memberNo);
+
 
 }

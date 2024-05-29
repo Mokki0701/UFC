@@ -13,4 +13,6 @@ public interface ManagementMapper {
 
 	Application selectApplicationNo(int applicationNo);
 
+	int updateAuthority(Integer memberNo);
+
 }

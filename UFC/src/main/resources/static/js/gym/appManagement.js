@@ -34,10 +34,6 @@ approve.addEventListener("click", () => {
             // 트레이너 변경하기 버튼 표시
             trainerChange.style.display = "block";
 
-            // 페이지 나가기 방지
-            window.onbeforeunload = function() {
-                return "이 페이지를 떠나면 변경 사항이 저장되지 않을 수 있습니다.";
-            };
         } else {
             alert("이메일 전송에 실패했습니다.");
         }
@@ -51,10 +47,12 @@ approve.addEventListener("click", () => {
 // 거절 버튼
 refuse.addEventListener("click", () => {
     alert("거절되었습니다");
+    location.href = "/management/applicationList";
 });
 
 // 트레이너 변경하기 버튼
 trainerChange.addEventListener("click", () => {
+
     const memberNo = document.querySelector("#memberNo").textContent;
 
     // 비동기로 서버에 memberAuthority 업데이트 요청 보내기
@@ -70,11 +68,10 @@ trainerChange.addEventListener("click", () => {
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            alert("멤버 권한이 성공적으로 업데이트되었습니다.");
-            // 페이지 나가기 방지 해제
-            window.onbeforeunload = null;
+            alert(result.message);
+            location.href = result.redirect;
         } else {
-            alert("멤버 권한 업데이트에 실패했습니다.");
+            alert(result.message);
         }
     })
     .catch(error => {
