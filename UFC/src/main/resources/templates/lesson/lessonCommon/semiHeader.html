@@ -1,38 +1,119 @@
 <style>
   .program-header {
-  border-radius: 180px;
-  background-color: #992BF2;
-  padding: 20px;
-  color: white;
-  text-align: center;
-}
+    border-radius: 180px;
+    background-color: #992BF2;
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
 
-.program-header .buttons {
-  margin-top: 10px;
-}
+  .program-header .buttons {
+    margin-top: 10px;
+  }
 
-.program-header button {
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #ffffff;
-  color: #af5dde;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
+  .program-header button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #ffffff;
+    color: #af5dde;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
 
-.program-header button:hover {
-  background-color: #ffcc00;
-  color: #333;
-}
+  .program-header button:hover {
+    background-color: #ffcc00;
+    color: #333;
+  }
+
+  .svg-test {
+    width: 30px;
+    height: 30px;
+  }
 </style>
 
 <section class="program-header">
   <h1>평생교육 프로그램</h1>
   <div class="buttons">
-      <a href="/lesson"><button>수강규정 및 신청방법</button></a>
-      <a href="/lesson/list"><button>프로그램 안내/신청</button></a>
-      <a href="/lesson/dashboard"><button>자격증과정 안내</button></a>
+    <a href="/lesson"><button>수강규정 및 신청방법</button></a>
+    <a href="/lesson/list"><button>프로그램 안내/신청</button></a>
+    <a href="/lesson/dashboard"><button>자격증과정 안내</button></a>
   </div>
-</section>
 
+  <div class="sns-share-container">
+
+    <!-- 네이버 공유 -->
+    <a id="naver-share-link" href="#">
+      <i class="fa-solid fa-blog" style="color: #00b266;"></i>
+    </a>
+    
+
+    <script>
+      // 현재 페이지의 URL과 제목을 인코딩
+      var decodeUri = encodeURIComponent(window.location.href);
+      var encodeTitle = encodeURIComponent(document.title);
+
+      // 링크에 URL과 제목을 설정
+      var naverShareLink = 'http://blog.naver.com/openapi/share?url=' + decodeUri + '&title=' + encodeTitle;
+      document.getElementById('naver-share-link').href = naverShareLink;
+    </script>
+
+    
+
+
+    <!-- 카카오 공유 -->
+    <a id="kakaotalk-sharing-btn" href="javascript:;">
+      <i class="fa-solid fa-comment" style="color: #fae100;"></i>
+    </a>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+      crossorigin="anonymous"></script>
+    <script>
+      Kakao.init('c089c8172def97eb00c07217cae17495'); // 사용하려는 앱의 JavaScript 키 입력
+
+      document.getElementById('kakaotalk-sharing-btn').onclick = function () {
+        Kakao.Share.createScrapButton({
+          container: '#kakaotalk-sharing-btn',
+          requestUrl: 'https://developers.kakao.com',
+        });
+      }
+    </script>
+
+    <!-- 페이스북 공유 -->
+    <a id="facebook-share-btn" href="javascript:;">
+      <i class="fa-brands fa-facebook" style="color: #1877f2;"></i>
+      <!-- <img src="#" alt="페이스북 공유 버튼" /> -->
+    </a>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v20.0"
+      nonce="xZ20ocGx"></script>
+    <script>
+      document.getElementById('facebook-share-btn').onclick = function () {
+        window.open(
+          'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href),
+          'facebook-share-dialog',
+          'width=800,height=600'
+        );
+        return false;
+      }
+    </script>
+
+    <!-- 트위터 공유 -->
+    <a id="twitter-share-btn" href="javascript:;">
+      <!-- <img src="#" alt="트위터 공유 버튼" /> -->
+      <i class="fa-brands fa-twitter" style="color: #1da1f2;"></i>
+    </a>
+    <script>
+      document.getElementById('twitter-share-btn').onclick = function () {
+        window.open(
+          'http://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + encodeURIComponent(document.title),
+          'twitter-share-dialog',
+          'width=800,height=600'
+        );
+        return false;
+      }
+    </script>
+  </div>
+
+
+</section>
