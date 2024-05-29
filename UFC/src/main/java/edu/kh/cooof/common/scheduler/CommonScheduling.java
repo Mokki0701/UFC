@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import edu.kh.cooof.common.scheduler.service.CommonSchedulingService;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import lombok.extern.slf4j.Slf4j;
 
 /* Spring Scheduler : 
@@ -83,6 +84,19 @@ public class CommonScheduling {
 
         log.info("----- 이미지 파일 삭제 스케쥴러 종료 -----");
 
+	}
+	
+	@Scheduled(cron="0/10 * * * * *") // 0초 기준, 10초 마다
+	public void lessonCloseYNCheck() {
+		
+		List<Lesson> noRemainsList = service.checkRemains(); 
+		
+		 if (noRemainsList == null || noRemainsList.isEmpty()) {
+				log.info("----- DB 이미지가 없어서 삭제 스케쥴러 종료 -----");
+				return; // DB에 이미지가 없으면 메서드 종료
+			}
+		
+		
 	}
 
 }

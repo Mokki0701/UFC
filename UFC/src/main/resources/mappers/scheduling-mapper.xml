@@ -6,6 +6,10 @@
 	<select id="selectLessonImageNames" resultType="string">
 	SELECT IMG_PATH  FROM LESSONS WHERE DELETE_YN = 1
 	</select>
+	
+	<select id="checkRemains" resultType="Lesson">
+	SELECT * FROM LESSONS WHERE LESSON_REMAINS = 0
+	</select>
 
 
 
