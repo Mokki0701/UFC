@@ -157,4 +157,16 @@ public class SpaceServiceImpl implements SpaceService {
         }
         return RESERVATION_ERROR;
     }
+    
+    // 나에게 다른 에약이 있던가? 확인
+    @Override
+    public int ifYouHaveAnyOtherReservation(int memberNo) {
+    	int checkMyReserVation = mapper.checkMyReserVation(memberNo);
+    	if(checkMyReserVation == 1) {
+    		log.debug("checkMyReserVation result: {}", checkMyReserVation);
+			return checkMyReserVation;
+    	}
+    	
+    	return ;
+    }
 }

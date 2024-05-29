@@ -255,6 +255,8 @@ public class SpaceController {
 	    String startTime = bookingRequest.getStartTime();
 
 	    Map<String, Object> response = new HashMap<>();
+	    Map<String, Object> errorMessageCollector = new HashMap<>(); 
+	    int errorState = 0;
 	    String message = null;
 	    boolean success = false;
 
@@ -273,30 +275,37 @@ public class SpaceController {
 	            if (isMemberUsing == 1) {
 	                message = "회원님은 현재 이용 중인 열람실이 있습니다.";
 	            } else {
-	                // 3. 같은 시간에 다른 예약 건이 있는지 확인
-	                int checkOtherReservation = service.checkOtherReservation(spaceNo, startTime);
-	                log.debug("checkOtherReservation result: {}", checkOtherReservation);
-	                if (checkOtherReservation == 1) {
-	                    message = "요청하신 예약 시간에 다른 예약이 있습니다.";
+	                // 3. 회원의 다른 예약이 있는 경우 예약 불가능함
+	                int ifYouHaveAnyOtherReservation = service.ifYouHaveAnyOtherReservation(memberNo);
+	                log.debug("ifYouHaveAnyOtherReservation result: {}", ifYouHaveAnyOtherReservation);
+	                if (ifYouHaveAnyOtherReservation == 1) {
+	                    message = "회원님은 이미 다른 예약이 있으세요.";
 	                } else {
-	                    // 4. 현재 공간의 이용 가능 여부 확인
-	                    int spaceAvail = mapper.checkAvail(spaceNo);
-	                    log.debug("checkAvail result: {}", spaceAvail);
-	                    if (spaceAvail == 1) { // 변경: 공간이 사용 중이라면 1
-	                        int checkStartTime = service.checkStartTime(spaceNo, startTime);
-	                        log.debug("checkStartTime result: {}", checkStartTime);
-	                        if (checkStartTime == 1) {
-	                            message = "해당 공간에는 선순위 예약이 존재합니다.";
-	                        } else {
-	                            int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
-	                            log.debug("bookSpace result: {}", bookSpace);
-	                            if (bookSpace == 1) {
-	                                message = "공간 예약 성공!";
-	                                success = true;
-	                            } else if (bookSpace == 0) {
-	                                message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0000";
-	                            } else if (bookSpace == 2) {
-	                                message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0002";
+	                    // 4. 같은 시간에 다른 예약 건이 있는지 확인
+	                    int checkOtherReservation = service.checkOtherReservation(spaceNo, startTime);
+	                    log.debug("checkOtherReservation result: {}", checkOtherReservation);
+	                    if (checkOtherReservation == 1) {
+	                        message = "요청하신 예약 시간에 다른 예약이 있습니다.";
+	                    } else {
+	                        // 5. 현재 공간의 이용 가능 여부 확인
+	                        int spaceAvail = mapper.checkAvail(spaceNo);
+	                        log.debug("checkAvail result: {}", spaceAvail);
+	                        if (spaceAvail == 1) { // 공간이 사용 중이라면 1
+	                            int checkStartTime = service.checkStartTime(spaceNo, startTime);
+	                            log.debug("checkStartTime result: {}", checkStartTime);
+	                            if (checkStartTime == 1) {
+	                                message = "해당 공간에는 선순위 예약이 존재합니다.";
+	                            } else {
+	                                int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
+	                                log.debug("bookSpace result: {}", bookSpace);
+	                                if (bookSpace == 1) {
+	                                    message = "공간 예약 성공!";
+	                                    success = true;
+	                                } else if (bookSpace == 0) {
+	                                    message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0000";
+	                                } else if (bookSpace == 2) {
+	                                    message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0002";
+	                                }
 	                            }
 	                        }
 	                    }
@@ -315,7 +324,6 @@ public class SpaceController {
 
 	    return ResponseEntity.ok(response);
 	}
-
 
 
 }

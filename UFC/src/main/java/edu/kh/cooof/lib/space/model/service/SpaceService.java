@@ -23,6 +23,9 @@ public interface SpaceService {
 
 	// 공간에 다른 예약이 있는지 확인
 	int checkOtherReservation(int spaceNo, String startTime);
+	
+	// 내가 현재 예약한 공간이 있는지 확인
+	int ifYouHaveAnyOtherReservation(int memberNo);
 
 	// 내가 예약하려는 시간과 다른 사람이 이용 중인 시간이 겹치는지 확인
 	int checkStartTime(int spaceNo, String startTime);
