@@ -168,7 +168,7 @@ function closeModal() {
 }
 
 // 모달 외부 클릭 시 닫기
-window.onclick = function(event) {
+window.onclick = function (event) {
   const bookingModal = document.getElementById('bookingModal');
   if (event.target == bookingModal) {
     bookingModal.style.display = "none";
@@ -180,7 +180,7 @@ function realBookingSpace() {
   const amPm = document.getElementById('amPm').value;
   const hour = document.getElementById('hour').value;
   const minute = document.getElementById('minute').value;
-  const userNo = '${session.loginMember.getMemberNo()}'; // 사용자의 ID를 여기에 설정하십시오
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
 
   // 시간 형식 변환 (12시간제를 24시간제로 변환)
   let selectedHour = parseInt(hour);
@@ -190,15 +190,12 @@ function realBookingSpace() {
     selectedHour = 0;
   }
 
-  // 선택된 시간 형식 지정
   const selectedTime = `${selectedHour.toString().padStart(2, '0')}:${minute}`;
 
-  // 보내지는 데이터 형식
   const data = {
-
-    spaceNo: selectedSpaceNo, // 예약 원하는 공간번호
-    memberNo: userNo,           // 사용자 번호
-    startTime: selectedTime   // 예약 시작 시간
+    spaceNo: selectedSpaceNo,
+    memberNo: parseInt(memberNo),
+    startTime: selectedTime
   };
 
   fetch('/lib/space/bookSpace', {
@@ -208,17 +205,23 @@ function realBookingSpace() {
     },
     body: JSON.stringify(data)
   })
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      alert('예약이 성공적으로 완료되었습니다.');
-      closeModal();
-    } else {
-      alert('예약에 실패했습니다: ' + result.message);
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('예약 처리 중 오류가 발생했습니다.');
-  });
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        alert('예약이 성공적으로 완료되었습니다.\n' + result.message);
+        if (result.redirectUrl) {
+          window.location.href = result.redirectUrl;
+        } else {
+          closeModal(); // 예약 완료 후 모달을 닫는 함수
+        }
+      } else {
+        alert('예약에 실패했습니다: ' + result.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('예약 처리 중 오류가 발생했습니다.');
+    });
 }
+
+

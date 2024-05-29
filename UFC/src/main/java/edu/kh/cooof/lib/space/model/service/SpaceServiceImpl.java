@@ -85,22 +85,35 @@ public class SpaceServiceImpl implements SpaceService {
 		return result1 + result2;
 	}
 
+	// 공간 예약하기를 위한
+	private static final int RESERVATION_SUCCESS = 1;
+	private static final int RESERVATION_FAILURE = 0;
+	private static final int RESERVATION_ERROR = 2;
+
 	// 공간 예약하기
 	@Override
-    public int bookSpace(int memberNo, int spaceNo, String startTime) {
+	 public int bookSpace(int memberNo, int spaceNo, String startTime) {
         Map<String, Object> params = new HashMap<>();
         params.put("memberNo", memberNo);
         params.put("spaceNo", spaceNo);
         params.put("startTime", startTime);
 
-        int result = 2;
-        int reservationSpaceResult = mapper.bookSpace(params);
-        if (reservationSpaceResult == 1) {
-            result = 1;
-        } else if (reservationSpaceResult == 0) {
-            result = 0;
+        log.debug("Attempting to book space with params: {}", params);
+
+        try {
+            Integer reservationSpaceResult = mapper.bookSpace(params);
+            log.debug("Reservation space result: {}", reservationSpaceResult);
+            if (reservationSpaceResult != null && reservationSpaceResult == RESERVATION_SUCCESS) {
+                log.debug("Booking space succeeded");
+                return RESERVATION_SUCCESS;
+            } else if (reservationSpaceResult != null && reservationSpaceResult == RESERVATION_FAILURE) {
+                log.debug("Booking space failed: space already booked");
+                return RESERVATION_FAILURE;
+            }
+        } catch (Exception e) {
+            log.error("Error while booking space", e);
         }
-        return result;
+        return RESERVATION_ERROR;
     }
 
     @Override
@@ -108,7 +121,17 @@ public class SpaceServiceImpl implements SpaceService {
         Map<String, Object> params = new HashMap<>();
         params.put("spaceNo", spaceNo);
         params.put("startTime", startTime);
-        return mapper.checkOtherReservation(params);
+
+        log.debug("Checking other reservations with params: {}", params);
+
+        try {
+            Integer result = mapper.checkOtherReservation(params);
+            log.debug("Check other reservations result: {}", result);
+            return result != null ? result : RESERVATION_FAILURE;
+        } catch (Exception e) {
+            log.error("Error while checking other reservations", e);
+            return RESERVATION_ERROR;
+        }
     }
 
     @Override
@@ -117,14 +140,21 @@ public class SpaceServiceImpl implements SpaceService {
         params.put("spaceNo", spaceNo);
         params.put("startTime", startTime);
 
-        int result = 2;
-        int checkTime = mapper.checkStartTime(params);
-        if (checkTime == 1) {
-            result = 1;
-        } else if (checkTime == 0) {
-            result = 0;
-        }
-        return result;
-    }
+        log.debug("Checking start time with params: {}", params);
 
+        try {
+            Integer checkTime = mapper.checkStartTime(params);
+            log.debug("Check start time result: {}", checkTime);
+            if (checkTime != null && checkTime == RESERVATION_SUCCESS) {
+                log.debug("Start time check succeeded");
+                return RESERVATION_SUCCESS;
+            } else if (checkTime != null && checkTime == RESERVATION_FAILURE) {
+                log.debug("Start time check failed: time conflict");
+                return RESERVATION_FAILURE;
+            }
+        } catch (Exception e) {
+            log.error("Error while checking start time", e);
+        }
+        return RESERVATION_ERROR;
+    }
 }
