@@ -50,12 +50,63 @@
 		AND MEMBER_NO = #{memberNo}
 	</update>
 	
+	<update id="downBook">
+		UPDATE BOOK_INFO
+		SET AVALABLE_COUNT = AVALABLE_COUNT - 1
+		WHERE BOOK_NO = #{bookNo}
+	</update>
 	
+	<select id="getReturnListCount">
+		SELECT COUNT(*)
+		FROM LOAN_BOOK
+		WHERE LOAN_BOOK_STATUS = 1
+	</select>
 	
+	<select id="selectReturnList">
+		SELECT LOAN_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME, BOOK_START, BOOK_END
+		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE LOAN_BOOK_STATUS = 1
+		ORDER BY LOAN_BOOK_NO 
+	</select>
 	
+	<select id="getQueryReturnListCount">
+		SELECT COUNT(*)
+		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE LOAN_BOOK_STATUS = 1
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+	</select>
 	
+	<select id="queryReturnList">
+		SELECT LOAN_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME, BOOK_START, BOOK_END
+		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE LOAN_BOOK_STATUS = 1
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY LOAN_BOOK_NO 
+	</select>
 	
+	<update id="completeLoan">
+		UPDATE LOAN_BOOK
+		SET LOAN_BOOK_STATUS = 0
+		WHERE LOAN_BOOK_NO = #{loanBookNo}
+	</update>
 	
+	<update id="upBook">
+		UPDATE BOOK_INFO
+		SET AVALABLE_COUNT = AVALABLE_COUNT + 1
+		WHERE BOOK_NO = #{bookNo}
+	</update>
+	
+	<update id="loanExtend">
+		UPDATE LOAN_BOOK
+		SET BOOK_END = BOOK_END + 7
+		WHERE LOAN_BOOK_NO = #{loanBookNo}
+	</update>
 	
 	
 	

@@ -24,4 +24,20 @@ public interface BookLoanMapper {
 
 	void deleteRent(Map<String, Object> map);
 
+	int getReturnListCount();
+
+	List<LoanBook> selectReturnList(RowBounds rowBounds);
+
+	int getQueryReturnListCount(String query);
+
+	List<LoanBook> queryReturnList(String query, RowBounds rowBounds);
+
+	void completeLoan(Map<String, Object> map);
+
+	void upBook(Map<String, Object> map);
+
+	void downBook(Map<String, Object> map);
+
+	void loanExtend(int loanBookNo);
+
 }

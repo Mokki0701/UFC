@@ -29,12 +29,16 @@ public class BookLoanController {
 			) {
 		
 		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map2 = new HashMap<>();
 		
 		map = service.selectList(cp);
-			
+		map2 = service.selectReturnList(cp);
 		
 		model.addAttribute("pagination", map.get("pagination"));
 		model.addAttribute("loanList", map.get("loanList"));
+
+		model.addAttribute("returnList", map2.get("loanList"));
+		model.addAttribute("returnPagination", map2.get("pagination"));
 		
 		return "lib/book/bookLoan";
 	}
@@ -92,11 +96,80 @@ public class BookLoanController {
 		
 		map = service.deleteLoan(cp, query, bookNo, memberNo);
 		
+		
 		model.addAttribute("pagination", map.get("pagination"));
 		model.addAttribute("loanList", map.get("loanList"));
 		
 		return "lib/book/bookLoan :: loanBook"; 
 	}
+	
+	@GetMapping("returnSelect")
+	public String selectReturnList(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value="query", required = false, defaultValue = "") String query,
+			Model model
+			) {
+		
+		if(query.equals("")) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map = service.selectReturnList(cp);	
+			
+			model.addAttribute("returnPagination", map.get("pagination"));
+			model.addAttribute("returnList", map.get("loanList"));
+			
+		}
+		
+		else {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map = service.queryReturnList(cp, query);	
+			
+			model.addAttribute("returnPagination", map.get("pagination"));
+			model.addAttribute("returnList", map.get("loanList"));
+			
+		}
+		
+		
+		
+		return "lib/book/bookLoan :: returnBook";
+	}
+	
+	@GetMapping("completeSelect")
+	public String selectCompleteList(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value="query", required = false, defaultValue = "") String query,
+			@RequestParam("loanBookNo") int loanBookNo,
+			@RequestParam("bookNo") int bookNo,
+			Model model
+			) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map = service.selectCompleteList(cp, query, loanBookNo, bookNo);	
+		
+		model.addAttribute("returnPagination", map.get("pagination"));
+		model.addAttribute("returnList", map.get("loanList"));
+		
+		
+		return "lib/book/bookLoan :: returnBook";	
+	}
+		
+	@GetMapping("extend")
+	public void extendLoan(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("loanBookNo") int loanBookNo
+			) {
+		
+		service.loanExtend(loanBookNo);
+		
+	}
+	
+	
 	
 	
 	

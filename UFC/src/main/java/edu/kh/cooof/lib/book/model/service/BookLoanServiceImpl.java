@@ -81,6 +81,9 @@ public class BookLoanServiceImpl implements BookLoanService {
 		// 예약에서 삭제
 		mapper.deleteRent(map);
 		
+		// 대출됌 그래서 도서에서 하나 줄이기
+		mapper.downBook(map);
+		
 		int listCount = mapper.getQueryListCount(query);
 		
 		LessonPagination pagination = new LessonPagination(cp, listCount);
@@ -129,6 +132,106 @@ public class BookLoanServiceImpl implements BookLoanService {
 		
 		return map;
 	}
+	
+	// ------------------------------------------------------------------------------------------
+	// 여기서부턴 반납 완료 불러오기
+	
+	@Override
+	public Map<String, Object> selectReturnList(int cp) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int listCount = mapper.getReturnListCount();
+		
+		LessonPagination pagination = new LessonPagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<LoanBook> loanList = mapper.selectReturnList(rowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("loanList", loanList);
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> queryReturnList(int cp, String query) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int listCount = mapper.getQueryReturnListCount(query);
+		
+		LessonPagination pagination = new LessonPagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<LoanBook> loanList = mapper.queryReturnList(query, rowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("loanList", loanList);
+		
+		return map;
+	
+	}
+	
+	
+	@Override
+	public Map<String, Object> selectCompleteList(int cp, String query, int loanBookNo, int bookNo) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("query", query);
+		map.put("loanBookNo", loanBookNo);
+		map.put("bookNo", bookNo);
+		
+		// 반납 성공
+		mapper.completeLoan(map);
+		
+		// 도서 카운트 낮추기
+		mapper.upBook(map);
+		
+		int listCount = mapper.getQueryReturnListCount(query);
+		
+		LessonPagination pagination = new LessonPagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<LoanBook> loanList = mapper.queryReturnList(query, rowBounds);
+		
+		
+		map.put("pagination", pagination);
+		map.put("loanList", loanList);
+		
+		return map;
+	}
+	
+	
+	@Override
+	public void loanExtend(int loanBookNo) {
+		
+		mapper.loanExtend(loanBookNo);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

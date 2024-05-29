@@ -1,0 +1,140 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+header p {
+    font-size: 1.5em;
+    color: #343a40;
+    font-weight: bold;
+}
+
+.section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.box {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    width: 30%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+    color: #fff;
+    min-height: 100px;
+}
+
+.box.half-box {
+    width: 48%;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.content, .link {
+    font-size: 0.9em;
+}
+
+.link {
+    margin-top: 10px;
+    font-style: italic;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* 색상 스타일링 */
+.blue-box {
+    background-color: #cce5ff;
+    border-left: 5px solid #99ccff;
+    color: #003366;
+}
+
+.purple-box {
+    background-color: #e6ccff;
+    border-left: 5px solid #cc99ff;
+    color: #330066;
+}
+
+.yellow-box {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffeeba;
+    color: #856404;
+}
+
+.schedule {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.calendar-header button:hover {
+    background-color: #0056b3;
+}
+
+.calendar-header div {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.calendar {
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
