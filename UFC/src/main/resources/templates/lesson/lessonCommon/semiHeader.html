@@ -30,6 +30,18 @@
     width: 30px;
     height: 30px;
   }
+
+  /* 여기서부터 SNS 링크들 CSS */
+  .sns-share-container {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 30px;
+    margin-right: 50px;
+    margin-bottom: 30px;
+    padding: 3px;
+  }
+
+
 </style>
 
 <section class="program-header">
@@ -39,7 +51,9 @@
     <a href="/lesson/list"><button>프로그램 안내/신청</button></a>
     <a href="/lesson/dashboard"><button>자격증과정 안내</button></a>
   </div>
-
+ 
+</section>
+<section class="sns-section">
   <div class="sns-share-container">
 
     <!-- 네이버 공유 -->
@@ -114,6 +128,4 @@
       }
     </script>
   </div>
-
-
 </section>
