@@ -46,6 +46,12 @@ public interface SpaceMapper {
 	// 자리 연장하기
 	int extendUseSpace(int memberNo);
 
+	// 자리 예약하기
+	int bookSpace(Map<String, Object> params);
+
+	// 예약 시작 시간이 해당 좌석 종료 예정 시간 이후인지 확인
+	int checkStartTime(Map<String, Object> params);
+
 	
 
 	

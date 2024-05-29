@@ -135,7 +135,7 @@ button {
   color: white;
 }
 
-/* ------------------------------- 좌석 상태 모달 설정 css ------------------------------- */
+/* ------------------------------- 공간 상태 모달 설정 css ------------------------------- */
 
 .modal {
   display: none; /* Hidden by default */
@@ -171,3 +171,4 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
+

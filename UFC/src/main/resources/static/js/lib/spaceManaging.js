@@ -349,7 +349,7 @@ document.getElementById("changeAvail").addEventListener("click", openModal);
 function saveSpaceStatus() {
   const spaceNo = selectedDiv.innerText.match(/\d+/)[0]; // 공간 번호 추출
   const status = selectedDiv.getAttribute('data-spaceAvail');
-  
+
   // 서버로 공간 상태를 전송하는 로직 추가
   fetch('/lib/space/updateSpaceStatus', {
     method: 'POST',
@@ -358,12 +358,12 @@ function saveSpaceStatus() {
     },
     body: JSON.stringify({ spaceNo, status })
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data.message);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data.message);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
 

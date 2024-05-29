@@ -86,5 +86,42 @@ public class SpaceServiceImpl implements SpaceService {
 		return result1 + result2;
 	}
 	
+	@Override
+	public int checkStartTime(int spaceNo, String startTime) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("spaceNo", spaceNo);
+		params.put("startTime", startTime);
+		
+		int result = 2;
+		// 예약한 시간이 현재 공간의 이용 시간과 겹치는지 확인
+		int checkTime = mapper.checkStartTime(params);
+		// 1이 나오면? -> 겹친다!! -> 이용 불가하다!!
+		if(checkTime == 1) {
+			result = 1;
+		}
+		
+		if(checkTime == 0) {
+			result = 0;
+		}
+		
+		return result;
+	}
+	
+	// 공간 예약하기
+	@Override
+	public int bookSpace(int memberNo, int spaceNo, String startTime) {
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberNo", memberNo);
+		params.put("spaceNo", spaceNo);
+		params.put("startTime", startTime);
+		
+		int result = mapper.bookSpace(params);
+		
+		if(result == 1) {
+			return 1;
+		}
+		return 0;
+	}
 
 }

@@ -113,6 +113,16 @@
 		INTERVAL '4' HOUR
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 예약시간 겹치는지 확인하기 -->
+	<select id="checkStartTime" parameterType='map'>
+		SELECT COUNT(*)
+		FROM RENT_SPACE rs 
+		WHERE SPACE_NO2 = #{spaceNo}
+		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') BETWEEN rs.SPACE_START AND rs.SPACE_DONE
+	
+	</select>
+	
 
 
 </mapper>

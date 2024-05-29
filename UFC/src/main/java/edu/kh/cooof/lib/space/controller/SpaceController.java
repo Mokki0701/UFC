@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.cooof.lib.seat.model.service.LibSeatService;
 import edu.kh.cooof.lib.space.model.dto.SpaceDTO;
@@ -242,5 +243,66 @@ public class SpaceController {
 		model.addAttribute("message", message);
 		return path;
 	}
+	
+	@PostMapping("bookSpace")
+	public String bookSpace(@RequestBody SpaceDTO bookingRequest, Model model, HttpSession session, HttpServletRequest request) {
+		
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		int spaceNo = bookingRequest.getSpaceNo();
+		String startTime = bookingRequest.getStartTime();
+		
+		String message = null;
+		String tempURL = request.getHeader("Referer"); // 이전 페이지 URL 가져오기		
+		String path = "redirect:" + tempURL;
+		
+		// 1. 이용 중인 공간이 없어야 한다
+		// 2. 이용 중인 열람실이 없어야 한다
+		// 3. 같은 시간에 space, seat를 동시 예약 할 수 없다.
+		// 4. 예약 시작 시간이 해당 공간의 종료 예정시간 이후여야 한다.
+		// 5. 다른 회원과 예약이 겹쳐도 된다.
+		
+		// 1. 회원이 현재 이용 중인 공간이 있는지 확인하기
+		int memberSpaceUsingCheck = mapper.memberSpaceUsingCheck(memberNo);
+		if(memberSpaceUsingCheck==1) {
+			message = "회원님은 현재 이용 중인 공간이 있습니다.";
+		}
+		
+		// 2. 회원이 현재 이용 중인 열람실 있는지 확인하기
+		int isMemberUsing = seatService.isMemberUsing(memberNo);
+		
+		if(isMemberUsing ==1) {
+			message = "회원님은 현재 이용 중인 열람실이 있습니다.";
+		}
+		
+		// 3. 같은 시간에 다른 예약 건이 있는지 확인
+		// 같은 시간? : 내가 예약하고자 하는 시간이 해당 예약의 시작 시간 ~ 종료 예정시간(+4시간) 이내인지 확인
+		// 이건 나중에 구현하자..
+		
+		
+		
+		
+		// 4. 현재 공간을 다른 사람이 이용 중이라면 예약 시작 시간이 해당 공간의 이용 시작~종료시간 사이에 있으면 안된다
+		// 4.1 현재 공간을 다른 사람이 이용 중인지 확인
+		int spaceAvail = mapper.checkAvail(spaceNo);
+		// 현재 공간을 다른 사람이 이용 중이라면 이용 시간을 확인하는 로직
+		if(spaceAvail == 0) {
+			
+			// 4.2 예약이 겹치는지 확인하기
+			int checkStartTime = service.checkStartTime(spaceNo, startTime);
+			if(checkStartTime==1) {
+				
+				return "fail";
+			}
+			
+		} else { // ㄱㄱ 예약 실행
+			int result = service.bookSpace(memberNo, spaceNo, startTime);
+		}
+		
+		
+		
+		return path;
+	}
+	
 
 }
