@@ -1,32 +1,30 @@
+/* applicationDetail.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
 }
 
 .application-detail {
-    width: 60%;
+    max-width: 800px;
     margin: 50px auto;
-    background: #fff;
     padding: 20px;
+    background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .application-detail h3 {
     text-align: center;
-    margin-bottom: 30px;
     color: #333;
-}
-
-.detail-wrapper {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .detail-wrapper p {
-    line-height: 1.8;
     margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 .detail-wrapper p strong {
@@ -35,30 +33,66 @@ body {
     color: #555;
 }
 
+.detail-wrapper a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.detail-wrapper a:hover {
+    text-decoration: underline;
+}
+
 .button-wrapper {
     display: flex;
     justify-content: space-between;
+    margin-top: 30px;
 }
 
-.btn {
+.button-wrapper .okArea,
+.button-wrapper .noArea,
+.button-wrapper .changeArea {
+    flex: 1;
+    text-align: center;
+}
+
+.button-wrapper button {
     padding: 10px 20px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-.btn-approve {
-    background-color: #4CAF50;
-    color: white;
+.button-wrapper .okArea button {
+    background-color: #28a745;
+    color: #fff;
 }
 
-.btn-reject {
-    background-color: #f44336;
-    color: white;
+.button-wrapper .okArea button:hover {
+    background-color: #218838;
 }
 
-.btn:hover {
-    opacity: 0.8;
+.button-wrapper .noArea button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.button-wrapper .noArea button:hover {
+    background-color: #c82333;
+}
+
+.detail-wrapper {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.detail-wrapper p {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.detail-wrapper p:last-child {
+    border-bottom: none;
 }

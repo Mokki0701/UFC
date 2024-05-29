@@ -8,6 +8,7 @@
 		   "POSITION",
 		   APPLY_ROUTE,
 		   MEMBER_NO,
+		   MEMBER_AUTHORITY,
 		   MEMBER_LAST_NAME,
 		   MEMBER_FIRST_NAME,
 		   MEMBER_PHONE,
@@ -35,5 +36,11 @@
     JOIN "MEMBER" USING(MEMBER_NO)
     WHERE APPLICATION_NO = #{applicationNo}
 </select>
+
+<update id="updateAuthority">
+	UPDATE "MEMBER"
+	SET MEMBER_AUTHORITY = 2
+	WHERE MEMBER_NO = #{memberNo}
+</update>
 
 </mapper>
