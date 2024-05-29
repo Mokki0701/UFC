@@ -14,13 +14,13 @@
         </header>
         <main>
             <div class="section">
-                <div class="box blue-box">
+                <div class="box blue-box" onclick="LoanModal('도서 대출 현황')">
                     <div class="title">도서 대출 현황</div>
-                    <div class="content">~~~~~~~~~~</div>
+                    <div class="content">대출 현황 확인</div>
                 </div>
-                <div class="box blue-box">
+                <div class="box blue-box" onclick="RentModal('도서 예약 현황')">
                     <div class="title">도서 예약 현황</div>
-                    <div class="content">~~~~~~~~~~</div>
+                    <div class="content">예약 현황 확인</div>
                 </div>
                 <div class="box blue-box">
                     <div class="title">희망도서 신청</div>
@@ -28,26 +28,60 @@
                 </div>
             </div>
             <div class="section">
-                <div class="box purple-box half-box">
+                <div class="box purple-box half-box" onclick="mySeat()">
                     <div class="title">이용중인 좌석 조회</div>
-                    <div class="content">~~~~~~~~~~</div>
+                    <div class="content">
+                        
+                        <!-- 자리 있음 -->
+                        <div th:unless="${seat?.memberNo}">
+                            <p>회원님이 사용 중인 좌석 번호 : <span>없음</span></p>
+                            <p>연장 가능 : <span>X</span></p>
+                            <p>이용 시작한 시간 : <span>00 : 00</span></p>
+                            <p>이용 종료 예정 시간 : <span>00 : 00</span></p>
+                        </div>
+
+                        <!-- 자리 없음 -->
+                        <div th:if="${seat?.memberNo}">
+                            <p>회원님이 사용 중인 좌석 번호 : <span th:text="${seat.seatNo2}"></span></p>
+                            <p>연장 가능 : <span th:text="${seat.readingExtend == 1 ? 'O' : (seat.readingExtend == 0 ? 'X' : '')}"></span></p>
+                            <p>이용 시작한 시간 : <span th:text="${seat.readingStart}">00 : 00</span></p>
+                            <p>이용 종료 예정 시간 : <span th:text="${seat.readingDone}">00 : 00</span></p>
+                        </div>
+
+                    </div>
                     <div class="link">-> 좌석 대여 페이지로</div>
                 </div>
                 <div class="box purple-box half-box">
                     <div class="title">예약 좌석 조회</div>
-                    <div class="content">~~~~~~~~~~</div>
+                    <div class="content">예약 좌석 확인</div>
                     <div class="link">-> 좌석 예약 페이지로</div>
                 </div>
             </div>
             <div class="section">
-                <div class="box yellow-box half-box">
+                <div class="box yellow-box half-box" onclick="mySpace()">
                     <div class="title">이용중인 공간 조회</div>
-                    <div class="content">~~~~~~~~~~</div>
+                    <div class="content">
+                        <!-- 공간 있음 -->
+                        <div th:unless="${space?.memberNo}">
+                            <p>회원님이 사용 중인 좌석 번호 : <span>없음</span></p>
+                            <p>연장 가능 : <span>X</span></p>
+                            <p>이용 시작한 시간 : <span>00 : 00</span></p>
+                            <p>이용 종료 예정 시간 : <span>00 : 00</span></p>
+                        </div>
+
+                        <!-- 공간 없음 -->
+                        <div th:if="${space?.memberNo}">
+                            <p>회원님이 사용 중인 공간 번호 : <span th:text="${space.spaceNo2}"></span></p>
+                            <p>연장 가능 : <span th:text="${space.spaceExtend == 1 ? 'O' : (space.spaceExtend == 0 ? 'X' : '')}"></span></p>
+                            <p>이용 시작한 시간 : <span th:text="${space.spaceStart}">00 : 00</span></p>
+                            <p>이용 종료 예정 시간 : <span th:text="${space.spaceDone}">00 : 00</span></p>
+                        </div>
+                    </div>
                     <div class="link">-> 공간대여 페이지로</div>
                 </div>
                 <div class="box yellow-box half-box">
                     <div class="title">예약 공간 조회</div>
-                    <div class="content">~~~~~~~~~~</div>
+                    <div class="content">예약 공간 확인</div>
                     <div class="link">-> 공간 예약 페이지로</div>
                 </div>
             </div>
@@ -64,5 +98,60 @@
             </div>
         </main>
     </div>
+
+    <!-- 대출 도서 창 -->
+    <div id="loanModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoanModal()">&times;</span>
+            <h2 id="loanTitle">대출 현황</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>도서 번호</th>
+                        <th>회원 이름</th>
+                        <th>도서 명</th>
+                        <th>대출 날짜</th>
+                        <th>반납 날짜</th>
+                    </tr>
+                </thead>
+                <tbody id="modal-body">
+                    <tr th:each="loanBook : ${loanList}" th:object="${loanBook}">
+                        <td th:text="*{bookNo}">도서 제목 1</td>
+                        <td th:text="|*{memberLastName} *{memberFirstName}|">도서 제목 1</td>
+                        <td th:text="*{bookTitle}">도서 제목 1</td>
+                        <td th:text="*{bookStart}">2024-01-01</td>
+                        <td th:text="*{bookEnd}">2024-01-15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 예약 도서 창 -->
+    <div id="rentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRentModal()">&times;</span>
+            <h2 id="rentTitle">예약 현황</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>도서 번호</th>
+                        <th>회원 이름</th>
+                        <th>도서 명</th>
+                    </tr>
+                </thead>
+                <tbody id="modal-body">
+                    <tr th:each="rentBook : ${rentList}" th:object="${rentBook}">
+                        <td th:text="*{bookNo}">도서 제목 1</td>
+                        <td th:text="|*{memberLastName} *{memberFirstName}|">도서 제목 1</td>
+                        <td th:text="*{bookTitle}">도서 제목 1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script src="/js/lib/member.js"></script>
 </body>
 </html>
