@@ -106,7 +106,7 @@
                             <span class="category" th:text="${lesson.lessonTargetAudience}"></span>
                             <span class="label" th:text="${lesson.closeYn == 1 ? '접수마감' : '접수중'}"></span>
                         
-                            <div class="wish-btn" onclick="addWish(this)">
+                            <div th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0}" class="wish-btn" onclick="addWish(this)">
                                 <i th:classappend="${lesson.wishListYN == 1} ? 'fa-solid fa-star' : 'fa-regular fa-star'" style="color: #FFD43B;"></i>
                             </div >
 
