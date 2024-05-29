@@ -113,6 +113,24 @@
 		INTERVAL '4' HOUR
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+<<<<<<< HEAD
+=======
+	
+	
+	<!-- 예약하고자 하는 공간에 다른 예약이 있는지 확인 -->
+	<select id="checkOtherReservation">
+		
+		SELECT *
+		FROM SEAT_SPACE_BOOKING ssb
+		WHERE ssb.SPACE_NO = #{spaceNo}
+		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') BETWEEN ssb.START_BOOKING AND ssb.END_BOOKING
+
+	</select>
+	
+	
+	
+	
+>>>>>>> parent of a2909bb (일단 해봐)
 	
 	<!-- 예약시간 겹치는지 확인하기 -->
 	<select id="checkStartTime" parameterType='map'>
@@ -123,6 +141,25 @@
 	
 	</select>
 	
+<<<<<<< HEAD
+=======
+	<!-- 공간 예약하기 -->
+	<insert id="bookSpace" parameterType='map'>
+		INSERT INTO 
+		SEAT_SPACE_BOOKING (
+		    BOOKING_SS_NO, START_BOOKING, 
+		    END_BOOKING, MEMBER_NO, 
+		    SPACE_NO, SEAT_NO
+		) VALUES (
+		    SEQ_BOOKING_SS_NO.NEXTVAL, 
+		    TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI'), 
+		    TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') + INTERVAL '4' HOUR, 
+		    #{memberNo}, 
+		    #{seatNo}, 
+		    NULL
+		);
+	</insert>
+>>>>>>> parent of a2909bb (일단 해봐)
 
 
 </mapper>

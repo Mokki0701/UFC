@@ -85,6 +85,32 @@ public class SpaceServiceImpl implements SpaceService {
 
 		return result1 + result2;
 	}
+<<<<<<< HEAD
+=======
+
+	// 공간 예약하기
+	@Override
+	public int bookSpace(int memberNo, int spaceNo, String startTime) {
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberNo", memberNo);
+		params.put("spaceNo", spaceNo);
+		params.put("startTime", startTime);
+		
+		int result = 2;
+		
+		int reservationSpaceResult = mapper.bookSpace(params);
+
+		if (reservationSpaceResult == 1) {
+			result =  1;
+		} else if (reservationSpaceResult == 0) {
+			
+			result = 0;
+		}
+		
+		return result;
+	}
+>>>>>>> parent of a2909bb (일단 해봐)
 	
 	@Override
 	public int checkStartTime(int spaceNo, String startTime) {
@@ -106,6 +132,7 @@ public class SpaceServiceImpl implements SpaceService {
 		
 		return result;
 	}
+<<<<<<< HEAD
 	
 	// 공간 예약하기
 	@Override
@@ -123,5 +150,7 @@ public class SpaceServiceImpl implements SpaceService {
 		}
 		return 0;
 	}
+=======
+>>>>>>> parent of a2909bb (일단 해봐)
 
 }

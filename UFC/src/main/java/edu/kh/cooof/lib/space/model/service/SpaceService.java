@@ -21,6 +21,15 @@ public interface SpaceService {
 	// 그만 이용하기
 	int stopUsingSpace(int memberNo, int curUsingSpaceNo);
 
+<<<<<<< HEAD
+=======
+	// 공간에 다른 예약이 있는지 확인
+	int checkOtherReservation(int spaceNo, String startTime);
+	
+	// 내가 예약하려는 시간과 다른 사람이 이용 중인 시간이 겹치는지 확인
+	int checkStartTime(int spaceNo, String startTime);
+	
+>>>>>>> parent of a2909bb (일단 해봐)
 	// 공간 예약하기
 	int bookSpace(int memberNo, int spaceNo, String startTime);
 
