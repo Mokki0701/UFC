@@ -1,52 +1,69 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+body.application-list-body {
     margin: 0;
     padding: 0;
+    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+}
+
+.application-list {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.application-list h3 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .list-wrapper {
     overflow-x: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 20px;
 }
 
-table {
-    width: 50%;
+.table {
+    width: 100%;
     border-collapse: collapse;
-    margin: 0;
 }
 
-table th,
-table td {
-    padding: 10px;
+.table th,
+.table td {
+    padding: 12px 15px;
     text-align: center;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
-table th {
-    background-color: #f2f2f2;
-    color: #333;
+.table th {
+    background-color: rgba(139, 168, 128, 0.9);
+    color: #fff;
+    font-weight: bold;
 }
 
-table tr:nth-child(even) {
+.table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-table tr:hover {
-    background-color: #f1f1f1;
+.table tbody tr:hover {
+    background-color: rgba(139, 168, 128, 0.1);
 }
 
-a {
-    color: #3498db;
+.table a {
+    color: #333;
     text-decoration: none;
 }
 
-a:hover {
+.table a:hover {
     text-decoration: underline;
+    color: #000;
 }
 
-th[colspan="11"] {
-    text-align: center;
+.table a.detail-link {
+    color: blue; /* 상세보기 링크 색상 */
+}
+
+.table a.detail-link:hover {
+    color: darkblue; /* 호버 시 더 진한 푸른색 */
+    text-decoration: underline;
 }
