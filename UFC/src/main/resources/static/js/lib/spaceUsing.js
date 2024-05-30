@@ -56,6 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       })
       .catch(error => console.error('불러오기 실패', error));
+
+      // 메세지 출력하기
+    const message = document.getElementById('message').innerText;
+    if (message) {
+      alert(message);
+    }
   }
 
   // 화면이 로딩되면 db에서 공간 정보 불러오는 기능 실행
@@ -106,8 +112,6 @@ function wannaUseSpace() {
 function stopUsingSpace() {
   let userConfirmed = confirm("그만 사용하시겠습니까?");
   if (userConfirmed) {
-
-
     document.getElementById('actionForm').action = "/lib/space/stopUsingSpace";
     document.getElementById('actionForm').submit();
   }
@@ -228,6 +232,8 @@ function realBookingSpace() {
 function checkMySpace() {
   const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
 
+
+  /* 비동기식 정보 보내기 */
   fetch('/lib/space/checkMySpace', {
     method: 'POST',
     headers: {
@@ -239,11 +245,49 @@ function checkMySpace() {
     .then(result => {
       console.log(result); // 응답 결과를 콘솔에 출력
 
-      document.getElementById('startTime').innerText = result.startTime;
-      document.getElementById('endTime').innerText = result.endTime;
-      document.getElementById('remainingExtensions').innerText = result.remainingExtensions;
+      if (result.message) {
+        alert(result.message); // 메시지가 있을 경우 alert로 출력
+      } else {
+        
+        document.getElementById('startTime').innerText = result.startTime || '';
+        document.getElementById('endTime').innerText = result.endTime || '';
+        document.getElementById('remainingExtensions').innerText = result.remainingExtensions !== undefined && result.remainingExtensions !== null ? result.remainingExtensions : '';
+      }
     })
     .catch(error => {
       console.error('Error:', error);
     });
+}
+
+
+// 공간 예약 확인하기
+function checkMySpaceReservation(){
+
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
+  /* 비동기식 정보 보내기 */
+  fetch('/lib/space/checkMySpaceReservation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ memberNo: memberNo })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result); // 응답 결과를 콘솔에 출력
+
+      if (result.message) {
+        alert(result.message); // 메시지가 있을 경우 alert로 출력
+      } else {
+        
+        document.getElementById('reservedSpaceNo').innerText = result.spaceNo || '';
+        document.getElementById('startBookingTime').innerText = result.startBooking || '';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+
+
 }

@@ -31,6 +31,8 @@ public class SpaceDTO {
 	private String startTime; // 예약을 시작하고자 하는 시간
 	private String endTime; // 예약 종료 시간
 	
+	 private String startBooking; // 예약이된 시작 시간
+	
 	
 	
 }

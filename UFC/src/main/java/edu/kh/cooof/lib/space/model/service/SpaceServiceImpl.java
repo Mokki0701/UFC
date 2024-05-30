@@ -189,4 +189,10 @@ public class SpaceServiceImpl implements SpaceService {
 	public SpaceDTO rentSpaceInfo(int memberNo) {
 		return mapper.rentSpaceInfo(memberNo);
 	}
+	
+	// 공간 예약 내역 확인하기
+	@Override
+	public SpaceDTO spaceReservationInfo(int memberNo) {
+		return mapper.spaceReservationInfo(memberNo);
+	}
 }

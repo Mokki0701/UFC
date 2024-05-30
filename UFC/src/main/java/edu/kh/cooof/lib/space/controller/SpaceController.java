@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.lib.seat.model.service.LibSeatService;
 import edu.kh.cooof.lib.space.model.dto.SpaceDTO;
@@ -76,7 +77,7 @@ public class SpaceController {
 	// 회원의 공간 이용 요청 보내기
 	@PostMapping("/wannaUseSpace")
 	public String postMethodName(HttpSession session, HttpServletRequest request, @RequestParam("spaceNo") int spaceNo,
-			SpaceDTO space, Model model) {
+			SpaceDTO space, Model model, RedirectAttributes ra) {
 
 		// 공간의 대여 현황 검사하기
 		// 전달 받은 공간 번호 중 space_avail 이 0 인 컬럼 조회
@@ -121,7 +122,7 @@ public class SpaceController {
 				message = "회원님은 현재 이용 중인 공간이 있습니다.";
 				System.out.println("해당 회원은 현재 이용 중인 공간이 있음.");
 				// 집으로 가라
-				path = "redirect:/";
+				path = "redirect:" + path;
 
 			} else {
 
@@ -150,14 +151,14 @@ public class SpaceController {
 			}
 		}
 
-		model.addAttribute("message", message);
+		ra.addFlashAttribute("message", message);
 
 		return path;
 	}
 
 	// 공간 그만 사용하기
 	@PostMapping("/stopUsingSpace")
-	public String stopUsingSpace(Model model, HttpSession session, HttpServletRequest request) {
+	public String stopUsingSpace(Model model, HttpSession session, HttpServletRequest request, RedirectAttributes ra) {
 		String referer = request.getHeader("Referer"); // 이전 페이지 URL 가져오기
 		String message = null;
 
@@ -172,17 +173,15 @@ public class SpaceController {
 
 			if (stopUseSpace == 2) {
 				message = "공간 대여 종료 완료.";
-				System.out.println("대여 종료 성공");
 				memberAndSpaceSession.remove(memberNo); // 세션에서 공간 정보 제거
 			} else {
 				message = "공간 대여 종료 실패. 관리자에게 문의하세요.";
-				System.out.println("대여 종료 실패");
 			}
 		} else {
 			message = "현재 사용 중인 공간이 없습니다.";
 		}
 
-		model.addAttribute("message", message);
+		ra.addFlashAttribute("message", message);
 
 		// 현재 페이지로 리다이렉트
 		return "redirect:" + (referer != null ? referer : "/defaultPage"); // referer가 없을 경우 기본 페이지로 리다이렉트
@@ -190,7 +189,7 @@ public class SpaceController {
 
 	// 자리 연장하기
 	@PostMapping("/extendUseSpace")
-	public String extendUseSpace(HttpSession session, Model model, HttpServletRequest request) {
+	public String extendUseSpace(HttpSession session, Model model, HttpServletRequest request, RedirectAttributes ra) {
 
 		String path = request.getHeader("Referer"); // 이전 페이지 URL 가져오기
 		String message = null;
@@ -220,7 +219,6 @@ public class SpaceController {
 			if (countExtend != 1) {
 				message = "남은 연장 기회가 없습니다..";
 				System.out.println("연장 기회 없음");
-				path = "redirect:" + path; // 현재 페이지로 리다이렉트
 			}
 
 			// 연장 기회가 있을 경우
@@ -234,21 +232,17 @@ public class SpaceController {
 				if (extend == 1) {
 					message = "자리 연장 성공.";
 					System.out.println("자리 연장 성공");
-					path = "redirect:" + path; // 현재 페이지로 리다이렉트
 				}
 
 			}
 
 		}
 
-		model.addAttribute("message", message);
-		return path;
+		ra.addFlashAttribute("message", message);
+		return "redirect:" + path;
 	}
 
 	// 공간 예약하기
-
-	// 공간 예약하기
-
 	@PostMapping("bookSpace")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> bookSpace(@RequestBody SpaceDTO bookingRequest, HttpSession session) {
@@ -312,7 +306,7 @@ public class SpaceController {
 									if (bookSpace == 1) {
 										message = "공간 예약 성공!";
 										success = true;
-										
+
 										bookingSpaceSession.put("memberNo", memberNo);
 										bookingSpaceSession.put("spaceNo", spaceNo);
 										bookingSpaceSession.put("startTime", startTime);
@@ -343,25 +337,64 @@ public class SpaceController {
 		return ResponseEntity.ok(response);
 	}
 
-	
 	// 공간 대여 현황 표시하기
 	@PostMapping("checkMySpace")
 	@ResponseBody
-	public Map<String, Object> checkMySpace(@SessionAttribute("loginMember") Member loginMember) {
-	    int memberNo = loginMember.getMemberNo();
+	public Map<String, Object> checkMySpace(@SessionAttribute("loginMember") Member loginMember, Model model) {
+		int memberNo = loginMember.getMemberNo();
+		String message = null;
 
-	    // 응답을 담을 map 객체 생성
-	    Map<String, Object> result = new HashMap<>();
+		// 응답을 담을 map 객체 생성
+		Map<String, Object> result = new HashMap<>();
 
-	    // 공간 정보 가져오기
-	    SpaceDTO rentSpaceInfo = service.rentSpaceInfo(memberNo);
+		// 공간 정보 가져오기
+		SpaceDTO rentSpaceInfo = service.rentSpaceInfo(memberNo);
 
-	    result.put("startTime", rentSpaceInfo.getStartTime());
-	    result.put("endTime", rentSpaceInfo.getEndTime());
-	    result.put("remainingExtensions", rentSpaceInfo.getSpaceExtend());
+		// 가져온 공간 정보가 없다면
+		if (rentSpaceInfo == null) {
+			message = "회원님은 현재 이용 중인 공간이 없습니다";
+			result.put("message", message);
+		}
 
-	    return result;
+		if (rentSpaceInfo != null) {
+
+			result.put("startTime", rentSpaceInfo.getStartTime());
+			result.put("endTime", rentSpaceInfo.getEndTime());
+			result.put("remainingExtensions", rentSpaceInfo.getSpaceExtend());
+
+		}
+
+		return result;
 	}
 
-	
+	// 공간 예약 내역 확인하기
+	@PostMapping("checkMySpaceReservation")
+	@ResponseBody
+	public Map<String, Object> checkMySpaceReservation(@SessionAttribute("loginMember") Member loginMember,
+			Model model) {
+		int memberNo = loginMember.getMemberNo();
+		String message = null;
+
+		// 응답을 담을 map 객체 생성
+		Map<String, Object> result = new HashMap<>();
+
+		// 공간 정보 가져오기
+		SpaceDTO spaceReservationInfo = service.spaceReservationInfo(memberNo);
+
+		// 가져온 공간 정보가 없다면
+		if (spaceReservationInfo == null) {
+			message = "공간 예약 내역이 없습니다.";
+			result.put("message", message);
+		}
+
+		if (spaceReservationInfo != null) {
+
+			result.put("spaceNo", spaceReservationInfo.getSpaceNo());
+			result.put("startBooking", spaceReservationInfo.getStartBooking());
+
+		}
+
+		return result;
+	}
+
 }

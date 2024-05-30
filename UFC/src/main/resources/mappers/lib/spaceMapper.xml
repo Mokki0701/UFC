@@ -157,6 +157,7 @@
 	
 	</select>
 	
+	<!-- 공간 대여 현황 표시하기 -->
 	 <select id="rentSpaceInfo" resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
         SELECT 
             SPACE_START as startTime,
@@ -166,6 +167,13 @@
             RENT_SPACE rs
         WHERE 
             MEMBER_NO = #{memberNo}
+    </select>
+    
+    <!-- 공간 예약 내역 확인하기 -->
+    <select id="spaceReservationInfo" resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
+    	SELECT SPACE_NO as spaceNo, START_BOOKING as startBooking
+		FROM SEAT_SPACE_BOOKING ssb 
+		WHERE MEMBER_NO =#{memberNo}
     </select>
 
 
