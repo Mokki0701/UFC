@@ -22,18 +22,16 @@
 }
 
 
-
-
 .left_column {
   /* flex-grow, flex-shrink, flex-basis */
-  flex: 1 1 30%;
+  flex: 1 1 25%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .right_column {
-  flex: 1 1 65%;
+  flex: 1 1 70%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -60,6 +58,7 @@
   border-radius: 10px;
   box-sizing: border-box;
   position: relative;
+  overflow-y: scroll;
 }
 
 /* 대시보드 추가 설명 */
@@ -107,6 +106,7 @@
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
+  
 }
 
 .less_write_rating {
@@ -197,6 +197,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  flex: 1 1 auto; /* 크기 유연하게 조정 */
+  min-height: 200px; /* 최소 높이 */
 }
 
 .less_rating_content {
