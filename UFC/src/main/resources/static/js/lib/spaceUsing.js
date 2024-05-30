@@ -224,4 +224,26 @@ function realBookingSpace() {
     });
 }
 
+// 나의 공간 확인하기
+function checkMySpace() {
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
 
+  fetch('/lib/space/checkMySpace', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ memberNo: memberNo })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result); // 응답 결과를 콘솔에 출력
+
+      document.getElementById('startTime').innerText = result.startTime;
+      document.getElementById('endTime').innerText = result.endTime;
+      document.getElementById('remainingExtensions').innerText = result.remainingExtensions;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}

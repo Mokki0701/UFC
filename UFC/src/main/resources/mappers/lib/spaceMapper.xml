@@ -156,5 +156,17 @@
 	
 	
 	</select>
+	
+	 <select id="rentSpaceInfo" resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
+        SELECT 
+            SPACE_START as startTime,
+            SPACE_DONE as endTime,
+            SPACE_EXTEND as spaceExtend
+        FROM 
+            RENT_SPACE rs
+        WHERE 
+            MEMBER_NO = #{memberNo}
+    </select>
+
 
 </mapper>

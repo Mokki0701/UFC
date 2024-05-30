@@ -92,95 +92,101 @@ public class SpaceServiceImpl implements SpaceService {
 
 	// 공간 예약하기
 	@Override
-	 public int bookSpace(int memberNo, int spaceNo, String startTime) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("memberNo", memberNo);
-        params.put("spaceNo", spaceNo);
-        params.put("startTime", startTime);
+	public int bookSpace(int memberNo, int spaceNo, String startTime) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberNo", memberNo);
+		params.put("spaceNo", spaceNo);
+		params.put("startTime", startTime);
 
-        log.debug("Attempting to book space with params: {}", params);
+		log.debug("Attempting to book space with params: {}", params);
 
-        try {
-            Integer reservationSpaceResult = mapper.bookSpace(params);
-            log.debug("Reservation space result: {}", reservationSpaceResult);
-            if (reservationSpaceResult != null && reservationSpaceResult == RESERVATION_SUCCESS) {
-                log.debug("Booking space succeeded");
-                return RESERVATION_SUCCESS;
-            } else if (reservationSpaceResult != null && reservationSpaceResult == RESERVATION_FAILURE) {
-                log.debug("Booking space failed: space already booked");
-                return RESERVATION_FAILURE;
-            }
-        } catch (Exception e) {
-            log.error("Error while booking space", e);
-        }
-        return RESERVATION_ERROR;
-    }
+		try {
+			Integer reservationSpaceResult = mapper.bookSpace(params);
+			log.debug("Reservation space result: {}", reservationSpaceResult);
+			if (reservationSpaceResult != null && reservationSpaceResult == RESERVATION_SUCCESS) {
+				log.debug("Booking space succeeded");
+				return RESERVATION_SUCCESS;
+			} else if (reservationSpaceResult != null && reservationSpaceResult == RESERVATION_FAILURE) {
+				log.debug("Booking space failed: space already booked");
+				return RESERVATION_FAILURE;
+			}
+		} catch (Exception e) {
+			log.error("Error while booking space", e);
+		}
+		return RESERVATION_ERROR;
+	}
 
-    @Override
-    public int checkOtherReservation(int spaceNo, String startTime) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("spaceNo", spaceNo);
-        params.put("startTime", startTime);
+	@Override
+	public int checkOtherReservation(int spaceNo, String startTime) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("spaceNo", spaceNo);
+		params.put("startTime", startTime);
 
-        log.debug("Checking other reservations with params: {}", params);
+		log.debug("Checking other reservations with params: {}", params);
 
-        try {
-            Integer result = mapper.checkOtherReservation(params);
-            log.debug("Check other reservations result: {}", result);
-            return result != null ? result : RESERVATION_FAILURE;
-        } catch (Exception e) {
-            log.error("Error while checking other reservations", e);
-            return RESERVATION_ERROR;
-        }
-    }
+		try {
+			Integer result = mapper.checkOtherReservation(params);
+			log.debug("Check other reservations result: {}", result);
+			return result != null ? result : RESERVATION_FAILURE;
+		} catch (Exception e) {
+			log.error("Error while checking other reservations", e);
+			return RESERVATION_ERROR;
+		}
+	}
 
-    @Override
-    public int checkStartTime(int spaceNo, String startTime) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("spaceNo", spaceNo);
-        params.put("startTime", startTime);
+	@Override
+	public int checkStartTime(int spaceNo, String startTime) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("spaceNo", spaceNo);
+		params.put("startTime", startTime);
 
-        log.debug("Checking start time with params: {}", params);
+		log.debug("Checking start time with params: {}", params);
 
-        try {
-            Integer checkTime = mapper.checkStartTime(params);
-            log.debug("Check start time result: {}", checkTime);
-            if (checkTime != null && checkTime == RESERVATION_SUCCESS) {
-                log.debug("Start time check succeeded");
-                return RESERVATION_SUCCESS;
-            } else if (checkTime != null && checkTime == RESERVATION_FAILURE) {
-                log.debug("Start time check failed: time conflict");
-                return RESERVATION_FAILURE;
-            }
-        } catch (Exception e) {
-            log.error("Error while checking start time", e);
-        }
-        return RESERVATION_ERROR;
-    }
-    
-    // 나에게 다른 에약이 있던가? 확인
-    @Override
-    public int ifYouHaveAnyOtherReservation(int memberNo) {
-    	int checkMyReserVation = mapper.checkMyReserVation(memberNo);
-    	
-    	// 나에게 다른 예약이 없는 경우
-    	if(checkMyReserVation == 0) {
+		try {
+			Integer checkTime = mapper.checkStartTime(params);
+			log.debug("Check start time result: {}", checkTime);
+			if (checkTime != null && checkTime == RESERVATION_SUCCESS) {
+				log.debug("Start time check succeeded");
+				return RESERVATION_SUCCESS;
+			} else if (checkTime != null && checkTime == RESERVATION_FAILURE) {
+				log.debug("Start time check failed: time conflict");
+				return RESERVATION_FAILURE;
+			}
+		} catch (Exception e) {
+			log.error("Error while checking start time", e);
+		}
+		return RESERVATION_ERROR;
+	}
+
+	// 나에게 다른 에약이 있던가? 확인
+	@Override
+	public int ifYouHaveAnyOtherReservation(int memberNo) {
+		int checkMyReserVation = mapper.checkMyReserVation(memberNo);
+
+		// 나에게 다른 예약이 없는 경우
+		if (checkMyReserVation == 0) {
 			log.debug("checkMyReserVation result: {}", checkMyReserVation);
 			return RESERVATION_SUCCESS;
 		}
-    	
-    	// 나에게 다른 예약이 있는 경우
-    	if(checkMyReserVation == 1) {
-    		log.debug("checkMyReserVation result: {}", checkMyReserVation);
-    		return RESERVATION_FAILURE;
-    	} 
-    	
-    	// 오류가 난 경우
-    	if(checkMyReserVation > 1) {
+
+		// 나에게 다른 예약이 있는 경우
+		if (checkMyReserVation == 1) {
+			log.debug("checkMyReserVation result: {}", checkMyReserVation);
+			return RESERVATION_FAILURE;
+		}
+
+		// 오류가 난 경우
+		if (checkMyReserVation > 1) {
 			log.debug("checkMyReserVation result: {}", checkMyReserVation);
 			return RESERVATION_ERROR;
 		}
-    	
-    	return checkMyReserVation;
-    }
+
+		return checkMyReserVation;
+	}
+
+	// 공간 이용 시작 시간, 종료시간, 남은 연장기회 가져오기
+	@Override
+	public SpaceDTO rentSpaceInfo(int memberNo) {
+		return mapper.rentSpaceInfo(memberNo);
+	}
 }

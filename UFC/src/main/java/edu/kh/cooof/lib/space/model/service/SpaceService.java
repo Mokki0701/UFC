@@ -33,4 +33,7 @@ public interface SpaceService {
 	// 공간 예약하기
 	int bookSpace(int memberNo, int spaceNo, String startTime);
 
+	// 공간 이용 시작 시간, 종료시간, 남은 연장기회 가져오기
+	SpaceDTO rentSpaceInfo(int memberNo);
+
 }

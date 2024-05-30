@@ -175,12 +175,14 @@
     <div class="middleTitle">나의 공간 대여 현황</div>
 
     <!-- 이용 중인 열람실 좌석이 없을 경우 -->
-    <div class="checkMySpaceContent" th:if="${session?.memberAndSeatSession != null and session.memberAndSeatSession[session.loginMember.memberNo] == null}">
+    <div class="checkMySpaceContent"
+      th:if="${session?.memberAndSeatSession != null and session.memberAndSeatSession[session.loginMember.memberNo] == null}">
       <p>이용 중인 열람실 : 없음</p>
-  </div>
+    </div>
 
     <!-- 이용중인 열람실 좌석이 있을 경우에만 표시 -->
-    <div class="checkMySpaceContent" th:if="${session?.memberAndSeatSession != nul and session?.memberAndSeatSession[session.loginMember.memberNo] != null}">
+    <div class="checkMySpaceContent"
+      th:if="${session?.memberAndSeatSession != nul and session?.memberAndSeatSession[session.loginMember.memberNo] != null}">
       <th:block
         th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
         <p>회원님이 사용 중인 열람실 좌석 번호:
@@ -193,49 +195,68 @@
     <!-- <p th:text="'loginMember: ' + ${session.loginMember}"></p> -->
 
     <!-- 이용 중인 공간이 없을 경우 -->
-    <div class="checkMySpaceContent" th:if="${session?.memberAndSpaceSession != nul and session?.memberAndSpaceSession[session.loginMember.memberNo] == null}">
+    <div class="checkMySpaceContent"
+      th:if="${session?.memberAndSpaceSession != nul and session?.memberAndSpaceSession[session.loginMember.memberNo] == null}">
       <p>이용 중인 공간 : 없음</p>
     </div>
 
     <!-- 이용중인 공간이 있을 경우 -->
-    <div class="checkMySpaceContent" th:if="${session?.memberAndSpaceSession != nul and session?.memberAndSpaceSession[session.loginMember.memberNo] != null}">
-      <th:block
-        th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSpaceSession[session.loginMember.memberNo]}">
-        <p>회원님이 사용 중인 공간 번호:
-          <span th:text="${seatNo}"></span> <span>번 공간</span>
-        </p>
+    <div class="checkMySpaceContent"
+     th:if="${session?.memberAndSpaceSession != nul and session?.memberAndSpaceSession[session.loginMember.memberNo] != null}">
+  <th:block
+    th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSpaceSession[session.loginMember.memberNo]}">
+    <p>회원님이 사용 중인 공간 번호:
+      <span th:text="${seatNo}"></span> <span>번 공간</span>
+    </p>
 
-        <div class="checkMySpaceContent">
-          공간 시작 시간 : <span> </span> <span>부터</span>
-        </div>
-
-        <div class="checkMySpaceContent">
-          공간 종료 시간 : <span> </span> <span>까지</span>
-        </div>
-
-
-      </th:block>
+    <div class="checkMySpaceContent">
+      공간 시작 시간 : <span id="startTime"></span> <span>부터</span>
     </div>
+
+    <div class="checkMySpaceContent">
+      공간 종료 시간 : <span id="endTime"></span> <span>까지</span>
+    </div>
+    
+    <div class="checkMySpaceContent">
+      나의 남은 연장 기회 : <span id="remainingExtensions"></span> <span>번 남았습니다.</span>
+    </div>
+
+  </th:block>
+</div>
 
 
 
 
     <div class="middleTitle">나의 공간 예약 현황</div>
 
-    
+    <!-- 공간 예약 내역이 있을 경우 -->
+    <div
+      th:if="${session?.memberAndSpaceSession != nul and session?.memberAndSpaceSession[session.loginMember.memberNo] != null}">
 
-    <div class="checkMySpaceContent">
-      내가 예약한 공간 번호 : <span> </span>
+      <div class="checkMySpaceContent">
+        내가 예약한 공간 번호 : <span> </span>
+      </div>
+
+      <div class="checkMySpaceContent">
+        내가 예약한 공간 시간 : <span> </span>
+      </div>
+
+      
+
+
+      <button type="button" onclick="cancleSpceBooking()">공간 예약 취소하기</button>
     </div>
 
-    <div class="checkMySpaceContent">
-      내가 예약한 공간 시간 : <span> </span>
-    </div>
+    <!-- 공간 예약 내역이 없을 경우 -->
 
-    <div class="checkMySpaceContent">
-      추가 할거 있으면 추가 하기 ...!! : <span> </span>
-    </div>
+    <!-- <div
+      th:if="${session?.memberAndSpaceSession == nul and session?.memberAndSpaceSession[session.loginMember.memberNo] == null}">
 
+      <div class="checkMySpaceContent">
+        예약한 공간이 없습니다.
+      </div>
+
+    </div> -->
 
   </div>
 

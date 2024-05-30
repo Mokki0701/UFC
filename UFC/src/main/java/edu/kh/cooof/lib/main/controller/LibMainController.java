@@ -142,7 +142,13 @@ public class LibMainController {
 			memberAndSpaceSession = new HashMap<>();
 		}
 		
-		// 2. 열람실 세션 객체 생성하기
+		// 2. 공간 예약 세션 객체를 생성하기
+		Map<String, Object> bookingSpaceSession = (Map<String, Object>) session.getAttribute("bookingSpaceSession");
+	    if (bookingSpaceSession == null) {
+	        bookingSpaceSession = new HashMap<>();
+	    }
+		
+		// 3. 열람실 세션 객체 생성하기
 		Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
 				.getAttribute("memberAndSeatSession");
 		
