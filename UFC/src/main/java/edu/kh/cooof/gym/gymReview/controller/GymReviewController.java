@@ -36,12 +36,10 @@ public class GymReviewController {
         pagination.calculate();
         
         
-        List<GymReview> gymList = service.getAllGym();      
-        List<GymReview> reviews = service.getGymReviews(currentPage, limit);
+        List<GymReview> gymList = service.getAllGym(currentPage, limit);      
 
         model.addAttribute("gymList", gymList);
         model.addAttribute("pagination", pagination);
-        model.addAttribute("reviews", reviews);
         model.addAttribute("limit", limit); // limit 값을 모델에 추가
       
       return "gym/gymReview/gymReview";

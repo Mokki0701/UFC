@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 게시판</title>
     <link rel="stylesheet" href="/css/gym/gymMain.css">
+    <link rel="stylesheet" href="/css/common/header.css">
     <style>
         /* 간단한 스타일 추가 */
         table {
@@ -32,6 +33,7 @@
     </style>
 </head>
 <body>
+    <th:block th:replace="~{common/header}"></th:block>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
 
     
@@ -47,7 +49,7 @@
                         <th>제목</th>
                         <th>작성자</th>
                         <th>작성일</th>
-                        <th>조회수</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -59,12 +61,13 @@
                         </td>
                         <td th:text="${gym.memberLastName} + '**'"></td>
                         <td th:text="${gym.gymWriteDate}"></td>
-                        <td th:text="${gym.gymDelFl}"></td>    
+                            
                     </tr>
                 </tbody>
             </table>
         </div>
-    
+        
+        <!-- 페이지 -->
         <div class="pagination-area">
             <ul class="pagination">
                 <!-- 첫 페이지로 이동 -->

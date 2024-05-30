@@ -17,8 +17,9 @@
     	GYM g
 	JOIN 
     	MEMBER m ON g.MEMBER_NO = m.MEMBER_NO
-    ORDER BY
-        g.GYM_NO 
+    ORDER BY 
+     	GYM_NO DESC
+  
 	</select>
 	
 	<select id="getGymByNo">
@@ -33,31 +34,14 @@
 		  VALUES (GYM_NO_SEQ.NEXTVAL, #{gymTitle}, #{gymContent} , SYSDATE ,  0, #{memberNo})
 	</insert>
 	
-	<select id="selectGymReviews" >
-        <![CDATA[
-    SELECT *
-    FROM (
-        SELECT ROWNUM AS RNUM, GYM.*
-        FROM (
-            SELECT *
-            FROM GYM
-            ORDER BY GYM_NO DESC
-        ) GYM
-        WHERE ROWNUM <= #{limit} + #{offset}
-    )
-    WHERE RNUM >= #{offset} + 1
-    ]]>
-    </select>
-
-    <!-- 리뷰 수 조회 쿼리 -->
-    <select id="countGymReviews" >
-        <![CDATA[
-        SELECT COUNT(*)
-        FROM GYM g
-        JOIN MEMBER m ON g.MEMBER_NO = m.MEMBER_NO
-        ]]>
-    </select>
-	
+	<!-- Gym 리뷰의 총 수를 조회하는 쿼리 -->
+	<select id="countGymReviews" resultType="int">
+	    <![CDATA[
+	    SELECT COUNT(*)
+	    FROM GYM
+	    ]]>
+	</select>
+		
 
 
 </mapper>

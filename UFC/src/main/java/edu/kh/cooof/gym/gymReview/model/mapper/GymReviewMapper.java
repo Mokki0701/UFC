@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.cooof.gym.gymReview.model.dto.GymReview;
 
 @Mapper
 public interface GymReviewMapper {
 
-	List<GymReview> getAllGym();
+	List<GymReview> getAllGym(RowBounds rowBounds);
 
 	GymReview getGymByNo(int gymNo);
 
@@ -18,9 +19,6 @@ public interface GymReviewMapper {
 
 	int countGymReviews();
 
-	
-
-	List<GymReview> selectGymReviews(Map<String, Object> paramMap);
 
 	
 
