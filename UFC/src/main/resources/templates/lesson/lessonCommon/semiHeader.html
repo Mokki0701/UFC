@@ -1,10 +1,14 @@
 <style>
   .program-header {
+    height: 100px;
     border-radius: 180px;
     background-color: #992BF2;
     padding: 20px;
     color: white;
     text-align: center;
+    margin-top: 30px;
+    width: 80%;
+
   }
 
   .program-header .buttons {
@@ -47,62 +51,80 @@
   }
 
   /* css 수정 */
-  .sns-section{
+  .sns-section {
     display: flex;
     justify-content: flex-end;
 
-}
-.sns_wrapper {    display: inline-flex; /* Flexbox를 사용하여 컨테이너를 동그랗게 설정 */
+  }
+
+  .sns_wrapper {
+    display: inline-flex;
+    /* Flexbox를 사용하여 컨테이너를 동그랗게 설정 */
     width: 40px;
     height: 40px;
     border-radius: 50%;
     /* background-color: #00b266; */
-    align-items: center; /* 수직 가운데 정렬 */
-    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center;
+    /* 수직 가운데 정렬 */
+    justify-content: center;
+    /* 수평 가운데 정렬 */
     margin: 5px;
-   
+
   }
 
-.sns_wrapper a {
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  height: 100%;
-  
-  border-radius: 50%;
-  position: relative;
-}
+  .sns_wrapper a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
 
-.sns-share-container > .sns_wrapper:nth-of-type(1)>a{
-  background-color: #00b266;
-}
-.sns-share-container > .sns_wrapper:nth-of-type(2)>a{
-  background-color: #FAE100;
-}
-.sns-share-container > .sns_wrapper:nth-of-type(3)>a{
-  background-color: #1877F2;
-}
-.sns-share-container > .sns_wrapper:last-of-type>a{
-  background-color: #1da1f2;
-}
+    border-radius: 50%;
+    position: relative;
+  }
 
-.sns_wrapper i {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-78%,-50%);
-  font-size: 22px; /* 아이콘 크기 조절 */
-  
-}
+  .sns-share-container>.sns_wrapper:nth-of-type(1)>a {
+    background-color: #00b266;
+  }
 
+  .sns-share-container>.sns_wrapper:nth-of-type(2)>a {
+    background-color: #FAE100;
+  }
 
+  .sns-share-container>.sns_wrapper:nth-of-type(3)>a {
+    background-color: #1877F2;
+  }
+
+  .sns-share-container>.sns_wrapper:last-of-type>a {
+    background-color: #1da1f2;
+  }
+
+  .sns_wrapper i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-78%, -50%);
+    font-size: 22px;
+    /* 아이콘 크기 조절 */
+
+  }
+
+  .lesson-nav-btn {
+    border-radius: 180px;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .lesson-program-title {
+    font-size: 44px;
+    font-weight: 700;
+  }
 </style>
 
 <section class="program-header">
-  <h1>평생교육 프로그램</h1>
   <div class="buttons">
-    <a href="/lesson"><button>수강규정 및 신청방법</button></a>
-    <a href="/lesson/list"><button>프로그램 안내/신청</button></a>
-    <a href="/lesson/dashboard"><button>자격증과정 안내</button></a>
+    <span class="lesson-program-title">평생교육 프로그램</span>
+    <a href="/lesson"><button class="lesson-nav-btn">수강규정 및 신청방법</button></a>
+    <a href="/lesson/list"><button class="lesson-nav-btn">프로그램 안내/신청</button></a>
+    <a href="/lesson/dashboard"><button class="lesson-nav-btn">회원 대시보드</button></a>
   </div>
 </section>
 <section class="sns-section">
@@ -114,7 +136,7 @@
         <i class="fa-solid fa-blog fa-2xl" style="color: #000;"></i>
       </a>
     </div>
-    
+
 
     <script>
       // 현재 페이지의 URL과 제목을 인코딩
@@ -126,7 +148,7 @@
       document.getElementById('naver-share-link').href = naverShareLink;
     </script>
 
-    
+
 
 
     <!-- 카카오 공유 -->
@@ -154,7 +176,7 @@
       <a id="facebook-share-btn" href="javascript:;">
         <i class="fa-brands fa-facebook fa-2xl" style="color: #000;"></i>
         <!-- <img src="#" alt="페이스북 공유 버튼" /> -->
-        </a>
+      </a>
     </div>
 
     <div id="fb-root"></div>
@@ -171,7 +193,7 @@
       }
     </script>
 
-      <!-- 트위터 공유 -->
+    <!-- 트위터 공유 -->
     <div class="sns_wrapper">
       <a id="twitter-share-btn" href="javascript:;">
         <!-- <img src="#" alt="트위터 공유 버튼" /> -->
