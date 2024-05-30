@@ -50,12 +50,14 @@ public interface SpaceMapper {
 	Integer checkOtherReservation(Map<String, Object> params);
 
 	// 나에게 다른 예약이 있는지 확인하기
-	int ifYouHaveAnyOtherReservation(int memberNo);
+	int checkMyReserVation(int memberNo);
 	
 	// 예약 시작 시간이 해당 좌석 종료 예정 시간 이후인지 확인
 	Integer checkStartTime(Map<String, Object> params);
 
 	// 자리 예약하기
 	Integer bookSpace(Map<String, Object> params);
+
+	
 
 }

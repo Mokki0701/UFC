@@ -249,81 +249,85 @@ public class SpaceController {
 	@PostMapping("bookSpace")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> bookSpace(@RequestBody SpaceDTO bookingRequest, HttpSession session) {
-	    Member loginMember = (Member) session.getAttribute("loginMember");
-	    int memberNo = loginMember.getMemberNo();
-	    int spaceNo = bookingRequest.getSpaceNo();
-	    String startTime = bookingRequest.getStartTime();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		int spaceNo = bookingRequest.getSpaceNo();
+		String startTime = bookingRequest.getStartTime();
 
-	    Map<String, Object> response = new HashMap<>();
-	    Map<String, Object> errorMessageCollector = new HashMap<>(); 
-	    int errorState = 0;
-	    String message = null;
-	    boolean success = false;
+		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> errorMessageCollector = new HashMap<>();
+		int errorState = 0;
+		String message = null;
+		boolean success = false;
 
-	    log.debug("Starting booking process for memberNo: {}, spaceNo: {}, startTime: {}", memberNo, spaceNo, startTime);
+		log.debug("Starting booking process for memberNo: {}, spaceNo: {}, startTime: {}", memberNo, spaceNo,
+				startTime);
 
-	    try {
-	        // 1. 회원이 현재 이용 중인 공간이 있는지 확인하기
-	        int memberSpaceUsingCheck = mapper.memberSpaceUsingCheck(memberNo);
-	        log.debug("memberSpaceUsingCheck result: {}", memberSpaceUsingCheck);
-	        if (memberSpaceUsingCheck == 1) {
-	            message = "회원님은 현재 이용 중인 공간이 있습니다.";
-	        } else {
-	            // 2. 회원이 현재 이용 중인 열람실 있는지 확인하기
-	            int isMemberUsing = seatService.isMemberUsing(memberNo);
-	            log.debug("isMemberUsing result: {}", isMemberUsing);
-	            if (isMemberUsing == 1) {
-	                message = "회원님은 현재 이용 중인 열람실이 있습니다.";
-	            } else {
-	                // 3. 회원의 다른 예약이 있는 경우 예약 불가능함
-	                int ifYouHaveAnyOtherReservation = service.ifYouHaveAnyOtherReservation(memberNo);
-	                log.debug("ifYouHaveAnyOtherReservation result: {}", ifYouHaveAnyOtherReservation);
-	                if (ifYouHaveAnyOtherReservation == 1) {
-	                    message = "회원님은 이미 다른 예약이 있으세요.";
-	                } else {
-	                    // 4. 같은 시간에 다른 예약 건이 있는지 확인
-	                    int checkOtherReservation = service.checkOtherReservation(spaceNo, startTime);
-	                    log.debug("checkOtherReservation result: {}", checkOtherReservation);
-	                    if (checkOtherReservation == 1) {
-	                        message = "요청하신 예약 시간에 다른 예약이 있습니다.";
-	                    } else {
-	                        // 5. 현재 공간의 이용 가능 여부 확인
-	                        int spaceAvail = mapper.checkAvail(spaceNo);
-	                        log.debug("checkAvail result: {}", spaceAvail);
-	                        if (spaceAvail == 1) { // 공간이 사용 중이라면 1
-	                            int checkStartTime = service.checkStartTime(spaceNo, startTime);
-	                            log.debug("checkStartTime result: {}", checkStartTime);
-	                            if (checkStartTime == 1) {
-	                                message = "해당 공간에는 선순위 예약이 존재합니다.";
-	                            } else {
-	                                int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
-	                                log.debug("bookSpace result: {}", bookSpace);
-	                                if (bookSpace == 1) {
-	                                    message = "공간 예약 성공!";
-	                                    success = true;
-	                                } else if (bookSpace == 0) {
-	                                    message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0000";
-	                                } else if (bookSpace == 2) {
-	                                    message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0002";
-	                                }
-	                            }
-	                        }
-	                    }
-	                }
-	            }
-	        }
-	    } catch (Exception e) {
-	        message = "예약 처리 중 오류가 발생했습니다.";
-	        log.error("Error during booking space: ", e);
-	    }
+		try {
+			// 1. 회원이 현재 이용 중인 공간이 있는지 확인하기
+			int memberSpaceUsingCheck = mapper.memberSpaceUsingCheck(memberNo);
+			log.debug("memberSpaceUsingCheck result: {}", memberSpaceUsingCheck);
+			if (memberSpaceUsingCheck == 1) {
+				message = "회원님은 현재 이용 중인 공간이 있습니다.";
+			} else {
+				// 2. 회원이 현재 이용 중인 열람실 있는지 확인하기
+				int isMemberUsing = seatService.isMemberUsing(memberNo);
+				log.debug("isMemberUsing result: {}", isMemberUsing);
+				if (isMemberUsing == 1) {
+					message = "회원님은 현재 이용 중인 열람실이 있습니다.";
+				} else {
+					// 3. 나에게 다른 예약이 있을 때 확인
+					int ifYouHaveAnyOtherReservation = service.ifYouHaveAnyOtherReservation(memberNo);
+					log.debug("ifYouHaveAnyOtherReservation result: {}", ifYouHaveAnyOtherReservation);
+					if (ifYouHaveAnyOtherReservation == 0) {
+						message = "회원님은 이미 다른 예약이 있으세요.";
+					} else if (ifYouHaveAnyOtherReservation == 2) {
 
-	    response.put("message", message != null ? message : "예약에 실패했습니다."); // message가 null인 경우 기본 메시지 설정
-	    response.put("success", success);
+						message = "예약실패.. 아래 코드와 함께 관리자에게 문의하세요. 오류코드 :spaceBookingFailure0003";
 
-	    log.debug("Booking response: {}", response);
+					} else {
+						// 4. 같은 시간에 다른 예약 건이 있는지 확인
+						int checkOtherReservation = service.checkOtherReservation(spaceNo, startTime);
+						log.debug("checkOtherReservation result: {}", checkOtherReservation);
+						if (checkOtherReservation == 1) {
+							message = "요청하신 예약 시간에 다른 예약이 있습니다.";
+						} else {
+							// 5. 현재 공간의 이용 가능 여부 확인
+							int spaceAvail = mapper.checkAvail(spaceNo);
+							log.debug("checkAvail result: {}", spaceAvail);
+							if (spaceAvail == 1) { // 공간이 사용 중이라면 1
+								int checkStartTime = service.checkStartTime(spaceNo, startTime);
+								log.debug("checkStartTime result: {}", checkStartTime);
+								if (checkStartTime == 1) {
+									message = "해당 공간에는 선순위 예약이 존재합니다.";
+								} else {
+									int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
+									log.debug("bookSpace result: {}", bookSpace);
+									if (bookSpace == 1) {
+										message = "공간 예약 성공!";
+										success = true;
+									} else if (bookSpace == 0) {
+										message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0000";
+									} else if (bookSpace == 2) {
+										message = "공간 예약 실패 : 오류 코드 : spaceBookingFailure0002";
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			message = "예약 처리 중 오류가 발생했습니다.";
+			log.error("Error during booking space: ", e);
+		}
 
-	    return ResponseEntity.ok(response);
+		response.put("message", message != null ? message : "예약에 실패했습니다."); // message가 null인 경우 기본 메시지 설정
+		response.put("success", success);
+
+		log.debug("Booking response: {}", response);
+
+		return ResponseEntity.ok(response);
 	}
-
 
 }

@@ -85,9 +85,9 @@ public class SpaceServiceImpl implements SpaceService {
 		return result1 + result2;
 	}
 
-	// 공간 예약하기를 위한
-	private static final int RESERVATION_SUCCESS = 1;
+	// 공간 예약하기를 위한 플래그 모음
 	private static final int RESERVATION_FAILURE = 0;
+	private static final int RESERVATION_SUCCESS = 1;
 	private static final int RESERVATION_ERROR = 2;
 
 	// 공간 예약하기
@@ -162,11 +162,25 @@ public class SpaceServiceImpl implements SpaceService {
     @Override
     public int ifYouHaveAnyOtherReservation(int memberNo) {
     	int checkMyReserVation = mapper.checkMyReserVation(memberNo);
+    	
+    	// 나에게 다른 예약이 없는 경우
+    	if(checkMyReserVation == 0) {
+			log.debug("checkMyReserVation result: {}", checkMyReserVation);
+			return RESERVATION_SUCCESS;
+		}
+    	
+    	// 나에게 다른 예약이 있는 경우
     	if(checkMyReserVation == 1) {
     		log.debug("checkMyReserVation result: {}", checkMyReserVation);
-			return checkMyReserVation;
-    	}
+    		return RESERVATION_FAILURE;
+    	} 
     	
-    	return ;
+    	// 오류가 난 경우..
+    	if(checkMyReserVation > 1) {
+			log.debug("checkMyReserVation result: {}", checkMyReserVation);
+			return RESERVATION_ERROR;
+		}
+    	
+    	return checkMyReserVation;
     }
 }
