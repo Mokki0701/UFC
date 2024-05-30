@@ -175,7 +175,7 @@ public class SpaceServiceImpl implements SpaceService {
     		return RESERVATION_FAILURE;
     	} 
     	
-    	// 오류가 난 경우..
+    	// 오류가 난 경우
     	if(checkMyReserVation > 1) {
 			log.debug("checkMyReserVation result: {}", checkMyReserVation);
 			return RESERVATION_ERROR;

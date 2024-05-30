@@ -273,7 +273,7 @@ button:hover{
 
 /* 내 공간 확인 모달 */
 .checkMySpaceData{
-  /* display: none; */
+  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
