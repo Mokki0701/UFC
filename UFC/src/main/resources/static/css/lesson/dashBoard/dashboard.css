@@ -22,18 +22,16 @@
 }
 
 
-
-
 .left_column {
   /* flex-grow, flex-shrink, flex-basis */
-  flex: 1 1 30%;
+  flex: 1 1 25%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .right_column {
-  flex: 1 1 65%;
+  flex: 1 1 70%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -60,32 +58,25 @@
   border-radius: 10px;
   box-sizing: border-box;
   position: relative;
+  overflow-y: scroll;
 }
 
 /* 대시보드 추가 설명 */
 .less_description{
+  display: flex;
   position: absolute;
   top: 30px; right: 30px;
-  display: flex;
-  width: 150px;
+  width: 100px;
   height: 30px;
   align-content: center;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .less_description > div:nth-of-type(1){
   width: 10px;
   height: 10px;
   background: gold;
-  border-radius: 100%;
-}
-
-
-.less_description > div:nth-of-type(2){
-  width: 10px;
-  height: 10px;
-  background: #B3E5FC;
   border-radius: 100%;
 }
 
@@ -107,6 +98,7 @@
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
+  
 }
 
 .less_write_rating {
@@ -114,6 +106,7 @@
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
+
 }
 
 .less_attendance_rate {
@@ -310,10 +303,10 @@
 }
 
 /* 풀캘린더  */
-.fc-event-time{
+/* .fc-event-time{
   display: block !important;
 }
 
 .fc-daygrid-dot-event{
   display: block;
-}
+} */

@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import edu.kh.cooof.common.scheduler.service.CommonSchedulingService;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import lombok.extern.slf4j.Slf4j;
 
 /* Spring Scheduler : 
@@ -65,24 +66,39 @@ public class CommonScheduling {
 		List<String> dbImageList = service.selectLessonImageNames();
 
 		// 6. dbImageList가 null 또는 비어있을 경우 처리
-        if (dbImageList == null || dbImageList.isEmpty()) {
+		if (dbImageList == null || dbImageList.isEmpty()) {
 			log.info("----- DB 이미지가 없어서 삭제 스케쥴러 종료 -----");
 			return; // DB에 이미지가 없으면 메서드 종료
 		}
 
-        // 7. DB 이미지 목록과 서버 이미지 목록을 비교하여 동일한 이름의 파일을 삭제
-        for (File serverFile : serverImageList) {
-            if (dbImageList.contains(serverFile.getName())) { // 서버 파일이 DB 파일 목록에 있으면
-                if (serverFile.delete()) { // 서버 파일 삭제 시도
-                    log.info("삭제한 파일: " + serverFile.getName()); // 삭제 성공 로그
-                } else {
-                    log.warn("삭제 실패: " + serverFile.getName()); // 삭제 실패 로그
-                }
-            }
-        }
+		// 7. DB 이미지 목록과 서버 이미지 목록을 비교하여 동일한 이름의 파일을 삭제
+		for (File serverFile : serverImageList) {
+			if (dbImageList.contains(serverFile.getName())) { // 서버 파일이 DB 파일 목록에 있으면
+				if (serverFile.delete()) { // 서버 파일 삭제 시도
+					log.info("삭제한 파일: " + serverFile.getName()); // 삭제 성공 로그
+				} else {
+					log.warn("삭제 실패: " + serverFile.getName()); // 삭제 실패 로그
+				}
+			}
+		}
 
-        log.info("----- 이미지 파일 삭제 스케쥴러 종료 -----");
+		log.info("----- 이미지 파일 삭제 스케쥴러 종료 -----");
 
 	}
 
+	@Scheduled(cron = "0/10 * * * * *") // 0초 기준, 10초 마다
+	public void lessonCloseYNCheck() {
+
+		List<Lesson> noRemainsList = service.checkRemains();
+
+		if (noRemainsList == null || noRemainsList.isEmpty()) {
+			log.info("----- 접수중인 수업 중 잔여좌석 0인 수업 없음 -----");
+			return; // 메서드 종료
+		}
+
+		for (Lesson l : noRemainsList) {
+			service.setCloseYn(l.getLessonNo());
+		}
+
+	}
 }
