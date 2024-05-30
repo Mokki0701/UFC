@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     headerToolbar: {
     left: 'prev,next today',
     center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    right: 'dayGridMonth'
     },
     displayEventTime : false,
     events: function (fetchInfo, successCallback, failureCallback) {
