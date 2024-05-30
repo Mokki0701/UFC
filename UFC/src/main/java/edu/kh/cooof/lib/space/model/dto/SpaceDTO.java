@@ -26,8 +26,10 @@ public class SpaceDTO {
 	private int height;
 	
 	private int memberNo;
+	private int spaceExtend;
 	
 	private String startTime; // 예약을 시작하고자 하는 시간
+	private String endTime; // 예약 종료 시간
 	
 	
 	

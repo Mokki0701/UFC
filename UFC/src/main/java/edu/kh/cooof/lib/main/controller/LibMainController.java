@@ -1,5 +1,8 @@
 package edu.kh.cooof.lib.main.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -130,6 +133,24 @@ public class LibMainController {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		String path = null;
 
+		// 필요한 세션 객체 생성하기
+		// 1. 공간 세션 객체를 생성하기
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSpaceSession");
+
+		if (memberAndSpaceSession == null) {
+			memberAndSpaceSession = new HashMap<>();
+		}
+		
+		// 2. 열람실 세션 객체 생성하기
+		Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSeatSession");
+		
+		if (memberAndSeatSession == null) {
+			memberAndSeatSession = new HashMap<>();
+		}
+		
+		
 		// 로그인 안된 경우
 		if (loginMember == null) {
 			ra.addFlashAttribute("message", "로그인 후 이용해 주세요");

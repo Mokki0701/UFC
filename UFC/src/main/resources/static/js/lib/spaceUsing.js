@@ -182,7 +182,7 @@ function realBookingSpace() {
   const minute = document.getElementById('minute').value;
   const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
 
-  // 시간 형식 변환 (12시간제를 24시간제로 변환)
+  // 시간 형식 변환 12시간제 -> 24시간제
   let selectedHour = parseInt(hour);
   if (amPm === 'PM' && selectedHour !== 12) {
     selectedHour += 12;
