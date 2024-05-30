@@ -64,4 +64,7 @@ public interface SpaceMapper {
 	// 공간 예약 내역 확인하기
 	SpaceDTO spaceReservationInfo(int memberNo);
 
+	// 공간 예약 취소하기
+	int cancleSpceBooking(int memberNo);
+
 }

@@ -177,4 +177,11 @@
     </select>
 
 
+	<delete id="cancleSpceBooking">
+		DELETE 
+		FROM SEAT_SPACE_BOOKING
+		WHERE MEMBER_NO = #{memberNo}
+		AND SEAT_NO IS NULL
+	</delete>
+
 </mapper>

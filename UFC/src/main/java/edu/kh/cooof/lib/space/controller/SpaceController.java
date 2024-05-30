@@ -396,5 +396,16 @@ public class SpaceController {
 
 		return result;
 	}
+	
+	
+	// 공간 예약 취소하기
+	@PostMapping("cancleSpceBooking")
+	@ResponseBody
+	public int cancleSpceBooking(@SessionAttribute("loginMember") Member loginMember, Model model) {
+		int memberNo = loginMember.getMemberNo();
+		
+		return mapper.cancleSpceBooking(memberNo);
+	}
+	
 
 }

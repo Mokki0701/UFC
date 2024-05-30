@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => console.error('불러오기 실패', error));
 
-      // 메세지 출력하기
+    // 메세지 출력하기
     const message = document.getElementById('message').innerText;
     if (message) {
       alert(message);
@@ -248,7 +248,7 @@ function checkMySpace() {
       if (result.message) {
         alert(result.message); // 메시지가 있을 경우 alert로 출력
       } else {
-        
+
         document.getElementById('startTime').innerText = result.startTime || '';
         document.getElementById('endTime').innerText = result.endTime || '';
         document.getElementById('remainingExtensions').innerText = result.remainingExtensions !== undefined && result.remainingExtensions !== null ? result.remainingExtensions : '';
@@ -261,7 +261,7 @@ function checkMySpace() {
 
 
 // 공간 예약 확인하기
-function checkMySpaceReservation(){
+function checkMySpaceReservation() {
 
   const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
   /* 비동기식 정보 보내기 */
@@ -279,7 +279,7 @@ function checkMySpaceReservation(){
       if (result.message) {
         alert(result.message); // 메시지가 있을 경우 alert로 출력
       } else {
-        
+
         document.getElementById('reservedSpaceNo').innerText = result.spaceNo || '';
         document.getElementById('startBookingTime').innerText = result.startBooking || '';
       }
@@ -288,6 +288,40 @@ function checkMySpaceReservation(){
       console.error('Error:', error);
     });
 
+
+
+}
+
+// 공간 예약 취소하기
+function cancleSpceBooking() {
+
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
+
+  /* 비동기식 정보 보내기 */
+  fetch('/lib/space/cancleSpceBooking', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ memberNo: memberNo })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result); // 응답 결과를 콘솔에 출력
+
+      if (result = 1) {
+        alert("예약이 취소되었습니다.");
+        
+        // 모달 창 닫는 기능 수행
+
+      } else {
+        alert("예약 취소 중 오류가 발생했습니다. 관리자에게 문의하세요.");
+
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 
 
 }
