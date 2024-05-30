@@ -1,4 +1,11 @@
 <style>
+  .lesson-semiheader-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
   .program-header {
     height: 100px;
     border-radius: 180px;
@@ -9,10 +16,18 @@
     margin-top: 30px;
     width: 80%;
 
+
   }
 
-  .program-header .buttons {
-    margin-top: 10px;
+  .semiheader-contents {
+    justify-content: space-evenly;
+    display: flex;
+    margin-top: 15px;
+
+  }
+
+  .program-header .semiheader-contents {
+    margin-top: 15px;
   }
 
   .program-header button {
@@ -40,9 +55,9 @@
     display: flex;
     height: auto;
     flex-direction: row-reverse;
-    margin-top: 30px;
-    margin-right: 300px;
-    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 350px;
+    margin-bottom: 0px;
     padding: 3px;
   }
 
@@ -111,22 +126,37 @@
   .lesson-nav-btn {
     border-radius: 180px;
     background: rgba(0, 0, 0, 0.15);
+    height: 80%;
+    margin-top: 11px !important;
+    font-size: 15px;
   }
 
   .lesson-program-title {
     font-size: 44px;
-    font-weight: 700;
+    font-weight: 900;
+    letter-spacing: 5px;
   }
 </style>
 
-<section class="program-header">
-  <div class="buttons">
-    <span class="lesson-program-title">평생교육 프로그램</span>
-    <a href="/lesson"><button class="lesson-nav-btn">수강규정 및 신청방법</button></a>
-    <a href="/lesson/list"><button class="lesson-nav-btn">프로그램 안내/신청</button></a>
-    <a href="/lesson/dashboard"><button class="lesson-nav-btn">회원 대시보드</button></a>
-  </div>
+<section class="lesson-semiheader-container">
+  <section class="program-header">
+
+
+
+    <div class="semiheader-contents">
+      <div>
+        <span class="lesson-program-title">평생교육 프로그램</span>
+      </div>
+      <div>
+        <a href="/lesson"><button class="lesson-nav-btn">수강규정 및 신청방법</button></a>
+        <a href="/lesson/list"><button class="lesson-nav-btn">프로그램 안내/신청</button></a>
+        <a href="/lesson/dashboard"><button class="lesson-nav-btn">회원 대시보드</button></a>
+      </div>
+    </div>
+
+  </section>
 </section>
+
 <section class="sns-section">
   <div class="sns-share-container">
 
