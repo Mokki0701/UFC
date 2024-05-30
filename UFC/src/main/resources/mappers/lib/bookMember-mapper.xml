@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.kh.cooof.lib.main.model.mapper.BookMemberMapper">
+<mapper namespace="edu.kh.cooof.lib.main.model.mapper.LibMemberMapper">
 
 	<select id="selectRentList">
-		SELECT BOOK_NO, MEMBER_NO
+		SELECT MEMBER_LAST_NAME, MEMBER_FIRST_NAME, BOOK_NO, BOOK_TITLE
 		FROM RENT_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
 		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY BOOK_NO
 	</select>
 	
 	<select id="selectLoanList">
-		SELECT BOOK_NO, MEMBER_NO, BOOK_START, BOOK_END,
+		SELECT MEMBER_LAST_NAME, MEMBER_FIRST_NAME, BOOK_NO, BOOK_TITLE, BOOK_START, BOOK_END, BOOK_RETURN
 		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
 		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY BOOK_NO
 	</select>
 	
 	<select id="selectSeat">
@@ -25,5 +31,21 @@
 		FROM RENT_SPACE
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
+	<update id="extendBook">
+		UPDATE LOAN_BOOK
+		SET BOOK_RETURN = 1
+		WHERE MEMBER_NO = #{memberNo}
+		AND BOOK_NO = #{bookNo}
+	</update>
+	
+	<insert id="insertHopeBook">
+		INSERT INTO NEW_BOOK
+		VALUES(SEQ_NEW_BOOK_NO.NEXTVAL, #{bookTitle}, #{authorLastName}, #{authorFirstName}, #{publisher}, DEFAULT, #{memberNo})
+	</insert>
+	
+	
+	
+	
 
 </mapper>

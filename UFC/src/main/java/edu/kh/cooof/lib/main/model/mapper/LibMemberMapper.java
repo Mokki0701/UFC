@@ -1,6 +1,7 @@
 package edu.kh.cooof.lib.main.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,5 +20,9 @@ public interface LibMemberMapper {
 	LibSeatDTO selectSeat(int memberNo);
 
 	SpaceDTO selectSpace(int memberNo);
+
+	int extendBook(Map<String, Integer> map);
+
+	int insertHopeBook(Map<String, Object> paramMap);
 
 }

@@ -28,7 +28,10 @@ public class SpaceDTO {
 	private int memberNo;
 	
 	private String startTime; // 예약을 시작하고자 하는 시간
-	
+	private String spaceStart;
+	private String spaceDone;
+	private int spaceNo2;
+	private int spaceExtend;
 	
 	
 }
