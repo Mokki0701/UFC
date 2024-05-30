@@ -167,15 +167,32 @@ function bookingSpace() {
 
 function closeModal() {
   const bookingModal = document.getElementById('bookingModal');
+  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
   // 모달 숨기기
   bookingModal.style.display = "none";
+  checkMySpaceDataModal.style.display = "none";
+  checkMySpaceReservationModal.style.display = "none";
+  
 }
 
 // 모달 외부 클릭 시 닫기
 window.onclick = function (event) {
   const bookingModal = document.getElementById('bookingModal');
+  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceDataModal');
+
   if (event.target == bookingModal) {
     bookingModal.style.display = "none";
+  }
+
+  // checkMySpaceDataModal을 클릭한 경우 처리
+  if (event.target == checkMySpaceDataModal) {
+    checkMySpaceDataModal.style.display = "none";
+  }
+
+  if (event.target == checkMySpaceReservationModal) {
+    checkMySpaceReservationModal.style.display = "none";
   }
 }
 
@@ -230,6 +247,9 @@ function realBookingSpace() {
 
 // 나의 공간 확인하기
 function checkMySpace() {
+  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  checkMySpaceDataModal.style.display = "block";
+ 
   const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
 
 
@@ -263,6 +283,9 @@ function checkMySpace() {
 // 공간 예약 확인하기
 function checkMySpaceReservation() {
 
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+  checkMySpaceReservationModal.style.display = "block";
+
   const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
   /* 비동기식 정보 보내기 */
   fetch('/lib/space/checkMySpaceReservation', {
@@ -288,8 +311,6 @@ function checkMySpaceReservation() {
       console.error('Error:', error);
     });
 
-
-
 }
 
 // 공간 예약 취소하기
@@ -311,8 +332,9 @@ function cancleSpceBooking() {
 
       if (result = 1) {
         alert("예약이 취소되었습니다.");
-        
+
         // 모달 창 닫는 기능 수행
+        closeModal();
 
       } else {
         alert("예약 취소 중 오류가 발생했습니다. 관리자에게 문의하세요.");
