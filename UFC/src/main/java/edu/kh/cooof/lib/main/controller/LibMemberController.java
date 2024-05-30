@@ -5,7 +5,11 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.cooof.lib.main.model.service.LibMemberService;
@@ -34,5 +38,48 @@ public class LibMemberController {
 		
 		return "lib/member/member";
 	}
+	
+	@GetMapping("extendBook")
+	@ResponseBody
+	public int logout(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("bookNo") int bookNo,
+			Model model
+			) {
+		
+		return service.extendBook(loginMember.getMemberNo(), bookNo);
+	}
+	
+	@PostMapping("insertHope")
+	@ResponseBody
+	public int insertHopeBook(
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestBody Map<String, Object> paramMap
+			) {
+		
+		return service.insertHopeBook(paramMap);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

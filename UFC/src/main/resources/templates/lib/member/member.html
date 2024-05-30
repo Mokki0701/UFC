@@ -24,7 +24,10 @@
                 </div>
                 <div class="box blue-box">
                     <div class="title">희망도서 신청</div>
-                    <div class="content">- 희망도서 신청<br>- 도서 연장 신청</div>
+                    <div class="content">
+                        <div class="sub-content" onclick="hopeModal('희망도서 신청')">희망도서 신청</div>
+                        <div class="sub-content" onclick="LoanModal('도서 대출 현황')">도서 연장 신청</div>
+                    </div>
                 </div>
             </div>
             <div class="section">
@@ -112,6 +115,7 @@
                         <th>도서 명</th>
                         <th>대출 날짜</th>
                         <th>반납 날짜</th>
+                        <th>연장 버튼</th>
                     </tr>
                 </thead>
                 <tbody id="modal-body">
@@ -121,6 +125,7 @@
                         <td th:text="*{bookTitle}">도서 제목 1</td>
                         <td th:text="*{bookStart}">2024-01-01</td>
                         <td th:text="*{bookEnd}">2024-01-15</td>
+                        <td th:value="*{bookNo}"><button onclick="extendApply(this)" th:attr="disabled=*{bookReturn} == 1 ? 'disabled' : null">연장</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -148,6 +153,31 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- 희망 도서 신청 -->
+    <div id="hopeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeHopeModal()">&times;</span>
+            <div class="modal-header" id="hopeTitle">
+                희망 도서 신청
+            </div>
+            <div class="modal-body">
+                <label for="bookTitle">도서 이름:</label>
+                <input type="text" id="bookTitle">
+                <label for="authorLastName">저자 성:</label>
+                <input type="text" id="authorLastName">
+                <label for="authorFirstName">저자 명:</label>
+                <input type="text" id="authorFirstName">
+                <label for="publisher">출판사:</label>
+                <input type="text" id="publisher">
+                <label>신청 회원 번호:</label>
+                <input type="text" id="memberNo" th:attr="value=${session.loginMember.memberNo}" readonly>
+            </div>
+            <div class="modal-footer">
+                <button id="submitBtn" th:attr="value=${session.loginMember.memberNo}" onclick="submitHope(this.value)">신청 완료 버튼</button>
+            </div>
         </div>
     </div>
 

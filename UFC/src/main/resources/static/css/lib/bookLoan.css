@@ -10,10 +10,10 @@ body {
     height: 100vh;
 }
 .container {
-    max-width: 1200px; /* 더 넓은 너비 */
+    max-width: 1200px;
     width: 100%;
     background-color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* 더 진한 그림자 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     overflow: hidden;
 }
@@ -22,7 +22,7 @@ body {
     color: #fff;
     padding: 20px;
     text-align: center;
-    font-size: 26px; /* 더 큰 폰트 사이즈 */
+    font-size: 26px;
     font-weight: 700;
     display: flex;
     justify-content: space-between;
@@ -32,7 +32,7 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background: #0056b3; /* 기본 배경색 */
+    background: #0056b3;
     border: 1px solid #0056b3;
     border-radius: 4px;
     cursor: pointer;
@@ -40,7 +40,7 @@ body {
     margin: 0 10px;
 }
 .tab-btn:hover, .tab-btn.active {
-    background: #007BFF; /* 호버 및 활성화 시 배경색 */
+    background: #007BFF;
     color: #fff;
 }
 .search-container {
@@ -57,7 +57,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     transition: all 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 입력창에 그림자 추가 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .search-container input[type="text"]:focus {
     border-color: #007BFF;
@@ -73,7 +73,7 @@ body {
     cursor: pointer;
     transition: all 0.3s;
     margin-left: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 버튼에 그림자 추가 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .search-container button:hover {
     background-color: #0056b3;
@@ -84,35 +84,35 @@ table {
     margin-bottom: 0;
 }
 table th, table td {
-    padding: 15px 20px; /* 더 넓은 패딩 */
+    padding: 15px 20px;
     border-bottom: 1px solid #ddd;
     text-align: left;
 }
 table th {
     background-color: #f8f9fa;
     font-weight: 700;
-    text-transform: uppercase; /* 대문자로 변환 */
-    letter-spacing: 0.05em; /* 글자 사이 간격 조절 */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 table tr:hover {
-    background-color: #e9ecef; /* 행 호버 시 배경색 변경 */
+    background-color: #e9ecef;
 }
 .action-buttons {
     display: flex;
     gap: 10px;
 }
 .action-buttons button {
-    padding: 10px 15px; /* 더 넓은 패딩 */
+    padding: 10px 15px;
     font-size: 14px;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 버튼에 그림자 추가 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .action-buttons .approve {
     background-color: #28a745;
@@ -148,7 +148,7 @@ table tr:hover {
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 페이지네이션에 그림자 추가 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .pagination a:hover {
     background: #007BFF;
@@ -158,4 +158,11 @@ table tr:hover {
     background: #007BFF;
     color: #fff;
     border: 1px solid #007BFF;
+}
+
+button:disabled {
+    background-color: #ccc; /* 배경색을 회색으로 */
+    color: #777; /* 텍스트 색상을 회색으로 */
+    cursor: not-allowed; /* 커서를 금지 모양으로 */
+    opacity: 0.6; /* 불투명도 낮추기 */
 }
