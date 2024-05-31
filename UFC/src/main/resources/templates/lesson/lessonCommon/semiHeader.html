@@ -150,7 +150,23 @@
       <div>
         <a href="/lesson"><button class="lesson-nav-btn">수강규정 및 신청방법</button></a>
         <a href="/lesson/list"><button class="lesson-nav-btn">프로그램 안내/신청</button></a>
-        <a href="/lesson/dashboard"><button class="lesson-nav-btn">회원 대시보드</button></a>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority != 3}">
+          <a href="/lesson/dashboard"><button class="lesson-nav-btn">회원 대시보드</button></a>
+        </th:block>
+
+        <a href="/lesson/inst"><button class="lesson-nav-btn">강사 현황</button></a>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0}">
+          <a href="/lesson/dashboard"><button class="lesson-nav-btn">강사 지원</button></a>
+        </th:block>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
+          <a href="/lesson/dashboard"><button class="lesson-nav-btn">지원서 확인</button></a>
+        </th:block>
+
+
+
       </div>
     </div>
 
