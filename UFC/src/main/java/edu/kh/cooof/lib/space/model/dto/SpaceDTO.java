@@ -38,7 +38,6 @@ public class SpaceDTO {
 	private String spaceStart;
 	private String spaceDone;
 	private int spaceNo2;
-	private int spaceExtend;
 
 	
 	

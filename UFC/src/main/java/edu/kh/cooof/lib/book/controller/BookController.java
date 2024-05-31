@@ -70,9 +70,8 @@ public class BookController {
 			@SessionAttribute(value="catList", required = false) List<String> catList,
 			Model model
 			) {
-		
-		Map<String, Object> realParamMap = new HashMap<>();
-		
+				
+		// 여기가 문제 였어 else문이 실행이 안돼 
 		if(catList == null) {
 			List<String> createCatList = new ArrayList<>();
 			model.addAttribute("catList", createCatList);
@@ -83,7 +82,7 @@ public class BookController {
 		}
 		
 		else {
-			
+			log.debug("asjdkldsajfldsakjflksdafjklsadjflksafjlkasdjflkmsvlknjdfkljgjkldsgsdalkfmdslgmjklsfdjglkajgfkld");
 			if(check == 1) {
 				catList.add(catName);
 			}
@@ -93,14 +92,14 @@ public class BookController {
 				catList.remove(index);
 			}
 			
-			realParamMap.put("catList", catList);
+			paramMap.put("catList", catList);
 		}
 		
-		realParamMap.put("catNo", catNo);
-		realParamMap.put("cp", cp);
+		paramMap.put("catNo", catNo);
+		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
 		
-		Map<String, Object> searchMap = service.bookList(realParamMap);
+		Map<String, Object> searchMap = service.bookList(paramMap);
 		
 		model.addAttribute("bookList", searchMap.get("bookList"));
 		model.addAttribute("pagination", searchMap.get("pagination"));
@@ -125,10 +124,10 @@ public class BookController {
 		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
 		
-		if(catList != null) {
-			paramMap.put("catList", catList);
-		}
-		
+//		if(catList != null) {
+//			paramMap.put("catList", catList);
+//		}
+//		
 		Map<String, Object> mapList = service.searchBook(paramMap);
 		
 		model.addAttribute("bookList", mapList.get("bookList"));

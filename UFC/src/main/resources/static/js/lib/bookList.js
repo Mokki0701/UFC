@@ -78,8 +78,8 @@ function addCatList(check, catName){
 }
 
 searchBookBtn.addEventListener("click", e=>{
-
-    fetch("/book/search?query="+ searchQuery.innerText)
+    const searchQuery2 = document.querySelector("#searchQuery");
+    fetch("/book/search?query="+ searchQuery2.innerText)
     .then(resp=>resp.text())
     .then(html=>{
 
