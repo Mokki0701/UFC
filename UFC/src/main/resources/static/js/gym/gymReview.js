@@ -10,9 +10,7 @@ gymReviewWrite.addEventListener("click", () => {
 });
 
 
-document.addEventListener("DOMContentLoaded", function(){
-    
-})
+
 
 
 
