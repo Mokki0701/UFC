@@ -124,7 +124,8 @@
         BETWEEN ssb.START_BOOKING AND ssb.END_BOOKING
     </select>
 
-    <!-- 예약시간 겹치는지 확인하기 -->
+    <!-- 현재 다른사람이 이용 중인 공간을 예약했을 때,
+		공간을 예약한 시간과 종료예정시간이 겹치는지 확인 -->
     <select id="checkStartTime" parameterType="map" resultType="int">
         SELECT COUNT(*)
         FROM RENT_SPACE rs 

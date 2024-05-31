@@ -295,11 +295,14 @@ public class SpaceController {
 							// 5. 현재 공간의 이용 가능 여부 확인
 							int spaceAvail = mapper.checkAvail(spaceNo);
 							log.debug("checkAvail result: {}", spaceAvail);
-							if (spaceAvail == 1) { // 공간이 사용 중이라면 1
+							if (spaceAvail == 1) { // 공간이 사용 가능하면 1
+								
 								int checkStartTime = service.checkStartTime(spaceNo, startTime);
 								log.debug("checkStartTime result: {}", checkStartTime);
+								
 								if (checkStartTime == 1) {
-									message = "해당 공간에는 선순위 예약이 존재합니다.";
+									message = "해당 공간은 이용 불가합니다.";
+									
 								} else {
 									int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
 									log.debug("bookSpace result: {}", bookSpace);

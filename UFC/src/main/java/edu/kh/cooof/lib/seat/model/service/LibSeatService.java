@@ -29,6 +29,10 @@ public interface LibSeatService {
 	// 열람실 연장하기
 	boolean extendSeat(int memberNo);
 
+	// 현재 다른사람이 이용 중인 열람실을 예약했을 때, 
+	// 열람실을 예약한 시간과 종료예정시간이 겹치는지 확인
+	int checkStartTime(int seatNo, String startTime);
+
 	
 
 }

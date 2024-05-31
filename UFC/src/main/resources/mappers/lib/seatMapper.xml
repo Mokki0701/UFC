@@ -90,6 +90,22 @@
           AND READING_EXTEND > 0
     </update>
 
+	<!-- 좌석의 이용 가능 여부 확인하기 -->
+	<select id="chckSeatConditon">
+		SELECT COUNT(*) FROM SEAT
+		WHERE SEAT_NO = #{seatNo}
+		AND SEAT_AVAIL != 1
+	</select>
+	
+	<!--현재 다른사람이 이용 중인 열람실을 예약했을 때,
+		열람실을 예약한 시간과 종료예정시간이 겹치는지 확인-->
+	<select id="checkStartTime">
+		SELECT COUNT(*)
+        FROM RENT_SEAT rs 
+        WHERE rs.RENT_SEAT2 = #{seatNo}
+        AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') 
+        BETWEEN rs.READING_START  AND rs.READING_DONE
+	</select>
 
 
 </mapper>
