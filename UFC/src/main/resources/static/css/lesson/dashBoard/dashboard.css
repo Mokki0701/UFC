@@ -21,6 +21,9 @@
   margin-top: 20px;
 }
 
+
+
+
 .left_column {
   /* flex-grow, flex-shrink, flex-basis */
   flex: 1 1 30%;
@@ -38,14 +41,17 @@
 
 .less_attendance {
   background-color: #d9d9d9;
-  padding: 10px;
+  padding:10px;
   border-radius: 10px;
   box-sizing: border-box;
+  height: 30%;
+  
+
 }
 
 .less_attendance > h4 {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .less_schedule {
@@ -53,8 +59,40 @@
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
+  position: relative;
 }
 
+/* 대시보드 추가 설명 */
+.less_description{
+  position: absolute;
+  top: 30px; right: 30px;
+  display: flex;
+  width: 150px;
+  height: 30px;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between
+}
+
+.less_description > div:nth-of-type(1){
+  width: 10px;
+  height: 10px;
+  background: gold;
+  border-radius: 100%;
+}
+
+
+.less_description > div:nth-of-type(2){
+  width: 10px;
+  height: 10px;
+  background: #B3E5FC;
+  border-radius: 100%;
+}
+
+.less_description span {
+  font-size: 12px;
+  font-weight: bold;
+}
 
 .less_lectures {
   background-color: #d9d9d9;
@@ -94,6 +132,7 @@
 .less_circle > canvas {
   width: 100%;
   height: 100%;
+  margin-top: 20px;
   /* border-radius: 50%; */
   /* background-color: #FFFD74; */
   /* display: flex;
@@ -113,6 +152,12 @@
 
 .less_schedule{
   height: 100%;
+}
+
+.less_schedule h2{
+  
+  height: 10px;
+  
 }
 
 .less_schedule #calendar {
