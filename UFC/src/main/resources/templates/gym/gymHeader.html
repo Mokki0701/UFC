@@ -27,8 +27,21 @@
             <a href="#">사용후기</a>
             <ul class="dropdown-content">
                 <li><a href="/reviews/gymReview">사용자 리뷰</a></li>
-                <li><a href="/reviews/submitReview">리뷰 작성</a></li>
+                <li><a href="/gymWrite/insert">리뷰 작성</a></li>
             </ul>
         </li>
     </ul>
   </div>
+
+  <div th:if="${message}" th:text="${message}" id="flashMessage" style="display: none;"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+   const flashMessage = document.getElementById('flashMessage').innerText;
+   if (flashMessage) {
+       alert(flashMessage);
+   }
+   }); 
+ </script>
+  
+
+  

@@ -9,13 +9,13 @@
 <body>
     
     <main>
-        <th:block th:replace="~{common/header}"></th:block>
+        
         <th:block th:replace="~{gym/gymHeader}"></th:block>
 
        
-        <form th:action="@{gymWrite/insert}" 
-            th:object="${gym}"
-            method="POST"  class="gym-write" id="gymWriteFrm" enctype="multipart/form-data">  
+        <form th:action="@{/gymWrite/insert}" 
+        th:object="${gym}"
+        method="POST" class="gym-write" id="gymWriteFrm" enctype="multipart/form-data">
             <!-- enctype : 제출하는 데이터의 표기  -->
 
             <h1>리뷰 작성</h1>
@@ -34,19 +34,14 @@
 
             <!-- 버튼 영역 -->
             <div class="gym-btn-area">
-                <button type="submit" id="writebtn">등록</button>
-            </div>
-
-            
+                <button type="submit" id="writeBtn">등록</button>
+            </div>   
         </form>
 
     </main>
 
 
 
-    <script src="/js/gym/gymReview"></script>
-    <script>
-       
-    </script>
+    <script src="/js/gym/gymWrite.js"></script>
 </body>
 </html>

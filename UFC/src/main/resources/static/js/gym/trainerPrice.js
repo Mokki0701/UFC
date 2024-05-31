@@ -153,7 +153,7 @@ gymPayButton.addEventListener("click", function() {
       IMP.request_pay({
         pg: "kakaopay",
         pay_method: "kakaopay",
-        merchant_uid: "test_lwehztzg10000328",
+        merchant_uid: "test_lwehztzg100003999",
         name: "PT 결제",
         amount: calcResult,
         buyer_tel: memberPhone,
@@ -180,14 +180,6 @@ gymPayButton.addEventListener("click", function() {
           .then(resp => resp.json())
           .then(data => {
 
-            if(data == 1){
-              alert("결제 성공")
-              
-            }
-            else{
-              alert("결제 실패")
-
-            }
             console.log('Success', data);
             alert("결제 성공")
           })
