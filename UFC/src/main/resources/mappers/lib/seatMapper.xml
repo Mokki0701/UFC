@@ -107,7 +107,8 @@
         BETWEEN READING_START  AND READING_DONE
 	</select>
 	
-	 <insert id="bookSpace" parameterType="map">
+	<!-- 여기서부터 작업하면 돼!!! -->
+	 <insert id="seatBo" parameterType="map">
         INSERT INTO SEAT_SPACE_BOOKING (
             BOOKING_SS_NO, START_BOOKING, END_BOOKING, MEMBER_NO, SPACE_NO, SEAT_NO
         ) VALUES (
