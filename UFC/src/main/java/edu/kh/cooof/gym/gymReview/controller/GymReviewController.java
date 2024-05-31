@@ -67,17 +67,17 @@ public class GymReviewController {
 	    RedirectAttributes ra) {
 	    
 	    String path = null;
-	    String message = null;
+	    
 	    GymReview gymReview = new GymReview();
 	    
 	    if (loginMember == null) {
-	        message = "로그인 후 이용 가능합니다.";
+	    	ra.addFlashAttribute("message", "로그인 후 이용 가능합니다.");
 	        path = "redirect:/reviews/gymReview"; // 수정된 부분
 	    } else {
 	    	model.addAttribute("gymReview", gymReview);
 	        path = "gym/gymReview/gymWrite";
 	    }
-	    ra.addFlashAttribute("message", message);
+	   
 	    
 	    return path;
 	}
@@ -100,10 +100,10 @@ public class GymReviewController {
 		
 			
 			 if (result > 0) {
-		         message = "작성 성공!";
+				 ra.addFlashAttribute("message", "작성 성공!");
 			     return "redirect:/reviews/gymReview"; // 성공 시 리다이렉트할 경로
 			 }else {
-				 message = "작성 실패!";
+				 ra.addFlashAttribute("message", "작성 실패!");
 				 return "redirect:/gymWrite/insert";
 			 }
 			 	
