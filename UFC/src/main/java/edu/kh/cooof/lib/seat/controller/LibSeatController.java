@@ -187,93 +187,59 @@ public class LibSeatController {
 		return "fail";
 	}
 
-	// 열람실 예약하기
 	@PostMapping("/checkAvailReservation")
 	@ResponseBody
 	public Map<String, Object> checkAvailReservation(@SessionAttribute("loginMember") Member loginMember, Model model,
-			@RequestBody LibSeatDTO libSeat) {
+			@RequestBody LibSeatDTO libSeat, RedirectAttributes ra) {
 		int memberNo = loginMember.getMemberNo();
 		int seatNo = libSeat.getSeatNo();
 		String startTime = libSeat.getStartTime();
 		String message = null;
-		// 열람실과는 다른 방식으로 해보자..
-		// if, else if .. 말고 다른 좋은 방식 없을까?
-		// --> streamAPI(java8이상 지원)을 사용해보자.
-		// 다음의 순서로 검사를 진행한다.(공간예약과 동일하게)
+		boolean success = false;
 
-		// 1. 회원이 이용 중인 공간이 있는지 확인
-
-		// 2. 회원이 이용 중인 열람실이 있는지 확인
-
-		// 3. 나에게 다른 예약이 있는지 확인(열람실, 공간 예약 포함)
-
-		// 4. 해당 좌석의 같은 시간에 다른 예약 건이 있는지 확인
-		// -> 예약이 있어도 가능함: 연장을 막을 목적임.. 예약이 있더라도 무조건 이용신청이 우선함.
-		// -> 왜? : 예약만해놓고 쓰지 않으면 공간이 낭비되기 때문에.
-		// 라고 생각을 했습니다.
-
-		// 5. 현재 공간의 이용 가능 여부 확인
-
-		// 결과를 저장하고 반환할 mpa
 		Map<String, Object> result = new HashMap<>();
-		// 성공, 실패 여부를 판단할 터미널
 		int terminal = 0;
 
 		// 1. 회원이 이용 중인 공간이 있는지 확인
-
 		if (terminal == 0) {
 			int memberSpaceUsingCheck = spaceMapper.memberSpaceUsingCheck(memberNo);
 			if (memberSpaceUsingCheck == 1) {
 				message = "회원님은 현재 이용 중인 공간이 있습니다.";
 				result.put("memberSpaceUsingCheck", "회원님은 현재 이용 중인 공간이 있습니다.");
 				terminal = 1;
-				return result;
 			}
-
 		}
 
 		// 2. 회원이 이용 중인 열람실이 있는지 확인
 		if (terminal == 0) {
 			int isMemberUsing = service.isMemberUsing(memberNo);
 			if (isMemberUsing == 1) {
-
 				message = "회원님은 현재 이용 중인 열람실이 있습니다.";
 				result.put("isMemberUsing", message);
 				terminal = 1;
-				return result;
 			}
 		}
 
 		// 3. 나에게 다른 예약이 있는지 확인(열람실, 공간 예약 포함)
-
 		if (terminal == 0) {
 			int ifYouHaveAnyOtherReservation = spaceService.ifYouHaveAnyOtherReservation(memberNo);
 			if (ifYouHaveAnyOtherReservation == 1) {
 				message = "회원님은 이미 다른 예약이 있으세요.";
 				result.put("ifYouHaveAnyOtherReservation", message);
 				terminal = 1;
-				return result;
 			}
-
 		}
 
-		// 4. 같은 시간에 다른 예약 건이 있는지 확인
-		// -> 안할거임... 괜히 만들었네..
-
 		// 5. 현재 공간의 이용 가능 여부 확인
-
 		if (terminal == 0) {
 			int chckSeatConditon = mapper.chckSeatConditon(seatNo);
 			if (chckSeatConditon >= 1) {
 				message = "해당 공간은 이미 다른 사람이 이용 중입니다.";
 				terminal = 1;
 				result.put("chckSeatConditon", message);
-				return result;
 			}
 		}
 
-		
-		
 		// 6. 모든 조건을 통과했을 때 예약 수행
 		if (terminal == 0) {
 			int checkStartTime = service.checkStartTime(seatNo, startTime);
@@ -281,13 +247,20 @@ public class LibSeatController {
 				message = "현재 이용중인 자리의 종료 예정시간 이전엔 예약이 불가합니다.";
 				terminal = 1;
 				result.put("checkStartTime", message);
-				return result;
 			}
 		}
 
-		// -------------------- 여기서부터 다시 작업하면 돼!!
-				// ---------------------------------------
-		return null;
+		if (terminal == 0) {
+			// 예약 성공
+			success = true;
+			message = "예약이 성공적으로 완료되었습니다.";
+		}
 
+		result.put("success", success);
+		result.put("message", message);
+		ra.addFlashAttribute("message", message);
+
+		return result;
 	}
+
 }

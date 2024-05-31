@@ -38,7 +38,10 @@ public class SpaceDTO {
 	private String spaceStart;
 	private String spaceDone;
 	private int spaceNo2;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 2f91a2498bb1a94396473872029b3272de6ae1c3
 
 	
 	

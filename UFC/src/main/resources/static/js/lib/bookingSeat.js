@@ -214,8 +214,7 @@ function openBookingSeatModal() {
 
 
 
-function realBookingSpace() {
-
+function realBookingSeat() {
   const seatNo = document.getElementById('currentSelectSeat').innerText;
   const amPm = document.getElementById('amPm').value;
   const hour = document.getElementById('hour').value;
@@ -232,13 +231,13 @@ function realBookingSpace() {
   const selectedTime = `${selectedHour.toString().padStart(2, '0')}:${minute}`;
 
   const data = {
-    spaceNo: selectedSpaceNo,
+    seatNo: seatNo,
     memberNo: parseInt(memberNo),
     startTime: selectedTime
   };
 
   // 1. 좌석이 예약 가능한지 여부 판단하기
-  fetch('/lib/space/checkAvailReservation', {
+  fetch('/lib/seats/checkAvailReservation', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -262,6 +261,5 @@ function realBookingSpace() {
       console.error('Error:', error);
       alert('예약 처리 중 오류가 발생했습니다.');
     });
-
-
 }
+
