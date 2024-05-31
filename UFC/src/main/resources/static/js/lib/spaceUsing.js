@@ -173,14 +173,14 @@ function closeModal() {
   bookingModal.style.display = "none";
   checkMySpaceDataModal.style.display = "none";
   checkMySpaceReservationModal.style.display = "none";
-  
+
 }
 
 // 모달 외부 클릭 시 닫기
 window.onclick = function (event) {
   const bookingModal = document.getElementById('bookingModal');
   const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
-  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceDataModal');
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
 
   if (event.target == bookingModal) {
     bookingModal.style.display = "none";
@@ -249,7 +249,7 @@ function realBookingSpace() {
 function checkMySpace() {
   const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
   checkMySpaceDataModal.style.display = "block";
- 
+
   const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
 
 
@@ -330,20 +330,25 @@ function cancleSpceBooking() {
     .then(result => {
       console.log(result); // 응답 결과를 콘솔에 출력
 
-      if (result = 1) {
+      const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+
+      if (result == 1) {
         alert("예약이 취소되었습니다.");
+        checkMySpaceReservationModal.style.display = "none";
+      }
 
-        // 모달 창 닫는 기능 수행
-        closeModal();
+      if (result == 0) {
+        alert("예약이 없습니다");
+        checkMySpaceReservationModal.style.display = "none";
+      }
 
-      } else {
+      else {
         alert("예약 취소 중 오류가 발생했습니다. 관리자에게 문의하세요.");
-
+        checkMySpaceReservationModal.style.display = "none";
       }
     })
     .catch(error => {
       console.error('Error:', error);
     });
-
 
 }
