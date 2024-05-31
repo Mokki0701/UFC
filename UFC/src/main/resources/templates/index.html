@@ -7,14 +7,21 @@
   <title>UFC</title>
   <link rel="stylesheet" href="/css/common/header.css">
 
-  <style>
-    .tempLink{
-      font-size: 20px;
-      width: 200px;
-      height: 50px;
-      margin: 10px;
-    }
-  </style>
+<style>
+ .temp-container{
+   
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-bottom: 20px; /* 이미지 간의 간격을 조정 */
+    margin-bottom: 0; /* 마지막 요소의 하단 여백 제거 */
+    
+
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
+  }
+
+</style>
 
 </head>
 
@@ -25,7 +32,7 @@
   <!-- 여기에 메인 화면을 구성 -->
   <div id="mainField">
 
-    <div>UFC 프로젝트 임시 메인 페이지</div> <br>
+  
 
     <!-- 빠른로그인 버튼 모음  -->
     <div class="quickLoginBtnSack">
@@ -57,19 +64,25 @@
 
   <br>
 
+  <a class="tempLink" href="#">로그인/회원가입</a>
+
   <!-- 임시 링크 -->
-  <div>
+  <div class="temp-container">
+
+    <a href="/main/libMain">
+      <img  src="/images/도서관.jpg" alt="도서관"  width="500px" height="200px">
+    </a>
 
 
-    <a class="tempLink" href="main/libMain">도서관</a>
+    <a href="/gym/gymMain">
+      <img  src="/images/헬스장.jpg" alt="헬스장" width="500px" height="200px">
+    </a>
 
-    <br> <br>
+    <a href="/lesson">
+      <img  src="/images/문화센터.jpg" alt="문화센터" width="500px" height="200px">
+    </a>
 
-    <a class="tempLink" href="/gym/gymMain">헬스장</a>
 
-    <br><br>
-
-    <a class="tempLink" href="/lesson">평생교육 프로그램</a>
 
   </div>
 
