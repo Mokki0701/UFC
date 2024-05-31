@@ -1,15 +1,192 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-  <h1>확인!!!</h1>
+  <title>강사 상세 정보</title>
+  <style>
+    body {
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
 
-  <th:block th:text="${inst.memberLastName}">체크</th:block>
+    .inst-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .inst-profile {
+      width: 1280px;
+      height: 306px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 3rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f4f4f4;
+    }
+
+    .inst-profile img {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      margin-right: 20px;
+      border: 1px solid #ddd;
+      padding: 4px;
+      background-color: #fff;
+    }
+
+    .inst-profile h1 {
+      margin: 0;
+      font-size: 1.5em;
+      color: #0056b3;
+    }
+
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    .info div {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+
+    .info div span:first-child {
+      font-size: 1em;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .info div span:last-child {
+      font-size: 1em;
+      color: #555;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section h2 {
+      font-size: 1.5em;
+      color: #333;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      font-size: 1em;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .section ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .section ul li {
+      font-size: 1em;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #333;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .button-container button:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .left-profile {
+      width: 30%;
+    }
+
+    .right-profile {
+      display: flex;
+      flex-direction: column;
+      width: 68%;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 세미 헤더 들어가는 곳 시작 -->
+  <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
+  <!-- 세미 헤더 들어가는 곳 끝 -->
+
+  <div class="inst-container">
+    <div class="inst-profile">
+
+      <div class="left-profile">
+        <img th:src="'/images/lesson/' + 'inst_sample_img.png'" alt="프로그램 이미지">
+      </div>
+
+      <div class="right-profile">
+        <h1>권태영 강사</h1>
+        <div class="info">
+          <div><span>상태</span><span>활동중</span></div>
+          <div><span>강좌분류</span><span>문화/취미, 야간강좌(성인)</span></div>
+          <div><span>강의분야</span><span>클래식기타 입문, 통기타 입문</span></div>
+          <div><span>연락처</span><span>비공개</span></div>
+          <div><span>이메일</span><span>비공개</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <h2>강사소개</h2>
+      <p>
+        안녕하세요~ 통기타와 클래식기타 수업을 맡아서 수업하고 있는 기타강사 권태영이라고 합니다.
+        초급부터 천천히 꼼꼼하게 지도하여 드리고 있으며 정적하게 1:1 수업을 하고 있으니 부담없이 찾아와 주시면 감사하겠습니다.
+        기타라는 악기가 평생의 취미악기로 함께 하실 수 있도록 최선을 다하여 수업하겠습니다.
+        감사합니다~^^
+      </p>
+    </div>
+
+    <div class="button-container">
+      <button>목록보기</button>
+    </div>
+  </div>
+
+  <!-- lessonCommon 들어가는 곳 시작 -->
+  <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+  <!-- lessonCommon 들어가는 곳 끝 -->
 
 </body>
+
 </html>
