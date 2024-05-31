@@ -223,7 +223,7 @@ public class LibSeatController {
 		// 3. 나에게 다른 예약이 있는지 확인(열람실, 공간 예약 포함)
 		if (terminal == 0) {
 			int ifYouHaveAnyOtherReservation = spaceService.ifYouHaveAnyOtherReservation(memberNo);
-			if (ifYouHaveAnyOtherReservation == 1) {
+			if (ifYouHaveAnyOtherReservation == 0) {
 				message = "회원님은 이미 다른 예약이 있으세요.";
 				result.put("ifYouHaveAnyOtherReservation", message);
 				terminal = 1;
@@ -240,7 +240,7 @@ public class LibSeatController {
 			}
 		}
 
-		// 6. 모든 조건을 통과했을 때 예약 수행
+		
 		if (terminal == 0) {
 			int checkStartTime = service.checkStartTime(seatNo, startTime);
 			if (checkStartTime == 1) {
@@ -250,8 +250,10 @@ public class LibSeatController {
 			}
 		}
 
+		// 7. 모든 조건을 통과했을 때 예약 수행
 		if (terminal == 0) {
 			// 예약 성공
+			int seatBooking = service.seatBooking(seatNo, startTime);
 			success = true;
 			message = "예약이 성공적으로 완료되었습니다.";
 		}

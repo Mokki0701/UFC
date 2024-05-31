@@ -33,6 +33,10 @@ public interface LibSeatService {
 	// 열람실을 예약한 시간과 종료예정시간이 겹치는지 확인
 	int checkStartTime(int seatNo, String startTime);
 
+	// 열람실 좌석 예약 실행
+	int seatBooking(int seatNo, String startTime);
+	
+
 	
 
 }

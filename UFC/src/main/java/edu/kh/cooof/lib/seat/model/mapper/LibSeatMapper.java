@@ -51,4 +51,7 @@ public interface LibSeatMapper {
 	// 열람실을 예약한 시간과 종료예정시간이 겹치는지 확인
 	int checkStartTime(Map<String, Object> params);
 
+	// 열람실 예약 실행
+	int seatBooking(int seatNo, String startTime);
+
 }

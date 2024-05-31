@@ -101,11 +101,24 @@
 		열람실을 예약한 시간과 종료예정시간이 겹치는지 확인-->
 	<select id="checkStartTime">
 		SELECT COUNT(*)
-        FROM RENT_SEAT rs 
-        WHERE rs.RENT_SEAT2 = #{seatNo}
+        FROM RENT_SEAT 
+        WHERE SEAT_NO2 = #{seatNo}
         AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') 
-        BETWEEN rs.READING_START  AND rs.READING_DONE
+        BETWEEN READING_START  AND READING_DONE
 	</select>
+	
+	 <insert id="bookSpace" parameterType="map">
+        INSERT INTO SEAT_SPACE_BOOKING (
+            BOOKING_SS_NO, START_BOOKING, END_BOOKING, MEMBER_NO, SPACE_NO, SEAT_NO
+        ) VALUES (
+            SEQ_BOOKING_SS_NO.NEXTVAL, 
+            TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI'), 
+            TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') + INTERVAL '4' HOUR, 
+            #{memberNo}, 
+            #{spaceNo}, 
+            NULL
+        )
+    </insert>
 
 
 </mapper>
