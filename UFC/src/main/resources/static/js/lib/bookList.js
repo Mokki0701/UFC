@@ -27,6 +27,7 @@ for(let i of categoryCheckbox){
                     /* 여기서 이벤트 리스너를  */
                     checkbox.addEventListener("change", f=>{
 
+                        console.log(f.target.checked);
                         /* 카테고리 체크박스가 체크 됬을 때 */
                         if(f.target.checked){
                             addCatList(1, catName);
@@ -87,16 +88,17 @@ searchBookBtn.addEventListener("click", e=>{
     })
 })
 
-
-document.addEventListener('DOMContentLoaded', () => {
- 
+function bookDetailSelect(){
+    
     document.querySelectorAll('.book-detail').forEach(bookDetail => {
         bookDetail.addEventListener('click', () => {
-
+    
             const bookNo = bookDetail.getAttribute('data-book-no');
             
             location.href = "/book/bookDetail?bookNo=" + bookNo;
-
+    
         });
     });
-});
+
+}
+ 

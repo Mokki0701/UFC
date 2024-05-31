@@ -16,4 +16,6 @@ public interface BookService {
 
 	Map<String, Object> getBookDetail(int bookNo);
 
+	Map<String, Object> bookListSelect(Map<String, Object> paramMap);
+
 }

@@ -30,6 +30,7 @@ public class BookController {
 
 	private final BookService service;
 	
+	// 처음에 전체 북 조회
 	@GetMapping("bookList")
 	public String bookList(
 			@SessionAttribute(value="loginMember", required = false) Member loginMember,
@@ -46,7 +47,7 @@ public class BookController {
 		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
 		
-		Map<String, Object> searchMap = service.bookList(paramMap);
+		Map<String, Object> searchMap = service.bookListSelect(paramMap);
 		
 		model.addAttribute("bookStorageLocations", searchMap.get("bookStorageLocations"));
 		model.addAttribute("bookList", searchMap.get("bookList"));
@@ -70,6 +71,8 @@ public class BookController {
 			Model model
 			) {
 		
+		Map<String, Object> realParamMap = new HashMap<>();
+		
 		if(catList == null) {
 			List<String> createCatList = new ArrayList<>();
 			model.addAttribute("catList", createCatList);
@@ -90,14 +93,14 @@ public class BookController {
 				catList.remove(index);
 			}
 			
-			paramMap.put("catList", catList);
+			realParamMap.put("catList", catList);
 		}
 		
-		paramMap.put("catNo", catNo);
-		paramMap.put("cp", cp);
+		realParamMap.put("catNo", catNo);
+		realParamMap.put("cp", cp);
 		paramMap.put("limit", limit);
 		
-		Map<String, Object> searchMap = service.bookList(paramMap);
+		Map<String, Object> searchMap = service.bookList(realParamMap);
 		
 		model.addAttribute("bookList", searchMap.get("bookList"));
 		model.addAttribute("pagination", searchMap.get("pagination"));
