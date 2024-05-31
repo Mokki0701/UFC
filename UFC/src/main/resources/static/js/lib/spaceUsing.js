@@ -56,6 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       })
       .catch(error => console.error('불러오기 실패', error));
+
+    // 메세지 출력하기
+    const message = document.getElementById('message').innerText;
+    if (message) {
+      alert(message);
+    }
   }
 
   // 화면이 로딩되면 db에서 공간 정보 불러오는 기능 실행
@@ -106,8 +112,6 @@ function wannaUseSpace() {
 function stopUsingSpace() {
   let userConfirmed = confirm("그만 사용하시겠습니까?");
   if (userConfirmed) {
-
-
     document.getElementById('actionForm').action = "/lib/space/stopUsingSpace";
     document.getElementById('actionForm').submit();
   }
@@ -135,7 +139,6 @@ function extendSpace() {
   4. 예약 시작 시간이 해당 공간의 종료시간 이후여야하고
   5. 다른 회원과 예약이 겹쳐도 되는가? : ㅇㅇ 됨. 
      현재 공간 사용자가 연장을 못하게 하려는 목적임
-  또 뭐가 있지..? 
 */
 
 // 공간 예약하기 기능
@@ -163,15 +166,32 @@ function bookingSpace() {
 
 function closeModal() {
   const bookingModal = document.getElementById('bookingModal');
+  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
   // 모달 숨기기
   bookingModal.style.display = "none";
+  checkMySpaceDataModal.style.display = "none";
+  checkMySpaceReservationModal.style.display = "none";
+
 }
 
 // 모달 외부 클릭 시 닫기
-window.onclick = function(event) {
+window.onclick = function (event) {
   const bookingModal = document.getElementById('bookingModal');
+  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+
   if (event.target == bookingModal) {
     bookingModal.style.display = "none";
+  }
+
+  // checkMySpaceDataModal을 클릭한 경우 처리
+  if (event.target == checkMySpaceDataModal) {
+    checkMySpaceDataModal.style.display = "none";
+  }
+
+  if (event.target == checkMySpaceReservationModal) {
+    checkMySpaceReservationModal.style.display = "none";
   }
 }
 
@@ -180,9 +200,9 @@ function realBookingSpace() {
   const amPm = document.getElementById('amPm').value;
   const hour = document.getElementById('hour').value;
   const minute = document.getElementById('minute').value;
-  const userNo = '${session.loginMember.getMemberNo()}'; // 사용자의 ID를 여기에 설정하십시오
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
 
-  // 시간 형식 변환 (12시간제를 24시간제로 변환)
+  // 시간 형식 변환 12시간제 -> 24시간제
   let selectedHour = parseInt(hour);
   if (amPm === 'PM' && selectedHour !== 12) {
     selectedHour += 12;
@@ -190,15 +210,12 @@ function realBookingSpace() {
     selectedHour = 0;
   }
 
-  // 선택된 시간 형식 지정
   const selectedTime = `${selectedHour.toString().padStart(2, '0')}:${minute}`;
 
-  // 보내지는 데이터 형식
   const data = {
-
-    spaceNo: selectedSpaceNo, // 예약 원하는 공간번호
-    memberNo: userNo,           // 사용자 번호
-    startTime: selectedTime   // 예약 시작 시간
+    spaceNo: selectedSpaceNo,
+    memberNo: parseInt(memberNo),
+    startTime: selectedTime
   };
 
   fetch('/lib/space/bookSpace', {
@@ -208,17 +225,129 @@ function realBookingSpace() {
     },
     body: JSON.stringify(data)
   })
-  .then(response => response.json())
-  .then(result => {
-    if (result.success) {
-      alert('예약이 성공적으로 완료되었습니다.');
-      closeModal();
-    } else {
-      alert('예약에 실패했습니다: ' + result.message);
-    }
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        alert('예약이 성공적으로 완료되었습니다.\n' + result.message);
+        if (result.redirectUrl) {
+          window.location.href = result.redirectUrl;
+        } else {
+          closeModal(); // 예약 완료 후 모달을 닫는 함수
+        }
+      } else {
+        alert('예약에 실패했습니다: ' + result.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('예약 처리 중 오류가 발생했습니다.');
+    });
+}
+
+// 나의 공간 확인하기
+function checkMySpace() {
+  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  checkMySpaceDataModal.style.display = "block";
+
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
+
+
+  /* 비동기식 정보 보내기 */
+  fetch('/lib/space/checkMySpace', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ memberNo: memberNo })
   })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('예약 처리 중 오류가 발생했습니다.');
-  });
+    .then(response => response.json())
+    .then(result => {
+      console.log(result); // 응답 결과를 콘솔에 출력
+
+      if (result.message) {
+        alert(result.message); // 메시지가 있을 경우 alert로 출력
+      } else {
+
+        document.getElementById('startTime').innerText = result.startTime || '';
+        document.getElementById('endTime').innerText = result.endTime || '';
+        document.getElementById('remainingExtensions').innerText = result.remainingExtensions !== undefined && result.remainingExtensions !== null ? result.remainingExtensions : '';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+
+// 공간 예약 확인하기
+function checkMySpaceReservation() {
+
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+  checkMySpaceReservationModal.style.display = "block";
+
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
+  /* 비동기식 정보 보내기 */
+  fetch('/lib/space/checkMySpaceReservation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ memberNo: memberNo })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result); // 응답 결과를 콘솔에 출력
+
+      if (result.message) {
+        alert(result.message); // 메시지가 있을 경우 alert로 출력
+      } else {
+
+        document.getElementById('reservedSpaceNo').innerText = result.spaceNo || '';
+        document.getElementById('startBookingTime').innerText = result.startBooking || '';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+}
+
+// 공간 예약 취소하기
+function cancleSpceBooking() {
+
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
+
+  /* 비동기식 정보 보내기 */
+  fetch('/lib/space/cancleSpceBooking', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ memberNo: memberNo })
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result); // 응답 결과를 콘솔에 출력
+
+      const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+
+      if (result == 1) {
+        alert("예약이 취소되었습니다.");
+        checkMySpaceReservationModal.style.display = "none";
+      }
+
+      if (result == 0) {
+        alert("예약이 없습니다");
+        checkMySpaceReservationModal.style.display = "none";
+      }
+
+      else {
+        alert("예약 취소 중 오류가 발생했습니다. 관리자에게 문의하세요.");
+        checkMySpaceReservationModal.style.display = "none";
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
 }

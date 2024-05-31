@@ -31,4 +31,7 @@ public class LibSeatDTO {
     private int readingExtend;
     private int seatNo2;
     private int memberNo;
+    
+    // 열람실 예약하기
+    private String startTime;
 }

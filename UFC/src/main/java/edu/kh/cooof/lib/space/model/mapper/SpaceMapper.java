@@ -12,7 +12,7 @@ public interface SpaceMapper {
 
 	// tbSpace 지우기
 	void delTbSpace();
-	
+
 	// 편집내용 저장하기
 	int saveManagement(SpaceDTO space);
 
@@ -21,7 +21,7 @@ public interface SpaceMapper {
 
 	// 관리자 : 공간의 avail 수정하기
 	int updateSpaceStatus(Map<String, Object> params);
-	
+
 	// 공간 이용하기
 	int useSpace(Map<String, Object> params);
 
@@ -33,31 +33,38 @@ public interface SpaceMapper {
 
 	// 그만 이용하기
 	int stopUsingSpace(Map<String, Object> params);
-	
+
 	// 공간 이용 기록 지우기
 	int deleteRentSpace(Map<String, Object> params);
 
 	// 자리 연장 기회 카운트
 	int countExtend(int memberNo);
-	
+
 	// 연장 성공 시 연장 기회 차감
 	int updateRentSpace(int memberNo);
 
 	// 자리 연장하기
 	int extendUseSpace(int memberNo);
-	
+
 	// 예약하고자 하는 공간에 다른 예약이 있는지 확인하기
-	int checkOtherReservation(Map<String, Object> params);
-	
+	Integer checkOtherReservation(Map<String, Object> params);
+
+	// 나에게 다른 예약이 있는지 확인하기
+	int checkMyReserVation(int memberNo);
+
 	// 예약 시작 시간이 해당 좌석 종료 예정 시간 이후인지 확인
-	int checkStartTime(Map<String, Object> params);
+	Integer checkStartTime(Map<String, Object> params);
 
 	// 자리 예약하기
-	int bookSpace(Map<String, Object> params);
+	Integer bookSpace(Map<String, Object> params);
 
+	// 공간 이용 시작 시간, 종료시간, 남은 연장기회 가져오기
+	SpaceDTO rentSpaceInfo(int memberNo);
 
-	
+	// 공간 예약 내역 확인하기
+	SpaceDTO spaceReservationInfo(int memberNo);
 
-	
+	// 공간 예약 취소하기
+	int cancleSpceBooking(int memberNo);
 
 }
