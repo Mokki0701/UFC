@@ -29,12 +29,12 @@
 
     .inst-profile {
       width: 1280px;
-      height: 306px;
+      height: 180px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 2rem 3rem;
-      border: 1px solid #ccc;
+      border: 4px solid #ddd;
       border-radius: 8px;
       background-color: #f4f4f4;
     }
@@ -75,30 +75,32 @@
       color: #555;
     }
 
-    .section {
+    .inst-intro {
       margin-top: 20px;
+      width: 80%;
     }
 
-    .section h2 {
+    .inst-intro h2 {
       font-size: 1.5em;
+      font-weight: 700;
       color: #333;
       border-bottom: 2px solid #ccc;
       padding-bottom: 10px;
       margin-bottom: 10px;
     }
 
-    .section p {
+    .inst-intro p {
       font-size: 1em;
       color: #555;
       line-height: 1.5;
     }
 
-    .section ul {
+    .inst-intro ul {
       list-style-type: none;
       padding: 0;
     }
 
-    .section ul li {
+    .inst-intro ul li {
       font-size: 1em;
       color: #555;
       margin-bottom: 5px;
@@ -129,6 +131,7 @@
       justify-content: center;
       align-items: center;
       width: 30%;
+      border-right: 1px solid #ddd;
     }
 
     .right-profile {
@@ -136,7 +139,7 @@
       flex-direction: column;
       width: 68%;
       justify-content: center;
-      border-right: 1px solid grey;
+      
     }
   </style>
 </head>
@@ -157,23 +160,19 @@
       <div class="right-profile">
         <h1>권태영 강사</h1>
         <div class="info">
-          <div><span>상태</span><span>활동중</span></div>
-          <div><span>강좌분류</span><span>문화/취미, 야간강좌(성인)</span></div>
-          <div><span>강의분야</span><span>클래식기타 입문, 통기타 입문</span></div>
-          <div><span>연락처</span><span>비공개</span></div>
-          <div><span>이메일</span><span>비공개</span></div>
+          <div><span>상태 : </span><span th:text="${inst.instStat == 0 ? '활동중' : '활동 정지'}">활동 여부</span></div>
+          <div><span>강좌분류 : </span><span th:text="${inst.instCategory}">강좌 분류</span></div>
+          <div><span>연락처 : </span><span th:text="${inst.memberPhone}">연락처</span></div>
+          <div><span>이메일 : </span><span th:text="${inst.memberEmail}">이메일</span></div>
         </div>
       </div>
 
     </div>
 
-    <div class="section">
+    <div class="inst-intro">
       <h2>강사소개</h2>
-      <p>
-        안녕하세요~ 통기타와 클래식기타 수업을 맡아서 수업하고 있는 기타강사 권태영이라고 합니다.
-        초급부터 천천히 꼼꼼하게 지도하여 드리고 있으며 정적하게 1:1 수업을 하고 있으니 부담없이 찾아와 주시면 감사하겠습니다.
-        기타라는 악기가 평생의 취미악기로 함께 하실 수 있도록 최선을 다하여 수업하겠습니다.
-        감사합니다~^^
+      <p th:text="${inst.instIntro}">
+        
       </p>
     </div>
 
