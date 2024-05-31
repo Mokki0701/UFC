@@ -10,4 +10,9 @@ public interface ManagementService {
 
 	Application getApplicationNo(int applicationNo);
 
+	boolean sendEmail(String email);
+
+	int updateMemberAuthority(Integer memberNo);
+
+
 }

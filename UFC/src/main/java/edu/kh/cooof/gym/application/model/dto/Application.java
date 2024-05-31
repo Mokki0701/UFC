@@ -26,5 +26,5 @@ public class Application {
     private String memberFirstName;
     private String memberPhone;
     private String memberEmail;
-	
+    private int memberAuthority;
 }

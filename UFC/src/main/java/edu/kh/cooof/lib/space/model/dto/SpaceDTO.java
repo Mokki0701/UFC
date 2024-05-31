@@ -29,10 +29,17 @@ public class SpaceDTO {
 	
 	private int spaceExtend; // 공간의 남은 연장 기회
 	private String startTime; // 예약을 시작하고자 하는 시간
+
 	private String endTime; // 예약 종료 시간
 	
-	 private String startBooking; // 예약이된 시작 시간
+	private String startBooking; // 예약이된 시작 시간
 	
+
+	private String spaceStart;
+	private String spaceDone;
+	private int spaceNo2;
+	private int spaceExtend;
+
 	
 	
 }

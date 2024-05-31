@@ -28,7 +28,7 @@ fetch('/lesson/api/attendance?memberNo=' + loginMemberNo)
         legend: { display: false },
         title: {
           display: true,
-          text: '수강률 또는 출석률'
+          text: '출석률'
         }
       }
     });
@@ -38,7 +38,6 @@ fetch('/lesson/api/attendance?memberNo=' + loginMemberNo)
 
 
 // ---------- 풀캘린더 ------------------
-
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
 
@@ -50,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         location.href = 'list/' + info.event.extendedProps.lessonNo;
       }
 
-      // change the border color just for fun
       info.el.style.borderColor = 'red';
     },
     locale: 'ko', // 한국어로 설정
@@ -58,8 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
     headerToolbar: {
     left: 'prev,next today',
     center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    right: 'dayGridMonth'
     },
+    displayEventTime : false,
     events: function (fetchInfo, successCallback, failureCallback) {
       fetch('/lesson/calendar')
         .then(response => response.json())
@@ -76,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
               const lessonDays = lesson.lessonSchedule.split(' '); // 수업 요일 및 시간 배열로 변환
               const lessonDay = convertDayToNumber(lessonDays[0]); // 수업 요일만 숫자로 변환
               const currentDate = new Date(lesson.lessonStartDate);
-              //console.log(">>>>>>>>>"+currentDate);
               const endDate = new Date(lesson.lessonEndDate);
 
               while (currentDate <= endDate) {
@@ -124,50 +122,4 @@ function convertDayToNumber(day) {
   }
 }
 
-// 이전 코드---------------------------------------------------------------------------
-// document.addEventListener('DOMContentLoaded', function() {
-//   var calendarEl = document.getElementById('calendar');
-//   var calendar = new FullCalendar.Calendar(calendarEl, {
-//     initialView: 'resourceTimelineWeek'
-//   });
-//   calendar.render();
-
-//   var calendarEl = document.getElementById('calendar');
-
-//   var calendar = new FullCalendar.Calendar(calendarEl, {
-
-//     eventClick: function (info) {
-//           alert('Event: ' + info.event.title);
-
-//           // change the border color just for fun
-//           info.el.style.borderColor = 'red';
-//         },
-
-//     locale: 'ko', // 한국어로 설정
-//     initialView: 'dayGridMonth',
-//     //초기날짜 설정하지 않으면 오늘 날짜로
-//     //initialDate: '2024-03-07',
-//     headerToolbar: {
-//       left: 'prev,next today',
-//       center: 'title',
-//       right: 'dayGridMonth,timeGridWeek,timeGridDay'
-//     },
-//     //events: '/api/events'
-//     // events: [
-//     //   {
-//     //     title: 'All Day Event',
-//     //     start: '2024-03-01'
-//     //   },
-//     //   {
-//     //     title: 'Long Event',
-//     //     start: '2024-03-07',
-//     //     end: '2024-03-10'
-//     //   },
-
-//   });
-
-//   calendar.render();
-//   //console.log(calendar);
-
-// });
 

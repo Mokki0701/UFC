@@ -104,13 +104,87 @@
 	
 	<update id="loanExtend">
 		UPDATE LOAN_BOOK
-		SET BOOK_END = BOOK_END + 7
+		SET BOOK_END = BOOK_END + 7,
+			BOOK_EXTEND = 0,
+			BOOK_RETURN = 2
 		WHERE LOAN_BOOK_NO = #{loanBookNo}
 	</update>
 	
+	<select id="getHopeListCount">
+		SELECT COUNT(*)
+		FROM NEW_BOOK
+		WHERE NEW_BOOK_CHECK = 0
+	</select>
 	
+	<select id="selectHopeList">
+		SELECT NEW_BOOK_NO, NEW_TITLE, AUTHOR_LAST_NAME, AUTHOR_FIRST_NAME, PUBLISHER, MEMBER_NO
+		FROM NEW_BOOK
+		WHERE NEW_BOOK_CHECK = 0
+		ORDER BY NEW_BOOK_NO
+	</select>
 	
+	<select id="getExtendListCount">
+		SELECT COUNT(*)
+		FROM LOAN_BOOK
+		WHERE BOOK_RETURN = 1
+	</select>
 	
+	<select id="selectExtendList">
+		SELECT LOAN_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME, BOOK_START, BOOK_END
+		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE LOAN_BOOK_STATUS = 1
+		AND BOOK_RETURN = 1
+		ORDER BY LOAN_BOOK_NO 
+	</select>
 	
+	<select id="getQueryHopeListCount">
+		SELECT COUNT(*)
+		FROM NEW_BOOK
+		WHERE NEW_BOOK_CHECK = 0
+		AND NEW_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY NEW_BOOK_NO
+	</select>
+	
+	<select id="queryHopeList">
+		SELECT NEW_BOOK_NO, NEW_TITLE, AUTHOR_LAST_NAME, AUTHOR_FIRST_NAME, PUBLISHER, MEMBER_NO
+		FROM NEW_BOOK
+		WHERE NEW_BOOK_CHECK = 0
+		AND NEW_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY NEW_BOOK_NO
+	</select>
+	
+	<update id="completeHopeBook">
+		UPDATE NEW_BOOK
+		SET NEW_BOOK_CHECK = 1
+		WHERE NEW_BOOK_NO = #{newBookNo}
+	</update>
+
+	<select id="getQueryExtendListCount">
+		SELECT COUNT(*)
+		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE LOAN_BOOK_STATUS = 1
+		AND BOOK_RETURN = 1
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+	</select>
+
+	<select id="queryExtendList">
+		SELECT LOAN_BOOK_NO, BOOK_TITLE, BOOK_NO, MEMBER_NO, MEMBER_FIRST_NAME , MEMBER_LAST_NAME, BOOK_START, BOOK_END
+		FROM LOAN_BOOK
+		LEFT JOIN "MEMBER" USING(MEMBER_NO)
+		LEFT JOIN BOOK_INFO USING(BOOK_NO)
+		WHERE LOAN_BOOK_STATUS = 1
+		AND BOOK_RETURN = 1
+		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+		ORDER BY LOAN_BOOK_NO 
+	</select>
+
+
+
+
+
 
 </mapper>

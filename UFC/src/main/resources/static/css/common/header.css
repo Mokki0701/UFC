@@ -13,6 +13,10 @@ body {
 
 }
 
+a{
+    text-decoration: none;
+}
+
 .header-logo-container {
     display: flex;
     align-items: center;
@@ -25,6 +29,9 @@ body {
     width: 100%;
     box-sizing: border-box;
     padding-top: 10px;
+
+    background: white;
+    z-index: 10;
 }
 
 .header-logo-container h1 {
@@ -47,6 +54,8 @@ body {
     align-items: center;
     padding: 10px 20px;
 
+    z-index: 11;
+
 }
 
 .header-login-container span {
@@ -61,36 +70,38 @@ body {
     font-size: 1.1em;
 }
 
-.header-logo-container :hover {
+/* .header-logo-container :hover {
     text-decoration: underline;
-}
+} */
 
 .content {
     display: flex;
     flex: 1;
     margin-top: 80px;
     /* header 높이만큼 여백 추가 */
+    
 }
 
 .header-menu {
-
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 20px;
-    width: 200px;
+    /* width: 200px; */
     box-sizing: border-box;
     position: fixed;
     right: 0;
     top: 80px;
     /* header 높이만큼 아래로 이동 */
-    height: calc(100% - 80px);
+    /* height: calc(100% - 80px); */
     /* header 높이만큼 높이 조정 */
     align-items: center;
     /* 가운데 정렬 */
+    z-index: 10;
 }
 
-.header-menu a {
+.header-menu a{
     color: #ffffff;
     text-decoration: none;
     font-size: 1.1em;
@@ -101,66 +112,34 @@ body {
     /* 세로 가운데 정렬 */
     margin: 10px 0;
     border-radius: 50%;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.header-menu .a {
     background-color: rgb(85, 43, 8, 0.8);
-    display: block;
-    transition: background-color 0.3s;
 }
 
-.header-menu b {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.1em;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    /* 세로 가운데 정렬 */
-    margin: 10px 0;
-    border-radius: 50%;
+.header-menu .b {
     background-color: rgb(185, 204, 174);
-    display: block;
-    transition: background-color 0.3s;
 }
 
-.header-menu c {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.1em;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    /* 세로 가운데 정렬 */
-    margin: 10px 0;
-    border-radius: 50%;
+.header-menu .c {
     background-color: rgb(139, 168, 128);
-    display: block;
-    transition: background-color 0.3s;
 }
 
-.header-menu d {
-    color: #ffffff;
-    text-decoration: none;
+.header-menu .d {
     font-size: 1.0em;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    /* 세로 가운데 정렬 */
-    margin: 10px 0;
-    border-radius: 50%;
     background-color: rgb(84, 108, 72);
-    display: block;
-    transition: background-color 0.3s;
 }
-
+/* 
 .header-menu :hover {
     text-decoration: underline;
-}
+} */
 
 
 .header-container {
-    height: 150px;
+    height: 157px;
 
 }
 
@@ -222,3 +201,11 @@ body {
 .common-main-container {
     flex-grow: 1;
 }
+
+.my-page>a{
+    color: black;
+    
+}
+
+
+

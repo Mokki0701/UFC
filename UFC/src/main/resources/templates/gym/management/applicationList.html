@@ -25,29 +25,26 @@
                     <th>성</th>
                     <th>이름</th>
                     <th>지원날짜</th>
+                    <th>현재상태</th>
                     <th>상세보기</th>
                 </tr>
             </thead>
             <tbody>
 
-                <th:block th:if="${#lists.isEmpty(applications)}">
-                    <tr>
-                        <th colspan="11">지원서가 존재하지 않습니다.</th>
-                    </tr>
-                </th:block>
-
-                <th:block th:unless="${#lists.isEmpty(applications)}">
-
-                    <tr th:each="app : ${applications}" th:object="${app}">
-                        <td th:text="${app.applicationNo}"></td>
-                        <td th:text="${app.position}"></td>
-                        <td th:text="${app.memberLastName}"></td>
-                        <td th:text="${app.memberFirstName}"></td>
-                        <td th:text="${app.applyDate}"></td>
-                        <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}">상세 보기</a></td>
-                    </tr>
-
-                </th:block>
+                <tr th:each="app : ${applications}" th:object="${app}">
+                    <td th:text="${app.applicationNo}"></td>
+                    <td th:text="${app.position}"></td>
+                    <td th:text="${app.memberLastName}"></td>
+                    <td th:text="${app.memberFirstName}"></td>
+                    <td th:text="${app.applyDate}"></td>
+                    <td>
+                        <span th:if="${app.memberAuthority} == 0">일반 회원</span>
+                        <span th:if="${app.memberAuthority} == 1">강사</span>
+                        <span th:if="${app.memberAuthority} == 2">트레이너</span>
+                        <span th:if="${app.memberAuthority} == 3">관리자</span>
+                    </td>
+                    <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}">상세 보기</a></td>
+                </tr>
 
             </tbody>
         </table>

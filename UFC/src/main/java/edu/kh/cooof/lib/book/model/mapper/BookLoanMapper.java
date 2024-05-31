@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.cooof.lib.book.model.dto.LoanBook;
+import edu.kh.cooof.lib.book.model.dto.NewBook;
 import edu.kh.cooof.lib.book.model.dto.RentBook;
 
 @Mapper
@@ -39,5 +40,23 @@ public interface BookLoanMapper {
 	void downBook(Map<String, Object> map);
 
 	void loanExtend(int loanBookNo);
+
+	int getHopeListCount();
+
+	List<NewBook> selectHopeList(RowBounds rowBounds);
+
+	int getExtendListCount();
+
+	List<LoanBook> selectExtendList(RowBounds rowBounds);
+
+	int getQueryHopeListCount(String query);
+
+	List<NewBook> queryHopeList(String query, RowBounds rowBounds);
+
+	int completeHopeBook(int newBookNo);
+
+	int getQueryExtendListCount(String query);
+
+	List<LoanBook> queryExtendList(String query, RowBounds rowBounds);
 
 }

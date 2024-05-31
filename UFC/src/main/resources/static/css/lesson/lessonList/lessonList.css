@@ -317,7 +317,14 @@ nav ul li a {
 
 .detail-view-link {
   text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
 }
+
+.detail-view-link:hover {
+  text-decoration: underline;
+}
+
 
 .bg-picture-top{
 content: '';
