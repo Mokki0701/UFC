@@ -120,4 +120,12 @@ public class LibSeatServiceImpl implements LibSeatService {
 		
 		return getCacRealSeatNo;
 	}
+	
+	// 나의 자리 이용 정보 받아오기
+	@Override
+	public LibSeatDTO getMySeatInfo(int memberNo) {
+		
+		
+		return mapper.getMySeatInfo(memberNo);
+	}
 }

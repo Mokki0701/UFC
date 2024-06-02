@@ -286,5 +286,25 @@ public class LibSeatController {
 
 		return result;
 	}
+	
+	// 나의 열람실 이용 정보 받아오기
+	// 필요한 정보
+	// 회원 번호
+	
+	// 보낼 정보 (map으로 묶어서 보내기)
+	// 1. 이용 시작 시간
+	// 2. 이용 종료 예정 시간
+	// 3. 남은 연장 기회
+	@PostMapping("/getMySeatInfo")
+	@ResponseBody
+	public LibSeatDTO getMySeatInfo(@SessionAttribute("loginMember") Member loginMember) {
+		
+		int memberNo = loginMember.getMemberNo();
+		LibSeatDTO result = service.getMySeatInfo(memberNo);
+		
+		// 보내기 전에 받아 온 정보 점검하기
+		
+		return result;
+	}
 
 }

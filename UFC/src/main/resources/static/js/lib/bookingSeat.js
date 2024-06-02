@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 이용 가능한 좌석에만 반응하기
   useSeatBtn.addEventListener("click", () => {
 
-    
+
     if (selectedSeat && selectedSeat.classList.contains('availSeat') && !selectedSeat.classList.contains('nowUsing') && !selectedSeat.classList.contains('disavailSeat')) {
       const dbSeatNo = document.getElementById('dbSeatNo').textContent;
       // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
       alert("선택한 좌석은 사용할 수 없습니다.");
     }
 
-    
+
   });
 
 
@@ -169,8 +169,8 @@ stopUsingSeat.addEventListener("click", () => {
 });
 
 // 모달 닫는 기능
-function closeModal(){
- 
+function closeModal() {
+
   const bookingModal = document.getElementById('bookingModal');
   bookingModal.style.display = "none";
 
@@ -276,8 +276,29 @@ function realBookingSeat() {
 }
 
 // 이용중인 열람실 확인하는 모달 열기
-function checkMySeat(){
+function checkMySeat() {
   const checkMyseat = document.getElementById('checkMyseat');
 
+  // 필요한 정보를 보여주는 모달 표시
   checkMyseat.style.display = "block";
+
+  // 정보를 표시 할 span
+
+  // 필요한 정보 비동기로 받아오기
+  fetch('/lib/seats/getMySeatInfo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        const seatInfo = result.seatInfo;
+        if (seatInfo) {
+        }
+      }
+    });
 }
+
+// 

@@ -33,5 +33,5 @@ public class LibSeatDTO {
     private int memberNo;
     
     // 열람실 예약하기
-    private String startTime;
+    private String startTime; // 예약을 시작하고자 하는 시간
 }

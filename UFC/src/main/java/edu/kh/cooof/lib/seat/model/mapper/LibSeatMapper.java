@@ -58,5 +58,8 @@ public interface LibSeatMapper {
 	// 유저의 자리 번호와 db의 자리번호 맞추기
 	int getCacRealSeatNo(int seatNo);
 
+	// 나의 자리 이용 정보 받아오기
+	LibSeatDTO getMySeatInfo(int memberNo);
+
 
 }

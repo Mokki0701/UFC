@@ -1,6 +1,7 @@
 package edu.kh.cooof.lib.seat.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.member.model.dto.Member;
@@ -38,6 +39,10 @@ public interface LibSeatService {
 	
 	// 유저의 자리번호와 db 자리 번호 맞추기
 	int getCacRealSeatNo(int seatNo);
+
+	// 나의 자리 이용 정보 받아오기
+	LibSeatDTO getMySeatInfo(int memberNo);
+
 	
 
 	

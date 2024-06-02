@@ -68,7 +68,7 @@ public class LibMainController {
 		}
 
 		if (loginMember != null && loginMember.getMemberAuthority() < 3) {
-			path = "lib/seat/bookingSeat";
+			path = "lib/seat/useSeat";
 		}
 
 		return path;

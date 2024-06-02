@@ -127,6 +127,11 @@
 	    WHERE CONDITION = 0
 	    AND SEAT_NO &lt;= #{seatNo}
     </select>
+    
+    <select id="getMySeatInfo" parameterType="edu.kh.cooof.lib.seat.model.dto.libSeatDTO">
+    
+    	
+    </select>
 
 
 </mapper>
