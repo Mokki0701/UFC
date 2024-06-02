@@ -101,13 +101,13 @@ public class LibSeatController {
 				// DB의 열람실 번호와 유저가 보는 열람실 번호가 다르다.
 				// -> 해결하기 위해 다음과 같은 SQL을 수행한다.
 				int cacRealSeatNo = service.getCacRealSeatNo(libSeat.getSeatNo());
-				
+
 				// 사용자가 선택한 열람실 좌석의 db상 번호
 				int dbSeatNo = libSeat.getSeatNo();
-				
+
 				// 사용자에게 보여줄 열람실 번호
 				int userSeatNo = dbSeatNo - cacRealSeatNo;
-				
+
 				// 회원이 이용 중인 자리 session에 저장하기
 				Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
 						.getAttribute("memberAndSeatSession");
@@ -286,25 +286,34 @@ public class LibSeatController {
 
 		return result;
 	}
-	
+
 	// 나의 열람실 이용 정보 받아오기
 	// 필요한 정보
 	// 회원 번호
-	
+
 	// 보낼 정보 (map으로 묶어서 보내기)
 	// 1. 이용 시작 시간
 	// 2. 이용 종료 예정 시간
 	// 3. 남은 연장 기회
 	@PostMapping("/getMySeatInfo")
 	@ResponseBody
-	public LibSeatDTO getMySeatInfo(@SessionAttribute("loginMember") Member loginMember) {
-		
+	public Map<String, Object> getMySeatInfo(@SessionAttribute("loginMember") Member loginMember) {
+
+		String message = null;
 		int memberNo = loginMember.getMemberNo();
 		LibSeatDTO result = service.getMySeatInfo(memberNo);
-		
-		// 보내기 전에 받아 온 정보 점검하기
-		
-		return result;
+
+		if (result == null) {
+			message = "회원님은 열람실 이용 중이 아니세요..";
+			return null;
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("startTime", result.getReadingStart());
+		map.put("endTime", result.getReadingDone());
+		map.put("readingExtend", result.getReadingExtend());
+		return map;
+
 	}
 
 }

@@ -295,10 +295,20 @@ function checkMySeat() {
     .then(result => {
       if (result.success) {
         const seatInfo = result.seatInfo;
-        if (seatInfo) {
+        if (result.message) {
+          alert(result.message);
+        } else {
+          // 내부 텍스트를 결과로 표시하기
+          const startTime = document.querySelector('#startTime');
+          const endTime = document.querySelector('#endTime');
+          const remainingExtensions = document.querySelector('#remainingExtensions');
+
+          startTime.innerHTML = seatInfo.getStartTime();
+          endTime.innerText = seatInfo.getEndTime();
+          remainingExtensions.innerText = seatInfo.getReadingExtend();
         }
       }
     });
 }
 
-// 
+// 좌석 연장버튼 기능
