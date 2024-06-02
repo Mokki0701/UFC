@@ -301,17 +301,24 @@ public class LibSeatController {
 
 		String message = null;
 		int memberNo = loginMember.getMemberNo();
+		
+		// 정보를 가저욜 service
 		LibSeatDTO result = service.getMySeatInfo(memberNo);
+
+		// 결과를 담아 보낼 map
+		Map<String, Object> map = new HashMap<>();
 
 		if (result == null) {
 			message = "회원님은 열람실 이용 중이 아니세요..";
-			return null;
+			map.put("message", message);
 		}
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("startTime", result.getReadingStart());
-		map.put("endTime", result.getReadingDone());
-		map.put("readingExtend", result.getReadingExtend());
+		if (result != null) {
+
+			map.put("startTime", result.getReadingStart());
+			map.put("endTime", result.getReadingDone());
+			map.put("readingExtend", result.getReadingExtend());
+		}
 		return map;
 
 	}

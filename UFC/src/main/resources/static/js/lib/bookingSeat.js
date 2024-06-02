@@ -292,22 +292,21 @@ function checkMySeat() {
     }
   })
     .then(response => response.json())
-    .then(result => {
-      if (result.success) {
-        const seatInfo = result.seatInfo;
-        if (result.message) {
-          alert(result.message);
+    .then(map => {
+        // const seatInfo = result.seatInfo;
+        if (map.message) {
+          alert(map.message);
+          console.log(map.message);
         } else {
           // 내부 텍스트를 결과로 표시하기
-          const startTime = document.querySelector('#startTime');
+          const startTime = document.querySelector("#startTime");
           const endTime = document.querySelector('#endTime');
           const remainingExtensions = document.querySelector('#remainingExtensions');
 
-          startTime.innerHTML = seatInfo.getStartTime();
-          endTime.innerText = seatInfo.getEndTime();
-          remainingExtensions.innerText = seatInfo.getReadingExtend();
+          startTime.innerText = map.startTime;
+          endTime.innerText = map.endTime;
+          remainingExtensions.innerText = map.readingExtend;
         }
-      }
     });
 }
 
