@@ -120,6 +120,13 @@
             #{seatNo} 
         )
     </insert>
+    
+    <select id="getCacRealSeatNo">
+    	SELECT COUNT(*)
+	    FROM SEAT
+	    WHERE CONDITION = 0
+	    AND SEAT_NO &lt;= #{seatNo}
+    </select>
 
 
 </mapper>

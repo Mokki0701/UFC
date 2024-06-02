@@ -36,6 +36,9 @@ public interface LibSeatService {
 	// 열람실 좌석 예약 실행
 	int seatBooking(int memberNo, int seatNo, String startTime);
 	
+	// 유저의 자리번호와 db 자리 번호 맞추기
+	int getCacRealSeatNo(int seatNo);
+	
 
 	
 

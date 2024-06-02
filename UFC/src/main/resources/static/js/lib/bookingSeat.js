@@ -262,4 +262,3 @@ function realBookingSeat() {
       alert('예약 처리 중 오류가 발생했습니다.');
     });
 }
-

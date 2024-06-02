@@ -98,13 +98,24 @@ public class LibSeatController {
 				message = "좌석 이용 등록 성공!";
 				result = "success";
 
+				// DB의 열람실 번호와 유저가 보는 열람실 번호가 다르다.
+				// -> 해결하기 위해 다음과 같은 SQL을 수행한다.
+				int cacRealSeatNo = service.getCacRealSeatNo(libSeat.getSeatNo());
+				
+				// 사용자가 선택한 열람실 좌석의 db상 번호
+				int dbSeatNo = libSeat.getSeatNo();
+				
+				// 사용자에게 보여줄 열람실 번호
+				int userSeatNo = dbSeatNo - cacRealSeatNo;
+				
 				// 회원이 이용 중인 자리 session에 저장하기
 				Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
 						.getAttribute("memberAndSeatSession");
 				if (memberAndSeatSession == null) {
 					memberAndSeatSession = new HashMap<>();
 				}
-				memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
+				// memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
+				memberAndSeatSession.put(memberNo, userSeatNo);
 
 				session.setAttribute("memberAndSeatSession", memberAndSeatSession);
 

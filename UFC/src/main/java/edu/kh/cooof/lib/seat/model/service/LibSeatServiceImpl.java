@@ -111,4 +111,13 @@ public class LibSeatServiceImpl implements LibSeatService {
 		}
 		return result;
 	}
+	
+	// 유저의 자리 번호와 db의 자리번호 맞추기
+	@Override
+	public int getCacRealSeatNo(int seatNo) {
+		
+		int getCacRealSeatNo = mapper.getCacRealSeatNo(seatNo);
+		
+		return getCacRealSeatNo;
+	}
 }
