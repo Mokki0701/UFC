@@ -7,7 +7,7 @@
   font-style: normal;
 }
 
-*{
+* {
   font-family: 'TTHakgyoansimMonggeulmonggeulR';
   font-weight: normal;
   font-style: normal;
@@ -40,31 +40,35 @@
 
 /* 드롭다운 항목을 숨김 */
 .dropdown-content {
-  max-height: 0;         /* 초기 최대 높이 설정 */
-  overflow: hidden;      /* 내용이 넘칠 경우 숨김 처리 */
+  max-height: 0;
+  /* 초기 최대 높이 설정 */
+  overflow: hidden;
+  /* 내용이 넘칠 경우 숨김 처리 */
   visibility: hidden;
   opacity: 0;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   left: 0;
-  transition: all 0.5s ease; /* 모든 변화에 대해 전환 효과 적용 */
+  transition: all 0.5s ease;
+  /* 모든 변화에 대해 전환 효과 적용 */
 }
 
 /* 호버 시 드롭다운 항목 보이기 */
 .dropdown:hover .dropdown-content {
-  max-height: 500px;    /* 드롭다운 최대 높이 변경 */
+  max-height: 500px;
+  /* 드롭다운 최대 높이 변경 */
   visibility: visible;
   opacity: 1;
 }
 
 /* 드롭다운 메뉴 항목 스타일 */
 .dropdown-content li {
-  list-style: none;        
-  padding-left: -40px;         
-  margin-left: -40px;          
+  list-style: none;
+  padding-left: -40px;
+  margin-left: -40px;
 }
 
 /* 드롭다운 항목의 링크 스타일 */
@@ -77,6 +81,62 @@
 }
 
 /* 호버 시 링크 색상 변경 */
-.navbar a:hover, .dropdown:hover > a {
+.navbar a:hover,
+.dropdown:hover>a {
   background-color: #555;
+}
+
+
+
+/* -------------------- 모달 공통 설정 css --------------------- */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 15px;
+  border: 5px dashed rgba(54, 26, 0, 0.7);
+}
+
+/* ------------------ 자리 예약 모달 css ------------------ */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+
+
+}
+
+/* 닫기 버튼 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* 시간선택 */
+.time-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.time-picker select {
+  padding: 5px;
+  font-size: 16px;
 }

@@ -240,7 +240,6 @@ public class LibSeatController {
 			}
 		}
 
-		
 		if (terminal == 0) {
 			int checkStartTime = service.checkStartTime(seatNo, startTime);
 			if (checkStartTime == 1) {
@@ -253,9 +252,21 @@ public class LibSeatController {
 		// 7. 모든 조건을 통과했을 때 예약 수행
 		if (terminal == 0) {
 			// 예약 성공
-			int seatBooking = service.seatBooking(seatNo, startTime);
-			success = true;
-			message = "예약이 성공적으로 완료되었습니다.";
+			int seatBooking = service.seatBooking(memberNo, seatNo, startTime);
+
+			if (seatBooking == 1) {
+				message = "예약이 성공적으로 완료되었습니다.";
+				success = true;
+				result.put("seatBooking", message);
+				result.put("success", success);
+			}
+			// 예약 실패 시
+			// (모든 조건을 만족시켰으나 컬럼에 값이 입력되지 않은 경우)
+			if (seatBooking == 0) {
+				message = "예약에 실패했습니다.. 관리자에게 문의해 주세요.";
+				result.put("seatBooking", message);
+			}
+
 		}
 
 		result.put("success", success);

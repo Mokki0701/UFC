@@ -13,7 +13,7 @@
 
 <body>
 
-  <header th:replace="~{common/header}"></header>
+  <!-- <header th:replace="~{common/header}"></header> -->
   <th:block th:replace="~{common/lib/libNavVar}"></th:block>
 
   <br>
@@ -94,52 +94,55 @@
   <div id="userInfo" data-member-no="${session.loginMember.memberNo}"></div>
 
 
-  <!-- 공간 예약하기 모달 -->
-  <div id="bookingModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div>
-      <div>현재 시간 : <span id="currentTime"></span></div>
-      <div class="time-picker">
-        <label>사용 시작하고 싶은 시간:</label>
-        <select id="amPm">
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
-        </select>
-        <select id="hour">
-          <option value="12">12</option>
-          <option value="01">01</option>
-          <option value="02">02</option>
-          <option value="03">03</option>
-          <option value="04">04</option>
-          <option value="05">05</option>
-          <option value="06">06</option>
-          <option value="07">07</option>
-          <option value="08">08</option>
-          <option value="09">09</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-        </select>
-        <span>:</span>
-        <select id="minute">
-          <option value="00">00</option>
-          <option value="05">05</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-          <option value="25">25</option>
-          <option value="30">30</option>
-          <option value="35">35</option>
-          <option value="40">40</option>
-          <option value="45">45</option>
-          <option value="50">50</option>
-          <option value="55">55</option>
-        </select>
+
+  <div class="modalFather">
+    <!-- 공간 예약하기 모달 -->
+    <div id="bookingModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <!-- 이용 종료 시간 표시 방법 바꾸기 -->
+        <!-- <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div> -->
+        <div>현재 시간 : <span id="currentTime"></span></div>
+        <div class="time-picker">
+          <label>사용 시작하고 싶은 시간:</label>
+          <select id="amPm">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+          <select id="hour">
+            <option value="12">12</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+          </select>
+          <span>:</span>
+          <select id="minute">
+            <option value="00">00</option>
+            <option value="05">05</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+          </select>
+        </div>
+        <button onclick="realBookingSeat()">예약하기</button>
       </div>
-      <button onclick="realBookingSeat()">예약하기</button>
     </div>
   </div>
-
 
   <footer>
     공용 푸터가 들어갈 부분

@@ -52,6 +52,7 @@ public interface LibSeatMapper {
 	int checkStartTime(Map<String, Object> params);
 
 	// 열람실 예약 실행
-	int seatBooking(int seatNo, String startTime);
+	int seatBooking(Map<String, Object> params);
+
 
 }

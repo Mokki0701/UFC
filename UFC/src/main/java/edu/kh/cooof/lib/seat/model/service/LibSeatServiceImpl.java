@@ -91,4 +91,24 @@ public class LibSeatServiceImpl implements LibSeatService {
 		}
 		return 0;
 	}
+	
+	@Override
+	public int seatBooking(int memberNo, int seatNo, String startTime ) {
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("seatNo", seatNo);
+		params.put("startTime", startTime);
+		params.put("memberNo", memberNo);
+		
+		String message = null;
+		int result = 0;
+		
+		int checkTime = mapper.seatBooking(params);
+		if (checkTime == 1) {
+			result = 1;
+		} else {
+			result = 0;
+		}
+		return result;
+	}
 }

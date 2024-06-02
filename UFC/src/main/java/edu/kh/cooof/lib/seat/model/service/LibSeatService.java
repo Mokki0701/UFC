@@ -34,7 +34,7 @@ public interface LibSeatService {
 	int checkStartTime(int seatNo, String startTime);
 
 	// 열람실 좌석 예약 실행
-	int seatBooking(int seatNo, String startTime);
+	int seatBooking(int memberNo, int seatNo, String startTime);
 	
 
 	
