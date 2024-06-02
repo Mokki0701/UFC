@@ -92,6 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 이용 가능한 좌석에만 반응하기
   useSeatBtn.addEventListener("click", () => {
+
+    
     if (selectedSeat && selectedSeat.classList.contains('availSeat') && !selectedSeat.classList.contains('nowUsing') && !selectedSeat.classList.contains('disavailSeat')) {
       const dbSeatNo = document.getElementById('dbSeatNo').textContent;
       // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
@@ -124,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       alert("선택한 좌석은 사용할 수 없습니다.");
     }
+
+    
   });
 
 
@@ -170,13 +174,21 @@ function closeModal(){
   const bookingModal = document.getElementById('bookingModal');
   bookingModal.style.display = "none";
 
-  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
-  checkMySpaceDataModal.style.display = "none";
+  // const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  // checkMySpaceDataModal.style.display = "none";
 
-  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
-  checkMySpaceReservationModal.style.display = "none";
+  // const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+  // checkMySpaceReservationModal.style.display = "none";
+
+  const checkMyseat = document.getElementById('checkMyseat');
+  checkMyseat.style.display = "none";
 }
 
+// 모달 외부 클릭 시 닫기
+// window.onclick function(e) {
+//   const bookingModal = document.getElementById('bookingModal');
+//   bookingModal.style.display = "none"; 
+// }
 
 
 
@@ -261,4 +273,11 @@ function realBookingSeat() {
       console.error('Error:', error);
       alert('예약 처리 중 오류가 발생했습니다.');
     });
+}
+
+// 이용중인 열람실 확인하는 모달 열기
+function checkMySeat(){
+  const checkMyseat = document.getElementById('checkMyseat');
+
+  checkMyseat.style.display = "block";
 }

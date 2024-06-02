@@ -45,23 +45,7 @@
 
 
 
-  <div>
-    <h2>현재 로그인한 회원 정보</h2>
-    <p>회원 번호: <span th:text="${session.loginMember.memberNo}"></span></p>
-
-    <!-- 세션에 memberAndSeatSession이 있고, loginMember가 있는 경우에만 좌석 번호 출력 -->
-    <div th:if="${session.memberAndSeatSession != null}">
-      <th:block
-        th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
-        <p>회원님이 사용 중인 좌석 번호:
-          <span th:text="${seatNo}"></span>
-        </p>
-      </th:block>
-    </div>
-    <div th:if="${session.memberAndSeatSession == null}">
-      <p>이용 중인 좌석이 없습니다.</p>
-    </div>
-  </div>
+  
 
 
   <div>
@@ -146,6 +130,26 @@
     </div>
   </div>
 
+  <div id="checkMyseat" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>현재 로그인한 회원 정보</h2>
+      <p>회원 번호: <span th:text="${session.loginMember.memberNo}"></span></p>
+  
+      <!-- 세션에 memberAndSeatSession이 있고, loginMember가 있는 경우에만 좌석 번호 출력 -->
+      <div th:if="${session.memberAndSeatSession != null}">
+        <th:block
+          th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
+          <p>회원님이 사용 중인 좌석 번호:
+            <span th:text="${seatNo}"></span>
+          </p>
+        </th:block>
+      </div>
+      <div th:if="${session.memberAndSeatSession == null}">
+        <p>이용 중인 좌석이 없습니다.</p>
+      </div>
+    </div>
+  </div>
   
 
   <footer>
