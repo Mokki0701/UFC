@@ -1,8 +1,175 @@
-.tempLink{
+/* .tempLink{
     color: brown;
       font-size: 100px;
       width: 200px;
       height: 50px;
       margin: 10px;
 
+} */
+
+body{
+  background-color: #F2E2CE;
+}
+
+.main_wrapper {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main_container {
+  width: 85.36%; /* 1639px / 1920px = 0.8536 */
+  max-width: 1639px;
+  height: 663px;
+  background-color: transparent;
+  padding: 0;
+}
+
+/* 나중에 보더 지우세요 ========================== */
+.tab-content > div:nth-of-type(1){
+  border: 2px solid #000;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tabs {
+  display: flex;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  height: 50px;
+}
+
+.tab {
+  flex: 1;
+  padding: 15px 10px;
+  cursor: pointer;
+  background-color: transparent;
+  /* border: 1px solid #ddd; */
+  border-bottom: none;
+  outline: none;
+  transition: background-color 0.3s, padding 0.3s; 
+  text-align: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-right: 5px;
+  height: 50px; 
+  line-height: 20px;
+}
+
+.tab:last-child {
+  margin-right: 0;
+}
+
+.tab.active {
+  /* 상위 요소가 명시적으로 배경 색상을 설정하지 않은 경우,
+    같은 탭 요소의 다른 클래스에서 설정된 색상을 상속 받음
+  */
+  background-color: inherit;
+  font-weight: bold;
+}
+
+.tab:hover {
+  padding-top: 20px; 
+  padding-bottom: 20px; 
+}
+
+/* 탭 누를 시 화면이 전환되는 부분 (내용)====================== */
+.tab-content {
+  display: none;
+  padding: 20px;
+  text-align: center;
+  border-top: none;
+  height: calc(100% - 50px); 
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: -1px;
+  /* .arrow-down 위치 기준 */
+  position: relative; 
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* 탭 색상 -> 나중에 정해진 컬러로 수정하기*/
+.main, .tab.main.active { background-color: #A67E33; }
+.library, .tab.library.active { background-color: #BF9D5E; }
+.lesson, .tab.lesson.active { background-color: #D9BD89; }
+.health, .tab.health.active { background-color: #ffffdd; }
+.community, .tab.community.active { background-color: #F2DDB6; }
+.myPage, .tab.myPage.active { background-color: #BF7B54; }
+
+.arrow-down {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  font-size: 30px;
+  cursor: default;
+  animation: scroll_ani 2s infinite;
+  z-index: 100;
+  font-weight: 800;
+}
+
+@keyframes scroll_ani {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 0.5;
+  }
+}
+
+/* =========== swiper CSS 수정============================== */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* 가로 슬라이드일 경우 */
+/* .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.swiper-slide > div {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 슬라이드 구분 위해 색 지정 -> 나중에 지우기 =========== */
+.swiper-slide:nth-of-type(1) > div{
+  background-color: bisque;
+}
+.swiper-slide:nth-of-type(2) > div{
+  background-color: lightseagreen;
+}
+.swiper-slide:nth-of-type(3) > div{
+  background-color: lavender;
+}
+.swiper-slide:nth-of-type(4) > div{
+  background-color: yellowgreen;
+}
+
+/* pagination  안보이게 하기 */
+.swiper-pagination {
+  display: none !important;
+}
+
+/* 슬라이드 그림자 없애기 */
+.swiper-cube-shadow{
+  display: none;
 }
