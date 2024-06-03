@@ -1,0 +1,90 @@
+body {
+    font-family: 'TTHakgyoansimMonggeulmonggeulR', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    border: 1px solid #eaeaea;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #4CAF50; /* 메인 헤더 색상 변경 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fafafa;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.info-item:hover {
+    background: #f0f0f0; /* 호버 시 배경 색상 변경 */
+}
+
+.info-icon {
+    font-size: 2em;
+    margin-right: 15px;
+    color: #4CAF50; /* 아이콘 색상 변경 */
+}
+
+.info-title {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.info-content {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.info-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.info-content li {
+    margin-bottom: 5px;
+}
+
+.info-content li::before {
+    content: '•';
+    color: #4CAF50; /* 아이템 앞 점 색상 변경 */
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .info-title {
+        font-size: 1.1em;
+    }
+    .info-content {
+        font-size: 1em;
+    }
+}

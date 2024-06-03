@@ -1,3 +1,4 @@
+
 package edu.kh.cooof.gym.application.controller;
 
 import edu.kh.cooof.gym.application.model.dto.Application;
