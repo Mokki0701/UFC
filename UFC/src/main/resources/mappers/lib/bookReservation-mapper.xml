@@ -7,6 +7,7 @@
 		FROM RENT_BOOK
 		WHERE BOOK_NO = #{bookNo}
 		AND MEMBER_NO = #{memberNo}
+		AND RENT_BOOK_CHECK = 1
 	</select>
 	
 	<insert id="insertCheckBook">
