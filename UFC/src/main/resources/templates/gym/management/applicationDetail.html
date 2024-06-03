@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지원서 상세 조회</title>
-    <link rel="stylesheet" href="/css/gym/apply.css">
+
+    <link rel="stylesheet" href="/css/common/header.css">
     <link rel="stylesheet" href="/css/gym/gymMain.css">
     <link rel="stylesheet" href="/css/gym/applicationDetail.css">
 </head>
 <body>
+    <th:block th:replace="~{/common/header}">헤더</th:block>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
     <section class="application-detail">
         <h3 th:text="|${app.memberLastName} ${app.memberFirstName} 의 지원서|">지원서</h3>
@@ -45,5 +47,7 @@
     </section>
 
     <script src="/js/gym/appManagement.js"></script>
+
+    <th:block th:replace="~{/common/footer}">footer</th:block>
 </body>
 </html>

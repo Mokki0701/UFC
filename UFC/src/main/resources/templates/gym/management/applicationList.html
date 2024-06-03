@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지원서 목록</title>
-    <link rel="stylesheet" href="/css/gym/apply.css">
+
+    <link rel="stylesheet" href="/css/common/header.css">
     <link rel="stylesheet" href="/css/gym/gymMain.css">
     <link rel="stylesheet" href="/css/gym/applicationList.css">
 </head>
-<body>
+<body class="application-list-body">
+    <th:block th:replace="~{/common/header}">헤더</th:block>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
 
     <section class="application-list">
@@ -17,7 +19,7 @@
 
     <div class="list-wrapper">
 
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>지원서 번호</th>
@@ -43,7 +45,7 @@
                         <span th:if="${app.memberAuthority} == 2">트레이너</span>
                         <span th:if="${app.memberAuthority} == 3">관리자</span>
                     </td>
-                    <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}">상세 보기</a></td>
+                    <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}" class="detail-link">상세 보기</a></td>
                 </tr>
 
             </tbody>
@@ -52,5 +54,8 @@
     </div>
 
     </section>
+
+    <th:block th:replace="~{/common/footer}">footer</th:block>
+
 </body>
 </html>

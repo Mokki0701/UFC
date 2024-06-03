@@ -42,7 +42,7 @@
 }
 .gym_type a:hover {
     color: white;
-    background-color: rgb(239, 50, 50);
+    background-color: rgba(139, 168, 128, 0.9);
 }
 .gym_items {
     display: flex;

@@ -5,73 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>헬스 메인</title>
 
+    <link rel="stylesheet" href="/css/common/header.css">
     <link rel="stylesheet" href="/css/gym/gymMain.css">
-    
 </head>
 
-
 <body>
-    <!-- 헬스장 헤더 조각 모음  -->
-  <th:black th:replace="~{gym/gymHeader}"></th:black>
+  <th:block th:replace="~{/common/header}"></th:block>
 
-      <div id="gym_container2">  
-        <div>
-          <p class="gym_photo">
-            <img src="/images/gym/gym.jpg" alt="헬스장 사진">
-          </p>
-          <div class="gym_time">
-          <dl>
-            <dt>
-              "이용요일"
-            </dt>
-            <dd>
-              개관일 : 월 ~ 금
-              <br>
-              <span class="gym_point">(주말 및 공휴일 휴관)</span>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              "이용대상"
-            </dt>
-            <dd>
-              (아직 모름 ~ 가상)
-            </dd>
-          </dl>
+
+  <div class="gym_container">
+  <!-- 헬스장 헤더 조각 모음 -->
+  <th:block th:replace="~{gym/gymHeader}"></th:block>
+    <div id="gym_container2">
+      <div class="gym_photo">
+        <img src="/images/gym/gym.jpg" alt="헬스장 사진">
+      </div>
+      <div class="gym_time">
+        <dl>
+          <dt>이용요일</dt>
+          <dd>
+            개관일 : 월 ~ 토
+            <br>
+            <span class="gym_point">(일요일 및 공휴일 휴관)</span>
+          </dd>
+        </dl>
+        <dl>
+          <dt>이용대상</dt>
+          <dd>중구시민</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="gym_time_info">
+      <div class="gym_calendar">
+          <p class="gym_min_title">이용시간</p>
+          <ul>
+            <li>평일: 06:00 - 22:00</li>
+            <li>토요일: 08:00 - 18:00</li>
+          </ul>
+      </div>
+      <div class="gym_info">
+        <p class="gym_min_title">이용방법</p>
+        <ul>
+          <li>방문해서 회원증 발급 받기</li>
+          <li>회원명단에 체크 후 사용</li>
+          <li>시설 이용 시 안전 수칙 준수</li>
+        </ul>
+      </div>
+      <div class="gym_facilities">
+        <p class="gym_min_title">시설 기구 안내</p>
+        <ul>
+          <li>러닝머신</li>
+          <li>프리웨이트 존</li>
+          <li>요가 및 필라테스 스튜디오</li>
+          <li>스쿼트 랙</li>
+          <li>덤벨 세트</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="gym_additional_info">
+      <div class="gym_trainers">
+        <p class="gym_min_title">트레이너 소개</p>
+        <div class="trainer_list">
+          <div class="trainer">
+            <img src="/images/trainers/trainer1.jpg" alt="트레이너 사진">
+            <p>홍길동</p>
+            <p>전문 분야: 체력 강화, 다이어트</p>
+          </div>
+          <div class="trainer">
+            <img src="/images/trainers/trainer2.jpg" alt="트레이너 사진">
+            <p>김영희</p>
+            <p>전문 분야: 요가, 필라테스</p>
           </div>
         </div>
       </div>
+      <div class="gym_events">
+        <p class="gym_min_title">이벤트 및 소식</p>
+        <ul>
+          <li>신규 회원 할인 이벤트 (5월 한정)</li>
+          <li>여름맞이 체력 증진 프로그램</li>
+          <li>주간 요가 클래스 안내</li>
+        </ul>
+      </div>
+    </div>
 
-      
-      <div class="gym_time_info">
-        <div class="gym_calendar">
-            <!-- 아직 실험중 ...ㅠ -->
+    <div class="gym_reviews">
+      <p class="gym_min_title">회원 리뷰</p>
+      <div class="review_list">
+        <div class="review">
+          <p>"이 헬스장은 정말 최고에요! 트레이너들이 정말 친절하고 시설도 깨끗해요."</p>
+          <p>- 박철수</p>
         </div>
-        <div class="gym_info">
-          <p class="gym_rules">이용방법</p>
-          <ul>
-            <li>
-              머..방문해서 회원증 발급 받기~
-            </li>
-            <li>
-              회원명단에 체크 후 사용
-            </li>
-            <li>
-              어쩌고 저쩌고~~ 
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <p>시설 기구 안내</p>
-          <ul>
-            <li>추후에 운동기구 종류 추가~</li>
-          </ul>
+        <div class="review">
+          <p>"다양한 운동 기구와 프로그램이 있어서 운동이 즐거워졌어요!"</p>
+          <p>- 이영희</p>
         </div>
       </div>
     </div>
 
+    <div class="gym_announcements">
+      <p class="gym_min_title">공지사항</p>
+      <ul>
+        <li>5월 5일 어린이날 휴관 안내</li>
+        <li>6월 1일 새로운 요가 클래스 시작</li>
+        <li>7월 1일 헬스장 리모델링 공사 안내</li>
+      </ul>
+    </div>
+  </div>
 
-    <div> <!-- 푸터 --> </div>
+  <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>

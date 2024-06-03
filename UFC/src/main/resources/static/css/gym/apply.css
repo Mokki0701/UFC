@@ -1,64 +1,68 @@
-body {
-    font-family: Arial, sans-serif;
+body.apply-body {
     margin: 0px;
     padding: 0px;
 }
 
-h3 {
+h3.apply-title {
     text-align: center;
 }
 
-form {
-    max-width: 600px;
-    margin: 0 auto;
+.applyForm{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+form.apply-form {
+    width: 600px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #f9f9f9;
 }
 
-.form-group {
+.apply-form .form-group {
     margin-bottom: 20px;
 }
 
-label {
+.apply-form label {
     font-weight: bold;
 }
 
-.radio-group {
+.apply-form .radio-group {
     display: flex;
     align-items: center;
     gap: 20px; /* 간격 조정 */
 }
 
-.radio-item {
+.apply-form .radio-item {
     display: flex;
     align-items: center;
     gap: 5px; /* 라디오 버튼과 레이블 사이 간격 조정 */
 }
 
-input[type="text"],
-input[type="tel"],
-input[type="email"],
-input[type="file"] {
+.apply-form input[type="text"],
+.apply-form input[type="tel"],
+.apply-form input[type="email"],
+.apply-form input[type="file"] {
     width: calc(100% - 22px); /* Adjust to match padding */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-input[type="radio"] {
+.apply-form input[type="radio"] {
     margin: 0; /* 기본 마진 제거 */
 }
 
-.radio-item label {
+.apply-form .radio-item label {
     margin: 0; /* 기본 마진 제거 */
     display: flex;
     align-items: center; /* 레이블 텍스트를 수직 정중앙으로 */
     height: 100%; /* 부모 높이 채우기 */
 }
 
-button {
+.apply-form button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -70,6 +74,6 @@ button {
     font-size: 16px;
 }
 
-button:hover {
+.apply-form button:hover {
     background-color: #575757;
 }
