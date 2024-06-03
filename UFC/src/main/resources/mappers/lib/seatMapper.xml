@@ -138,4 +138,26 @@
     </select>
 
 
+	<!-- 내 자리에 다른 예약이 있는지 확인하기 -->
+	<select id="checkOtherReservation">
+	
+		 SELECT COUNT(*)
+	    FROM SEAT_SPACE_BOOKING ssb
+	    WHERE ssb.SEAT_NO = #{seatNo}
+	    AND ssb.START_BOOKING BETWEEN (
+	        SELECT rs.END_BOOKING
+	        FROM RENT_SEAT rs
+	        WHERE rs.SEAT_NO = #{seatNo}
+	        ORDER BY rs.END_BOOKING DESC
+	        LIMIT 1
+	    ) AND DATE_ADD(
+	        (SELECT rs.END_BOOKING
+	         FROM RENT_SEAT rs
+	         WHERE rs.SEAT_NO = #{seatNo}
+	         ORDER BY rs.END_BOOKING DESC
+	         LIMIT 1), INTERVAL 4 HOUR)
+	
+	
+	</select>
+
 </mapper>

@@ -311,8 +311,13 @@ function checkMySeat() {
 }
 
 // 좌석 연장버튼 기능
+// 1. 내 자리의 연장하고자 하는 시간에 예약이 있다면 연장 불가
+// 필요한 테이블 : SEAT_SPACE_BOOKING ssb, RENT_SEAT rs
+// 필요한 컬럼 : 전달 받은 #{seatNo}를 기준으로. 
+// ssb.START_BOOKING이 rs.END_BOOKING ~ +4HH 사이에 있는지 확인하는 select문 작성.
 function extendSeat() {
 
+  // 내가 사용 중인 자리는 memberAndSeatSession에 저장되어 있다.
   function extendSeat() {
     let userConfirmed = confirm("자리를 연장하시겠습니까?");
     if (userConfirmed) {

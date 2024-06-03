@@ -128,4 +128,12 @@ public class LibSeatServiceImpl implements LibSeatService {
 		
 		return mapper.getMySeatInfo(memberNo);
 	}
+	
+	// 내 자리에 예약이 있는지 확인하기
+	@Override
+	public int checkOtherReservation(int seatNo) {
+		
+		
+		return mapper.checkOtherReservation(seatNo);
+	}
 }

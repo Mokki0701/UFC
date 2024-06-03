@@ -61,5 +61,8 @@ public interface LibSeatMapper {
 	// 나의 자리 이용 정보 받아오기
 	LibSeatDTO getMySeatInfo(int memberNo);
 
+	// 내 자리에 다른 예약이 있는지 확인하기
+	int checkOtherReservation(int seatNo);
+
 
 }

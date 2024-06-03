@@ -190,6 +190,18 @@ public class LibSeatController {
 	public String extendSeat(HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
+		
+		// 세션에 저장된 현재 로그인된 회원의 자리 번호 가져오기
+		Map<Integer, Integer>memberAndSeatSession = (Map<Integer, Integer>) session.getAttribute("memberAndSeatSession");
+		int seatNo = memberAndSeatSession.get(memberNo);
+				
+		// 내가 연장하고자 하는 시간에 예약이 있다면 연장 불가.
+		// 내가 연장하고자 하는 시간에 예약이 있는지 확인하기
+		
+		int checkOtherReservation = service.checkOtherReservation(seatNo);
+		
+		
+		
 		boolean result = service.extendSeat(memberNo);
 		return result ? "success" : "fail";
 
