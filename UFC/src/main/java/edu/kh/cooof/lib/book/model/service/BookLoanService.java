@@ -23,6 +23,16 @@ public interface BookLoanService {
 
 	void loanExtend(int loanBookNo);
 
+	Map<String, Object> selectHopeList(int cp);
+
+	Map<String, Object> selectExtendList(int cp);
+
+	Map<String, Object> queryHopeList(int cp, String query);
+
+	int completeHopeBook(int newBookNo);
+
+	Map<String, Object> queryExtendList(int cp, String query);
+
 	
 
 }

@@ -30,6 +30,7 @@ public class BookController {
 
 	private final BookService service;
 	
+	// 처음에 전체 북 조회
 	@GetMapping("bookList")
 	public String bookList(
 			@SessionAttribute(value="loginMember", required = false) Member loginMember,
@@ -46,7 +47,7 @@ public class BookController {
 		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
 		
-		Map<String, Object> searchMap = service.bookList(paramMap);
+		Map<String, Object> searchMap = service.bookListSelect(paramMap);
 		
 		model.addAttribute("bookStorageLocations", searchMap.get("bookStorageLocations"));
 		model.addAttribute("bookList", searchMap.get("bookList"));
@@ -69,7 +70,8 @@ public class BookController {
 			@SessionAttribute(value="catList", required = false) List<String> catList,
 			Model model
 			) {
-		
+				
+		// 여기가 문제 였어 else문이 실행이 안돼 
 		if(catList == null) {
 			List<String> createCatList = new ArrayList<>();
 			model.addAttribute("catList", createCatList);
@@ -80,7 +82,7 @@ public class BookController {
 		}
 		
 		else {
-			
+			log.debug("asjdkldsajfldsakjflksdafjklsadjflksafjlkasdjflkmsvlknjdfkljgjkldsgsdalkfmdslgmjklsfdjglkajgfkld");
 			if(check == 1) {
 				catList.add(catName);
 			}
@@ -122,10 +124,10 @@ public class BookController {
 		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
 		
-		if(catList != null) {
-			paramMap.put("catList", catList);
-		}
-		
+//		if(catList != null) {
+//			paramMap.put("catList", catList);
+//		}
+//		
 		Map<String, Object> mapList = service.searchBook(paramMap);
 		
 		model.addAttribute("bookList", mapList.get("bookList"));

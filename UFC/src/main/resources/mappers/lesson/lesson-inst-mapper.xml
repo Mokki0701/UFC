@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lesson.instructor.model.mapper.LessonInstructorMapper">
+
+	<select id="selectInstList" resultType="LessonInstructor">
+		SELECT * FROM MEMBER JOIN LESSON_INSTRUCTOR USING (MEMBER_NO)
+	</select>
+
+	<select id="selectDetailInst" resultType="LessonInstructor">
+	SELECT * FROM MEMBER JOIN LESSON_INSTRUCTOR USING (MEMBER_NO) WHERE MEMBER_NO = #{instNo}
+	</select>
+
+</mapper>

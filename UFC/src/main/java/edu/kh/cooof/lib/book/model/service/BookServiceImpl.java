@@ -22,58 +22,11 @@ public class BookServiceImpl implements BookService {
 
 	private final BookMapper mapper;
 	
-	@Override
-	public Map<String, Object> bookList(Map<String, Object> search) {
+	public Map<String, Object> bookListSelect(Map<String, Object> search){
 		
-		List<BookStorageLocation> bookStorageLocations = new ArrayList<>();
+		List<BookStorageLocation> bookStorageLocations = mapper.selectBookStorage();
 		
-		String abc;
-		
-		// 첫 화면에 들어왔을 때 만 실행
-		if(!search.containsKey("catName")) {
-
-			bookStorageLocations = mapper.selectBookStorage();
-			
-		}
-		
-		int listCount = 0;
-		
-		// 처음 목록 페이지 들어와서 카테고리 체크가 아무것도 없을 때
-		if(!search.containsKey("catName")) {
-
-			listCount = mapper.getListCount();
-			
-		}
-		
-		// 카테고리를 체크할 경우
-		else {
-			
-			StringBuilder sb = new StringBuilder();
-			
-			List<String> catList = (List<String>)search.get("catList");
-			
-			catList.forEach(catName -> {
-				
-				if(sb.length() > 0) {
-					sb.append(", ");
-				}
-				
-				sb.append(catName);
-				
-			});
-			
-			abc = sb.toString();
-			
-			if(abc == "") {
-				listCount = mapper.getListCount();
-			}
-			
-			else {
-				listCount = mapper.checkedListCount(sb.toString());
-			}
-			
-			
-		}
+		int listCount = mapper.getListCount();;
 		
 		LibPagination pagination = new LibPagination((int)search.get("cp"), listCount, (int)search.get("limit"));
 		
@@ -81,49 +34,71 @@ public class BookServiceImpl implements BookService {
 		
 		RowBounds rowBounds = new RowBounds(offset, (int)search.get("limit"));
 		
-		List<Book> bookList = new ArrayList<>();
-		
-		// 처음 들어왔을 경우
-		if(!search.containsKey("catName")) {
-			
-			bookList = mapper.getBookList(rowBounds);	
-			
-		}
-		// 카테고리 체크를 했을 경우
-		else {
-			
-			StringBuilder sb = new StringBuilder();
-			
-			List<String> catList = (List<String>)search.get("catList");
-			
-			catList.forEach(catName -> {
-				
-				if(sb.length() > 0) {
-					sb.append(", ");
-				}
-				
-				sb.append(catName);
-				
-			});
-			
-			String cba = sb.toString();
-			
-			if(cba == "") {
-				bookList = mapper.getBookList(rowBounds);
-			}
-			else {
-				bookList = mapper.checkedBookList(sb.toString(), rowBounds);				
-			}
-			
-		}
+		List<Book> bookList = mapper.getBookList(rowBounds);
 		
 		Map<String, Object> mapList = new HashMap<>();
+
+		mapList.put("bookStorageLocations", bookStorageLocations);
+
+	
+		mapList.put("bookList", bookList);
+		mapList.put("pagination", pagination);
 		
-		if(!search.containsKey("catName")) {
+		return mapList;
+	}
+	
+	@Override
+	public Map<String, Object> bookList(Map<String, Object> search) {
+		
+		String abc;
+		
+		int listCount = 0;
+			
+		StringBuilder sb = new StringBuilder();
+		
+		List<String> catList = (List<String>)search.get("catList");
+		
+		catList.forEach(catName -> {
+			
+			if(sb.length() > 0) {
+				sb.append(", ");
+			}
+			
+			sb.append(catName);
+			
+		});
+		
+		abc = sb.toString();
+		
+		if(abc.equals("")) {
+			listCount = mapper.getListCount();
+		}
+		
+		else {
+			listCount = mapper.checkedListCount(sb.toString());
+		}
+			
+		LibPagination pagination = new LibPagination((int)search.get("cp"), listCount, (int)search.get("limit"));
+		
+		int offset = ((int)search.get("cp") - 1) * (int)search.get("limit");
+		
+		RowBounds rowBounds = new RowBounds(offset, (int)search.get("limit"));
+		
+		List<Book> bookList = new ArrayList<>();
 
-			mapList.put("bookStorageLocations", bookStorageLocations);
+		
+		if(abc.equals("")) {
+			bookList = mapper.getBookList(rowBounds);
+		}
+		else {
+			bookList = mapper.checkedBookList(sb.toString(), rowBounds);				
+		}
+			
 
-		}		
+		
+		
+		Map<String, Object> mapList = new HashMap<>();
+			
 		mapList.put("bookList", bookList);
 		mapList.put("pagination", pagination);
 		

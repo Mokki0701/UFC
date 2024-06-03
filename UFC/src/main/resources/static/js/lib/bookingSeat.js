@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-  
-  
-  
-  
+
+
+
+
   const seatChart = document.querySelector('.seat-chart');
   const rows = 20;
   const cols = 20;
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 좌석 상태 표시
         const seatStatus = seat.classList.contains('availSeat') && seat.classList.contains('nowUsing') ? '사용 중' :
-                   seat.classList.contains('availSeat') ? '사용 가능' :
-                   seat.classList.contains('disavailSeat') ? '사용 불가능' : '없음';
+          seat.classList.contains('availSeat') ? '사용 가능' :
+            seat.classList.contains('disavailSeat') ? '사용 불가능' : '없음';
         document.getElementById('dbSeatAvail').textContent = seatStatus;
 
         // 선택된 좌석 저장
@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const dbSeatNo = document.getElementById('dbSeatNo').textContent;
       // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
       const seatCondition = selectedSeat.classList.contains('availSeat') ? 1 :
-                            selectedSeat.classList.contains('disavailSeat') ? 2 :
-                            0;
+        selectedSeat.classList.contains('disavailSeat') ? 2 :
+          0;
       if (dbSeatNo !== '') {
         fetch('/lib/seats/useSeat', {
           method: 'POST',
@@ -106,18 +106,18 @@ document.addEventListener('DOMContentLoaded', function () {
           },
           body: JSON.stringify({ seatNo: dbSeatNo, condition: seatCondition })
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Seat usage response:', data);
-          alert(data.message);
-          loadSeatData(); // 좌석 데이터 다시 로드
-        })
-        .catch(error => console.error('Error using seat:', error));
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Seat usage response:', data);
+            alert(data.message);
+            loadSeatData(); // 좌석 데이터 다시 로드
+          })
+          .catch(error => console.error('Error using seat:', error));
       } else {
         alert("좌석을 먼저 선택해 주세요.");
       }
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
       alert("선택한 좌석은 사용할 수 없습니다.");
     }
   });
-  
+
 
 });
 
@@ -138,28 +138,128 @@ stopUsingSeat.addEventListener("click", () => {
       'Content-Type': 'application/json'
     }
   })
-  .then(response => response.json())
-  .then(data => {
-    // 서버에서 반환된 메시지를 alert 창으로 띄우기
-    alert(data.message);
+    .then(response => response.json())
+    .then(data => {
+      // 서버에서 반환된 메시지를 alert 창으로 띄우기
+      alert(data.message);
 
-    // 메시지에 따라 페이지를 리다이렉트
-    if (data.result === 'success') {
-      // 현재 회원이 이용 중인 좌석의 좌표를 사용하여 nowUsing 클래스를 제거
-      const seatNo = data.seatNo;
-      const seatDiv = document.querySelector(`[data-seat-no="${seatNo}"]`);
-      if (seatDiv) {
-        console.log(`Removing 'nowUsing' class from seat with seatNo: ${seatNo}`);
-        seatDiv.classList.remove('nowUsing');
-      } else {
-        console.warn(`Seat with seatNo ${seatNo} not found`);
+      // 메시지에 따라 페이지를 리다이렉트
+      if (data.result === 'success') {
+        // 현재 회원이 이용 중인 좌석의 좌표를 사용하여 nowUsing 클래스를 제거
+        const seatNo = data.seatNo;
+        const seatDiv = document.querySelector(`[data-seat-no="${seatNo}"]`);
+        if (seatDiv) {
+          console.log(`Removing 'nowUsing' class from seat with seatNo: ${seatNo}`);
+          seatDiv.classList.remove('nowUsing');
+        } else {
+          console.warn(`Seat with seatNo ${seatNo} not found`);
+        }
+        // 페이지를 리다이렉트
+        window.location.href = '/';
       }
-      // 페이지를 리다이렉트
-      window.location.href = '/';
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('이용 종료 중 오류가 발생했습니다.');
-  });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('이용 종료 중 오류가 발생했습니다.');
+    });
 });
+
+// 모달 닫는 기능
+function closeModal(){
+ 
+  const bookingModal = document.getElementById('bookingModal');
+  bookingModal.style.display = "none";
+
+  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  checkMySpaceDataModal.style.display = "none";
+
+  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+  checkMySpaceReservationModal.style.display = "none";
+}
+
+
+
+
+// 좌석 예약하기
+// how?
+
+// 이용 가능한 좌석일 경우에만 기능 수행 --> 좌석 예약 판단 로직은 좌석 이용 로직과 다름
+// 이용 가능한 좌석인지 판단, 이용 불가능한 좌석이면 : js에서 보내지 않기.
+// postMapping으로 보내기
+
+// 회원 번호를 보낸다 -> 안보내도 된다. 백엔드 세션에서 회원 번호 가져올거임.
+// 좌석 번호를 보내서
+// !!! -> 실제 좌석 번호, db 좌석 번호 다르다   !!!
+//    --> 따라서 db용 좌석 번호를 받아와야 한다 !!!
+//    --> db용 좌석 번호 : #currentSelectSeat.innerText
+
+
+// 모달 표시하기
+function openBookingSeatModal() {
+
+  const seatNo = document.getElementById('currentSelectSeat').innerText;
+  if (seatNo === null) {
+    alert("예약하고자 하는 열람실 좌석을 선택해주세요.");
+    return;
+  }
+
+  const bookingModal = document.getElementById('bookingModal');
+  const currentTimeSpan = document.getElementById('currentTime');
+
+  bookingModal.style.display = "block";
+  const now = new Date();
+  currentTimeSpan.textContent = now.toLocaleTimeString();
+
+}
+
+
+
+function realBookingSeat() {
+  const seatNo = document.getElementById('currentSelectSeat').innerText;
+  const amPm = document.getElementById('amPm').value;
+  const hour = document.getElementById('hour').value;
+  const minute = document.getElementById('minute').value;
+  const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
+
+  // 시간 형식 변환 12시간제 -> 24시간제
+  let selectedHour = parseInt(hour);
+  if (amPm === 'PM' && selectedHour !== 12) {
+    selectedHour += 12;
+  } else if (amPm === 'AM' && selectedHour === 12) {
+    selectedHour = 0;
+  }
+  const selectedTime = `${selectedHour.toString().padStart(2, '0')}:${minute}`;
+
+  const data = {
+    seatNo: seatNo,
+    memberNo: parseInt(memberNo),
+    startTime: selectedTime
+  };
+
+  // 1. 좌석이 예약 가능한지 여부 판단하기
+  fetch('/lib/seats/checkAvailReservation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        alert('예약이 성공적으로 완료되었습니다.\n' + result.message);
+        if (result.redirectUrl) {
+          window.location.href = result.redirectUrl;
+        } else {
+          closeModal(); // 예약 완료 후 모달을 닫는 함수
+        }
+      } else {
+        alert('예약에 실패했습니다: ' + result.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('예약 처리 중 오류가 발생했습니다.');
+    });
+}
+

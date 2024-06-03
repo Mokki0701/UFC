@@ -23,18 +23,18 @@
   <!-- 좌석의 상태를 안내하는 div 모음 -->
   <div class="sampleSeatSack">
     <div class="sampleSeatPair">
-        <div class="sampleSeat can"></div>
-        <span> 사용 가능한 좌석 </span>
+      <div class="sampleSeat can"></div>
+      <span> 사용 가능한 좌석 </span>
     </div>
     <div class="sampleSeatPair">
-        <div class="sampleSeat cant"></div>
-        <span> 사용 불가능한 좌석 </span>
+      <div class="sampleSeat cant"></div>
+      <span> 사용 불가능한 좌석 </span>
     </div>
     <div class="sampleSeatPair">
-        <div class="sampleSeat saled"></div>
-        <span> 사용중인 좌석</span>
+      <div class="sampleSeat saled"></div>
+      <span> 사용중인 좌석</span>
     </div>
-</div>
+  </div>
 
 
   <br><br>
@@ -64,14 +64,14 @@
   </div>
 
 
-  <div >
-    <span>현재 선택한 좌석 번호 : <span id="currentSelectSeat"></span>  </span> <br>
+  <div>
+    <span>현재 선택한 좌석 번호 : <span id="currentSelectSeat"></span> </span> <br>
 
-    <span>x 좌표 : <span id="coordiX"></span>  </span>
+    <span>x 좌표 : <span id="coordiX"></span> </span>
     <span> / </span>
-    <span>y 좌표 : <span id="coordiY"></span>  </span>
+    <span>y 좌표 : <span id="coordiY"></span> </span>
     <br>
-    <span> DB SEAT_NO : <span id="dbSeatNo"> </span>   </span>
+    <span> DB SEAT_NO : <span id="dbSeatNo"> </span> </span>
     <br>
     <span> 좌석의 상태 : <span id="dbSeatAvail"></span> </span>
 
@@ -82,10 +82,62 @@
 
     <button id="useSeat">이용하기</button>
 
-    <button id="bookingSeat">예약하기</button>
+    <button id="bookingSeat" type="button" onclick="openBookingSeatModal()">예약하기</button>
 
     <button id="stopUsingSeat">이용 종료</button>
 
+  </div>
+
+
+  <!-- 이용하기 버튼 클릭 시 표시될 모달 -->
+  <!-- 모달에서 이용할 사용자 정보 -->
+  <div id="userInfo" data-member-no="${session.loginMember.memberNo}"></div>
+
+
+  <!-- 공간 예약하기 모달 -->
+  <div id="bookingModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div>
+      <div>현재 시간 : <span id="currentTime"></span></div>
+      <div class="time-picker">
+        <label>사용 시작하고 싶은 시간:</label>
+        <select id="amPm">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+        <select id="hour">
+          <option value="12">12</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+        </select>
+        <span>:</span>
+        <select id="minute">
+          <option value="00">00</option>
+          <option value="05">05</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+        </select>
+      </div>
+      <button onclick="realBookingSeat()">예약하기</button>
+    </div>
   </div>
 
 
@@ -97,4 +149,5 @@
 
 
 <script src="/js/lib/bookingSeat.js"></script>
+
 </html>

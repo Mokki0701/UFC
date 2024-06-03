@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.gym.gymReview.model.dto.GymReview;
+import edu.kh.cooof.gym.gymReview.model.dto.gymPagination;
 import edu.kh.cooof.gym.gymReview.model.service.GymReviewService;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +25,26 @@ public class GymReviewController {
 
 	private final GymReviewService service;
 	
-	@GetMapping("reviews/gymReview")
-	public String reviews(Model model) {
-		
-		List<GymReview> gymList = service.getAllGym();	
-		model.addAttribute("gymList", gymList);
-		
-		
-		return "gym/gymReview/gymReview";
-	}
+	@GetMapping("/reviews/gymReview")
+    public String listGymReviews(
+            @RequestParam(value = "page", defaultValue = "1") int currentPage,
+            @RequestParam(value = "limit", defaultValue = "10") int limit, // limit 파라미터 받아오기
+            Model model) {
+
+        int listCount = service.getGymReviewCount(); // 전체 게시글 수 가져오기
+        gymPagination pagination = new gymPagination(currentPage, listCount);
+        pagination.calculate();
+        
+        
+        List<GymReview> gymList = service.getAllGym(currentPage, limit);      
+
+        model.addAttribute("gymList", gymList);
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("limit", limit); // limit 값을 모델에 추가
+      
+      return "gym/gymReview/gymReview";
+   }
+   
 	
 	
 	
@@ -55,17 +67,17 @@ public class GymReviewController {
 	    RedirectAttributes ra) {
 	    
 	    String path = null;
-	    String message = null;
+	    
 	    GymReview gymReview = new GymReview();
 	    
 	    if (loginMember == null) {
-	        message = "로그인 후 이용 가능합니다.";
+	    	ra.addFlashAttribute("message", "로그인 후 이용 가능합니다.");
 	        path = "redirect:/reviews/gymReview"; // 수정된 부분
 	    } else {
 	    	model.addAttribute("gymReview", gymReview);
 	        path = "gym/gymReview/gymWrite";
 	    }
-	    ra.addFlashAttribute("message", message);
+	   
 	    
 	    return path;
 	}
@@ -74,14 +86,27 @@ public class GymReviewController {
 	@PostMapping("gymWrite/insert")
 	public String gymWrite(
 			Model model,
-			@SessionAttribute("loginMember")Member loginMember
+			@SessionAttribute("loginMember")Member loginMember,
+			GymReview gymReview,
+			RedirectAttributes ra
 			) {
 			
 			int memberNo = loginMember.getMemberNo();
+			gymReview.setMemberNo(memberNo);
 			
 			
+			int result = service.insertGymWrite(gymReview);
+			String message = null; 
 		
-		return null;
+			
+			 if (result > 0) {
+				 ra.addFlashAttribute("message", "작성 성공!");
+			     return "redirect:/reviews/gymReview"; // 성공 시 리다이렉트할 경로
+			 }else {
+				 ra.addFlashAttribute("message", "작성 실패!");
+				 return "redirect:/gymWrite/insert";
+			 }
+			 	
 	}
 	
 }

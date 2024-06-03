@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="/css/common/header.css">
     <link rel="stylesheet" href="/css/gym/gymMain.css">
-    <link rel="stylesheet" href="/css/gym/trainerPrice.css">
+   
     
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
@@ -94,10 +94,19 @@
     const ptCount = /*[[${param.ptCount[0]}]]*/ 0;
     const trainerNo = /*[[${trainer.trainerNo}]]*/ 0;
     const memberNo = /*[[${member.memberNo}]]*/ 0;
+
+    
+    var message = /*[[${message}]]*/ '';
+    if (message) {
+        alert(message);
+    }
+
   </script>
 
   <th:block th:replace="~{/common/footer}">footer</th:block>
   
+
+
   <script src="/js/gym/trainerPrice.js"></script>
 </body>
 </html>

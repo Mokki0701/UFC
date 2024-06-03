@@ -15,8 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GymReview {
 
-	private int gymNo;
-	private String gymTitle;
+	private int gymNo; // 테이블 번호
+	private String gymTitle; // 
 	private String gymContent;
 	private Date gymUpdateDate;
 	private Date gymWriteDate;
@@ -25,4 +25,7 @@ public class GymReview {
 	private int viewCount;
 	private String memberLastName; 
 	private String memberFirstName;
+	
+	
+	
 }

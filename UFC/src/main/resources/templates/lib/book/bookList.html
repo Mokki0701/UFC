@@ -27,7 +27,7 @@
             <div class="searchBook" th:fragment="searchBook">
                 <div>
                     <div class="book-list">
-                        <div th:each="book : ${bookList}" th:object="${book}" class="book-detail" th:data-book-no="*{bookNo}">
+                        <div th:each="book : ${bookList}" th:object="${book}" class="book-detail" onclick="bookDetailSelect()" th:data-book-no="*{bookNo}">
                             <div class="book-title" th:text="*{bookTitle}">도서 제목</div>
                             <div class="book-author" th:text="*{authorLastName} + ' ' + *{authorFirstName}">저자</div>
                             <div class="book-publisher" th:text="*{bookPublisher}">출판사</div>

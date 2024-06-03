@@ -46,4 +46,31 @@ public class LibMemberServiceImpl implements LibMemberService {
 		return map;
 	}
 	
+	@Override
+	public int extendBook(int memberNo, int bookNo) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		
+		map.put("memberNo", memberNo);
+		map.put("bookNo", bookNo);
+		
+		return mapper.extendBook(map);
+	}
+	
+	@Override
+	public int insertHopeBook(Map<String, Object> paramMap) {
+		
+		return mapper.insertHopeBook(paramMap);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

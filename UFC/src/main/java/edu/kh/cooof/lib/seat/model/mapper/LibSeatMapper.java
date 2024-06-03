@@ -40,8 +40,15 @@ public interface LibSeatMapper {
 
 	@Select("SELECT READING_START, READING_DONE, READING_EXTEND FROM RENT_SEAT WHERE MEMBER_NO = #{memberNo}")
 	LibSeatDTO getSeatUsageByMemberNo(int memberNo);
-	
+
 	// 열람실 연장하기
 	int extendSeat(int memberNo);
+
+	// 현재 좌석의 상태 확인하기
+	int chckSeatConditon(int seatNo);
+
+	// 현재 다른사람이 이용 중인 열람실을 예약했을 때,
+	// 열람실을 예약한 시간과 종료예정시간이 겹치는지 확인
+	int checkStartTime(Map<String, Object> params);
 
 }

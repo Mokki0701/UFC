@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.cooof.lesson.list.model.dto.LessonPagination;
 import edu.kh.cooof.lib.book.model.dto.LoanBook;
+import edu.kh.cooof.lib.book.model.dto.NewBook;
 import edu.kh.cooof.lib.book.model.dto.RentBook;
 import edu.kh.cooof.lib.book.model.mapper.BookLoanMapper;
 import lombok.RequiredArgsConstructor;
@@ -215,24 +216,116 @@ public class BookLoanServiceImpl implements BookLoanService {
 		return map;
 	}
 	
-	
 	@Override
 	public void loanExtend(int loanBookNo) {
 		
 		mapper.loanExtend(loanBookNo);
 		
 	}
+
+	
+	// -------------------------------------------------------------------------------------------------
+	//여기서부턴 희망 도서 불러오기
+	
+	
+	@Override
+	public Map<String, Object> selectHopeList(int cp) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int listCount = mapper.getHopeListCount();
+		
+		LessonPagination pagination = new LessonPagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<NewBook> loanList = mapper.selectHopeList(rowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("loanList", loanList);
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> queryHopeList(int cp, String query) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int listCount = mapper.getQueryHopeListCount(query);
+		
+		LessonPagination pagination = new LessonPagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<NewBook> loanList = mapper.queryHopeList(query, rowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("loanList", loanList);
+		
+		return map;
+	}
+	
+	
+	@Override
+	public int completeHopeBook(int newBookNo) {
+		
+		return mapper.completeHopeBook(newBookNo);
+	}
 	
 	
 	
+	// -------------------------------------------------------------------------------------------------
+	//여기서부턴 연장 신청 목록 불러오기
+	@Override
+	public Map<String, Object> selectExtendList(int cp) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int listCount = mapper.getExtendListCount();
+		
+		LessonPagination pagination = new LessonPagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<LoanBook> loanList = mapper.selectExtendList(rowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("loanList", loanList);
+		
+		return map;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public Map<String, Object> queryExtendList(int cp, String query) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		int listCount = mapper.getQueryExtendListCount(query);
+		
+		LessonPagination pagination = new LessonPagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<LoanBook> loanList = mapper.queryExtendList(query, rowBounds);
+		
+		map.put("pagination", pagination);
+		map.put("loanList", loanList);
+		
+		return map;
+	}
 	
 	
 	
