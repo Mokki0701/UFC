@@ -1,5 +1,7 @@
 package edu.kh.cooof.member.model.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,9 +25,12 @@ public class Member {
 	// ... 
 	private int memberAuthority;
 	private String memberGender;
+	// 주소
+	private String memberAddress;
 	
 	// 현재 이용 중인 좌석 번호
 	private int curUsingSeatNo;
+	
 	
 	
 	// 이후에 추가..

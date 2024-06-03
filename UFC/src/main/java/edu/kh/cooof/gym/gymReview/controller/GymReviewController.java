@@ -91,8 +91,10 @@ public class GymReviewController {
 			RedirectAttributes ra
 			) {
 			
-			int memberNo = loginMember.getMemberNo();
+			int memberNo = loginMember.getMemberNo();  
 			gymReview.setMemberNo(memberNo);
+			
+			
 			
 			
 			int result = service.insertGymWrite(gymReview);
