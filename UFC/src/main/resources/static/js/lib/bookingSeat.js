@@ -338,3 +338,21 @@ function extendSeat() {
 
 
 }
+
+
+// 나의 예약 확인하기
+// 비동기식으로 진행.
+// 1. 회원번호 : session에서 얻어옴
+
+// -- 로직
+// 1. 예약 있는지 확인
+// 1.1. 없으면 집에 가라
+// 1.2. 있으면 다음 기능 실행
+
+// 2.
+
+function checkMySeatReservation() {
+  fetch('/lib/seats/extend', {
+
+  })
+}

@@ -28,6 +28,7 @@ body{
   height: 663px;
   background-color: transparent;
   padding: 0;
+  
 }
 
 /* 나중에 보더 지우세요 ========================== */
@@ -127,11 +128,11 @@ body{
 
 /* 탭 색상 -> 나중에 정해진 컬러로 수정하기*/
 .main, .tab.main.active { background-color: #A67E33; }
-.library, .tab.library.active { background-color: #BF9D5E; }
-.lesson, .tab.lesson.active { background-color: #D9BD89; }
-.health, .tab.health.active { background-color: #ffffdd; }
+.library, .tab.library.active { background-color: #ad8d63; }
+.lesson, .tab.lesson.active { background-color: #BF9D5E; }
+.health, .tab.health.active { background-color: #D9BD89; }
 .community, .tab.community.active { background-color: #F2DDB6; }
-.myPage, .tab.myPage.active { background-color: #BF7B54; }
+.myPage, .tab.myPage.active { background-color: #ffffdd; }
 
 .arrow-down {
   position: absolute;
@@ -161,6 +162,7 @@ body{
   width: 100%;
   height: 100%;
   z-index: 1;
+  overflow: hidden;
 }
 
 /* 가로 슬라이드일 경우 */
@@ -181,7 +183,7 @@ body{
   background-color: bisque;
 }
 .swiper-slide:nth-of-type(2) > div{
-  background-color: lightseagreen;
+  background-color: rgb(139, 178, 32);
 }
 .swiper-slide:nth-of-type(3) > div{
   background-color: lavender;
