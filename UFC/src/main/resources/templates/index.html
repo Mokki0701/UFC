@@ -5,7 +5,7 @@
   <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UFC</title>
-  <link rel="stylesheet" href="/css/common/header.css">
+  <!-- <link rel="stylesheet" href="/css/common/header.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="/css/index.css">
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -30,85 +30,49 @@
 
 <body>
 
-  <th:block th:replace="~{/common/header}">헤더</th:block>
-
-  <!-- 여기에 메인 화면을 구성 -->
-  <div id="mainField">
-
-  
-
-    <!-- 빠른로그인 버튼 모음  -->
-    <div class="quickLoginBtnSack">
-      일반회원 <br>
-      <button class="quickLoginBtn">testMem01@naver.com</button> <br>
-      <button class="quickLoginBtn">testMem02@naver.com</button>
-      <br> <br>
-      관리자 회원 :
-      <button class="quickLoginBtn">testMem03@naver.com</button>
-    </div>
-
-    <br>
-
-    <!-- 로그인이 된 경우 -->
-    <th:block th:if="${session.loginMember != null}">
-      <span>이메일 : </span>
-      <span th:text="${session.loginMember.memberEmail}">현재 로그인한 회원 이메일</span>
-    </th:block>
-
-    <br>
-
-    <div>
-      <a class="logoutBtn" href="/member/logout">
-        <th:block>로그아웃 버튼</th:block>
-      </a>
-    </div>
-
+  <div th:replace="~{common/header}"></div>
+  <div class="quickLoginBtnSack">
+    일반회원 <br>
+    <button class="quickLoginBtn">testMem01@naver.com</button> <br>
+    <button class="quickLoginBtn">testMem02@naver.com</button>
+    <br> <br>
+    관리자 회원 :
+    <button class="quickLoginBtn">testMem03@naver.com</button>
   </div>
 
   <br>
 
-  <a class="tempLink" href="#">로그인/회원가입</a>
+  <!-- 로그인이 된 경우 -->
+  <th:block th:if="${session.loginMember != null}">
+    <span>이메일 : </span>
+    <span th:text="${session.loginMember.memberEmail}">현재 로그인한 회원 이메일</span>
+  </th:block>
 
-  <!-- 임시 링크 -->
-  <div class="temp-container">
+  <br>
 
-    <ul class="tabs">
-      <li class="tab main" data-tab="main">main</li>
-      <li class="tab library" data-tab="library">library</li>
-      <li class="tab lesson" data-tab="lesson">lesson</li>
-      <li class="tab health" data-tab="health">health</li>
-      <li class="tab community" data-tab="community">community</li>
-      <li class="tab myPage" data-tab="myPage">myPage</li>
-    </ul>
-
-    <!-- 화면 전환 부분 -->
-    <div th:replace="~{common/main/swiper}"></div>
-    <div th:replace="~{common/main/lib}"></div>
-    <div th:replace="~{common/main/lesson}"></div>
-    <div th:replace="~{common/main/health}"></div>
-    <div th:replace="~{common/main/community}"></div>
-    <div th:replace="~{common/main/myPage}"></div>
+  <div class="main_wrapper">
+    <div class="main_container">
+      <ul class="tabs">
+        <li class="tab main" data-tab="main">main</li>
+        <li class="tab library" data-tab="library">library</li>
+        <li class="tab lesson" data-tab="lesson">lesson</li>
+        <li class="tab health" data-tab="health">health</li>
+        <li class="tab community" data-tab="community">community</li>
+        <li class="tab myPage" data-tab="myPage">myPage</li>
+      </ul>
+  
+      <!-- 화면 전환 부분 -->
+      <div th:replace="~{common/main/swiper}"></div>
+      <div th:replace="~{common/main/lib}"></div>
+      <div th:replace="~{common/main/lesson}"></div>
+      <div th:replace="~{common/main/health}"></div>
+      <div th:replace="~{common/main/community}"></div>
+      <div th:replace="~{common/main/myPage}"></div>
+    </div>
   </div>
-
-
-
-
-
-
-
-  </div>
-
-  <!-- 여기에 만든 화면 추가 -->
-  <main class="common-main-container">
-
-
-  </main>
-
-
-
-  <th:block th:replace="~{/common/footer}">footer</th:block>
-
+  
 </body>
+
 <script src="/js/index.js"></script>
 
 <script th:inline="javascript">

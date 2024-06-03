@@ -7,18 +7,22 @@
 
 } */
 
-.temp-container {
+body{
+  background-color: #F2E2CE;
+}
+
+.main_wrapper {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #F2E2CE;
+  
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.container {
+.main_container {
   width: 85.36%; /* 1639px / 1920px = 0.8536 */
   max-width: 1639px;
   height: 663px;
