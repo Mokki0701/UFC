@@ -293,21 +293,49 @@ function checkMySeat() {
   })
     .then(response => response.json())
     .then(map => {
-        // const seatInfo = result.seatInfo;
-        if (map.message) {
-          alert(map.message);
-          console.log(map.message);
-        } else {
-          // 내부 텍스트를 결과로 표시하기
-          const startTime = document.querySelector("#startTime");
-          const endTime = document.querySelector('#endTime');
-          const remainingExtensions = document.querySelector('#remainingExtensions');
+      // const seatInfo = result.seatInfo;
+      if (map.message) {
+        alert(map.message);
+        console.log(map.message);
+      } else {
+        // 내부 텍스트를 결과로 표시하기
+        const startTime = document.querySelector("#startTime");
+        const endTime = document.querySelector('#endTime');
+        const remainingExtensions = document.querySelector('#remainingExtensions');
 
-          startTime.innerText = map.startTime;
-          endTime.innerText = map.endTime;
-          remainingExtensions.innerText = map.readingExtend;
-        }
+        startTime.innerText = map.startTime;
+        endTime.innerText = map.endTime;
+        remainingExtensions.innerText = map.readingExtend;
+      }
     });
 }
 
 // 좌석 연장버튼 기능
+function extendSeat() {
+
+  function extendSeat() {
+    let userConfirmed = confirm("자리를 연장하시겠습니까?");
+    if (userConfirmed) {
+      fetch('/lib/seats/extend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.text())
+        .then(result => {
+          if (result === 'success') {
+            alert('Seat extension successful.');
+          } else {
+            alert('Seat extension failed.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred while extending the seat.');
+        });
+    }
+  }
+
+
+}

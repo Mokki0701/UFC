@@ -189,13 +189,10 @@ public class LibSeatController {
 	@ResponseBody
 	public String extendSeat(HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		boolean result = service.extendSeat(memberNo);
+		return result ? "success" : "fail";
 
-		if (loginMember != null) {
-			int memberNo = loginMember.getMemberNo();
-			boolean result = service.extendSeat(memberNo);
-			return result ? "success" : "fail";
-		}
-		return "fail";
 	}
 
 	@PostMapping("/checkAvailReservation")
@@ -301,7 +298,7 @@ public class LibSeatController {
 
 		String message = null;
 		int memberNo = loginMember.getMemberNo();
-		
+
 		// 정보를 가저욜 service
 		LibSeatDTO result = service.getMySeatInfo(memberNo);
 
