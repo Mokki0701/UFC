@@ -44,6 +44,9 @@ public interface LibSeatMapper {
 
 	// 열람실 연장하기
 	int extendSeat(int memberNo);
+	
+	// 나의 남은 연장 기회 확인하기
+	int checkExtendChance(int memberNo);
 
 	// 현재 좌석의 상태 확인하기
 	int chckSeatConditon(int seatNo);
@@ -62,7 +65,10 @@ public interface LibSeatMapper {
 	LibSeatDTO getMySeatInfo(int memberNo);
 
 	// 내 자리에 다른 예약이 있는지 확인하기
-	int checkOtherReservation(int seatNo);
+	int checkOtherReservation(Map<String, Object> params);
 
+	
+	
+	
 
 }

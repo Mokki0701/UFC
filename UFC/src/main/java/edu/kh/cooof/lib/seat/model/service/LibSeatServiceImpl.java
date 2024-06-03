@@ -72,9 +72,9 @@ public class LibSeatServiceImpl implements LibSeatService {
 
 	// 열람실 연장하기
 	@Override
-	public boolean extendSeat(int memberNo) {
-		int updatedRows = mapper.extendSeat(memberNo);
-		return updatedRows > 0;
+	public int extendSeat(int memberNo ) {
+		return mapper.extendSeat(memberNo);
+		
 	}
 
 	// 현재 다른사람이 이용 중인 열람실을 예약했을 때,
@@ -131,9 +131,12 @@ public class LibSeatServiceImpl implements LibSeatService {
 	
 	// 내 자리에 예약이 있는지 확인하기
 	@Override
-	public int checkOtherReservation(int seatNo) {
+	public int checkOtherReservation(int seatNo, int seatNo2) {
 		
+		Map<String, Object> params = new HashMap<>();
+		params.put("seatNo", seatNo);
+		params.put("seatNo2", seatNo2);
 		
-		return mapper.checkOtherReservation(seatNo);
+		return mapper.checkOtherReservation(params);
 	}
 }

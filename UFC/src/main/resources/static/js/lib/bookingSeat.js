@@ -318,28 +318,22 @@ function checkMySeat() {
 function extendSeat() {
 
   // 내가 사용 중인 자리는 memberAndSeatSession에 저장되어 있다.
-  function extendSeat() {
-    let userConfirmed = confirm("자리를 연장하시겠습니까?");
-    if (userConfirmed) {
-      fetch('/lib/seats/extend', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+  let userConfirmed = confirm("자리를 연장하시겠습니까?");
+  if (userConfirmed) {
+    fetch('/lib/seats/extend', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(result => {
+        alert(result.message);
       })
-        .then(response => response.text())
-        .then(result => {
-          if (result === 'success') {
-            alert('Seat extension successful.');
-          } else {
-            alert('Seat extension failed.');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('An error occurred while extending the seat.');
-        });
-    }
+      .catch(error => {
+        console.error('Error:', error);
+        alert('오류 발생, 관리자에게 문의하세요.');
+      });
   }
 
 
