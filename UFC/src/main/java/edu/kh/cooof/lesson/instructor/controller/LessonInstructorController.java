@@ -78,6 +78,8 @@ public class LessonInstructorController {
 
 			RedirectAttributes redirectAttributes) {
 		
+		try {
+		
 			// 이미 강사로 신청했는지 여부 확인
 			Integer reqCheck = service.checkRequest(loginMember.getMemberNo());
 			
@@ -86,6 +88,11 @@ public class LessonInstructorController {
 				redirectAttributes.addFlashAttribute("message", "이미 강사 신청하셨습니다!");
 				return "redirect:/lesson/inst";
 			}
+			
+			
+			
+			
+			
 			
 		
 			// 강사 테이블에 존재하지 않을 경우
@@ -109,7 +116,7 @@ public class LessonInstructorController {
 		
 		
 
-		try {
+		
 			// PDF 생성
 			PDDocument document = new PDDocument();
 			PDPage page = new PDPage();
