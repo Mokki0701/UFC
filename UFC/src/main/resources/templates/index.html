@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UFC</title>
   <link rel="stylesheet" href="/css/common/header.css">
-
-<style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="/js/common/main.js"></script>
+<!-- <style>
  .temp-container{
    
     font-size: 50px;
@@ -21,7 +24,7 @@
     clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
   }
 
-</style>
+</style> -->
 
 </head>
 
@@ -69,18 +72,27 @@
   <!-- 임시 링크 -->
   <div class="temp-container">
 
-    <a href="/main/libMain">
-      <img  src="/images/도서관.jpg" alt="도서관"  width="500px" height="200px">
-    </a>
+    <ul class="tabs">
+      <li class="tab main" data-tab="main">main</li>
+      <li class="tab library" data-tab="library">library</li>
+      <li class="tab lesson" data-tab="lesson">lesson</li>
+      <li class="tab health" data-tab="health">health</li>
+      <li class="tab community" data-tab="community">community</li>
+      <li class="tab myPage" data-tab="myPage">myPage</li>
+    </ul>
+
+    <!-- 화면 전환 부분 -->
+    <div th:replace="~{common/main/swiper}"></div>
+    <div th:replace="~{common/main/lib}"></div>
+    <div th:replace="~{common/main/lesson}"></div>
+    <div th:replace="~{common/main/health}"></div>
+    <div th:replace="~{common/main/community}"></div>
+    <div th:replace="~{common/main/myPage}"></div>
+  </div>
 
 
-    <a href="/gym/gymMain">
-      <img  src="/images/헬스장.jpg" alt="헬스장" width="500px" height="200px">
-    </a>
 
-    <a href="/lesson">
-      <img  src="/images/문화센터.jpg" alt="문화센터" width="500px" height="200px">
-    </a>
+
 
 
 
