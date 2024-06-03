@@ -7,6 +7,18 @@
 
 } */
 
+@font-face {
+  font-family: 'Cafe24Supermagic-Bold-v1.0';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+/* 글꼴 설정 */
+*{
+  font-family: 'Cafe24Supermagic-Bold-v1.0';
+}
+
+
 body{
   background-color: #F2E2CE;
 }
@@ -29,6 +41,8 @@ body{
   background-color: transparent;
   padding: 0;
   
+  height: 80vh;
+  width: 80vw;
 }
 
 /* 나중에 보더 지우세요 ========================== */
@@ -52,6 +66,7 @@ body{
 
 .tab {
   flex: 1;
+  display: flex;
   /* padding: 15px 10px; */
   cursor: pointer;
   background-color: transparent;
@@ -60,12 +75,19 @@ body{
   /* transition: background-color 0.3s, padding 0.3s;  */
   transition: transform 0.3s ease;
   text-align: center;
+  justify-content: center;
+  align-items: center;
   
   height: 60px; 
   line-height: 20px;
   margin-right: -20px; /* 탭들이 겹치도록 설정 */
   position: relative;
   clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+}
+
+.tabTitle{
+  margin-top: -5px;
+  font-size: 15px;
 }
 
 .tab.main { z-index: 6; }
@@ -88,8 +110,12 @@ body{
 
 .active{
   z-index: 1000;
-
 }
+
+.active > .tabTitle{
+  font-size: 20px;
+}
+
 
 
 .tab.active {
@@ -97,7 +123,6 @@ body{
     같은 탭 요소의 다른 클래스에서 설정된 색상을 상속 받음
   */
   background-color: inherit;
-  font-weight: bold;
   transform: translateY(-20px);
 }
 

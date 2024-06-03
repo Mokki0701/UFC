@@ -28,7 +28,13 @@
 
 <body>
 
-  <div th:replace="~{common/header}"></div>
+  <!-- <div th:replace="~{common/header}"></div> -->
+  <!-- 임시 헤더 -->
+  <div>
+
+  </div>
+
+
   <div class="quickLoginBtnSack">
     일반회원 <br>
     <button class="quickLoginBtn">testMem01@naver.com</button> <br>
@@ -52,12 +58,12 @@
     <div class="main_container">
       <ul class="tabs">
 
-        <li class="tab main" data-tab="main">Main</li>
-        <li class="tab library" data-tab="library">library</li>
-        <li class="tab lesson" data-tab="lesson">lesson</li>
-        <li class="tab health" data-tab="health">health</li>
-        <li class="tab community" data-tab="community">community</li>
-        <li class="tab myPage" data-tab="myPage">myPage</li>
+        <li class="tab main" data-tab="main"><p class="tabTitle">Main</p></li>
+        <li class="tab library" data-tab="library"><p class="tabTitle">도서관</p></li>
+        <li class="tab lesson" data-tab="lesson"><p class="tabTitle">평생학습관</p></li>
+        <li class="tab health" data-tab="health"><p class="tabTitle">운동시설</p></li>
+        <li class="tab community" data-tab="community"><p class="tabTitle">커뮤니티</p></li>
+        <li class="tab myPage" data-tab="myPage"><p class="tabTitle">myPage</p></li>
       </ul>
   
       <!-- 화면 전환 부분 -->
