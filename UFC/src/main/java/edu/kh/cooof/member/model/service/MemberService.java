@@ -10,5 +10,8 @@ public interface MemberService {
 	// 회원가입 정보 넣기
 	int memberSignup(Member inputMember, String[] memberAddress);
 
+	// 로그인 하기
+	Member login(Member inputMember);
+
 
 }
