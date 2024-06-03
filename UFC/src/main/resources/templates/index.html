@@ -19,8 +19,6 @@
     align-items: center; 
     margin-bottom: 20px; /* 이미지 간의 간격을 조정 */
     margin-bottom: 0; /* 마지막 요소의 하단 여백 제거 */
-    
-
     clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
   }
 
@@ -53,7 +51,8 @@
   <div class="main_wrapper">
     <div class="main_container">
       <ul class="tabs">
-        <li class="tab main" data-tab="main">main</li>
+
+        <li class="tab main" data-tab="main">Main</li>
         <li class="tab library" data-tab="library">library</li>
         <li class="tab lesson" data-tab="lesson">lesson</li>
         <li class="tab health" data-tab="health">health</li>
@@ -62,7 +61,7 @@
       </ul>
   
       <!-- 화면 전환 부분 -->
-      <div th:replace="~{common/main/swiper}"></div>
+      <div class="swiper" th:replace="~{common/main/swiper}"></div>
       <div th:replace="~{common/main/lib}"></div>
       <div th:replace="~{common/main/lesson}"></div>
       <div th:replace="~{common/main/health}"></div>

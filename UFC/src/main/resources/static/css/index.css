@@ -31,7 +31,7 @@ body{
 }
 
 /* 나중에 보더 지우세요 ========================== */
-.tab-content > div:nth-of-type(1){
+.tab-content > div:nth-of-type(1) {
   border: 2px solid #000;
   width: 100%;
   height: 100%;
@@ -45,29 +45,51 @@ body{
   margin: 0;
   list-style: none;
   position: relative;
-  height: 50px;
+  height: 40px;
+
 }
 
 .tab {
   flex: 1;
-  padding: 15px 10px;
+  /* padding: 15px 10px; */
   cursor: pointer;
   background-color: transparent;
-  /* border: 1px solid #ddd; */
   border-bottom: none;
   outline: none;
-  transition: background-color 0.3s, padding 0.3s; 
+  /* transition: background-color 0.3s, padding 0.3s;  */
+  transition: transform 0.3s ease;
   text-align: center;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  margin-right: 5px;
-  height: 50px; 
+  
+  height: 60px; 
   line-height: 20px;
+  margin-right: -20px; /* 탭들이 겹치도록 설정 */
+  position: relative;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
 }
+
+.tab.main { z-index: 6; }
+.tab.library { z-index: 5; }
+.tab.lesson { z-index: 4; }
+.tab.health { z-index: 3; }
+.tab.community { z-index: 2; }
+.tab.myPage { z-index: 1; }
+
+/* 선택된 탭 스타일 */
+.tab.active {
+  background-color: #fff;
+  z-index: 10; /* 활성화된 탭이 가장 앞에 보이도록 설정 */
+}
+
 
 .tab:last-child {
   margin-right: 0;
 }
+
+.active{
+  z-index: 1000;
+
+}
+
 
 .tab.active {
   /* 상위 요소가 명시적으로 배경 색상을 설정하지 않은 경우,
@@ -75,12 +97,15 @@ body{
   */
   background-color: inherit;
   font-weight: bold;
+  transform: translateY(-20px);
 }
 
 .tab:hover {
-  padding-top: 20px; 
-  padding-bottom: 20px; 
+  transform: translateY(-20px);
+  /* padding-top: 20px;  */
+  /* padding-bottom: 20px;  */
 }
+
 
 /* 탭 누를 시 화면이 전환되는 부분 (내용)====================== */
 .tab-content {
@@ -135,6 +160,7 @@ body{
 .swiper {
   width: 100%;
   height: 100%;
+  z-index: 1;
 }
 
 /* 가로 슬라이드일 경우 */
