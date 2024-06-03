@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import edu.kh.cooof.lib.book.model.dto.BookCategory;
 import edu.kh.cooof.lib.book.model.service.BookService;
 import edu.kh.cooof.member.model.dto.Member;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,6 +44,8 @@ public class BookController {
 			Model model
 			) {
 		
+		List<Integer> catNumbers = new ArrayList<>();
+		
 		paramMap.put("catNo", catNo);
 		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
@@ -52,6 +55,8 @@ public class BookController {
 		model.addAttribute("bookStorageLocations", searchMap.get("bookStorageLocations"));
 		model.addAttribute("bookList", searchMap.get("bookList"));
 		model.addAttribute("pagination", searchMap.get("pagination"));
+		model.addAttribute("catNumbers", catNumbers);
+		
 		
 		return "lib/book/bookList";
 	}
@@ -64,37 +69,14 @@ public class BookController {
 			@RequestParam(value="storageNo", required = false, defaultValue= "0") int storageNo,
 			@RequestParam(value="limit", required = false, defaultValue="10") int limit,
 			@RequestParam(value="cp", required = false , defaultValue="1") int cp,
-			@RequestParam("check") int check,
-			@RequestParam("catName") String catName,
 			@RequestParam Map<String, Object> paramMap,
-			@SessionAttribute(value="catList", required = false) List<String> catList,
+			@RequestParam("catNumbers") List<String> catList,
 			Model model
 			) {
 				
-		// 여기가 문제 였어 else문이 실행이 안돼 
-		if(catList == null) {
-			List<String> createCatList = new ArrayList<>();
-			model.addAttribute("catList", createCatList);
-			
-			createCatList.add(catName);
-			
-			paramMap.put("catList", createCatList);
-		}
+		// 가공해서 넘겨주어야함 catNames가 있는지랑 등등
 		
-		else {
-			log.debug("asjdkldsajfldsakjflksdafjklsadjflksafjlkasdjflkmsvlknjdfkljgjkldsgsdalkfmdslgmjklsfdjglkajgfkld");
-			if(check == 1) {
-				catList.add(catName);
-			}
-			
-			else {
-				int index = catList.indexOf(catName);
-				catList.remove(index);
-			}
-			
-			paramMap.put("catList", catList);
-		}
-		
+		paramMap.put("catList", catList);
 		paramMap.put("catNo", catNo);
 		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
@@ -103,6 +85,7 @@ public class BookController {
 		
 		model.addAttribute("bookList", searchMap.get("bookList"));
 		model.addAttribute("pagination", searchMap.get("pagination"));
+		model.addAttribute("catNumbers", catList);
 		
 		
  		return "lib/book/bookList :: searchBook";
@@ -115,30 +98,31 @@ public class BookController {
 			@RequestParam(value="storageNo", required = false, defaultValue= "0") int storageNo,
 			@RequestParam(value="limit", required = false, defaultValue="10") int limit,
 			@RequestParam(value="cp", required = false , defaultValue="1") int cp,
+			@RequestParam("query") String query,
 			@RequestParam Map<String, Object> paramMap,
-			@SessionAttribute(value="catList", required = false) List<String> catList,
+			@RequestParam("catNumbers") List<String> catList,
 			Model model
 			) {
 		
 		paramMap.put("catNo", catNo);
 		paramMap.put("cp", cp);
 		paramMap.put("limit", limit);
+		paramMap.put("catList", catList);
+		paramMap.put("query", query);
 		
-//		if(catList != null) {
-//			paramMap.put("catList", catList);
-//		}
-//		
+
 		Map<String, Object> mapList = service.searchBook(paramMap);
 		
 		model.addAttribute("bookList", mapList.get("bookList"));
 		model.addAttribute("pagination", mapList.get("pagination"));
+		model.addAttribute("catNumbers", catList);
 		
 		return "lib/book/bookList :: searchBook";
 	}
 	
 	@GetMapping("catList")
 	@ResponseBody
-	public List<String> categoryList(
+	public List<BookCategory> categoryList(
 			@RequestParam("storageName") String storageName
 			){
 		

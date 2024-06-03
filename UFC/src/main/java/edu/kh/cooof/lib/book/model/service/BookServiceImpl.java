@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import edu.kh.cooof.lib.book.model.dto.Book;
+import edu.kh.cooof.lib.book.model.dto.BookCategory;
 import edu.kh.cooof.lib.book.model.dto.BookStorageLocation;
 import edu.kh.cooof.lib.book.model.dto.LibPagination;
 import edu.kh.cooof.lib.book.model.mapper.BookMapper;
@@ -50,32 +52,17 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Map<String, Object> bookList(Map<String, Object> search) {
 		
-		String abc;
-		
 		int listCount = 0;
-			
-		StringBuilder sb = new StringBuilder();
 		
 		List<String> catList = (List<String>)search.get("catList");
 		
-		catList.forEach(catName -> {
-			
-			if(sb.length() > 0) {
-				sb.append(", ");
-			}
-			
-			sb.append(catName);
-			
-		});
 		
-		abc = sb.toString();
-		
-		if(abc.equals("")) {
+		if(catList.isEmpty()) {
 			listCount = mapper.getListCount();
 		}
 		
 		else {
-			listCount = mapper.checkedListCount(sb.toString());
+			listCount = mapper.checkedListCount(catList);
 		}
 			
 		LibPagination pagination = new LibPagination((int)search.get("cp"), listCount, (int)search.get("limit"));
@@ -87,11 +74,11 @@ public class BookServiceImpl implements BookService {
 		List<Book> bookList = new ArrayList<>();
 
 		
-		if(abc.equals("")) {
+		if(catList.isEmpty()) {
 			bookList = mapper.getBookList(rowBounds);
 		}
 		else {
-			bookList = mapper.checkedBookList(sb.toString(), rowBounds);				
+			bookList = mapper.checkedBookList(catList, rowBounds);				
 		}
 			
 
@@ -106,69 +93,39 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	public Map<String, Object> searchBook(Map<String, Object> paramMap) {
+	public Map<String, Object> searchBook(Map<String, Object> search) {
 		
-		// 1. listCount 수 세기
 		int listCount = 0;
 		
-		// 카테고리가 되있을 때
-		if(paramMap.get("catList") == null) {
-			listCount = mapper.searchCount(paramMap);
+		List<String> catList = (List<String>)search.get("catList");
+		
+		
+		if(catList.isEmpty()) {
+			listCount = mapper.searchCount(search);
 		}
 		
-		// 카테고리가 되어있지 않을 때
 		else {
-			
-			StringBuilder sb = new StringBuilder();
-			
-			List<String> catList = (List<String>)paramMap.get("catList");
-			
-			catList.forEach(catName -> {
-				
-				if(sb.length() > 0) {
-					sb.append(", ");
-				}
-				
-				sb.append(catName);
-				
-			});
-			
-			paramMap.put("string", sb.toString());
-			
-			
-			listCount = mapper.searchCount2(paramMap);
+			listCount = mapper.searchCount2(search);
 		}
+			
+		LibPagination pagination = new LibPagination((int)search.get("cp"), listCount, (int)search.get("limit"));
 		
-		LibPagination pagination = new LibPagination((int)paramMap.get("cp"), listCount, (int)paramMap.get("limit"));
+		int offset = ((int)search.get("cp") - 1) * (int)search.get("limit");
 		
-		int offset = ((int)paramMap.get("cp") - 1) * (int)paramMap.get("limit");
-		
-		RowBounds rowBounds = new RowBounds(offset, (int)paramMap.get("limit"));
+		RowBounds rowBounds = new RowBounds(offset, (int)search.get("limit"));
 		
 		List<Book> bookList = new ArrayList<>();
+
 		
-		if(paramMap.get("catList") == null) {
-			bookList = mapper.searchBook(paramMap);
+		if(catList.isEmpty()) {
+			bookList = mapper.searchBook(search, rowBounds);
 		}
 		else {
-			StringBuilder sb = new StringBuilder();
-			
-			List<String> catList = (List<String>)paramMap.get("catList");
-			
-			catList.forEach(catName -> {
-				
-				if(sb.length() > 0) {
-					sb.append(", ");
-				}
-				
-				sb.append(catName);
-				
-			});
-			paramMap.put("string", sb.toString());
-			
-			bookList = mapper.searchBook2(paramMap);
-			
+			bookList = mapper.searchBook2(search, rowBounds);				
 		}
+			
+
+		
 		
 		Map<String, Object> mapList = new HashMap<>();
 			
@@ -182,7 +139,7 @@ public class BookServiceImpl implements BookService {
 	
 	
 	@Override
-	public List<String> categoryList(String storageName) {
+	public List<BookCategory> categoryList(String storageName) {
 		
 		return mapper.categoryList(storageName);
 	}
@@ -221,6 +178,5 @@ public class BookServiceImpl implements BookService {
 		
 		return intergratedMap;
 	}
-	
 	
 }

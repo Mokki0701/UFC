@@ -18,8 +18,8 @@
 		ORDER BY BOOK_NO
 	</select>
 	
-	<select id="categoryList" resultType="string">
-		SELECT CAT_NAME
+	<select id="categoryList">
+		SELECT *
 		FROM BOOK_CATEGORY
 		JOIN BOOK_STORAGE_LOCATION USING (STORAGE_NO)
 		WHERE STORAGE_NAME = #{storageName}
@@ -30,13 +30,19 @@
 		SELECT COUNT(*)
 		FROM "BOOK_INFO"
 		JOIN "BOOK_CATEGORY" USING(CAT_NO)
-		WHERE CAT_NAME IN (#{string})
+		WHERE CAT_NO IN 
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 	</select>
 	
 	<select id="checkedBookList">
 		SELECT * FROM BOOK_INFO
 		JOIN "BOOK_CATEGORY" USING(CAT_NO)
-		WHERE CAT_NAME IN (#{string})
+		WHERE CAT_NO IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 		ORDER BY BOOK_NO
 	</select>
 	
@@ -51,8 +57,11 @@
 		SELECT COUNT(*)
 		FROM "BOOK_INFO"
 		JOIN "BOOK_CATEGORY" USING(CAT_NO)
-		WHERE CAT_NAME IN (#{string})
-		AND BOOK_TITLE LIKE '%' || #{query} || '%'
+		WHERE BOOK_TITLE LIKE '%' || #{query} || '%'
+		AND CAT_NO IN
+			<foreach item="item" index="index" collection="catList" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 		ORDER BY BOOK_NO
 	</select>
 	
@@ -65,7 +74,10 @@
 	<select id="searchBook2">
 		SELECT * FROM BOOK_INFO
 		WHERE BOOK_TITLE LIKE '%' || #{query} || '%'
-		AND CAT_NAME IN (#{string})
+		AND CAT_NO IN
+			<foreach item="item" index="index" collection="catList" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 		ORDER BY BOOK_NO
 	</select>
 	
