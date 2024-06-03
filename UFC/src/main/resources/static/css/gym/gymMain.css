@@ -19,7 +19,7 @@ body {
     margin: 10px 0;
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 1000px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -32,7 +32,7 @@ body {
 }
 
 .gym_main_logo li {
-    position: relative;
+    position: relative; /* 부모 요소의 기준점을 설정합니다. */
     margin: 0 10px;
     padding: 10px 20px;
     background-color: rgba(139, 168, 128, 0.9);
@@ -63,17 +63,11 @@ body {
 
 .dropdown-content {
     list-style-type: none;
-    display: none;
     position: absolute;
-    background-color: white;
+    align-items: center;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    padding: 0;
     border-radius: 10px;
     opacity: 0;
     transition: opacity 0.3s, transform 0.3s;
@@ -108,6 +102,8 @@ body {
     background-color: #575757;
     font-size: 18px;
 }
+
+
 
 .gym_container {
     display: flex;
