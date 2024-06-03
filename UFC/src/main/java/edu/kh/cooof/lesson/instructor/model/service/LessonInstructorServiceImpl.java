@@ -13,6 +13,7 @@ import edu.kh.cooof.lesson.instructor.model.dto.LessonInstructor;
 import edu.kh.cooof.lesson.instructor.model.mapper.LessonInstructorMapper;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.lesson.list.model.mapper.EditLessonListMapper;
+import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -63,6 +64,11 @@ public class LessonInstructorServiceImpl implements LessonInstructorService {
 		return mapper.addToInstTable(map);
 	}
 	
+	// 강사 승인 대기중인 인원들 조회
+	@Override
+	public List<Member> instRegCheck() {
+		return mapper.instRegCheck();
+	}
 	
 	
 	

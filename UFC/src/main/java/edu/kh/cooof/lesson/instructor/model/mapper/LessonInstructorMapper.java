@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.cooof.lesson.instructor.model.dto.LessonInstructor;
+import edu.kh.cooof.member.model.dto.Member;
 
 @Mapper
 public interface LessonInstructorMapper {
@@ -38,6 +39,12 @@ public interface LessonInstructorMapper {
 	 * @return
 	 */
 	Integer addToInstTable(Map<String, Object> map);
+
+	
+	/** 강사 승인 대기중인 인원들 조회
+	 * @return
+	 */
+	List<Member> instRegCheck();
 	
 	
 

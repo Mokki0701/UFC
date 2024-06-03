@@ -4,15 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -174,4 +172,18 @@ public class LessonInstructorController {
 
 		return "redirect:/lesson/inst";
 	}
+	
+	@GetMapping("regCheck")
+	public String regCheck(
+			Model model
+			) {
+		
+		List<Member> members = service.instRegCheck();
+		
+		 model.addAttribute("members", members);
+		
+		return "lesson/lessonInstructor/instructorRegCheck";
+	}
+	
+	
 }

@@ -1,8 +1,10 @@
 package edu.kh.cooof.lesson.instructor.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import edu.kh.cooof.lesson.instructor.model.dto.LessonInstructor;
+import edu.kh.cooof.member.model.dto.Member;
 
 public interface LessonInstructorService {
 
@@ -34,5 +36,10 @@ public interface LessonInstructorService {
 	 * @return
 	 */
 	Integer addToInstTable(Map<String, Object> map);
+
+	/** 강사 승인 대기자들 조회
+	 * @return
+	 */
+	List<Member> instRegCheck();
 
 }

@@ -29,5 +29,11 @@
 	)
 	</insert>
 	
+	<select id="instRegCheck" resultType="Member">
+	SELECT * 
+	FROM MEMBER 
+	JOIN LESSON_INSTRUCTOR  USING (MEMBER_NO) 
+	WHERE INST_STAT = 2
+	</select>
 
 </mapper>
