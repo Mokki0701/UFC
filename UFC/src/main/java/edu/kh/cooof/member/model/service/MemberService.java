@@ -7,5 +7,8 @@ public interface MemberService {
 	// 빠른 로그인
 	Member quickLogin(String memberEmail);
 
+	// 회원가입 정보 넣기
+	int memberSignup(Member inputMember, String[] memberAddress);
+
 
 }

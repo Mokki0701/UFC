@@ -39,6 +39,7 @@ public class SpaceDTO {
 	private String spaceDone;
 	private int spaceNo2;
 
+
 	
 	
 }

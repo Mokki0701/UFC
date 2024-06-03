@@ -6,13 +6,11 @@ const gymReviewWrite = document.querySelector("#gymReviewWrite");
 
 gymReviewWrite.addEventListener("click", () => {
 
-    location.href = `/gymWrite/insert`;
+    location.href = `/gymWrite/insert`; 
 });
 
 
-document.addEventListener("DOMContentLoaded", function(){
-    
-})
+
 
 
 

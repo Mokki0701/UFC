@@ -1,5 +1,6 @@
 package edu.kh.cooof.member.model.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberServiceImpl implements MemberService{
 	
 	private final MemberMapper mapper;
+	private final BCryptPasswordEncoder bcrypt;
 	
 	
 	// 빠른 로그인
@@ -32,6 +34,29 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
+	// 회원가입 
+	@Override
+	public int memberSignup(Member inputMember, String[] memberAddress) {
+		
+		// 주소가 입력된 경우
+		if(!inputMember.getMemberAddress().equals(",,")) {
+			
+			// 주소 구분자 ^^^
+			String address = String.join("^^^", memberAddress);
+			
+			
+			inputMember.setMemberAddress(address);
+		} else { // 입력되지 않은 경우
+			inputMember.setMemberAddress(null);
+		}
+		
+		String encPw = bcrypt.encode(inputMember.getMemberPw());
+		inputMember.setMemberPw(encPw);
+		
+		return mapper.signup(inputMember);
+	}
+	
+
 	
 	
 }
