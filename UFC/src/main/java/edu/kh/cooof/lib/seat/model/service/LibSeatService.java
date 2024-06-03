@@ -1,6 +1,7 @@
 package edu.kh.cooof.lib.seat.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.member.model.dto.Member;
@@ -32,6 +33,20 @@ public interface LibSeatService {
 	// 현재 다른사람이 이용 중인 열람실을 예약했을 때, 
 	// 열람실을 예약한 시간과 종료예정시간이 겹치는지 확인
 	int checkStartTime(int seatNo, String startTime);
+
+	// 열람실 좌석 예약 실행
+	int seatBooking(int memberNo, int seatNo, String startTime);
+	
+	// 유저의 자리번호와 db 자리 번호 맞추기
+	int getCacRealSeatNo(int seatNo);
+
+	// 나의 자리 이용 정보 받아오기
+	LibSeatDTO getMySeatInfo(int memberNo);
+
+	// 내 자리에 예약이 있는지 확인하기
+	int checkOtherReservation(int seatNo);
+
+	
 
 	
 

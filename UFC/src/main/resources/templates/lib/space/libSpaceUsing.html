@@ -14,7 +14,7 @@
 <body>
 
   <!-- 공용 헤더 -->
-  <header th:replace="~{common/header}"></header>
+  <!-- <header th:replace="~{common/header}"></header> -->
 
   <!-- 도서관 전용 헤더 -->
   <th:block th:replace="~{common/lib/libNavVar}"></th:block>
@@ -112,7 +112,7 @@
       <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <div>선택한 공간 번호 : <span class="currentSelectSpace"></span></div>
-        <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div>
+        <!-- <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div> -->
         <div>현재 시간 : <span id="currentTime"></span></div>
         <div class="time-picker">
           <label>사용 시작하고 싶은 시간:</label>

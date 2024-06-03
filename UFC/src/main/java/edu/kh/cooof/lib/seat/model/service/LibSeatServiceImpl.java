@@ -91,4 +91,49 @@ public class LibSeatServiceImpl implements LibSeatService {
 		}
 		return 0;
 	}
+	
+	@Override
+	public int seatBooking(int memberNo, int seatNo, String startTime ) {
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("seatNo", seatNo);
+		params.put("startTime", startTime);
+		params.put("memberNo", memberNo);
+		
+		String message = null;
+		int result = 0;
+		
+		int checkTime = mapper.seatBooking(params);
+		if (checkTime == 1) {
+			result = 1;
+		} else {
+			result = 0;
+		}
+		return result;
+	}
+	
+	// 유저의 자리 번호와 db의 자리번호 맞추기
+	@Override
+	public int getCacRealSeatNo(int seatNo) {
+		
+		int getCacRealSeatNo = mapper.getCacRealSeatNo(seatNo);
+		
+		return getCacRealSeatNo;
+	}
+	
+	// 나의 자리 이용 정보 받아오기
+	@Override
+	public LibSeatDTO getMySeatInfo(int memberNo) {
+		
+		
+		return mapper.getMySeatInfo(memberNo);
+	}
+	
+	// 내 자리에 예약이 있는지 확인하기
+	@Override
+	public int checkOtherReservation(int seatNo) {
+		
+		
+		return mapper.checkOtherReservation(seatNo);
+	}
 }

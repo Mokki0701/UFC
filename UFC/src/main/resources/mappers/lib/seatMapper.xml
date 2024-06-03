@@ -101,11 +101,63 @@
 		열람실을 예약한 시간과 종료예정시간이 겹치는지 확인-->
 	<select id="checkStartTime">
 		SELECT COUNT(*)
-        FROM RENT_SEAT rs 
-        WHERE rs.RENT_SEAT2 = #{seatNo}
+        FROM RENT_SEAT 
+        WHERE SEAT_NO2 = #{seatNo}
         AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') 
-        BETWEEN rs.READING_START  AND rs.READING_DONE
+        BETWEEN READING_START  AND READING_DONE
 	</select>
+	
+	<!-- 열람실 자리 예약하기 -->
+	 <insert id="seatBooking" parameterType="map">
+        INSERT INTO SEAT_SPACE_BOOKING (
+            BOOKING_SS_NO, START_BOOKING, END_BOOKING, MEMBER_NO, SPACE_NO, SEAT_NO
+        ) VALUES (
+            SEQ_BOOKING_SS_NO.NEXTVAL, 
+            TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI'), 
+            TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') + INTERVAL '4' HOUR, 
+            #{memberNo}, 
+            NULL,
+            #{seatNo} 
+        )
+    </insert>
+    
+    <!-- db자리, 유저 자리no를 계산 할 결과 구하기 -->
+    <select id="getCacRealSeatNo">
+    	SELECT COUNT(*)
+	    FROM SEAT
+	    WHERE CONDITION = 0
+	    AND SEAT_NO &lt;= #{seatNo}
+    </select>
+    
+    <!-- 나의 자리 이용 정보 구하기 -->
+    <select id="getMySeatInfo" parameterType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
+    	SELECT READING_START AS readingStart, 
+		READING_DONE AS readingDone, READING_EXTEND AS readingExtend
+		FROM RENT_SEAT rs 
+		WHERE MEMBER_NO = #{memberNo}
+    </select>
 
+
+	<!-- 내 자리에 다른 예약이 있는지 확인하기 -->
+	<select id="checkOtherReservation">
+	
+		 SELECT COUNT(*)
+	    FROM SEAT_SPACE_BOOKING ssb
+	    WHERE ssb.SEAT_NO = #{seatNo}
+	    AND ssb.START_BOOKING BETWEEN (
+	        SELECT rs.END_BOOKING
+	        FROM RENT_SEAT rs
+	        WHERE rs.SEAT_NO = #{seatNo}
+	        ORDER BY rs.END_BOOKING DESC
+	        LIMIT 1
+	    ) AND DATE_ADD(
+	        (SELECT rs.END_BOOKING
+	         FROM RENT_SEAT rs
+	         WHERE rs.SEAT_NO = #{seatNo}
+	         ORDER BY rs.END_BOOKING DESC
+	         LIMIT 1), INTERVAL 4 HOUR)
+	
+	
+	</select>
 
 </mapper>

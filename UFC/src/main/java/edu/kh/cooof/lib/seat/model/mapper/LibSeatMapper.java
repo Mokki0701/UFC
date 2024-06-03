@@ -38,6 +38,7 @@ public interface LibSeatMapper {
 
 	void clearConditionFromSeat(int seatNo);
 
+	// 새로운 방식 사용해보기
 	@Select("SELECT READING_START, READING_DONE, READING_EXTEND FROM RENT_SEAT WHERE MEMBER_NO = #{memberNo}")
 	LibSeatDTO getSeatUsageByMemberNo(int memberNo);
 
@@ -50,5 +51,18 @@ public interface LibSeatMapper {
 	// 현재 다른사람이 이용 중인 열람실을 예약했을 때,
 	// 열람실을 예약한 시간과 종료예정시간이 겹치는지 확인
 	int checkStartTime(Map<String, Object> params);
+
+	// 열람실 예약 실행
+	int seatBooking(Map<String, Object> params);
+
+	// 유저의 자리 번호와 db의 자리번호 맞추기
+	int getCacRealSeatNo(int seatNo);
+
+	// 나의 자리 이용 정보 받아오기
+	LibSeatDTO getMySeatInfo(int memberNo);
+
+	// 내 자리에 다른 예약이 있는지 확인하기
+	int checkOtherReservation(int seatNo);
+
 
 }

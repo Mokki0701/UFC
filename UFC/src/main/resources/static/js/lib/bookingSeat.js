@@ -92,6 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 이용 가능한 좌석에만 반응하기
   useSeatBtn.addEventListener("click", () => {
+
+
     if (selectedSeat && selectedSeat.classList.contains('availSeat') && !selectedSeat.classList.contains('nowUsing') && !selectedSeat.classList.contains('disavailSeat')) {
       const dbSeatNo = document.getElementById('dbSeatNo').textContent;
       // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
@@ -124,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       alert("선택한 좌석은 사용할 수 없습니다.");
     }
+
+
   });
 
 
@@ -165,18 +169,26 @@ stopUsingSeat.addEventListener("click", () => {
 });
 
 // 모달 닫는 기능
-function closeModal(){
- 
+function closeModal() {
+
   const bookingModal = document.getElementById('bookingModal');
   bookingModal.style.display = "none";
 
-  const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
-  checkMySpaceDataModal.style.display = "none";
+  // const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
+  // checkMySpaceDataModal.style.display = "none";
 
-  const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
-  checkMySpaceReservationModal.style.display = "none";
+  // const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
+  // checkMySpaceReservationModal.style.display = "none";
+
+  const checkMyseat = document.getElementById('checkMyseat');
+  checkMyseat.style.display = "none";
 }
 
+// 모달 외부 클릭 시 닫기
+// window.onclick function(e) {
+//   const bookingModal = document.getElementById('bookingModal');
+//   bookingModal.style.display = "none"; 
+// }
 
 
 
@@ -263,3 +275,72 @@ function realBookingSeat() {
     });
 }
 
+// 이용중인 열람실 확인하는 모달 열기
+function checkMySeat() {
+  const checkMyseat = document.getElementById('checkMyseat');
+
+  // 필요한 정보를 보여주는 모달 표시
+  checkMyseat.style.display = "block";
+
+  // 정보를 표시 할 span
+
+  // 필요한 정보 비동기로 받아오기
+  fetch('/lib/seats/getMySeatInfo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(map => {
+      // const seatInfo = result.seatInfo;
+      if (map.message) {
+        alert(map.message);
+        console.log(map.message);
+      } else {
+        // 내부 텍스트를 결과로 표시하기
+        const startTime = document.querySelector("#startTime");
+        const endTime = document.querySelector('#endTime');
+        const remainingExtensions = document.querySelector('#remainingExtensions');
+
+        startTime.innerText = map.startTime;
+        endTime.innerText = map.endTime;
+        remainingExtensions.innerText = map.readingExtend;
+      }
+    });
+}
+
+// 좌석 연장버튼 기능
+// 1. 내 자리의 연장하고자 하는 시간에 예약이 있다면 연장 불가
+// 필요한 테이블 : SEAT_SPACE_BOOKING ssb, RENT_SEAT rs
+// 필요한 컬럼 : 전달 받은 #{seatNo}를 기준으로. 
+// ssb.START_BOOKING이 rs.END_BOOKING ~ +4HH 사이에 있는지 확인하는 select문 작성.
+function extendSeat() {
+
+  // 내가 사용 중인 자리는 memberAndSeatSession에 저장되어 있다.
+  function extendSeat() {
+    let userConfirmed = confirm("자리를 연장하시겠습니까?");
+    if (userConfirmed) {
+      fetch('/lib/seats/extend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.text())
+        .then(result => {
+          if (result === 'success') {
+            alert('Seat extension successful.');
+          } else {
+            alert('Seat extension failed.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred while extending the seat.');
+        });
+    }
+  }
+
+
+}
