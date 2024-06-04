@@ -4,14 +4,6 @@ const swiper = new Swiper('.swiper', {
   },
 });
 
-// Anchor link handling
-document.querySelectorAll('a[href^="#libSpace"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    swiper.slideTo(2); // Slide to the third slide (index starts from 0)
-  });
-});
-
 
 // 스와이퍼 0번 페이지에서
 // 각 버튼 클릭 시 해당 정보 표시

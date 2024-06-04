@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		loop: false,
 		on: {
 			slideChange: function (swiper) {
-				// const arrowDown = activeTab.querySelector('.arrow-down');
+				const arrowDown = activeTab.querySelector('.arrow-down');
 				if (swiper.isEnd) {
 					arrowDown.innerHTML = '&#8593;'; // 화살표를 위로 변경
 				} else if (swiper.isBeginning) {
