@@ -14,6 +14,18 @@
 	<update id="setCloseYn">
 	UPDATE LESSONS SET CLOSE_YN = 1 WHERE LESSON_NO = #{lessonNo}
 	</update>
+	
+	<select id="authorityCheck" resultType="Member">
+	UPDATE MEMBER m
+	SET m.MEMBER_AUTHORITY = 1
+	WHERE m.MEMBER_NO IN (
+	SELECT m2.MEMBER_NO
+	FROM MEMBER m2
+	JOIN LESSON_INSTRUCTOR li
+	ON m2.MEMBER_NO = li.MEMBER_NO
+	WHERE m2.MEMBER_AUTHORITY = 0 AND li.INST_STAT = 0
+	)
+	</select>
 
 
 </mapper>

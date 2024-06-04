@@ -3,6 +3,7 @@ package edu.kh.cooof.common.scheduler.service;
 import java.util.List;
 
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.member.model.dto.Member;
 
 public interface CommonSchedulingService {
 
@@ -20,5 +21,10 @@ public interface CommonSchedulingService {
 	 * @param lessonNo
 	 */
 	void setCloseYn(int lessonNo);
+
+	/** 권한 부여 체크
+	 * @return
+	 */
+	List<Member> authorityCheck();
 
 }

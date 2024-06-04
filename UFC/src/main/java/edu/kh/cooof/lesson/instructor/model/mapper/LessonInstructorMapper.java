@@ -51,6 +51,12 @@ public interface LessonInstructorMapper {
 	 * @return
 	 */
 	int instAccept(int memberNo);
+
+	/** 강사 거절
+	 * @param memberNo
+	 * @return
+	 */
+	int instReject(int memberNo);
 	
 	
 

@@ -42,10 +42,16 @@ public interface LessonInstructorService {
 	 */
 	List<Member> instRegCheck();
 
-	/** 강사 승인
+	/** 강사 요청 승인
 	 * @param memberNo
 	 * @return
 	 */
 	int instAccept(int memberNo);
+
+	/** 강사 요청 거절
+	 * @param memberNo
+	 * @return
+	 */
+	int instReject(int memberNo);
 
 }

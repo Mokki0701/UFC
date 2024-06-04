@@ -43,4 +43,9 @@
 	WHERE MEMBER_NO = #{memberNo}
 	</update>
 
+	<delete id="instReject">
+	DELETE FROM LESSON_INSTRUCTOR 
+	WHERE MEMBER_NO = #{memberNo}
+	</delete>	
+
 </mapper>

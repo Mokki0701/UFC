@@ -75,5 +75,11 @@ public class LessonInstructorServiceImpl implements LessonInstructorService {
 		
 		return mapper.instAccept(memberNo);
 	}
+	
+	// 강사 거절
+	@Override
+	public int instReject(int memberNo) {
+		return mapper.instReject(memberNo);
+	}
 
 }

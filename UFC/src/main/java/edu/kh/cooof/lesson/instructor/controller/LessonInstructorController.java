@@ -185,6 +185,7 @@ public class LessonInstructorController {
 		return "lesson/lessonInstructor/instructorRegCheck";
 	}
 	
+	// 강사 요청 승인 (update로 활동중 상태로 만들어준다)
 	@PostMapping("accept")
 	@ResponseBody
 	public int instAccept(
@@ -193,7 +194,19 @@ public class LessonInstructorController {
 		
 		int result = service.instAccept(memberNo);
 		
-		return 1;
+		return result;
+	}
+	
+	// 강사 요청 거절 (강사 테이블에서 행 삭제) 
+	@PostMapping("reject")
+	@ResponseBody
+	public int instReject(
+			@RequestBody int memberNo
+			) {
+		
+		int result = service.instReject(memberNo);
+		
+		return result;
 	}
 	
 	

@@ -135,7 +135,7 @@
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ memberNo: memberNo })
+        body: JSON.stringify(memberNo)
       })
         .then(response => {
           if (response.ok) {
