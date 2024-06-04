@@ -92,8 +92,12 @@ const checkPw = () => {
 
         /* 비밀번호 정규 표현식 */
         const regExp = /^[a-zA-Z0-9!@#_-]{6,20}$/;
-
-       
+        // test : 맞으면 ture 아니면 false
+       if(!regExp.test(inputPw)){
+          pwMessage.innerText = "비밀번호가 유효하지 않습니다"
+          pwMessage.add("error");
+          pwMessage.remove("confirm");
+       }
     })
 }
 
