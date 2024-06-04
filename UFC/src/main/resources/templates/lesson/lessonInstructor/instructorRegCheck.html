@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>강사 신청 확인</title>
+  <style>
+    .member-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .member-table,
+    .member-table th,
+    .member-table td {
+      border: 1px solid black;
+    }
+
+    .member-table th,
+    .member-table td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .member-table th {
+      background-color: #f2f2f2;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .action-buttons button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- lessonCommon 들어가는 곳 시작 -->
+  <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+  <!-- lessonCommon 들어가는 곳 끝 -->
+
+
+  <!-- 세미 헤더 들어가는 곳 시작 -->
+  <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
+  <!-- 세미 헤더 들어가는 곳 끝 -->
+
+  <h1>강사 신청자들</h1>
+  <table class="member-table" id="memberTable">
+    <thead>
+      <tr>
+        <th>회원 번호</th>
+        <th>이메일</th>
+        <th>성함</th>
+        <th>핸드폰 번호</th>
+        <th>성별</th>
+        <th>강의 분야</th>
+        <th>소개</th>
+        <th>정보 PDF</th>
+        <th>이력서 PDF</th>
+        <th>처리</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="member : ${members}">
+        <td th:text="${member.memberNo}" class="member-no"></td>
+        <td th:text="${member.memberEmail}" class="member-email"></td>
+        <td th:text="${member.memberLastName} + ' ' + ${member.memberFirstName}" class="member-name"></td>
+        <td th:text="${member.memberPhone}" class="member-phone"></td>
+        <td th:text="${member.memberGender}" class="member-gender"></td>
+        <td th:text="${member.instCategory}" class="member-category"></td>
+        <td th:text="${member.instIntro}" class="member-intro"></td>
+
+        <td class="member-intro">
+          <a th:href="@{|/mokkie/lesson/instReg/${member.instInfo}|}" th:text="${member.instInfo}"></a>
+        </td>
+        <td class="member-intro">
+          <a th:href="@{/mokkie/lesson/instReg/${member.instResume}}" th:text="${member.instResume}" th:download="${member.instResume}"></a>
+        </td>
+
+        <td class="member-action">
+          <div class="action-buttons">
+            <button type="button" class="accept-btn" th:onclick="'accept(' + ${member.memberNo} + ')'">승낙</button>
+            <button type="button" class="reject-btn" th:onclick="'reject(' + ${member.memberNo} + ')'">거절</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+
+    // 승낙/거절 버튼 클릭 시
+    function accept(memberNo) {
+      alert(memberNo + "번 회원의 요청이 승낙되었습니다.");
+    }
+    
+    function reject(memberNo) {
+      alert(memberNo + "번 회원의 요청이 거절되었습니다.");
+    }
+    // 승낙/거절 버튼 클릭 시 끝
+  </script>
+</body>
+
+</html>
