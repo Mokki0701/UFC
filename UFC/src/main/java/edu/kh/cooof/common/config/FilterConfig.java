@@ -26,10 +26,11 @@ public class FilterConfig {
 
 		// /myPage/* : myPage로 시작하는 모든 요청
 
-		String[] filteringURL = {
-				"/lesson/dashboard/*", // 회원 대시보드 이용 시 
-				"/lesson/inst/reg/*" // 강사 등록 이용 시
-				};
+
+		String[] filteringURL = { "/lesson/dashboard/*" , "/libMember/member/*", "/loan/select/*", "/reservation/*"
+									, "/lib/seats/*", "/lib/space/*", "/lesson/dashboard/*", "/lesson/inst/reg/*"
+								};
+
 
 		// 필터가 동작할 URL을 세팅
 

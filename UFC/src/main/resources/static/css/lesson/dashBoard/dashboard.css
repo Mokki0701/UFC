@@ -1,3 +1,7 @@
+body{
+  background-color: #f2e2ce;
+}
+
 .less_dashboard {
   max-width: 1400px;
   margin: auto;
@@ -38,7 +42,7 @@
 }
 
 .less_attendance {
-  background-color: #d9d9d9;
+  background-color: #BF9D5E;
   padding:10px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -53,7 +57,7 @@
 }
 
 .less_schedule {
-  background-color: #d9d9d9;
+  background-color: #BF9D5E;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -86,7 +90,7 @@
 }
 
 .less_lectures {
-  background-color: #d9d9d9;
+  background-color: #BF9D5E;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -94,7 +98,7 @@
 }
 
 .less_rating {
-  background-color: #d9d9d9;
+  background-color: #BF9D5E;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -102,7 +106,7 @@
 }
 
 .less_write_rating {
-  background-color: #d9d9d9;
+  background-color: #BF9D5E;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -199,7 +203,7 @@
 }
 
 .less_rating_content label, .less_rating_content select, .less_rating_content .stars, .less_rating_content button {
-  background-color: #333;
+  background-color: #D9BD89;
   border: none;
   color: #fff;
   padding: 10px;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>400 - Bad Request</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .character {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .text-container {
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #343a40;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #6c757d;
+            margin: 10px 0;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/path/to/your/character/image.png" alt="Sad Character" class="character">
+        <div class="text-container">
+            <h1>Oops... Bad Request</h1>
+            <p class="error-message" th:text="${error}">Error Message</p>
+            <p th:text="${message}">Detailed error message goes here.</p>
+            <button onclick="location.href='/'">Home</button>
+        </div>
+    </div>
+</body>
+</html>

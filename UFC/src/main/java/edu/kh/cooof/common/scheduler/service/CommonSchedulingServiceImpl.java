@@ -38,5 +38,15 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 		
 		return mapper.authorityCheck();
 	}
+	@Override
+	public void deleteLibAll() {
+		
+		mapper.deleteLibLoan();
+		
+		mapper.deleteLibRent();
+		
+		mapper.deleteLibHope();
+		
+	}
 	
 }

@@ -26,5 +26,10 @@ public interface CommonSchedulingService {
 	 * @return
 	 */
 	int authorityCheck();
+	
+	/** 도서 대출 예약 희망 전체 삭제
+	 * 
+	 */
+	void deleteLibAll();
 
 }

@@ -1,5 +1,7 @@
 package edu.kh.cooof.gym.myPage.model.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,14 +13,16 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class gymMyPage {
+public class GymMyPage {
 	
+    private String memberLastName;
+    private String memberFirstName;
 	private int ptYN;
 	private int ptCount;
 	private int ptPrice;
 	private int ptLkroom;
 	private String trainerName;
-	private String ptStrDate;
+	private Date ptStrDate;
 	
 	
 	

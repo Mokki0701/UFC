@@ -7,6 +7,18 @@
 
 } */
 
+@font-face {
+  font-family: 'Cafe24Supermagic-Bold-v1.0';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+/* 글꼴 설정 */
+*{
+  font-family: 'Cafe24Supermagic-Bold-v1.0';
+}
+
+
 body{
   background-color: #F2E2CE;
 }
@@ -28,10 +40,17 @@ body{
   height: 663px;
   background-color: transparent;
   padding: 0;
+  
+  height: 80vh;
+  width: 80vw;
+}
+
+.main_container > div {
+  /* transition: background-color 0.35s;   */
 }
 
 /* 나중에 보더 지우세요 ========================== */
-.tab-content > div:nth-of-type(1){
+.tab-content > div:nth-of-type(1) {
   border: 2px solid #000;
   width: 100%;
   height: 100%;
@@ -45,42 +64,78 @@ body{
   margin: 0;
   list-style: none;
   position: relative;
-  height: 50px;
+  height: 40px;
+
 }
 
 .tab {
   flex: 1;
-  padding: 15px 10px;
+  display: flex;
+  /* padding: 15px 10px; */
   cursor: pointer;
   background-color: transparent;
-  /* border: 1px solid #ddd; */
   border-bottom: none;
   outline: none;
-  transition: background-color 0.3s, padding 0.3s; 
+  /* transition: background-color 0.3s, padding 0.3s;  */
+  transition: transform 0.3s ease;
   text-align: center;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  margin-right: 5px;
-  height: 50px; 
+  justify-content: center;
+  align-items: center;
+  
+  height: 60px; 
   line-height: 20px;
+  margin-right: -20px; /* 탭들이 겹치도록 설정 */
+  position: relative;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
 }
+
+.tabTitle{
+  margin-top: -5px;
+  font-size: 15px;
+}
+
+.tab.main { z-index: 6; }
+.tab.library { z-index: 5; }
+.tab.lesson { z-index: 4; }
+.tab.health { z-index: 3; }
+.tab.community { z-index: 2; }
+.tab.myPage { z-index: 1; }
+
+/* 선택된 탭 스타일 */
+.tab.active {
+  background-color: #fff;
+  z-index: 10; /* 활성화된 탭이 가장 앞에 보이도록 설정 */
+}
+
 
 .tab:last-child {
   margin-right: 0;
 }
+
+.active{
+  z-index: 1000;
+}
+
+.active > .tabTitle{
+  font-size: 20px;
+}
+
+
 
 .tab.active {
   /* 상위 요소가 명시적으로 배경 색상을 설정하지 않은 경우,
     같은 탭 요소의 다른 클래스에서 설정된 색상을 상속 받음
   */
   background-color: inherit;
-  font-weight: bold;
+  transform: translateY(-20px);
 }
 
 .tab:hover {
-  padding-top: 20px; 
-  padding-bottom: 20px; 
+  transform: translateY(-20px);
+  /* padding-top: 20px;  */
+  /* padding-bottom: 20px;  */
 }
+
 
 /* 탭 누를 시 화면이 전환되는 부분 (내용)====================== */
 .tab-content {
@@ -102,11 +157,11 @@ body{
 
 /* 탭 색상 -> 나중에 정해진 컬러로 수정하기*/
 .main, .tab.main.active { background-color: #A67E33; }
-.library, .tab.library.active { background-color: #BF9D5E; }
-.lesson, .tab.lesson.active { background-color: #D9BD89; }
-.health, .tab.health.active { background-color: #ffffdd; }
+.library, .tab.library.active { background-color: #ad8d63; }
+.lesson, .tab.lesson.active { background-color: #BF9D5E; }
+.health, .tab.health.active { background-color: #D9BD89; }
 .community, .tab.community.active { background-color: #F2DDB6; }
-.myPage, .tab.myPage.active { background-color: #BF7B54; }
+.myPage, .tab.myPage.active { background-color: #ffffdd; }
 
 .arrow-down {
   position: absolute;
@@ -135,6 +190,8 @@ body{
 .swiper {
   width: 100%;
   height: 100%;
+  z-index: 1;
+  overflow: hidden;
 }
 
 /* 가로 슬라이드일 경우 */
@@ -155,7 +212,7 @@ body{
   background-color: bisque;
 }
 .swiper-slide:nth-of-type(2) > div{
-  background-color: lightseagreen;
+  background-color: rgb(139, 178, 32);
 }
 .swiper-slide:nth-of-type(3) > div{
   background-color: lavender;
@@ -173,3 +230,5 @@ body{
 .swiper-cube-shadow{
   display: none;
 }
+
+

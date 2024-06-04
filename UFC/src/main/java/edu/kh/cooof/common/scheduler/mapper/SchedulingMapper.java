@@ -29,5 +29,11 @@ public interface SchedulingMapper {
 	 * @return
 	 */
 	int authorityCheck();
+	
+	void deleteLibLoan();
+
+	void deleteLibRent();
+
+	void deleteLibHope();
 
 }
