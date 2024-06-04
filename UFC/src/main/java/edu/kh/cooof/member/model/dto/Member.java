@@ -1,6 +1,8 @@
 package edu.kh.cooof.member.model.dto;
 
 import groovy.transform.ToString;
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +27,8 @@ public class Member {
 	// ... 
 	private int memberAuthority;
 	private String memberGender;
+	// 주소
+	private String memberAddress;
 	
 	// 현재 이용 중인 좌석 번호
 	private int curUsingSeatNo;
@@ -35,6 +39,7 @@ public class Member {
 	private String instIntro; // 강사 소개
 	private String instResume; // 제출한 이력서 경로
 	private String instInfo; // 생성된 회원 정보 PDF 경로
+	
 	
 	
 	

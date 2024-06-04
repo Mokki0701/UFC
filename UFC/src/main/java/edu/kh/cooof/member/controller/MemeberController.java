@@ -3,6 +3,7 @@ package edu.kh.cooof.member.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -52,6 +53,61 @@ public class MemeberController {
 		return "redirect:/";
 		
 	}
-	
 
+    // 로그인 
+	@GetMapping("login")
+	public String login() {
+		return "member/login";
+	}
+	
+	@PostMapping("login")
+	public String memberLogin(
+			RedirectAttributes ra,
+			Member inputMember,
+			Model model) {
+		return null;
+	}
+	
+	
+	
+	// 회원가입
+	@GetMapping("signup")
+	public String signup() {
+		return "member/signup";
+	}
+
+	
+	@PostMapping("signup")
+	public String memberSignup(
+			  @RequestParam("memberEmailId") String memberEmailId,
+			  @RequestParam("memberEmailDomain") String memberEmailDomain,
+			  Member inputMember,
+			  @RequestParam("memberAddress") String[] memberAddress,
+			  RedirectAttributes ra) {
+			        
+		// 이메일 아이디와 도메인을 합쳐서 이메일 주소를 만듭니다.
+		String email = memberEmailId + "@" + memberEmailDomain;
+		// 만든 이메일 주소를 DTO 객체에 설정합니다.
+	    inputMember.setMemberEmail(email);
+	
+		int result = service.memberSignup(inputMember, memberAddress);
+		
+		String path = null;
+		String message = null;
+		
+		if(result > 0) {
+			message = inputMember.getMemberLastName() + inputMember.getMemberFirstName() 
+			+ "님 가입을 환영합니다";
+			path = "/";
+		} else {
+			message = "회원 가입 실패";
+			path = "member/signup";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		
+		return "redirect:" + path;
+		
+	}
 }

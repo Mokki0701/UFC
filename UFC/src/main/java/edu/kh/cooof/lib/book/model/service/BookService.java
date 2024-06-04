@@ -10,10 +10,12 @@ public interface BookService {
 
 	Map<String, Object> bookList(Map<String, Object> search);
 
-	List<String> categoryList(String storageName);
+	List<BookCategory> categoryList(String storageName);
 
 	Map<String, Object> searchBook(Map<String, Object> paramMap);
 
 	Map<String, Object> getBookDetail(int bookNo);
+
+	Map<String, Object> bookListSelect(Map<String, Object> paramMap);
 
 }

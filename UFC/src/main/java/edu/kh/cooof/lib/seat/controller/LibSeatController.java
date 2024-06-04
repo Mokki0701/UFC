@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
+import edu.kh.cooof.lib.seat.model.mapper.LibSeatMapper;
 import edu.kh.cooof.lib.seat.model.service.LibSeatService;
+import edu.kh.cooof.lib.space.model.mapper.SpaceMapper;
+import edu.kh.cooof.lib.space.model.service.SpaceService;
 import edu.kh.cooof.member.model.dto.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +36,9 @@ import lombok.extern.slf4j.Slf4j;
 public class LibSeatController {
 
 	private final LibSeatService service;
+	private final LibSeatMapper mapper;
+	private final SpaceService spaceService;
+	private final SpaceMapper spaceMapper;
 
 	// 관리자 : 저장된 좌석 현황 불러오기
 	@GetMapping("/data")
@@ -91,13 +98,24 @@ public class LibSeatController {
 				message = "좌석 이용 등록 성공!";
 				result = "success";
 
+				// DB의 열람실 번호와 유저가 보는 열람실 번호가 다르다.
+				// -> 해결하기 위해 다음과 같은 SQL을 수행한다.
+				int cacRealSeatNo = service.getCacRealSeatNo(libSeat.getSeatNo());
+
+				// 사용자가 선택한 열람실 좌석의 db상 번호
+				int dbSeatNo = libSeat.getSeatNo();
+
+				// 사용자에게 보여줄 열람실 번호
+				int userSeatNo = dbSeatNo - cacRealSeatNo;
+
 				// 회원이 이용 중인 자리 session에 저장하기
 				Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
 						.getAttribute("memberAndSeatSession");
 				if (memberAndSeatSession == null) {
 					memberAndSeatSession = new HashMap<>();
 				}
-				memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
+				// memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
+				memberAndSeatSession.put(memberNo, userSeatNo);
 
 				session.setAttribute("memberAndSeatSession", memberAndSeatSession);
 
@@ -171,12 +189,147 @@ public class LibSeatController {
 	@ResponseBody
 	public String extendSeat(HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memberNo = loginMember.getMemberNo();
+		
+		// 세션에 저장된 현재 로그인된 회원의 자리 번호 가져오기
+		Map<Integer, Integer>memberAndSeatSession = (Map<Integer, Integer>) session.getAttribute("memberAndSeatSession");
+		int seatNo = memberAndSeatSession.get(memberNo);
+				
+		// 내가 연장하고자 하는 시간에 예약이 있다면 연장 불가.
+		// 내가 연장하고자 하는 시간에 예약이 있는지 확인하기
+		
+		int checkOtherReservation = service.checkOtherReservation(seatNo);
+		
+		
+		
+		boolean result = service.extendSeat(memberNo);
+		return result ? "success" : "fail";
 
-		if (loginMember != null) {
-			int memberNo = loginMember.getMemberNo();
-			boolean result = service.extendSeat(memberNo);
-			return result ? "success" : "fail";
-		}
-		return "fail";
 	}
+
+	@PostMapping("/checkAvailReservation")
+	@ResponseBody
+	public Map<String, Object> checkAvailReservation(@SessionAttribute("loginMember") Member loginMember, Model model,
+			@RequestBody LibSeatDTO libSeat, RedirectAttributes ra) {
+		int memberNo = loginMember.getMemberNo();
+		int seatNo = libSeat.getSeatNo();
+		String startTime = libSeat.getStartTime();
+		String message = null;
+		boolean success = false;
+
+		Map<String, Object> result = new HashMap<>();
+		int terminal = 0;
+
+		// 1. 회원이 이용 중인 공간이 있는지 확인
+		if (terminal == 0) {
+			int memberSpaceUsingCheck = spaceMapper.memberSpaceUsingCheck(memberNo);
+			if (memberSpaceUsingCheck == 1) {
+				message = "회원님은 현재 이용 중인 공간이 있습니다.";
+				result.put("memberSpaceUsingCheck", "회원님은 현재 이용 중인 공간이 있습니다.");
+				terminal = 1;
+			}
+		}
+
+		// 2. 회원이 이용 중인 열람실이 있는지 확인
+		if (terminal == 0) {
+			int isMemberUsing = service.isMemberUsing(memberNo);
+			if (isMemberUsing == 1) {
+				message = "회원님은 현재 이용 중인 열람실이 있습니다.";
+				result.put("isMemberUsing", message);
+				terminal = 1;
+			}
+		}
+
+		// 3. 나에게 다른 예약이 있는지 확인(열람실, 공간 예약 포함)
+		if (terminal == 0) {
+			int ifYouHaveAnyOtherReservation = spaceService.ifYouHaveAnyOtherReservation(memberNo);
+			if (ifYouHaveAnyOtherReservation == 0) {
+				message = "회원님은 이미 다른 예약이 있으세요.";
+				result.put("ifYouHaveAnyOtherReservation", message);
+				terminal = 1;
+			}
+		}
+
+		// 5. 현재 공간의 이용 가능 여부 확인
+		if (terminal == 0) {
+			int chckSeatConditon = mapper.chckSeatConditon(seatNo);
+			if (chckSeatConditon >= 1) {
+				message = "해당 공간은 이미 다른 사람이 이용 중입니다.";
+				terminal = 1;
+				result.put("chckSeatConditon", message);
+			}
+		}
+
+		if (terminal == 0) {
+			int checkStartTime = service.checkStartTime(seatNo, startTime);
+			if (checkStartTime == 1) {
+				message = "현재 이용중인 자리의 종료 예정시간 이전엔 예약이 불가합니다.";
+				terminal = 1;
+				result.put("checkStartTime", message);
+			}
+		}
+
+		// 7. 모든 조건을 통과했을 때 예약 수행
+		if (terminal == 0) {
+			// 예약 성공
+			int seatBooking = service.seatBooking(memberNo, seatNo, startTime);
+
+			if (seatBooking == 1) {
+				message = "예약이 성공적으로 완료되었습니다.";
+				success = true;
+				result.put("seatBooking", message);
+				result.put("success", success);
+			}
+			// 예약 실패 시
+			// (모든 조건을 만족시켰으나 컬럼에 값이 입력되지 않은 경우)
+			if (seatBooking == 0) {
+				message = "예약에 실패했습니다.. 관리자에게 문의해 주세요.";
+				result.put("seatBooking", message);
+			}
+
+		}
+
+		result.put("success", success);
+		result.put("message", message);
+		ra.addFlashAttribute("message", message);
+
+		return result;
+	}
+
+	// 나의 열람실 이용 정보 받아오기
+	// 필요한 정보
+	// 회원 번호
+
+	// 보낼 정보 (map으로 묶어서 보내기)
+	// 1. 이용 시작 시간
+	// 2. 이용 종료 예정 시간
+	// 3. 남은 연장 기회
+	@PostMapping("/getMySeatInfo")
+	@ResponseBody
+	public Map<String, Object> getMySeatInfo(@SessionAttribute("loginMember") Member loginMember) {
+
+		String message = null;
+		int memberNo = loginMember.getMemberNo();
+
+		// 정보를 가저욜 service
+		LibSeatDTO result = service.getMySeatInfo(memberNo);
+
+		// 결과를 담아 보낼 map
+		Map<String, Object> map = new HashMap<>();
+
+		if (result == null) {
+			message = "회원님은 열람실 이용 중이 아니세요..";
+			map.put("message", message);
+		}
+
+		if (result != null) {
+
+			map.put("startTime", result.getReadingStart());
+			map.put("endTime", result.getReadingDone());
+			map.put("readingExtend", result.getReadingExtend());
+		}
+		return map;
+
+	}
+
 }

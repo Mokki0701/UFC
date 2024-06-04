@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- useSeat, managingSeat 공통 스타일 -->
+  <link rel="stylesheet" href="/css/lib/managingSeat.css">
+  <link rel="stylesheet" href="/css/common/header.css">
+  <!-- 도서관 전용 헤더 스타일로만 사용하기!! -->
+  <link rel="stylesheet" href="/css/libMain.css">
+  <title>자리 확인 / 예약 페이지</title>
+</head>
+
+<body>
+
+  <!-- <header th:replace="~{common/header}"></header> -->
+  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
+
+  <br>
+
+  <h1>열람실 자리 확인/이용</h1>
+
+  <!-- 좌석의 상태를 안내하는 div 모음 -->
+  <div class="sampleSeatSack">
+    <div class="sampleSeatPair">
+      <div class="sampleSeat can"></div>
+      <span> 사용 가능한 좌석 </span>
+    </div>
+    <div class="sampleSeatPair">
+      <div class="sampleSeat cant"></div>
+      <span> 사용 불가능한 좌석 </span>
+    </div>
+    <div class="sampleSeatPair">
+      <div class="sampleSeat saled"></div>
+      <span> 사용중인 좌석</span>
+    </div>
+  </div>
+
+
+  <br><br>
+
+  <!-- 좌석이 만들어지는 div 칸 -->
+  <div class="seat-chart" id="seatChart"></div>
+
+
+
+
+
+
+
+  <div>
+
+
+    <span>x 좌표 : <span id="coordiX"></span> </span>
+    <span> / </span>
+    <span>y 좌표 : <span id="coordiY"></span> </span>
+    <br>
+    <span> DB SEAT_NO : <span id="dbSeatNo"> </span> </span>
+    <br>
+    <span> 좌석의 상태 : <span id="dbSeatAvail"></span> </span>
+
+  </div>
+
+
+  <div>
+
+    <button id="useSeat">이용하기</button>
+
+    <button id="bookingSeat" type="button" onclick="openBookingSeatModal()">예약하기</button>
+
+    <button type="button" onclick="checkMySeat()">이용중인 열람실 확인하기</button>
+    
+    <button type="button" onclick="checkMySeatReservation()">열람실 예약 확인하기</button>
+
+    <button id="stopUsingSeat">이용 종료</button>
+
+  </div>
+
+
+  <!-- 이용하기 버튼 클릭 시 표시될 모달 -->
+  <!-- 모달에서 이용할 사용자 정보 -->
+  <div id="userInfo" data-member-no="${session.loginMember.memberNo}"></div>
+
+
+
+  <!-- 공간 예약하기 모달 -->
+  <div id="bookingModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <!-- 이용 종료 시간 표시 방법 바꾸기 -->
+      <!-- <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div> -->
+      <span>현재 선택한 좌석 번호 : <span id="currentSelectSeat"></span> </span> <br>
+      <div>현재 시간 : <span id="currentTime"></span></div>
+      <div class="time-picker">
+        <label>사용 시작하고 싶은 시간:</label>
+        <select id="amPm">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+        <select id="hour">
+          <option value="12">12</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+        </select>
+        <span>:</span>
+        <select id="minute">
+          <option value="00">00</option>
+          <option value="05">05</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+        </select>
+      </div>
+      <button onclick="realBookingSeat()">예약하기</button>
+    </div>
+  </div>
+
+  <div id="checkMyseat" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>현재 로그인한 회원 정보</h2>
+      <p>회원 번호: <span th:text="${session.loginMember.memberNo}"></span></p>
+
+      <!-- 세션에 memberAndSeatSession이 있고, loginMember가 있는 경우에만 좌석 번호 출력 -->
+      <div th:if="${session.memberAndSeatSession != null}">
+        <th:block
+          th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
+          <p>회원님이 사용 중인 좌석 번호:
+            <span th:text="${seatNo}"></span>
+          </p>
+
+          <!-- 이용 시작한 시간 표시 -->
+          <p>이용 시작한 시간 : <span id="startTime"></span> </p>
+
+
+          <!-- 이용 종료 시간 표시 -->
+          <p>이용 종료 시간 : <span id="endTime"></span> </p>
+
+          <!-- 남은 연장 기회 표시 -->
+          <p>현재 연장 기회 : <span id="remainingExtensions"></span> </p>
+
+          <!-- 연장 버튼  -->
+          <button type="button" onclick="extendSeat()">연장 하기</button>
+        </th:block>
+      </div>
+      <div th:if="${session.memberAndSeatSession == null}">
+        <p>이용 중인 좌석이 없습니다.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <footer>
+    공용 푸터가 들어갈 부분
+  </footer>
+
+</body>
+
+
+<script src="/js/lib/bookingSeat.js"></script>
+
+</html>

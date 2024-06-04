@@ -217,6 +217,18 @@ button:hover{
 
 }
 
+/* 모달 공통 설정 css */
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 15px;
+  border: 5px dashed rgba(54, 26, 0, 0.7);
+}
+
 /* ------------------------------- 공간 예약 모달 설정 css ------------------------------- */
 
 .modal {
@@ -230,25 +242,22 @@ button:hover{
   overflow: auto;
   background-color: rgba(0,0,0,0.4);
 }
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
+
+/* 닫기 버튼 */
 .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
+
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
+/* 시간선택 */
 .time-picker {
   display: flex;
   align-items: center;
@@ -258,3 +267,55 @@ button:hover{
   padding: 5px;
   font-size: 16px;
 }
+
+/* ------------------------------- 내 공간 확인하는 모달 css ------------------------------- */
+
+
+/* 내 공간 확인 모달 */
+.checkMySpaceDataModal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+
+  border-radius: 10px;
+}
+
+.checkMySpaceReservationModal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+
+  border-radius: 10px;
+}
+
+
+.middleTitle{
+  color: teal;
+  font-size: 30px;
+  font-weight: bold;
+
+  margin: 20px;
+}
+
+.checkMySpaceContent{
+  font-size: 20px;
+  
+  margin: 10px;
+
+
+}
+
+
+

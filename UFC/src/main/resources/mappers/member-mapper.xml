@@ -7,6 +7,23 @@
 		SELECT * FROM MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 
-
+	<insert id="signup">
+		INSERT INTO MEMBER
+			VALUES(SEQ_MEMBER_NO.NEXTVAL, 
+       		#{memberEmail},
+       		#{memberPw},
+       		#{memberLastName},
+       		#{memberFirstName},
+       		#{memberBirthday},
+       		#{memberPhone},
+       		#{memberGender},
+      		0,
+       		0,
+       		DEFAULT,
+       		NULL,
+      		DEFAULT,
+       		DEFAULT
+		)
+	</insert>
 
 </mapper>

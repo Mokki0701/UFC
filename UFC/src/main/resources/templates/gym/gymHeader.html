@@ -1,5 +1,5 @@
 <div class="gym_headerMenu">
-    <h2 class="gym_header"><a href="/gym/gymMain" style="color: white; text-decoration: none;">헬스장</a></h2>
+    <h2 class="gym_header"><a href="/gym/gymMain" style="color: rgba(139,168,128); text-decoration: none;">헬스장</a></h2>
     <ul class="gym_main_logo">
         <li class="dropdown">
             <a href="/gym/information/useMachines">운동정보</a>
@@ -27,8 +27,25 @@
             <a href="#">사용후기</a>
             <ul class="dropdown-content">
                 <li><a href="/reviews/gymReview">사용자 리뷰</a></li>
-                <li><a href="/reviews/submitReview">리뷰 작성</a></li>
+                <li><a href="/gymWrite/insert">리뷰 작성</a></li>
             </ul>
         </li>
+
+        <li><a href="/gym/myPage/gymMyPage">내 정보</a></li>
     </ul>
+
+
   </div>
+
+  <div th:if="${message}" th:text="${message}" id="flashMessage" style="display: none;"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+   const flashMessage = document.getElementById('flashMessage').innerText;
+   if (flashMessage) {
+       alert(flashMessage);
+   }
+   }); 
+ </script>
+  
+
+  

@@ -14,7 +14,7 @@
 <body>
 
   <!-- 공용 헤더 -->
-  <header th:replace="~{common/header}"></header>
+  <!-- <header th:replace="~{common/header}"></header> -->
 
   <!-- 도서관 전용 헤더 -->
   <th:block th:replace="~{common/lib/libNavVar}"></th:block>
@@ -90,41 +90,6 @@
       <span>현재 선택한 공간 번호 : <span class="currentSelectSpace"></span> </span> <br>
     </div>
 
-    <!-- 이용 중인 열람실 좌석이 없을 경우 -->
-    <div th:if="${session.memberAndSeatSession == null}">
-      <p>이용 중인 열람실 : 없음</p>
-    </div>
-
-    <!-- 이용중인 열람실 좌석이 있을 경우에만 표시 -->
-    <div th:if="${session.memberAndSeatSession != null}">
-      <th:block
-        th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
-        <p>회원님이 사용 중인 열람실 좌석 번호:
-          <span th:text="${seatNo}"></span>
-        </p>
-      </th:block>
-    </div>
-
-    <!-- 디버깅을 위한 값 출력 -->
-    <!-- <p th:text="'loginMember: ' + ${session.loginMember}"></p> -->
-
-    <!-- <p th:text="'memberAndSpaceSession: ' + ${session.memberAndSpaceSession}" display="none"  ></p> -->
-    <!-- <p th:text="'이용 중인 공간 번호 : ' + ${session.memberAndSpaceSession[session.loginMember.memberNo]}"></p> -->
-
-    <!-- 이용 중인 공간이 없을 경우 -->
-    <!-- 해당 세션의 생성 주기로 인해 프로젝트 실행 시 오류 발생함... 나중에 고민해보자.. -->
-    <!-- <th:block th:if="${session.memberAndSpaceSession[session.loginMember?.memberNo] == null}">
-      <p> 회원님이 사용 중인 대여공간 :
-        <span> 없음 </span>
-      </p>
-    </th:block> -->
-
-    <!-- 이용 중인 공간이 있을 경우 -->
-    <!-- <th:block th:if="${session.memberAndSpaceSession[session.loginMember.memberNo] != null}">
-        <span th:text=" '이용 중인 공간 번호 : ' + ${session.memberAndSpaceSession[session.loginMember.memberNo]}"></span>
-    </th:block> -->
-
-
     <div id="buttonSack">
       <form id="actionForm" action="/lib/space/wannaUseSpace" method="post">
         <input type="hidden" name="spaceNo" id="actionInput">
@@ -132,73 +97,142 @@
         <button type="button" onclick="stopUsingSpace()">그만 사용하기</button>
         <button type="button" onclick="extendSpace()">공간 연장하기</button>
         <button type="button" onclick="bookingSpace()">공간 예약하기</button>
+        <button type="button" onclick="checkMySpace()">나의 공간 확인하기</button>
+        <button type="button" onclick="checkMySpaceReservation()">나의 공간 예약 내역</button>
 
       </form>
     </div>
 
     <!-- 모달에서 이용할 사용자 정보 -->
-    <div id="userInfo" data-user-no="${session.loginMember.getMemberNo()}"></div>
+    <div id="userInfo" data-member-no="${session.loginMember.memberNo}"></div>
 
 
     <!-- 공간 예약하기 모달 -->
     <div id="bookingModal" class="modal">
       <div class="modal-content">
-          <span class="close" onclick="closeModal()">&times;</span>
-          <div>선택한 공간 번호 : <span class="currentSelectSpace"></span></div>
-          <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div>
-          <div>현재 시간 : <span id="currentTime"></span></div>
-          <div class="time-picker">
-              <label>사용 시작하고 싶은 시간:</label>
-              <select id="amPm">
-                  <option value="AM">AM</option>
-                  <option value="PM">PM</option>
-              </select>
-              <select id="hour">
-                  <option value="12">12</option>
-                  <option value="01">01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                  <option value="04">04</option>
-                  <option value="05">05</option>
-                  <option value="06">06</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-              </select>
-              <span>:</span>
-              <select id="minute">
-                  <option value="00">00</option>
-                  <option value="05">05</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                  <option value="25">25</option>
-                  <option value="30">30</option>
-                  <option value="35">35</option>
-                  <option value="40">40</option>
-                  <option value="45">45</option>
-                  <option value="50">50</option>
-                  <option value="55">55</option>
-              </select>
-          </div>
-          <button onclick="realBookingSpace()">예약하기</button>
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div>선택한 공간 번호 : <span class="currentSelectSpace"></span></div>
+        <!-- <div>해당 좌석의 이용 종료 시간 : <span id="seatEndTime"></span></div> -->
+        <div>현재 시간 : <span id="currentTime"></span></div>
+        <div class="time-picker">
+          <label>사용 시작하고 싶은 시간:</label>
+          <select id="amPm">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+          <select id="hour">
+            <option value="12">12</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+          </select>
+          <span>:</span>
+          <select id="minute">
+            <option value="00">00</option>
+            <option value="05">05</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+          </select>
+        </div>
+        <button onclick="realBookingSpace()">예약하기</button>
       </div>
-  </div>
     </div>
+    
+  </div>
+
+
+  <!-- 나의 공간 대여 현황 모달 -->
+
+  <div id="checkMySpace" class="checkMySpaceDataModal ">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <div class="middleTitle">나의 공간 대여 현황</div>
+
+
+      <!-- 이용 중인 공간이 없을 경우 -->
+      <div class="checkMySpaceContent"
+        th:if="${session?.memberAndSpaceSession != nul and session?.memberAndSpaceSession[session.loginMember.memberNo] == null}">
+        <p>이용 중인 공간 : 없음</p>
+      </div>
+
+      <!-- 이용중인 공간이 있을 경우 -->
+      <div class="checkMySpaceContent"
+        th:if="${session?.memberAndSpaceSession != nul and session?.memberAndSpaceSession[session.loginMember.memberNo] != null}">
+        <th:block
+          th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSpaceSession[session.loginMember.memberNo]}">
+          <p>회원님이 사용 중인 공간 번호:
+            <span th:text="${seatNo}"></span> <span>번 공간</span>
+          </p>
+
+          <div class="checkMySpaceContent">
+            공간 시작 시간 : <span id="startTime"></span> <span>부터</span>
+          </div>
+
+          <div class="checkMySpaceContent">
+            공간 종료 시간 : <span id="endTime"></span> <span>까지</span>
+          </div>
+
+          <div class="checkMySpaceContent">
+            나의 남은 연장 기회 : <span id="remainingExtensions"></span> <span>번 남았습니다.</span>
+          </div>
+
+          <button type="button" onclick="extendSpace()">연장하기</button>
+
+        </th:block>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 나의 공간 예약 현황 모달 -->
+
+
+  <div id="checkMySpace" class="checkMySpaceReservationModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <div class="middleTitle">나의 공간 예약 현황</div>
+
+      <div>
+        <div class="checkMySpaceContent">
+          내가 예약한 공간 번호 : <span id="reservedSpaceNo"></span>
+        </div>
+
+        <div class="checkMySpaceContent">
+          공간 이용 시작 시간 : <span id="startBookingTime"></span>
+        </div>
+
+        <button type="button" onclick="cancleSpceBooking()">공간 예약 취소하기</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <div id="message" th:text="${message != null ? message : ''}" style="display: none;"></div>
 
 </body>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    /* 메시지가 있는 경우 alert로 출력 */
-    const message = /*[[${message}]]*/ '';
-    if (message) {
-      alert(message);
-    }
-  });
-</script>
+<!-- 나의 예약 확인하기 모달 -->
 
 <script src="/js/lib/spaceUsing.js"></script>
 

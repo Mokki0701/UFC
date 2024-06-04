@@ -16,9 +16,9 @@ for(let i of categoryCheckbox){
             fetch("/book/catList?storageName=" + storageName)
             .then(resp => resp.json())
             .then(catList => {
-    
-                for(let catName of catList){
-       
+
+                for(let cat of catList){    
+
                     const div = document.createElement("div");
                     const checkbox = document.createElement("input");
                     
@@ -27,18 +27,35 @@ for(let i of categoryCheckbox){
                     /* 여기서 이벤트 리스너를  */
                     checkbox.addEventListener("change", f=>{
 
-                        /* 카테고리 체크박스가 체크 됬을 때 */
-                        if(f.target.checked){
-                            addCatList(1, catName);
+                        /* 아래 있는거 삭제하고, 
+                            체크되면 catNames에 값 추가해서 쿼리스트링으로 넣고,
+                            체크 해제되면 catNames에 값이 있는지 확인하고, 있으면 제거한다.
+                        */
+
+                        console.log(f.target.checked);
+
+                        if (f.target.checked) {
+                            // 체크된 경우 catNames에 추가
+                            if (!catNumbers.includes(cat.catNo)) {
+                                catNumbers.push(cat.catNo);
+                            }
+
+                            addCatList(catNumbers);
+
+                        } else {
+                            // 체크 해제된 경우 catNames에서 제거
+                            const index = catNumbers.indexOf(cat.catNo);
+                            if (index !== -1) {
+                                catNumbers.splice(index, 1);
+                            }
+
+                            addCatList(catNumbers);
                         }
-                        /* 카테고리 체크박스가 해제 됬을 때 */
-                        else{
-                            addCatList(0, catName);
-                        }
+
 
                     })
 
-                    div.innerText = catName;
+                    div.innerText = cat.catName;
                     
                     catContainer.appendChild(div);
                     catContainer.appendChild(checkbox);
@@ -65,10 +82,28 @@ for(let i of categoryCheckbox){
 
 }
 
-function addCatList(check, catName){
+function checkCategory(){
+
+    let catParams = [];
+
+    for (let i of categoryCheckbox) {
+        if (i.checked) {
+            catParams.push(encodeURIComponent(i.nextElementSibling.innerText));
+        }
+    }
+
+    // 쿼리 스트링 형태로 변환
+    let queryString = catParams.map((param, index) => `cat${index + 1}=${param}`).join('&');
     
+}
+
+
+function addCatList(catNumbers){
+    
+    console.log(catNumbers);
+
     /* session에 보내서 계속 저장해야하나? */
-    fetch("/book/category?catName=" + catName + "&check=" + check)
+    fetch("/book/category?catNumbers=" + catNumbers)
     .then(resp=> resp.text())
     .then(html=>{
         document.querySelector('.searchBook').outerHTML = html;
@@ -78,7 +113,10 @@ function addCatList(check, catName){
 
 searchBookBtn.addEventListener("click", e=>{
 
-    fetch("/book/search?query="+ searchQuery.innerText)
+    
+    const searchQuery2 = document.querySelector("#searchQuery");
+    console.log(searchQuery2.value);
+    fetch("/book/search?query="+ searchQuery2.value + "&catNumbers=" + catNumbers)
     .then(resp=>resp.text())
     .then(html=>{
 
@@ -87,16 +125,26 @@ searchBookBtn.addEventListener("click", e=>{
     })
 })
 
-
-document.addEventListener('DOMContentLoaded', () => {
- 
+function bookDetailSelect(){
+    
     document.querySelectorAll('.book-detail').forEach(bookDetail => {
         bookDetail.addEventListener('click', () => {
-
+    
             const bookNo = bookDetail.getAttribute('data-book-no');
             
             location.href = "/book/bookDetail?bookNo=" + bookNo;
-
+    
         });
     });
-});
+
+}
+ 
+function paginationSelect(cp){
+
+    fetch("/book/category?cp=" + cp + "&catNumbers=" + catNumbers)
+    .then(resp => resp.text())
+    .then(html => {
+        document.querySelector('.searchBook').outerHTML = html;
+    })
+
+}

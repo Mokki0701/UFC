@@ -19,19 +19,19 @@ public interface BookMapper {
 
 	List<Book> getBookList(RowBounds rowBounds);
 
-	List<String> categoryList(String storageName);
+	List<BookCategory> categoryList(String storageName);
 
-	int checkedListCount(String string);
+	int checkedListCount(List<String> catList);
 
-	List<Book> checkedBookList(String string, RowBounds rowBounds);
+	List<Book> checkedBookList(List<String> catList, RowBounds rowBounds);
 
 	int searchCount(Map<String, Object> paramMap);
 
 	int searchCount2(Map<String, Object> paramMap);
 
-	List<Book> searchBook(Map<String, Object> paramMap);
+	List<Book> searchBook(Map<String, Object> paramMap, RowBounds rowBounds);
 
-	List<Book> searchBook2(Map<String, Object> paramMap);
+	List<Book> searchBook2(Map<String, Object> paramMap, RowBounds rowBounds);
 
 	Book selectBook(int bookNo);
 
