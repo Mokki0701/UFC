@@ -1,0 +1,115 @@
+/* 알림 */
+header>section {
+    position: relative;
+  }
+  
+  .notification-container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .notification-btn{
+    font-size: 100px;
+    position: absolute;
+    top: 7px;
+    left: 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 1);
+    border: none;
+  }
+  
+  /* 읽지 않은 알림이 존재하는 경우 */
+  .notification-btn.fa-solid{
+    color: yellow;
+    text-shadow: 1px 1px 3px gray, 2px 2px 5px black;
+  }
+  
+  
+  .notification-list{
+    position: absolute;
+    top: 30px;
+    right: -30px;
+    width: 380px;
+    height: 400px;
+    padding: 10px;
+    list-style: none;
+    z-index: 2000;
+    background: #f0f3fa;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px #eee, 0 4px 8px 0 rgba(0, 0, 0, .3);
+    display: none; /* 처음에 알림 창이 보이지 않게 함 */
+  }
+  
+  /* 알림 창 보이게 하기 */
+  .notification-show{ display: block; }
+  
+  
+  .notification-item {
+    background-color: white;
+    margin: 15px 0;
+    border-radius: 5px;
+    width: 100%;
+    height: 70px;
+    font-size: 15px;
+    letter-spacing: -1px;
+    position: relative;
+  }
+  
+  .not-read{
+    background-color: rgba(176, 208, 238, 0.7)
+  }
+  
+  .notification-text{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .notification-text> img{
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    flex-shrink: 0;
+  }
+  
+  .notification-content-container{
+    height: 90%;
+  }
+  
+  .notification-date{
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .notification-content{
+    width: 270px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .notidication-delete{
+    position: absolute;
+    top: -5px;
+    right: 2px;
+    user-select: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .notidication-delete:hover{
+    color: red;
+  }
+  
+  .notification-item:hover > .notification-text{
+    text-decoration: underline;
+  }

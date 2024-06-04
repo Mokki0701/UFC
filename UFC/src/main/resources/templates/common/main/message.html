@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쪽지함</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 800px;
+            margin: 0 auto;
+            border: 1px solid black;
+            padding: 20px;
+        }
+        .title {
+            margin-bottom: 20px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tabs div {
+            border: 1px solid black;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .tabs div:not(:last-child) {
+            border-right: none;
+        }
+        .message-list {
+            border: 1px solid black;
+            margin-bottom: 20px;
+            height: 200px;
+            overflow-y: auto;
+        }
+        .message-list div {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid black;
+        }
+        .message-list div:last-child {
+            border-bottom: none;
+        }
+        .write-message {
+            text-align: right;
+        }
+        .write-message button {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>쪽지함</h1>
+        </div>
+        <div class="tabs">
+            <div>받은 쪽지</div>
+            <div>보낸 쪽지</div>
+        </div>
+        <div class="message-list">
+            <div>
+                <span>이메일 / 제목 / 보낸 날짜</span>
+                <button>삭제</button>
+            </div>
+            <!-- 더 많은 메시지를 여기에 추가할 수 있습니다. -->
+        </div>
+        <div class="write-message">
+            <button>쪽지 쓰기</button>
+        </div>
+    </div>
+</body>
+</html>
