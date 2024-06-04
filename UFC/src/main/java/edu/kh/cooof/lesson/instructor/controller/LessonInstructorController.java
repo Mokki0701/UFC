@@ -115,7 +115,7 @@ public class LessonInstructorController {
 	                    page,
 	                    contentStream,
 	                    font,
-	                    loginMember.getMemberLastName() + loginMember.getMemberFirstName(),
+	                    loginMember,
 	                    instIntro,
 	                    instCategory
 	            );
@@ -141,7 +141,7 @@ public class LessonInstructorController {
 	                    loginMember.getMemberLastName() 
 	                    + loginMember.getMemberFirstName() 
 	                    + "_지원서" 
-	                    + System.currentTimeMillis() 
+	                    + loginMember.getMemberNo()
 	                    + ".pdf";
 	            String filePath = "C:/mokkie/lesson/instReg/" + fileName;
 	            document.save(filePath);
