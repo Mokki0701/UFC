@@ -13,6 +13,7 @@ import edu.kh.cooof.lesson.instructor.model.dto.LessonInstructor;
 import edu.kh.cooof.lesson.instructor.model.mapper.LessonInstructorMapper;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.lesson.list.model.mapper.EditLessonListMapper;
+import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -44,9 +45,30 @@ public class LessonInstructorServiceImpl implements LessonInstructorService {
 		return mapper.selectDetailInst(instNo);
 	}
 	
+	// 강사 등록 요청
+	@Override
+	public int regRequest(int memberNo) {
+		
+		return mapper.regRequest(memberNo);
+	}
 	
+	// 신청한적 있는지 확인(승낙 대기 상태인지 확인)
+	@Override
+	public Integer checkRequest(int memberNo) {
+		return mapper.checkRequest(memberNo);
+	}
 	
+	// 강사 테이블에 존재하지 않기 때문에 추가
+	@Override
+	public Integer addToInstTable(Map<String, Object> map) {
+		return mapper.addToInstTable(map);
+	}
 	
+	// 강사 승인 대기중인 인원들 조회
+	@Override
+	public List<Member> instRegCheck() {
+		return mapper.instRegCheck();
+	}
 	
 	
 	

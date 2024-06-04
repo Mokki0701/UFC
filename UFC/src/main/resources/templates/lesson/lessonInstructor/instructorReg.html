@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>강사 지원</title>
+
+  <link rel="stylesheet" href="/css/lesson/lessonInst/instReg.css">
+
+</head>
+
+<body>
+
+  <main>
+
+    <!-- 세미 헤더 들어가는 곳 시작 -->
+    <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
+    <!-- 세미 헤더 들어가는 곳 끝 -->
+
+
+
+    <section class="lesson-post-content">
+
+      <form action="/lesson/inst/reg" method="POST" name="instPostFrm" id="instPostFrm" enctype="multipart/form-data">
+
+
+        <!-- 자기 소개 입력 -->
+        <label for="instIntro">
+          <span class="required">*</span> 본인 소개
+        </label>
+
+        <div class="lesson-input-area">
+          <input type="text" name="instIntro" id="instIntro" placeholder="간략하게 자기 소개해주세요." maxlength="30"
+            autocomplete="off">
+        </div>
+
+
+
+        <!-- 지원 분야 입력 -->
+        <label for="inst-category">
+          <span class="required">*</span> 지원 분야
+        </label>
+
+        <div class="lesson-input-area">
+          <select name="instCategory" id="instCategory">
+            <option value="생활/공예">생활/공예</option>
+            <option value="문화/취미">문화/취미</option>
+            <option value="생활/체육">생활/체육</option>
+            <option value="어학/교양">어학/교양</option>
+            <option value="컴퓨터">컴퓨터</option>
+          </select>
+        </div>
+
+
+        <!-- PDF 파일 업로드 -->
+        <label for="pdfFile">
+          <span class="required">*</span> 이력서 (PDF 형식)
+        </label>
+        <div class="lesson-input-area file-input-area">
+          <input type="file" name="pdfFile" id="pdfFile" accept="application/pdf" required>
+          <label for="pdfFile" class="custom-file-label">파일 선택</label>
+          <span id="file-name">선택된 파일 없음</span>
+        </div>
+
+
+        <button type="submit" id="instRegBtn">신청하기</button>
+      </form>
+    </section>
+
+  </main>
+
+
+
+  <!-- lessonCommon 들어가는곳 시작 -->
+  <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
+  <!-- lessonCommon 들어가는곳 끝 -->
+
+  <!-- 푸터 부분 시작 -->
+  <!-- <th:block th:replace="~{common/footer}"></th:block> -->
+  <!-- 푸터 부분 끝 -->
+
+  <!-- 강사 신청 JS 연결 시작 -->
+  <script src="/js/lesson/lessonInst/instReg.js"></script>
+  <!-- 강사 신청 JS 연결 끝 -->
+
+
+
+
+</body>
+
+</html>

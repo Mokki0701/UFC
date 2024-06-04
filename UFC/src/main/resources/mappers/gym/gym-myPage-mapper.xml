@@ -2,7 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.gym.myPage.model.mapper.gymMyPageMapper">
 	
+<select id="selectPTInfo">
 
+SELECT 
+    m.MEMBER_LAST_NAME, 
+    m.MEMBER_FIRST_NAME, 
+    p.PT_YN, 
+    t.TRAINER_NAME, 
+    p.PT_LKROOM, 
+    p.PT_PRICE, 
+    p.PT_STRDATE
+FROM 
+    PT p
+JOIN 
+    MEMBER m ON p.MEMBER_NO = m.MEMBER_NO
+JOIN 
+    TRAINER t ON p.TRAINER_NO = t.TRAINER_NO
+WHERE 
+    p.MEMBER_NO = #{memberNo}
+
+</select>
 	
 
 
