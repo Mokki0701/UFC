@@ -12,6 +12,7 @@ document.querySelectorAll('a[href^="#libSpace"]').forEach(anchor => {
   });
 });
 
+
 // 스와이퍼 0번 페이지에서
 // 각 버튼 클릭 시 해당 정보 표시
 document.addEventListener('DOMContentLoaded', function () {
@@ -28,3 +29,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+

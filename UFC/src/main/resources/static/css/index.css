@@ -271,6 +271,10 @@ body {
   background-color: rgb(255, 238, 196);
 }
 
+.swiper-slide:nth-of-type(5)>div {
+  background-color: bisque;
+}
+
 /* pagination  안보이게 하기 */
 .swiper-pagination {
   display: none !important;
