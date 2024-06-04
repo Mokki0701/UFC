@@ -54,6 +54,7 @@ document.querySelector("#searchAddress").addEventListener("click", execDaumPostc
 const checkObj = {
     "memberEmail"      : false,
     "memberPw"         : false,
+    "memberPwConfirm"  : false,
     "memberLastName"   : false,
     "memberFirestName" : false,
     "memberGender"     : false,
@@ -67,15 +68,22 @@ const memberPwConfirm = document.querySelector("#memberPwConfirm")
 const pwMessage = document.querySelector("#pwMessage")
 
 
+// 비밀번호 제약 조건
 const checkPw = () => {
 
-    if(memberPw.value == memberPwConfirm.value){
+    if(memberPw.value === memberPwConfirm.value){
         pwMessage.innerText = "비밀번호가 일치합니다"
         pwMessage.classList.add("confirm");
         pwMessage.classList.remove("error");
-        checkObj.memberPw = false;
+        checkObj.memberPwConfirm = true;
         return;
     }
+
+    pwMessage.innerText = "비밀번호가 일치하지 않습니다"
+    pwMessage.classList.add("error");
+    pwMessage.classList.remove("confirm");
+    checkObj.memberPwConfirm = false;
+}
 
 
     memberPw.addEventListener("input", e =>{
@@ -95,11 +103,82 @@ const checkPw = () => {
         // test : 맞으면 ture 아니면 false
        if(!regExp.test(inputPw)){
           pwMessage.innerText = "비밀번호가 유효하지 않습니다"
-          pwMessage.add("error");
-          pwMessage.remove("confirm");
+          pwMessage.classList.add("error");
+          pwMessage.classList.remove("confirm");
+          checkObj.memberPw = false;
+          return;
        }
+
+       pwMessage.innerText = " 유효한 비밀번호 형식입니다";
+       pwMessage.classList.add("confirm");
+       pwMessage.classList.remove("error");
+       checkObj.memberPw = true;
+
+       
+    });
+
+
+    memberPwConfirm.addEventListener("input", () => {
+
+        if(memberPwConfirm.value.length > 0){
+            checkPw();
+            return;
+        }
+
+        pwMessage.innerText = "비밀번호 확인을 입력해주세요.";
+        pwMessage.classList.add("error");
+        pwMessage.classList.remove("confirm");
+        checkObj.memberPwConfirm = false;
+    });
+
+
+    const memberLastName = document.querySelector("#memberLastName")
+    const memberFirstName = document.querySelector("#memberFirstName")
+    const lnameMessage = document.querySelector("#lnameMessage")
+
+    // 성 입력 조건
+    memberLastName.addEventListener("input" , e =>{
+
+        const inputName = e.target.value;
+
+        if(inputName.trim().length === 0){
+            lnameMessage.innerText = "한글 1~5글자 사이로 입력해 주세요"
+            lnameMessage.classList.remove("confirm,error");
+            checkObj.memberLastName = false;
+            memberLastName.value = "";
+            return;
+        }
+
+        const regExp = /^[가-힣]{1,5}$/
+
+        if( !regExp.test(inputName)) {
+            lnameMessage.innerText = "성이 유효하지 않습니다";
+            lnameMessage.classList.add("error");
+            lnameMessage.classList.remove("confirm");
+            checkObj.memberLastName = false;
+            
+            return;
+        }
+
+        lnameMessage.innerText = "유효한 작성 형식입니다";
+        lnameMessage.classList.add("confirm");
+        lnameMessage.classList.remove("error");
+        checkObj.memberLastName = true;
+
     })
-}
+    
 
 
+
+
+
+
+    const memberBirthday = document.querySelector("#memberBirthday");
+    const birthdateMessage = document.querySelector("#birthdate-message");
+
+    // 생년월일
+    memberBirthday.addEventListener("input" , e =>{
+
+        
+    })
 
