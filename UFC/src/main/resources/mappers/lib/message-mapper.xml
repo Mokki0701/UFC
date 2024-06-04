@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.message.model.mapper.MessageMapper">
+
+	<select id="getListCount">
+		SELECT COUNT(*)
+		FROM "MESSAGE"
+		WHERE MESSAGE_REV = #{memberNo}
+	</select>
+	
+	<select id="selectMessageList">
+		SELECT MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV, MEMBER_EMAIL 
+		FROM "MESSAGE"
+		JOIN "MEMBER" ON(MESSAGE_REV = MEMBER_NO)
+		WHERE MESSAGE_REV = #{memberNo}
+	</select>
+	
+	<select id="getRevListCount">
+		SELECT COUNT(*)
+		FROM "MESSAGE"
+		WHERE MESSAGE_SEN = #{memberNo}
+	</select>
+	
+	<select id="selectRevMessageList">
+		SELECT MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV, MEMBER_EMAIL 
+		FROM "MESSAGE"
+		JOIN "MEMBER" ON(MESSAGE_SEN = MEMBER_NO)
+		WHERE MESSAGE_SEN = #{memberNo}
+	</select>
+	
+	<delete id="deleteMessage">
+		DELETE FROM "MESSAGE"
+		WHERE MESSAGE_NO = #{messageNo}
+	</delete>
+
+</mapper>

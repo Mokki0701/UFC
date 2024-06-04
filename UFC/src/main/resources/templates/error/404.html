@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found</title>
-    <style>
+    <!-- <style>
         body {
             margin: 0;
             padding: 0;
@@ -17,13 +17,13 @@
             text-align: center;
         }
 
-        .container {
+        .error-container {
             display: flex;
             align-items: center;
             flex-direction: column;
         }
 
-        .character {
+        .error-character {
             max-width: 300px;
             margin-bottom: 20px;
         }
@@ -63,11 +63,11 @@
         button:hover {
             background-color: #0056b3;
         }
-    </style>
+    </style> -->
 </head>
 <body>
-    <div class="container">
-        <img src="/path/to/your/character/image.png" alt="Sad Character" class="character">
+    <div class="error-container">
+        <img src="/path/to/your/character/image.png" alt="Sad Character" class="error-character">
         <div class="text-container">
             <h1>Oops... Page Not Found</h1>
             <p class="error-message" th:text="${error}">Error Message</p>
