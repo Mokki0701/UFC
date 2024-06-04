@@ -85,3 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 	openTab('main'); // 기본적으로 첫 번째 탭 열기
 });
+
+
+// ------------------ 도서관의 앵커 태그 ------------------- //
+document.querySelectorAll('a[href^="#libSpace"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      swiper.slideTo(2); // Slide to the third slide (index starts from 0)
+  });
+});

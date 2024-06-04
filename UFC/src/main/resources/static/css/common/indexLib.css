@@ -1,0 +1,87 @@
+
+.libBody{
+  display: flex;
+  flex-direction: row;
+}
+
+.libContentPocket{
+  align-items: center;
+}
+
+.libBody .libContentBox:first-child {
+  width: 65%;
+}
+
+.libBody .libContentBox:nth-child(2) {
+  width: 35%;
+}
+
+.libContentBox{
+  display: flex;
+  flex-direction: column;
+  border: 1px dotted red;
+
+}
+
+.libContent{
+  border: 1px solid black;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  text-align: left;
+
+}
+
+.libSelectedContent{
+  background-color: #bb800052;
+  
+}
+
+.right > .libContent:hover{
+  cursor: pointer;
+
+  background-color: #bb800052;
+}
+
+.libContentHead{
+  font-size: 35px;
+}
+
+.libSlider{
+  min-height: 100%;
+  display: none;
+}
+
+.curShow{
+  display: block;
+}
+
+.libShowSlider{
+  display: flex;
+  
+}
+
+
+
+
+
+/* ------------------ 반응형 추가 -------------------- */
+
+@media screen and (max-width: 1200px) {
+  .libLineBreake {
+      display: block;
+      height: 0; /* 높이를 0으로 설정하여 공간을 차지하지 않도록 함 */
+  }
+}
+
+
+@media screen and (max-width: 750px) {
+
+  .libContentHead{
+    font-size: 25px;
+  }
+}
+
