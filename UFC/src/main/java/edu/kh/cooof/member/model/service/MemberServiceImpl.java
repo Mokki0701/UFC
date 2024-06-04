@@ -34,6 +34,27 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
+	// 로그인
+	@Override
+	public Member login(Member inputMember) {
+		
+	
+		
+		
+		Member loginMember = mapper.login(inputMember.getMemberEmail());
+		if(loginMember == null) return null;
+		
+		// 일치하지 않을 때
+		if( !bcrypt.matches(inputMember.getMemberPw(), loginMember.getMemberPw())) {
+			return null;
+		}
+		
+		loginMember.setMemberPw(null);
+		
+		return loginMember;
+	}
+	
+	
 	// 회원가입 
 	@Override
 	public int memberSignup(Member inputMember, String[] memberAddress) {

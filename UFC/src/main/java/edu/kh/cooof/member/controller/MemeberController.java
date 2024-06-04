@@ -56,7 +56,10 @@ public class MemeberController {
 
     // 로그인 
 	@GetMapping("login")
-	public String login() {
+	public String login(
+			) {
+		
+	
 		return "member/login";
 	}
 	
@@ -65,7 +68,20 @@ public class MemeberController {
 			RedirectAttributes ra,
 			Member inputMember,
 			Model model) {
-		return null;
+		
+		
+		Member loginMember = service.login(inputMember);
+		
+		if(loginMember == null) {
+			ra.addFlashAttribute("message" , "아이디 또는 비밀번호가 일치하지 않습니다");
+		}
+		
+		if(loginMember != null ) {
+			ra.addFlashAttribute("message" , "로그인 성공");
+			model.addAttribute("loginMember" , loginMember);
+		}
+		
+		return "redirect:/";
 	}
 	
 	
