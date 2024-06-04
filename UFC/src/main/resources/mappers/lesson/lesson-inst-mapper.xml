@@ -9,5 +9,33 @@
 	<select id="selectDetailInst" resultType="LessonInstructor">
 	SELECT * FROM MEMBER JOIN LESSON_INSTRUCTOR USING (MEMBER_NO) WHERE MEMBER_NO = #{instNo}
 	</select>
+	
+	<update id="regRequest">
+	UPDATE LESSON_INSTRUCTOR SET 
+	INST_STAT = 2 
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<select id="checkRequest" resultType="Integer">
+	 SELECT INST_STAT FROM LESSON_INSTRUCTOR WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<insert id="addToInstTable">
+	INSERT INTO LESSON_INSTRUCTOR VALUES(
+	#{memberNo}, 
+	2, 
+	#{instCategory}, 
+	#{instIntro},
+	#{instResume},
+	#{instInfo}
+	)
+	</insert>
+	
+	<select id="instRegCheck" resultType="Member">
+	SELECT * 
+	FROM MEMBER 
+	JOIN LESSON_INSTRUCTOR  USING (MEMBER_NO) 
+	WHERE INST_STAT = 2
+	</select>
 
 </mapper>

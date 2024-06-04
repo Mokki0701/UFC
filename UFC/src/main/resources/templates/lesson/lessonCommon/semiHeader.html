@@ -9,9 +9,10 @@
   .program-header {
     height: 100px;
     border-radius: 180px;
-    background-color: #992BF2;
+    background-color: #F2DDB6;
+    
     padding: 20px;
-    color: white;
+    color: black;
     text-align: center;
     margin-top: 30px;
     width: 80%;
@@ -34,8 +35,8 @@
     margin: 5px;
     padding: 10px 20px;
     border: none;
-    background-color: #ffffff;
-    color: #af5dde;
+    background-color: #f8eacd;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
   }
@@ -136,6 +137,11 @@
     font-weight: 900;
     letter-spacing: 5px;
   }
+
+
+  #lessonSearch {
+    background-color: #F2E2CE;
+  }
 </style>
 
 <section class="lesson-semiheader-container">
@@ -158,11 +164,11 @@
         <a href="/lesson/inst"><button class="lesson-nav-btn">강사 현황</button></a>
 
         <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0}">
-          <a href="/lesson/dashboard"><button class="lesson-nav-btn">강사 지원</button></a>
+          <a href="/lesson/inst/reg"><button class="lesson-nav-btn">강사 지원</button></a>
         </th:block>
 
         <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
-          <a href="/lesson/dashboard"><button class="lesson-nav-btn">지원서 확인</button></a>
+          <a href="/lesson/inst/regCheck"><button class="lesson-nav-btn">지원서 확인</button></a>
         </th:block>
 
 

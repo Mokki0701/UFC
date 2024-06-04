@@ -187,24 +187,56 @@ public class LibSeatController {
 	// 열람실 자리 연장하기
 	@PostMapping("/extend")
 	@ResponseBody
-	public String extendSeat(HttpSession session) {
+	public Map<String, Object> extendSeat(HttpSession session, RedirectAttributes ra) {
+
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memberNo = loginMember.getMemberNo();
-		
-		// 세션에 저장된 현재 로그인된 회원의 자리 번호 가져오기
-		Map<Integer, Integer>memberAndSeatSession = (Map<Integer, Integer>) session.getAttribute("memberAndSeatSession");
-		int seatNo = memberAndSeatSession.get(memberNo);
-				
-		// 내가 연장하고자 하는 시간에 예약이 있다면 연장 불가.
-		// 내가 연장하고자 하는 시간에 예약이 있는지 확인하기
-		
-		int checkOtherReservation = service.checkOtherReservation(seatNo);
-		
-		
-		
-		boolean result = service.extendSeat(memberNo);
-		return result ? "success" : "fail";
+		String message = null;
+		int result = 0;
 
+		// 세션에 저장된 현재 로그인된 회원의 자리 번호 가져오기(실제 이용 번호)
+		Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSeatSession");
+
+		// 실제 이용 번호
+		int seatNo = memberAndSeatSession.get(memberNo);
+
+		// DB의 seatNo2를 계산하기
+		int cacRealSeatNo = service.getCacRealSeatNo(seatNo);
+		int seatNo2 = seatNo + cacRealSeatNo;
+
+		// 내가 연장하고자 하는 시간에 예약이 있다면 연장 불가 확인하기
+		int checkOtherReservation = service.checkOtherReservation(seatNo, seatNo2);
+
+		// 있다면 연장 불가
+		if (checkOtherReservation == 1) {
+			message = "해당 시간에 우선된 예약이 있어 자리 연장이 불가합니다.";
+		}
+
+		// 없다면 연장 기능 실행
+		if (checkOtherReservation == 0) {
+
+			// 나의 남은 연장 기회 확인하기
+			int checkExtendChance = mapper.checkExtendChance(memberNo);
+			if (checkExtendChance == 0) {
+				message = "남은 연장 기회가 없습니다.";
+			} else { // 연장 수행
+				int doExtendSeat = service.extendSeat(memberNo);
+				if (doExtendSeat == 1) {
+					message = "연장에 성공했습니다";
+					result = 1;
+				} else {
+					message = "연장 실패. 오류코드 extendSeat001. 관리자에게 문의하세요.";
+				}
+			}
+		}
+
+		ra.addFlashAttribute("message");
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("result", result);
+		response.put("message", message);
+		return response;
 	}
 
 	@PostMapping("/checkAvailReservation")

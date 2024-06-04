@@ -28,7 +28,7 @@ public interface LibSeatService {
 	int stopUsingSeat(int memberNo);
 	
 	// 열람실 연장하기
-	boolean extendSeat(int memberNo);
+	int extendSeat(int memberNo);
 
 	// 현재 다른사람이 이용 중인 열람실을 예약했을 때, 
 	// 열람실을 예약한 시간과 종료예정시간이 겹치는지 확인
@@ -44,7 +44,7 @@ public interface LibSeatService {
 	LibSeatDTO getMySeatInfo(int memberNo);
 
 	// 내 자리에 예약이 있는지 확인하기
-	int checkOtherReservation(int seatNo);
+	int checkOtherReservation(int seatNo, int seatNo2);
 
 	
 

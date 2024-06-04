@@ -318,29 +318,41 @@ function checkMySeat() {
 function extendSeat() {
 
   // 내가 사용 중인 자리는 memberAndSeatSession에 저장되어 있다.
-  function extendSeat() {
-    let userConfirmed = confirm("자리를 연장하시겠습니까?");
-    if (userConfirmed) {
-      fetch('/lib/seats/extend', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+  let userConfirmed = confirm("자리를 연장하시겠습니까?");
+  if (userConfirmed) {
+    fetch('/lib/seats/extend', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(result => {
+        alert(result.message);
       })
-        .then(response => response.text())
-        .then(result => {
-          if (result === 'success') {
-            alert('Seat extension successful.');
-          } else {
-            alert('Seat extension failed.');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('An error occurred while extending the seat.');
-        });
-    }
+      .catch(error => {
+        console.error('Error:', error);
+        alert('오류 발생, 관리자에게 문의하세요.');
+      });
   }
 
 
+}
+
+
+// 나의 예약 확인하기
+// 비동기식으로 진행.
+// 1. 회원번호 : session에서 얻어옴
+
+// -- 로직
+// 1. 예약 있는지 확인
+// 1.1. 없으면 집에 가라
+// 1.2. 있으면 다음 기능 실행
+
+// 2.
+
+function checkMySeatReservation() {
+  fetch('/lib/seats/extend', {
+
+  })
 }
