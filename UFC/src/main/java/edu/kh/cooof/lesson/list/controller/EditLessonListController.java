@@ -115,6 +115,7 @@ public class EditLessonListController {
 		return "redirect:/lesson/list/" + lessonNo; // 확인해야됨 주소!!!!!!!
 	}
 	
+	// 수업 삭제
 	@GetMapping("{lessonNo:[0-9]+}/delete")
 	public String lessonDelete(
 			@PathVariable("lessonNo") int lessonNo
