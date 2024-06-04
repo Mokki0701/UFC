@@ -13,5 +13,10 @@ public interface MemberService {
 	// 로그인 하기
 	Member login(Member inputMember);
 
+	// 아이디 중복 확인
+	String checkEmail(String email);
+
+	
+
 
 }

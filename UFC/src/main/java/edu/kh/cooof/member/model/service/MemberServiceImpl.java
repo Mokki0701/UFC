@@ -77,6 +77,12 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.signup(inputMember);
 	}
 	
+	
+	@Override
+	public String checkEmail(String email) {
+		
+		return mapper.checkEmail(email);
+	}
 
 	
 	

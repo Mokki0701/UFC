@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -125,5 +126,20 @@ public class MemeberController {
 		
 		return "redirect:" + path;
 		
+	}
+	
+	@ResponseBody
+	@GetMapping("checkEmail")
+	public String checkEmail(
+			 @RequestParam("memberEmailId") String memberEmailId,
+			 @RequestParam("memberEmailDomain") String memberEmailDomain
+			 ) {
+		
+		// 이메일 아이디와 도메인을 합쳐서 이메일 주소를 만듭니다.
+		String email = memberEmailId + "@" + memberEmailDomain;
+	
+		
+		
+		return service.checkEmail(email);
 	}
 }
