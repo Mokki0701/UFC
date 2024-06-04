@@ -12,13 +12,12 @@
   <link rel="stylesheet" href="/css/common/indexLib.css">
   <link rel="stylesheet" href="/css/gym/gymMain.css">
   <link rel="stylesheet" href="/css/member/signup-style.css">
-  <link rel="stylesheet" href="/css/common/notification.css">
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="/js/common/main.js"></script>
   <script src="/js/lesson/main/lessonMain.js"></script>
   <script src="/js/common/indexLib.js"></script>
   <script src="/js/gym/gymMain.js"></script>
   <script src="/js/member/signup.js"></script>
-  <script src="/js/common/notification.js"></script>
 <!-- <style>
  .temp-container{
    
@@ -37,7 +36,7 @@
 
 <body>
 
-  <div th:replace="~{common/header}"></div>
+  <!-- <div th:replace="~{common/header}"></div> -->
   <!-- 임시 헤더 -->
   <div>
 
@@ -91,10 +90,8 @@
 
 <script th:inline="javascript">
   const message =  /*[[${message}]]*/ "전달 받은 message";
-  const loginCheck = /*[[${session.loginMember} ? true : false]]*/ '로그인 체크';
+
   if (message != null) alert(message);
 </script>
-
-<script src="/js/common/main.js"></script>
 
 </html>
