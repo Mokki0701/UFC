@@ -32,6 +32,9 @@ dependencies {
 	implementation group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.5.13.3'
 	// https://mvnrepository.com/artifact/com.itextpdf/pdfa
 	implementation group: 'com.itextpdf', name: 'pdfa', version: '7.2.3'
+	// https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf-openpdf
+	implementation group: 'org.xhtmlrenderer', name: 'flying-saucer-pdf-openpdf', version: '9.1.22'
+	
 	
 	
 	// ------PDF끝
