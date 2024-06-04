@@ -97,7 +97,6 @@ public class CommonScheduling {
 		} else {
 			log.info("----- 강사 권한 부여할 인원 없음 -----");
 		}
-		
 
 		List<Lesson> noRemainsList = service.checkRemains();
 

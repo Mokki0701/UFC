@@ -26,6 +26,15 @@ dependencies {
 	// PDF 파일 생성 관련 의존성 추가!!! 실험중!!!!!!!!!
 	// https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
 	implementation 'org.apache.pdfbox:pdfbox:2.0.31'
+	// https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+	implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.3'
+	// https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
+	implementation group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.5.13.3'
+	// https://mvnrepository.com/artifact/com.itextpdf/pdfa
+	implementation group: 'com.itextpdf', name: 'pdfa', version: '7.2.3'
+	
+	
+	// ------PDF끝
 
 
 
