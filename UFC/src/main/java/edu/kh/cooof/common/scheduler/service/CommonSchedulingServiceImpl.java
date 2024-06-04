@@ -34,7 +34,7 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 	
 	// 권한 부여 체크
 	@Override
-	public List<Member> authorityCheck() {
+	public int authorityCheck() {
 		
 		return mapper.authorityCheck();
 	}

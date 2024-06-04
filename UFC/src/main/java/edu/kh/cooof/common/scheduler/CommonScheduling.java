@@ -89,6 +89,15 @@ public class CommonScheduling {
 
 	@Scheduled(cron = "0/10 * * * * *") // 0초 기준, 10초 마다
 	public void lessonCloseYNCheck() { // 잔여좌석 체크 + 강사 권한 부여!!!!
+		
+		// 강사 권한 부여!!!
+		int result = service.authorityCheck();
+		if(result > 0) {
+			log.info("----- 강사 권한 부여됨 -----");
+		} else {
+			log.info("----- 강사 권한 부여할 인원 없음 -----");
+		}
+		
 
 		List<Lesson> noRemainsList = service.checkRemains();
 
@@ -102,8 +111,7 @@ public class CommonScheduling {
 		}
 		
 		
-		// 강사 권한 부여!!!
-		List<Member> notAuthorizedList = service.authorityCheck();
+
 
 	}
 }

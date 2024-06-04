@@ -28,6 +28,6 @@ public interface SchedulingMapper {
 	/** 강사 권한 부여 체크
 	 * @return
 	 */
-	List<Member> authorityCheck();
+	int authorityCheck();
 
 }
