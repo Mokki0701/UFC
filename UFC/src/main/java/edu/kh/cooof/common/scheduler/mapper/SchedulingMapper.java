@@ -24,4 +24,10 @@ public interface SchedulingMapper {
 	 */
 	void setCloseYn(int lessonNo);
 
+	void deleteLibLoan();
+
+	void deleteLibRent();
+
+	void deleteLibHope();
+
 }

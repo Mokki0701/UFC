@@ -31,4 +31,15 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 		mapper.setCloseYn(lessonNo);		
 	}
 	
+	@Override
+	public void deleteLibAll() {
+		
+		mapper.deleteLibLoan();
+		
+		mapper.deleteLibRent();
+		
+		mapper.deleteLibHope();
+		
+	}
+	
 }

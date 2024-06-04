@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.common.scheduler.mapper.SchedulingMapper">
+
+
+	<select id="selectLessonImageNames" resultType="string">
+	SELECT IMG_PATH  FROM LESSONS WHERE DELETE_YN = 1
+	</select>
+	
+	<select id="checkRemains" resultType="Lesson">
+	SELECT * FROM LESSONS WHERE LESSON_REMAINS = 0 AND CLOSE_YN = 0
+	</select>
+	
+	<update id="setCloseYn">
+	UPDATE LESSONS SET CLOSE_YN = 1 WHERE LESSON_NO = #{lessonNo}
+	</update>
+	
+	<delete id="deleteLibLoan">
+		DELETE FROM LOAN_BOOK
+		<![CDATA[
+		WHERE BOOK_END < ADD_MONTHS(SYSDATE, -12);
+		]]>
+		AND LOAN_BOOK_STATUS = 0
+	</delete>
+	
+	<delete id="deleteLibRent">
+		DELETE FROM RENT_BOOK
+		<![CDATA[
+		WHERE BOOK_RESERVE < ADD_MONTHS(SYSDATE, -12);
+		]]>
+		AND RENT_BOOK_CHECK = 0
+	</delete>
+	
+	<delete id="deleteLibHope">
+		DELETE FROM NEW_BOOK
+		WHERE NEW_BOOK_CHECK = 1
+	</delete>
+
+
+
+</mapper>
