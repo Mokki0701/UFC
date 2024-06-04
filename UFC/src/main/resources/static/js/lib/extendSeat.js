@@ -53,10 +53,10 @@ document.getElementById('extendSeat').addEventListener('click', function () {
     .then(response => response.text())
     .then(data => {
       if (data === 'success') {
-        alert('연장되었습니다.');
+        alert(data.message);
         location.reload();
       } else {
-        alert('연장할 수 없습니다.');
+        alert(data.message);
       }
     })
     .catch(error => console.error('Error extending seat:', error));

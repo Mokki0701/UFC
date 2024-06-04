@@ -82,6 +82,7 @@
         WHERE SEAT_NO = #{seatNo}
     </update>
 
+	<!-- 열람실 연장하기 -->
 	<update id="extendSeat">
         UPDATE RENT_SEAT
         SET READING_DONE = READING_DONE + INTERVAL '4' HOUR,
@@ -89,6 +90,34 @@
         WHERE MEMBER_NO = #{memberNo}
           AND READING_EXTEND > 0
     </update>
+    
+    
+	<!-- 내 자리에 다른 예약이 있는지 확인하기 -->
+	<select id="checkOtherReservation">
+	
+		SELECT COUNT(*)
+	    FROM SEAT_SPACE_BOOKING ssb
+	    WHERE ssb.SEAT_NO = #{seatNo}
+	    AND ssb.START_BOOKING BETWEEN (
+	        SELECT MAX(rs.READING_START)
+	        FROM RENT_SEAT rs
+	        WHERE rs.SEAT_NO2 = #{seatNo2}
+	    ) AND (
+	        SELECT MAX(rs.READING_DONE) + INTERVAL '4' HOUR
+	        FROM RENT_SEAT rs
+	        WHERE rs.SEAT_NO2 = #{seatNo2}
+	    )
+	
+	</select>
+	
+	<!-- 연장 기회 확인하기 -->
+	<select id="checkExtendChance">
+	
+		SELECT READING_EXTEND
+		FROM RENT_SEAT
+		WHERE MEMBER_NO = #{memberNo}
+	
+	</select>
 
 	<!-- 좌석의 이용 가능 여부 확인하기 -->
 	<select id="chckSeatConditon">
@@ -99,7 +128,7 @@
 	
 	<!--현재 다른사람이 이용 중인 열람실을 예약했을 때,
 		열람실을 예약한 시간과 종료예정시간이 겹치는지 확인-->
-	<select id="checkStartTime">
+	<select id="checkStartTime" parameterType="map">
 		SELECT COUNT(*)
         FROM RENT_SEAT 
         WHERE SEAT_NO2 = #{seatNo}
@@ -138,26 +167,5 @@
     </select>
 
 
-	<!-- 내 자리에 다른 예약이 있는지 확인하기 -->
-	<select id="checkOtherReservation">
-	
-		 SELECT COUNT(*)
-	    FROM SEAT_SPACE_BOOKING ssb
-	    WHERE ssb.SEAT_NO = #{seatNo}
-	    AND ssb.START_BOOKING BETWEEN (
-	        SELECT rs.END_BOOKING
-	        FROM RENT_SEAT rs
-	        WHERE rs.SEAT_NO = #{seatNo}
-	        ORDER BY rs.END_BOOKING DESC
-	        LIMIT 1
-	    ) AND DATE_ADD(
-	        (SELECT rs.END_BOOKING
-	         FROM RENT_SEAT rs
-	         WHERE rs.SEAT_NO = #{seatNo}
-	         ORDER BY rs.END_BOOKING DESC
-	         LIMIT 1), INTERVAL 4 HOUR)
-	
-	
-	</select>
 
 </mapper>
