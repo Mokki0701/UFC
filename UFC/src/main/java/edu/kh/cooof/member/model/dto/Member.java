@@ -24,6 +24,7 @@ public class Member {
 	private String memberFirstName;
 	private String memberBirthday;
 	private String memberPhone;
+	private int memberCancel;
 	// ... 
 	private int memberAuthority;
 	private String memberGender;
