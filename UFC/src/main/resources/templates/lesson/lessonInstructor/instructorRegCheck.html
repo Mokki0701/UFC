@@ -61,6 +61,8 @@
         <th>성별</th>
         <th>강의 분야</th>
         <th>소개</th>
+        <th>정보 PDF</th>
+        <th>이력서 PDF</th>
         <th>처리</th>
       </tr>
     </thead>
@@ -73,6 +75,14 @@
         <td th:text="${member.memberGender}" class="member-gender"></td>
         <td th:text="${member.instCategory}" class="member-category"></td>
         <td th:text="${member.instIntro}" class="member-intro"></td>
+
+        <td class="member-intro">
+          <a th:href="@{|/mokkie/lesson/instReg/${member.instInfo}|}" th:text="${member.instInfo}"></a>
+        </td>
+        <td class="member-intro">
+          <a th:href="@{/mokkie/lesson/instReg/${member.instResume}}" th:text="${member.instResume}" th:download="${member.instResume}"></a>
+        </td>
+
         <td class="member-action">
           <div class="action-buttons">
             <button type="button" class="accept-btn" th:onclick="'accept(' + ${member.memberNo} + ')'">승낙</button>

@@ -25,7 +25,9 @@
 	#{memberNo}, 
 	2, 
 	#{instCategory}, 
-	#{instIntro}
+	#{instIntro},
+	#{instResume},
+	#{instInfo}
 	)
 	</insert>
 	

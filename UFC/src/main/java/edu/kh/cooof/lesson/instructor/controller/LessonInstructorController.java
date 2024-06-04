@@ -71,114 +71,105 @@ public class LessonInstructorController {
 	}
 
 	@PostMapping("reg")
-	public String lessonInstructorRegister(@RequestParam("instIntro") String instIntro, // 자기소개
-			@RequestParam("instCategory") String instCategory, // 강의 분야
-			@RequestParam("pdfFile") MultipartFile pdfFile, // PDF 이력서
-			@SessionAttribute("loginMember") Member loginMember,
+	public String lessonInstructorRegister(
+	        @RequestParam("instIntro") String instIntro, // 자기소개
+	        @RequestParam("instCategory") String instCategory, // 강의 분야
+	        @RequestParam("pdfFile") MultipartFile pdfFile, // PDF 이력서
+	        @SessionAttribute("loginMember") Member loginMember,
+	        RedirectAttributes redirectAttributes) {
 
-			RedirectAttributes redirectAttributes) {
-		
-		try {
-		
-			// 이미 강사로 신청했는지 여부 확인
-			Integer reqCheck = service.checkRequest(loginMember.getMemberNo());
-			
-			// 대기상태일 경우
-			if (reqCheck != null && reqCheck == 2) {
-				redirectAttributes.addFlashAttribute("message", "이미 강사 신청하셨습니다!");
-				return "redirect:/lesson/inst";
-			}
-			
-			
-			
-			
-			
-			
-		
-			// 강사 테이블에 존재하지 않을 경우
-		    if (reqCheck == null) {
-		        Map<String, Object> map = new HashMap<>();
-		        map.put("instCategory", instCategory);
-		        map.put("instIntro", instIntro);
-		        map.put("memberNo", loginMember.getMemberNo());
+	    try {
+	        // 이미 강사로 신청했는지 여부 확인
+	        Integer reqCheck = service.checkRequest(loginMember.getMemberNo());
 
-		        Integer result = service.addToInstTable(map);
+	        // 대기상태일 경우
+	        if (reqCheck != null && reqCheck == 2) {
+	            redirectAttributes.addFlashAttribute("message", "이미 강사 신청하셨습니다!");
+	            return "redirect:/lesson/inst";
+	        }
 
-		        // 새로운 강사 신청이 정상적으로 추가되지 않은 경우 처리
-		        if (result == null || result == 0) {
-		            redirectAttributes.addFlashAttribute("message", "강사 신청에 실패했습니다.");
-		            return "redirect:/lesson/inst";
-		        }
-		    }
-			
+	        // 강사 테이블에 존재하지 않을 경우
+	        if (reqCheck == null) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("instCategory", instCategory);
+	            map.put("instIntro", instIntro);
+	            map.put("memberNo", loginMember.getMemberNo());
 
-		
-		
-		
+	            // PDF 생성
+	            PDDocument document = new PDDocument();
+	            PDPage page = new PDPage();
+	            document.addPage(page);
 
-		
-			// PDF 생성
-			PDDocument document = new PDDocument();
-			PDPage page = new PDPage();
-			document.addPage(page);
+	            // 외부 폰트 로드
+	            InputStream fontStream = getClass().getResourceAsStream("/fonts/NotoSansKR-Bold.ttf");
+	            PDType0Font font = PDType0Font.load(document, fontStream);
 
-			// 외부 폰트 로드
-			InputStream fontStream = getClass().getResourceAsStream("/fonts/NotoSansKR-Bold.ttf");
-			PDType0Font font = PDType0Font.load(document, fontStream);
+	            // 콘텐츠 스트림 시작
+	            PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-			 // 콘텐츠 스트림 시작
-	        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+	            // 테이블 작성
+	            LessonUtil.drawTable(
+	                    document,
+	                    page,
+	                    contentStream,
+	                    font,
+	                    loginMember.getMemberLastName() + loginMember.getMemberFirstName(),
+	                    instIntro,
+	                    instCategory
+	            );
 
-	        // 테이블 작성
-	        LessonUtil.drawTable(
-	                document, 
-	                page,
-	                contentStream,
-	                font,
-	                loginMember.getMemberLastName() + loginMember.getMemberFirstName(),
-	                instIntro,
-	                instCategory
-	                );
+	            // 콘텐츠 스트림 닫기
+	            contentStream.close();
 
-	        // 콘텐츠 스트림 닫기
-	        contentStream.close();
+	            // 기존 PDF 파일 저장 (선택 사항)
+	            String uploadedPdfPath = null;
+	            if (!pdfFile.isEmpty()) {
+	                File uploadedPdf = new File("C:/mokkie/lesson/instReg/" 
+	                + loginMember.getMemberLastName() 
+	                + loginMember.getMemberFirstName()
+	                + "이력서_"
+	                + pdfFile.getOriginalFilename());
+	                pdfFile.transferTo(uploadedPdf);
+	                uploadedPdfPath = uploadedPdf.getAbsolutePath();
+	                map.put("instResume", pdfFile.getOriginalFilename());
+	            }
 
-			// 기존 PDF 파일 저장 (선택 사항)
-			if (!pdfFile.isEmpty()) {
-				File uploadedPdf = new File("C:/mokkie/lesson/instReg/" 
-			+ loginMember.getMemberLastName() 
-			+ loginMember.getMemberFirstName()
-			+ "이력서_"
-			+ pdfFile.getOriginalFilename());
-			pdfFile.transferTo(uploadedPdf);
-			}
+	            // 생성된 PDF 파일 저장 경로
+	            String fileName = 
+	                    loginMember.getMemberLastName() 
+	                    + loginMember.getMemberFirstName() 
+	                    + "_지원서" 
+	                    + System.currentTimeMillis() 
+	                    + ".pdf";
+	            String filePath = "C:/mokkie/lesson/instReg/" + fileName;
+	            document.save(filePath);
+	            document.close();
 
-			// PDF 파일 저장 경로
-			String fileName = 
-					loginMember.getMemberLastName() 
-					+ loginMember.getMemberFirstName() 
-					+ "_지원서" 
-					+ System.currentTimeMillis() 
-					+ ".pdf";
-			String filePath = "C:/mokkie/lesson/instReg/" + fileName;
-			document.save(filePath);
-			document.close();
-			
-			// 승낙 대기중 상태로 만든다
-			int result = service.regRequest(loginMember.getMemberNo());
+	            map.put("instInfo", fileName);
 
-			// 성공 메시지
-			redirectAttributes.addFlashAttribute("message", "지원서 신청 성공");
+	            Integer result = service.addToInstTable(map);
 
-		} catch (IOException e) {
+	            // 새로운 강사 신청이 정상적으로 추가되지 않은 경우 처리
+	            if (result == null || result == 0) {
+	                redirectAttributes.addFlashAttribute("message", "강사 신청에 실패했습니다.");
+	                return "redirect:/lesson/inst";
+	            }
+	        }
 
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("message", "지원서 신청 실패");
+	        // 승낙 대기중 상태로 만든다
+	        int result = service.regRequest(loginMember.getMemberNo());
 
-		}
+	        // 성공 메시지
+	        redirectAttributes.addFlashAttribute("message", "지원서 신청 성공");
 
-		return "redirect:/lesson/inst";
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        redirectAttributes.addFlashAttribute("message", "지원서 신청 실패");
+	    }
+
+	    return "redirect:/lesson/inst";
 	}
+
 	
 	@GetMapping("regCheck")
 	public String regCheck(
