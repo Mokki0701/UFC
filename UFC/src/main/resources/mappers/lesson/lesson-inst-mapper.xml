@@ -37,5 +37,10 @@
 	JOIN LESSON_INSTRUCTOR  USING (MEMBER_NO) 
 	WHERE INST_STAT = 2
 	</select>
+	
+	<update id="instAccept">
+	UPDATE LESSON_INSTRUCTOR SET INST_STAT = 0 
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 </mapper>
