@@ -46,7 +46,7 @@ body{
 }
 
 .main_container > div {
-  transition: background-color 0.35s;  
+  /* transition: background-color 0.35s;   */
 }
 
 /* 나중에 보더 지우세요 ========================== */
