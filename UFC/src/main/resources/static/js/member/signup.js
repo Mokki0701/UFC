@@ -164,7 +164,7 @@ const checkPw = () => {
         lnameMessage.classList.add("confirm");
         lnameMessage.classList.remove("error");
         checkObj.memberLastName = true;
-
+        
     })
     
 
