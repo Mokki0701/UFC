@@ -14,5 +14,8 @@ public interface MemberMapper {
 	// 회원가입 정보 넣기
 	int signup(Member inputMember);
 
+	// 로그인
+	Member login(String memberEmail);
+
     
 }

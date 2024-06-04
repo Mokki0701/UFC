@@ -7,7 +7,7 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7;
+  background-color: #f2e2ce;
 }
 
 .header-container {
@@ -48,7 +48,7 @@ nav ul li a {
 
 
 .program-search {
-  background-color: #ffffff;
+  background-color: #f2e2ce!important;
   padding: 20px;
   border-bottom: 1px solid #ddd;
 }
@@ -63,6 +63,7 @@ nav ul li a {
 }
 
 .search-bar {
+  background-color: #f2e2ce!important;
   display: flex;
 }
 
@@ -75,7 +76,7 @@ nav ul li a {
 .search-bar button {
   padding: 10px 20px;
   border: none;
-  background-color: #992BF2;
+  background-color: #bf9d5e;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -180,7 +181,7 @@ nav ul li a {
 }
 
 .pagination a.active {
-  background-color: #992BF2;
+  background-color: #bf9d5e;
   color: white;
 }
 
@@ -235,7 +236,7 @@ nav ul li a {
 .search-bar button {
     padding: 10px 20px;
     border: none;
-    background-color: #992BF2;
+    background-color: #bf9d5e;
     color: white;
     cursor: pointer;
     border-radius: 0 5px 5px 0; /* 우측 모서리 둥글게 */
@@ -251,7 +252,7 @@ nav ul li a {
     margin-left: 10px;
     padding: 10px 20px;
     border: none;
-    background-color: #992BF2;
+    background-color: #bf9d5e;
     color: white;
     cursor: pointer;
     border-radius: 5px; /* 모서리 둥글게 */
@@ -296,7 +297,7 @@ nav ul li a {
 }
 
 .search-button button {
-    background-color: #992BF2;
+    background-color: #bf9d5e;
     color: white;
     font-size: 16px;
     padding: 10px 30px;
@@ -311,7 +312,7 @@ nav ul li a {
 
     
 .clicked {
-  background-color: #992BF2 !important;
+  background-color: #bf9d5e !important;
   color: white !important;
 }
 

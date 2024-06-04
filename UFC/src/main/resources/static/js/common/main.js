@@ -83,6 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			openTab(tabName);
 		});
 	});
+
+	if(loginCheck) {
+
+		
+
+	}
 	openTab('main'); // 기본적으로 첫 번째 탭 열기
 });
 
