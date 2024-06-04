@@ -44,7 +44,7 @@ public class LoginFilter implements Filter{
 		if( session.getAttribute("loginMember") == null ) {
 			
 			// /loginError 재요청
-			resp.sendRedirect("/loginError");
+			resp.sendRedirect("/member/login");
 		}
 		
 		// 로그인 되어있는 경우
