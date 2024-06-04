@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 안내/신청</title>
+
+
     <style>
     </style>
 
     <link rel="stylesheet" href="/css/lesson/lessonList/lessonList.css">
+
+
 </head>
 
 <body>
@@ -129,6 +133,7 @@
 
 
 
+                        <!-- <p th:text="${lesson.}"></p> -->
                         <p th:text="'교육기간: ' + ${lesson.lessonStartDate} + ' ~ ' + ${lesson.lessonEndDate}"></p>
                         <p th:if="${lesson.lessonTuitionFee == 0}" th:text="'수강료: 무료'"></p>
                         <p th:if="${lesson.lessonTuitionFee != 0}" th:text="'수강료: ' + ${lesson.lessonTuitionFee} + '원'">
