@@ -19,6 +19,7 @@
   <script src="/js/gym/gymMain.js"></script>
   <script src="/js/member/signup.js"></script>
   <script src="/js/common/notification.js"></script>
+  
 <!-- <style>
  .temp-container{
    
@@ -91,10 +92,12 @@
 
 <script th:inline="javascript">
   const message =  /*[[${message}]]*/ "전달 받은 message";
-  const loginCheck = /*[[${session.loginMember} ? true : false]]*/ '로그인 체크';
   if (message != null) alert(message);
+  const loginCheck = /*[[${session?.loginMember} ? true : false]]*/ '로그인 체크';
+
 </script>
 
 <script src="/js/common/main.js"></script>
+<script src="/js/common/message.js"></script>
 
 </html>
