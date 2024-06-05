@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Resume</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta charset='UTF-8' />
+    <meta content='Content-type: text/html; charset=UTF-8' name='http-equiv' />
+    <meta content='IE=Edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no'
+        name='viewport' />
+    <link href="/css/bootstrap.min.css" media="screen" rel="stylesheet" />
+    <style>
+        @font-face {
+            font-family: 'NanumGothic';
+            src: url('/font/NanumGothic.ttf');
+        }
+
+        body {
+            color: #333;
+            padding: 40px;
+            font-family: "NanumGothic";
+            font-size: 16px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 900px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header img {
+            max-width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #333;
+        }
+
+        .profile-image {
+            display: block;
+            margin: 20px auto;
+            width: 300;
+            height: 150px;
+            max-width: 300px;
+            border-radius: 50%;
+            border: 3px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .wide-textarea {
+            width: 95%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            resize: none;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .info-table {
+            margin-bottom: 40px;
+        }
+
+        .info-table th,
+        .info-table td {
+            border: none;
+            padding: 5px;
+        }
+
+        .info-table th {
+            width: 150px;
+            color: #666;
+        }
+
+        .info-table td {
+            color: #333;
+        }
+
+        .container p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="logo-image" src="/images/lesson/lessonMain.png" alt="Logo" />
+            <h1>지원서</h1>
+            <img class="profile-image" src="/images/lesson/inst_sample_img.png" alt="Profile Image" />
+        </div>
+
+        <div class="personal-info">
+            <h2 class="section-title">개인 정보</h2>
+            <table class="info-table">
+                <tr>
+                    <th>회원 번호</th>
+                    <td th:text="${memberNo}"></td>
+                </tr>
+                <tr>
+                    <th>성명</th>
+                    <td th:text="|${loginMember.memberLastName}${loginMember.memberFirstName}|"></td>
+                </tr>
+                <tr>
+                    <th>지원자 생일</th>
+                    <td th:text="${#strings.substring(loginMember.memberBirthday, 0, 10)}"></td>
+                </tr>
+                <tr>
+                    <th>성별</th>
+                    <td
+                        th:text="${loginMember.memberGender == 'M' ? '남성' : (loginMember.memberGender == 'F' ? '여성' : '미작성')}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>지원 분야</th>
+                    <td th:text="${instCategory}"></td>
+                </tr>
+                <tr>
+                    <th>지원자 이메일</th>
+                    <td th:text="${loginMember.memberEmail}"></td>
+                </tr>
+                <tr>
+                    <th>지원자 연락처</th>
+                    <td th:text="${loginMember.memberPhone}"></td>
+                </tr>
+                <tr>
+                    <th>지원자 주소</th>
+                    <td th:text="${loginMember.memberAddress != null ? loginMember.memberAddress : '주소 미작성'}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="profile-summary">
+            <h2 class="section-title">자기 소개</h2>
+
+            <p class="wide-textarea" th:text="${instIntro}"></p>
+        </div>
+    </div>
+</body>
+
+</html>
