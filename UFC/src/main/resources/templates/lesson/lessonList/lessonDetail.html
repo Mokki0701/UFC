@@ -50,12 +50,20 @@
                 <th>재료비</th>
                 <td th:if="${lesson.lessonMaterialFee == 0}" th:text="무료">재료비</td>
                 <td th:if="${lesson.lessonMaterialFee != 0}" th:text="${lesson.lessonMaterialFee} + '원'">재료비</td>
+
+
+
             </tr>
+
             <tr>
                 <th>수강료</th>
                 <td th:if="${lesson.lessonTuitionFee == 0}" th:text="무료">수강료</td>
                 <td th:if="${lesson.lessonTuitionFee != 0}" th:text="${lesson.lessonTuitionFee} + '원'">수강료</td>
+                <th>강사명</th>
+                <td th:text="${lesson.instName}">강사명</td>
             </tr>
+
+
 
         </table>
 
