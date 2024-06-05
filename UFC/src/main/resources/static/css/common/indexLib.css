@@ -117,6 +117,15 @@
   border-radius: 10px;
 }
 
+
+.libImg{
+  margin: 10px;
+  width: 80%;
+  border-radius: 10px;
+}
+
+
+
 /* 기타 css */
 
 /* 각 페이지 링크 css */
@@ -143,9 +152,6 @@ a.libLink {
   background-color: #bb800052;
   color: orangered;
   cursor: pointer;
-
-
-
   transition-duration: background-color 0.3s;
 }
 
@@ -153,26 +159,87 @@ a.libLink {
   margin: 10px;
 }
 
-.libBtnSack{
 
-  margin-top: 20px;
-
-}
-
-
-
-
-/* 1번 인덱스 슬라이드 스타일 */
-
-
-#libInfoAtIndex{
+/* 부모 컨테이너 */
+#libInfoAtIndex {
   display: flex;
   flex-direction: row;
-
   justify-content: space-between;
+  align-items: flex-start; /* 아이템들이 상단에 정렬 */
+}
+
+/* 왼쪽 컨텐츠 */
+.libLeftContent {
+  flex: 1; /* 공간을 남은 곳을 채움 */
+  padding: 10px;
+  border: 1px solid black;
+  min-height: 95%;
+}
+
+/* ---- */
+
+#infoContainer {
+  position: relative;
+  height: 650px; /* 적절한 높이 설정 */
+  overflow: hidden;
+}
+
+#infoContainer > div {
+  position: absolute;
+  width: 100%;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+#infoContainer > div.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.libColBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.libColBtn button {
+  margin: 5px 0;
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 200px;
+  box-sizing: border-box;
+}
+
+.libMargin{
+
+  margin: 20px;
+
+}
+
+.libBack{
+  border: 2px solid burlywood;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.libIntBtn{
+  border: 2px solid burlywood;
+  background-color: wheat;
+  border-radius: 10px;
 }
 
 
+.libIntBtn:hover {
+  border: 2px solid black;
+  background-color: burlywood;
+  color: orangered;
+  transform: translateY(-5px);
+  
+  transition: all 0.3s;
+}
 
 
 
