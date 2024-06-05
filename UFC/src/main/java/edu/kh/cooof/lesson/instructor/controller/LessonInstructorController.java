@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.lesson.common.LessonUtil;
 import edu.kh.cooof.lesson.common.pdf.PdfService;
+import edu.kh.cooof.lesson.common.pdf.ThymeleafParser;
 import edu.kh.cooof.lesson.instructor.model.dto.LessonInstructor;
 import edu.kh.cooof.lesson.instructor.model.service.LessonInstructorService;
 import edu.kh.cooof.member.model.dto.Member;
@@ -101,16 +102,28 @@ public class LessonInstructorController {
 	            map.put("loginMember", loginMember);
 
 	            // 타임리프로 PDF 만들어본다 테스트!!!!!!!!!!!!!!!!!!!
-	            // PDF 이력서 파일 저장
-	            String resumePath = pdfService.saveUploadedPdf(pdfFile, loginMember.getMemberNo());
+	            
+	            String html = ThymeleafParser.parseHtmlFileToString("giant-peng", map);
+	            String savedFilePath = ThymeleafParser.generateFromHtml("C:\\mokkie\\lesson\\instReg", "giant_peng", html);
 
-	            // PDF 파일 생성 및 저장
-	            map.put("resumePath", resumePath);
-	            String pdfFilePath = pdfService.generatePdf("pdfTemplate", map);
+	            System.out.println("PDF saved at: " + savedFilePath);
+	            
+	            
+	            
+	            
+				/*
+				 * String resumePath = pdfService.saveUploadedPdf(pdfFile,
+				 * loginMember.getMemberNo());
+				 * 
+				 * // PDF 파일 생성 및 저장 map.put("resumePath", resumePath); String pdfFilePath =
+				 * pdfService.generatePdf("pdfTemplate", map);
+				 */
 	            //////////////////////////////테스트끗
 
 	            // PDF 생성이 완료되면 결과 메시지 설정
-	            redirectAttributes.addFlashAttribute("message", "PDF 생성 성공: " + pdfFilePath);
+				/*
+				 * redirectAttributes.addFlashAttribute("message", "PDF 생성 성공: " + pdfFilePath);
+				 */
 	        }
 
 	    } catch (Exception e) {

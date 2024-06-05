@@ -24,6 +24,7 @@ repositories {
 dependencies {
 
 	// PDF 파일 생성 관련 의존성 추가!!! 실험중!!!!!!!!!
+	
 	// https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
 	implementation 'org.apache.pdfbox:pdfbox:2.0.31'
 	// https://mvnrepository.com/artifact/com.itextpdf/itextpdf
@@ -34,8 +35,8 @@ dependencies {
 	implementation group: 'com.itextpdf', name: 'pdfa', version: '7.2.3'
 	// https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf-openpdf
 	implementation group: 'org.xhtmlrenderer', name: 'flying-saucer-pdf-openpdf', version: '9.1.22'
-	
-	
+	// https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf
+	implementation 'org.xhtmlrenderer:flying-saucer-pdf:9.1.22'
 	
 	// ------PDF끝
 
