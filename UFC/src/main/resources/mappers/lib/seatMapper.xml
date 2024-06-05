@@ -167,5 +167,12 @@
     </select>
 
 
+	<!-- 나의 열람실 예약 정보 받아오기 -->
+	<select id="checkMySeatReservation" resultType="map">
+	    SELECT START_BOOKING AS startBooking, SEAT_NO AS seatNo 
+	    FROM SEAT_SPACE_BOOKING ssb 
+	    WHERE MEMBER_NO = #{memberNo}
+	</select>
+
 
 </mapper>

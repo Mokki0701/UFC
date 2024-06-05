@@ -125,7 +125,6 @@ public class LibSeatServiceImpl implements LibSeatService {
 	@Override
 	public LibSeatDTO getMySeatInfo(int memberNo) {
 		
-		
 		return mapper.getMySeatInfo(memberNo);
 	}
 	
@@ -138,5 +137,16 @@ public class LibSeatServiceImpl implements LibSeatService {
 		params.put("seatNo2", seatNo2);
 		
 		return mapper.checkOtherReservation(params);
+	}
+	
+	// 나의 열람실 예약 확인하기
+	@Override
+	public Map<String, Object> checkMySeatReservation(int memberNo) {
+		
+		Map<String, Object> result = mapper.checkMySeatReservation(memberNo);
+	    System.out.println("Mapper Result: " + result);  // 로그 출력
+		
+		return result;
+		
 	}
 }

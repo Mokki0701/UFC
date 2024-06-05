@@ -83,34 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			openTab(tabName);
 		});
 	});
-
-	const messageBody = document.querySelector(".message-container");
-
-	if(loginCheck) {
-
-		messageBody.style.display="block";
-
-		messageListSelect(0);
-
-
-	}
-	else{
-		messageBody.style.display="none";
-
-
-	}
 	openTab('main'); // 기본적으로 첫 번째 탭 열기
 });
-
-function messageListSelect(type){
-
-	fetch("/message/select?type="+type)
-		.then(response => response.text())
-		.then(html => {
-			document.querySelector('.messageSelect').innerHTML = html;
-		})
-
-}
 
 
 
@@ -141,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		loop: false,
 		on: {
 			slideChange: function (swiper) {
-				const arrowDown = activeTab.querySelector('.arrow-down');
+				// const arrowDown = activeTab.querySelector('.arrow-down');
 				if (swiper.isEnd) {
 					arrowDown.innerHTML = '&#8593;'; // 화살표를 위로 변경
 				} else if (swiper.isBeginning) {
@@ -170,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	libToThirdSlide.addEventListener('click', () => {
-		libSwiper.slideTo(4);
+		libSwiper.slideTo(3);
 	});
 });
-

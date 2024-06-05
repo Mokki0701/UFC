@@ -364,4 +364,18 @@ public class LibSeatController {
 
 	}
 
+	// 열람실 예약 정보 불러오기
+	@PostMapping("checkMySeatReservation")
+	@ResponseBody
+	public Map<String, Object> checkMySeatReservation(
+	        @SessionAttribute("loginMember") Member loginMember) {
+	    
+	    int memberNo = loginMember.getMemberNo();
+	    Map<String, Object> result = service.checkMySeatReservation(memberNo);
+	    
+	    System.out.println("Controller Result: " + result);  // 로그 출력
+	    
+	    return result;
+	}
+
 }

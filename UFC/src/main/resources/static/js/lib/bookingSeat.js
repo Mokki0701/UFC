@@ -174,11 +174,8 @@ function closeModal() {
   const bookingModal = document.getElementById('bookingModal');
   bookingModal.style.display = "none";
 
-  // const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
-  // checkMySpaceDataModal.style.display = "none";
-
-  // const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
-  // checkMySpaceReservationModal.style.display = "none";
+  const checkMySeatReservationModal = document.querySelector('.checkMySeatReservationModal');
+  checkMySeatReservationModal.style.display = "none";
 
   const checkMyseat = document.getElementById('checkMyseat');
   checkMyseat.style.display = "none";
@@ -351,8 +348,81 @@ function extendSeat() {
 
 // 2.
 
-function checkMySeatReservation() {
-  fetch('/lib/seats/extend', {
+// 날짜 형식 변환 function
+function formatDateTime(dateTimeStr) {
+  const date = new Date(dateTimeStr);
 
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${year}년 ${month}월 ${day}일 ${hours}:${minutes.toString().padStart(2, '0')}`;
+}
+
+
+
+
+function checkMySeatReservation() {
+
+  // 모달 열기
+  const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
+  checkMySeatReservation.style.display = "block";
+
+
+  fetch('/lib/seats/checkMySeatReservation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
+    .then(response => response.json())
+    .then(result => {
+      console.log("Response Result:", result);  // 응답 결과 로그 출력
+
+      const reservedSeatNoElement = document.getElementById('reservedSeatNo');
+      const startBookingTimeElement = document.getElementById('startBookingTime');
+
+      console.log("reservedSeatNoElement:", reservedSeatNoElement);
+      console.log("startBookingTimeElement:", startBookingTimeElement);
+
+      if (result.SEATNO && result.STARTBOOKING) {
+        if (reservedSeatNoElement && startBookingTimeElement) {
+          reservedSeatNoElement.innerText = result.SEATNO;
+          startBookingTimeElement.innerText = formatDateTime(result.STARTBOOKING);
+        } else {
+          console.error('HTML 요소를 찾을 수 없습니다.');
+        }
+      } else {
+        alert('예약된 정보가 없습니다.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('오류 발생, 관리자에게 문의하세요.');
+    });
+}
+
+// 공간 예약 취소하기
+function cancleSeatBooking(){
+
+  fetch('/lib/seats/cancleSeatBooking', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => {
+      alert(result.message);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('오류 발생, 관리자에게 문의하세요.');
+    });
+
+    // 모달 닫기
+    const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
+    checkMySeatReservation.style.display = "none";
 }

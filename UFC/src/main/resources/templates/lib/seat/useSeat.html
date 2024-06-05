@@ -167,6 +167,37 @@
   </div>
 
 
+
+  <!-- 열람실 예약 확인용 모달 -->
+  
+  <div id="checkMySeatReservation" class="checkMySeatReservationModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <div class="middleTitle">나의 공간 예약 현황</div>
+
+      <div>
+        <div class="checkMySeatContent">
+          내가 예약한 공간 번호 : <span id="reservedSeatNo"></span>
+        </div>
+
+        <div class="checkMySeatContent">
+          공간 이용 시작 시간 : <span id="startBookingTime"></span>
+        </div>
+
+        <button type="button" onclick="cancleSeatBooking()">공간 예약 취소하기</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
   <footer>
     공용 푸터가 들어갈 부분
   </footer>
