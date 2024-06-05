@@ -314,3 +314,38 @@
   padding: 5px;
   font-size: 16px;
 }
+
+
+
+
+
+.checkMySeatReservationModal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+
+  border-radius: 10px;
+}
+
+
+.middleTitle{
+  color: teal;
+  font-size: 30px;
+  font-weight: bold;
+
+  margin: 20px;
+}
+
+.checkMySeatContent{
+  font-size: 20px;
+  
+  margin: 10px;
+
+
+}

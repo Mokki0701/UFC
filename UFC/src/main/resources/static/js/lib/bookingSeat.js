@@ -174,11 +174,8 @@ function closeModal() {
   const bookingModal = document.getElementById('bookingModal');
   bookingModal.style.display = "none";
 
-  // const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
-  // checkMySpaceDataModal.style.display = "none";
-
-  // const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
-  // checkMySpaceReservationModal.style.display = "none";
+  const checkMySeatReservationModal = document.querySelector('.checkMySeatReservationModal');
+  checkMySeatReservationModal.style.display = "none";
 
   const checkMyseat = document.getElementById('checkMyseat');
   checkMyseat.style.display = "none";
@@ -259,7 +256,7 @@ function realBookingSeat() {
     .then(response => response.json())
     .then(result => {
       if (result.success) {
-        alert('예약이 성공적으로 완료되었습니다.\n' + result.message);
+        alert(result.message);
         if (result.redirectUrl) {
           window.location.href = result.redirectUrl;
         } else {
@@ -351,8 +348,92 @@ function extendSeat() {
 
 // 2.
 
-function checkMySeatReservation() {
-  fetch('/lib/seats/extend', {
+// 날짜 형식 변환 function
+function formatDateTime(dateTimeStr) {
+  const date = new Date(dateTimeStr);
 
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${year}년 ${month}월 ${day}일 ${hours}:${minutes.toString().padStart(2, '0')}`;
+}
+
+
+
+
+function checkMySeatReservation() {
+
+  // 모달 열기
+  const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
+  checkMySeatReservation.style.display = "block";
+
+  fetch('/lib/seats/checkMySeatReservation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
+    .then(response => response.json())
+    .then(result => {
+      console.log("Response Result:", result);  // 응답 결과 로그 출력
+
+      const reservedSeatNoElement = document.getElementById('reservedSeatNo');
+      const startBookingTimeElement = document.getElementById('startBookingTime');
+
+      console.log("reservedSeatNoElement:", reservedSeatNoElement);
+      console.log("startBookingTimeElement:", startBookingTimeElement);
+
+      if (result.SEATNO && result.STARTBOOKING) {
+        if (reservedSeatNoElement && startBookingTimeElement) {
+          reservedSeatNoElement.innerText = result.SEATNO;
+          startBookingTimeElement.innerText = formatDateTime(result.STARTBOOKING);
+        } else {
+          console.error('HTML 요소를 찾을 수 없습니다.');
+        }
+      } else {
+        alert('예약된 정보가 없습니다.');
+
+        // 모달 닫기
+        checkMySeatReservation.style.display = "none";
+      }
+    })
+    .catch(error => {
+      // 모달 닫기
+      checkMySeatReservation.style.display = "none";
+
+      console.error('Error:', error);
+      alert('열람실 예약이 없습니다.');
+
+
+    });
+}
+
+// 공간 예약 취소하기
+function cancleSeatBooking() {
+
+  fetch('/lib/seats/cancleSeatBooking', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => {
+      alert(result.message);
+
+      // 모달 내부 텍스트 지우기
+      const reservedSeatNo = document.querySelector("#reservedSeatNo");
+      const startBookingTime = document.querySelector("#startBookingTime");
+
+      reservedSeatNo.innerText = '';
+      startBookingTime.innerText = '';
+
+    })
+
+  // 모달 닫기
+  const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
+  checkMySeatReservation.style.display = "none";
 }

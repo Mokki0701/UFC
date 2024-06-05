@@ -364,4 +364,42 @@ public class LibSeatController {
 
 	}
 
+	// 열람실 예약 정보 불러오기
+	@PostMapping("checkMySeatReservation")
+	@ResponseBody
+	public Map<String, Object> checkMySeatReservation(
+	        @SessionAttribute("loginMember") Member loginMember) {
+	    
+	    int memberNo = loginMember.getMemberNo();
+	    Map<String, Object> result = service.checkMySeatReservation(memberNo);
+	    
+	    System.out.println("Controller Result: " + result);  // 로그 출력
+	    
+	    return result;
+	}
+	
+	// 열람실 예약 취소하기
+	@PostMapping("cancleSeatBooking")
+	@ResponseBody
+	public Map<String, Object> cancleSeatBooking(@SessionAttribute("loginMember") Member loginMember) {
+		int memberNo = loginMember.getMemberNo();
+		String message = null;
+		
+		int result = service.cancleSeatBooking(memberNo);
+		
+		if(result == 1) {
+			message = "예약이 취소되었습니다.";
+		}
+		if(result == 0) {
+			message = "예약을 취소할 수 없습니다.";
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("message", message);
+		System.out.println("Controller Result: " + map);
+		
+		
+		return map;
+	}	
+
 }
