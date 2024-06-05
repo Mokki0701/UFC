@@ -79,9 +79,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	
 	@Override
-	public String checkEmail(String email) {
+	public int checkEmail(String memberEmail) {
 		
-		return mapper.checkEmail(email);
+		return mapper.checkEmail(memberEmail);
 	}
 
 	

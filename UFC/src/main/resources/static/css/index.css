@@ -53,7 +53,7 @@ body {
 
 /* 나중에 보더 지우세요 ========================== */
 .tab-content>div:nth-of-type(1) {
-  border: 2px solid #000;
+  /* border: 2px solid #000; */
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -284,5 +284,145 @@ body {
 .swiper-cube-shadow {
   display: none;
 }
+
+
+/* Main CSS=================================================== */
+
+.main_content_wrap {
+  position: relative;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+.main_text > h1{
+  font-size: 120px;
+  margin: 0;
+  /* padding: 0; */
+  font-weight: 800;
+  white-space: nowrap;
+  position: fixed;
+  /* 글씨 가운데 배치 */
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: transparent;
+  z-index: 1;
+}
+
+.main_text > h1::before{
+  content: "UrbanLifeConnector";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  color: #ad8d63;
+  overflow: hidden;
+  animation: typing 7s steps(31) 0.5;
+}
+
+@keyframes typing {
+  0% {
+    width: 0%;
+    border-right: 1px solid black;
+  }
+  50% {
+    width: 100%;
+    border-right: 1px solid black;
+  }
+  100% {
+    width: 0%;
+    border-right: none;
+  }
+}
+
+.main_img{
+  width: 900px;
+  height: 600px;
+  /* 이미지 바꾸기 */
+  background: url('../images/flex.png') no-repeat center center;
+  background-size: contain;
+  position: absolute;
+  bottom: 0; right: 0;
+}
+
+.main_content_wrap p {
+  width: 800px;
+  position: absolute;
+  top: 70%; left: 60%;
+  transform: translate(-70%, -50%);
+  font-size: 18px;
+}
+
+.main_info{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.main_info div{
+  width: 50%;
+  height: 100%;
+}
+.main_info div:nth-of-type(1){
+  width: 50%;
+  height: 100%;
+  padding: 60px;
+}
+
+.main_info div:nth-of-type(2){
+  width: 50%;
+  height: 100%;
+  padding: 60px;
+}
+
+.conBox1 > p{
+  margin-top: px;
+}
+
+.conBox2 {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 60% !important;
+  box-sizing: border-box;
+}
+
+.conBox2 .box {
+  flex-grow: 0;    /* 아이템의 증가 가능성을 0으로 설정 */
+  flex-shrink: 0;  /* 아이템의 감소 가능성을 0으로 설정 */
+  flex-basis: 50%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+}
+
+.conBox2 .box:nth-of-type(1) {
+  border-right: 1px solid #ad8d63;
+  border-bottom: 2px solid #ad8d63;
+  border-radius: 10px; /* 테두리의 모서리를 둥글게 만듭니다 */
+  background: url('../images/lib-removebg-preview.png') no-repeat center center;
+}
+.conBox2 .box:nth-of-type(2) {
+  border-left: 1px solid #ad8d63;
+  border-bottom: 2px solid #ad8d63;
+  border-radius: 10px; /* 테두리의 모서리를 둥글게 만듭니다 */
+  background: url('../images/lesson-removebg-preview.png') no-repeat center center;
+}
+.conBox2 .box:nth-of-type(3) {
+  border-right: 1px solid #ad8d63;
+  border-radius: 10px; /* 테두리의 모서리를 둥글게 만듭니다 */
+  background: url('../images/gym-removebg-preview.png') no-repeat center center;
+}
+
+.conBox2 .box:nth-of-type(4) {
+  border-left: 1px solid #ad8d63;
+  border-top: 1px solid #ad8d63;
+  border-radius: 10px;
+  background: url('../images/center.png') no-repeat center center;
+}
+
+
 
 

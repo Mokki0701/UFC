@@ -14,7 +14,11 @@ public interface MemberService {
 	Member login(Member inputMember);
 
 	// 아이디 중복 확인
-	String checkEmail(String email);
+	int checkEmail(String memberEmail);
+
+
+	
+
 
 	
 

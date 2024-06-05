@@ -41,6 +41,8 @@ public class Member {
 	private String instResume; // 제출한 이력서 경로
 	private String instInfo; // 생성된 회원 정보 PDF 경로
 	
+	private int blockBeing;
+	
 	
 	
 	
