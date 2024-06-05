@@ -173,4 +173,3 @@ document.addEventListener('DOMContentLoaded', function () {
 		libSwiper.slideTo(4);
 	});
 });
-
