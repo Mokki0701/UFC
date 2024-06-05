@@ -86,9 +86,8 @@
         <td class="member-intro">
 
 
-          <a th:href="|@{/lesson/download/{lastName}{firstName}이력서_{instResume} 
-           (lastName=${member.memberLastName}, firstName=${member.memberFirstName}, instResume=${member.instResume})}|"
-            th:text="${member.instResume}" download></a>
+          <a th:href="|@{/lesson/download/{memberNo}_지원서
+           (lastName=${member.memberLastName})}|" download>지원서</a>
 
 
         </td>

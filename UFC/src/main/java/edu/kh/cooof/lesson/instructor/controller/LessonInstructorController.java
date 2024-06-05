@@ -101,10 +101,17 @@ public class LessonInstructorController {
 	            map.put("memberNo", loginMember.getMemberNo());
 	            map.put("loginMember", loginMember);
 
-	            // 타임리프로 PDF 만들어본다 테스트!!!!!!!!!!!!!!!!!!!
 	            
-	            String html = ThymeleafParser.parseHtmlFileToString("giant-peng", map);
-	            String savedFilePath = ThymeleafParser.generateFromHtml("C:\\mokkie\\lesson\\instReg", "giant_peng", html);
+	            String html = ThymeleafParser.parseHtmlFileToString("resumeTemplate", map);
+	            String savedFilePath = ThymeleafParser.generateFromHtml(
+	            		"C:\\mokkie\\lesson\\instReg",
+	            		
+	            		
+	            		// 지원서 작명 시작
+	            		loginMember.getMemberNo() + "_지원서", 
+	            		
+	            		html
+	            		);
 
 	            System.out.println("PDF saved at: " + savedFilePath);
 	            
@@ -118,7 +125,6 @@ public class LessonInstructorController {
 				 * // PDF 파일 생성 및 저장 map.put("resumePath", resumePath); String pdfFilePath =
 				 * pdfService.generatePdf("pdfTemplate", map);
 				 */
-	            //////////////////////////////테스트끗
 
 	            // PDF 생성이 완료되면 결과 메시지 설정
 				/*
