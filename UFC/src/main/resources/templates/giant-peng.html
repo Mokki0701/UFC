@@ -1,69 +1,101 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>html을 pdf로 바꿔보기</title>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <meta charset='UTF-8'/>
-    <meta content='Content-type: text/html; charset=UTF-8' name='http-equiv'/>
-    <meta content='IE=Edge,chrome=1' http-equiv='X-UA-Compatible'/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta charset='UTF-8' />
+    <meta content='Content-type: text/html; charset=UTF-8' name='http-equiv' />
+    <meta content='IE=Edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no'
-          name='viewport'/>
-    <link href="/css/bootstrap.min.css" media="screen" rel="stylesheet"/>
+        name='viewport' />
+    <link href="/css/bootstrap.min.css" media="screen" rel="stylesheet" />
     <style>
-        body {
-            color: #555;
-            padding: 0px;
-            font-family: "NotoSansKR-Bold"
+        @font-face {
+            font-family: 'NanumGothic';
+            src: url('/font/NanumGothic.ttf')
         }
 
-        .main {
-            margin: auto;
-            padding: 15px;
-            border-radius: 1px;
+        body {
+            color: #555;
+            padding: 20px;
+            font-family: "NanumGothic"
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .logo-image {
-            width: 40%;
-            max-width: 300px;
-            float: right;
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 100px;
         }
 
-        .main h1 {
-            margin: 100px 0 10px 15px;
+        table {
             width: 100%;
-            font-size: 35px;
+            border-collapse: collapse;
+            margin: 20px 0;
         }
 
-        .info-box {
-            margin-top: 40px;
-            padding-right: 15px;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
         }
 
-        .info {
-            width: 100%;
-            margin-left: 15px;
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
         }
-
-        .title {
-            font-weight: lighter;
-            color: #42A5F5;
-            vertical-align: top;
-            font-size: 17px;
-        }
-
-        .description {
-            vertical-align: top;
-            font-size: 13px;
-        }
-
     </style>
 </head>
+
 <body>
-    <h1>귀여운 펭수</h1>
-    <h1 th:text="${memberNo}"></h1>
-    <h1>ENGLISH SHOW UP?????!?!?!?!?!?!?!?!?</h1>
-    <img class="logo-image" src="/images/lesson/lessonMain.png"/>
-    <!-- <img th:src="'/images/lesson/' + ${lesson.imgPath}" alt="프로그램 이미지"> -->
-    
+    <div class="container">
+        <img class="logo-image" src="/images/lesson/lessonMain.png" />
+        <img class="profile-image" src="/images/lesson/inst_sample_img.png" />
+
+        <table>
+            <tr>
+                <th>회원 번호</th>
+                <td th:text="${memberNo}"></td>
+            </tr>
+            <tr>
+                <th>성명</th>
+                <td th:text="|${loginMember.memberLastName}${loginMember.memberFirstName}|"></td>
+            </tr>
+            <tr>
+                <th>지원자 생일</th>
+                <td th:text="${#strings.substring(loginMember.memberBirthday, 0, 10)}"></td>
+            </tr>
+            <tr>
+                <th>성별</th>
+                <td th:text="${loginMember.memberGender == 'M' ? '남성' : (loginMember.memberGender == 'F' ? '여성' : '미작성')}"></td>
+            </tr>
+            <tr>
+                <th>지원 분야</th>
+                <td th:text="${instCategory}"></td>
+            </tr>
+            <tr>
+                <th>자기 소개</th>
+                <td th:text="${instIntro}"></td>
+            </tr>
+            <tr>
+                <th>지원자 이메일</th>
+                <td th:text="${loginMember.memberEmail}"></td>
+            </tr>
+            <tr>
+                <th>지원자 연락처</th>
+                <td th:text="${loginMember.memberPhone}"></td>
+            </tr>
+            <tr>
+                <th>지원자 주소</th>
+                <td th:text="${loginMember.memberAddress != null ? loginMember.memberAddress : '주소 미작성'}"></td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>

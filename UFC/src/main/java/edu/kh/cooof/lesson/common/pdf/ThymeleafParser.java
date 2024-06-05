@@ -49,7 +49,7 @@ public class ThymeleafParser {
             // 폰트 리졸버에 한글 폰트 추가
             ITextFontResolver fontResolver = renderer.getFontResolver();
             fontResolver.addFont(
-                new ClassPathResource("/static/font/NotoSansKR-Bold.ttf").getURL().toString(),
+                new ClassPathResource("/static/font/NanumGothic.ttf").getURL().toString(),
                 BaseFont.IDENTITY_H,
                 BaseFont.EMBEDDED
             );
