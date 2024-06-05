@@ -70,6 +70,9 @@ public interface LibSeatMapper {
 	// 나의 열람실 예약 정보 받아오기
 	Map<String, Object> checkMySeatReservation(int memberNo);
 
+	// 열람실 예약 취소하기
+	int cancleSeatBooking(int memberNo);
+
 	
 	
 	

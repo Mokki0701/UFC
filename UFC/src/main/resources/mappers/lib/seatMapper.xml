@@ -175,4 +175,12 @@
 	</select>
 
 
+	<!-- 열람실 예약 취소하기 -->
+	<delete id="cancleSeatBooking">
+		DELETE 
+		FROM SEAT_SPACE_BOOKING
+		WHERE MEMBER_NO = #{memberNo}
+		AND SPACE_NO IS NULL
+	</delete>
+
 </mapper>

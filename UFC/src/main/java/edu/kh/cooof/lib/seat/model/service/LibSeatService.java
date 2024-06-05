@@ -40,14 +40,17 @@ public interface LibSeatService {
 	// 유저의 자리번호와 db 자리 번호 맞추기
 	int getCacRealSeatNo(int seatNo);
 
-	// 나의 자리 이용 정보 받아오기
+	// 나의 열람실 자리 이용 정보 받아오기
 	LibSeatDTO getMySeatInfo(int memberNo);
 
-	// 내 자리에 다른 사람의 예약이 있는지 확인하기
+	// 내 열람실에 다른 사람의 예약이 있는지 확인하기
 	int checkOtherReservation(int seatNo, int seatNo2);
 
-	// 나의 자리 예약 확인하기
+	// 나의 열람실 예약 확인하기
 	Map<String, Object> checkMySeatReservation(int memberNo);
+
+	// 열람실 예약 취소하기
+	int cancleSeatBooking(int memberNo);
 
 	
 

@@ -256,7 +256,7 @@ function realBookingSeat() {
     .then(response => response.json())
     .then(result => {
       if (result.success) {
-        alert('예약이 성공적으로 완료되었습니다.\n' + result.message);
+        alert(result.message);
         if (result.redirectUrl) {
           window.location.href = result.redirectUrl;
         } else {
@@ -370,7 +370,6 @@ function checkMySeatReservation() {
   const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
   checkMySeatReservation.style.display = "block";
 
-
   fetch('/lib/seats/checkMySeatReservation', {
     method: 'POST',
     headers: {
@@ -396,16 +395,24 @@ function checkMySeatReservation() {
         }
       } else {
         alert('예약된 정보가 없습니다.');
+
+        // 모달 닫기
+        checkMySeatReservation.style.display = "none";
       }
     })
     .catch(error => {
+      // 모달 닫기
+      checkMySeatReservation.style.display = "none";
+
       console.error('Error:', error);
-      alert('오류 발생, 관리자에게 문의하세요.');
+      alert('열람실 예약이 없습니다.');
+
+
     });
 }
 
 // 공간 예약 취소하기
-function cancleSeatBooking(){
+function cancleSeatBooking() {
 
   fetch('/lib/seats/cancleSeatBooking', {
     method: 'POST',
@@ -416,13 +423,17 @@ function cancleSeatBooking(){
     .then(response => response.json())
     .then(result => {
       alert(result.message);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('오류 발생, 관리자에게 문의하세요.');
-    });
 
-    // 모달 닫기
-    const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
-    checkMySeatReservation.style.display = "none";
+      // 모달 내부 텍스트 지우기
+      const reservedSeatNo = document.querySelector("#reservedSeatNo");
+      const startBookingTime = document.querySelector("#startBookingTime");
+
+      reservedSeatNo.innerText = '';
+      startBookingTime.innerText = '';
+
+    })
+
+  // 모달 닫기
+  const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
+  checkMySeatReservation.style.display = "none";
 }

@@ -149,4 +149,11 @@ public class LibSeatServiceImpl implements LibSeatService {
 		return result;
 		
 	}
+	
+	// 열람실 예약 취소하기
+	@Override
+	public int cancleSeatBooking(int memberNo) {
+		
+		return mapper.cancleSeatBooking(memberNo);
+	}
 }
