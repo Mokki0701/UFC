@@ -46,3 +46,57 @@ function deleteMessage(button){
 //         });
 
 // }
+
+function openMessagePopup(element) {
+    var messageNo = element.previousElementSibling.textContent;
+    var url = "/message/detail?messageNo=" + messageNo;
+    window.open(url, 'messagePopup', 'width=450,height=400,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no');
+}
+
+function openSendMessagePopup(){
+
+    var url = "/message/send";
+    window.open(url, 'messageSend', 'width=450,height=400,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no');
+
+}
+
+
+function showReceivedMessages() {
+    document.getElementById('messageSelect').classList.remove('hidden');
+    document.getElementById('blockMemberList').classList.add('hidden');
+}
+
+function showSentMessages() {
+    document.getElementById('messageSelect').classList.remove('hidden');
+    document.getElementById('blockMemberList').classList.add('hidden');
+}
+
+function showBlockedMembers() {
+
+    fetch("/message/blockMember")
+    .then(resp=>resp.text())
+    .then(html=>{
+        console.log(html);
+        console.log(document.getElementById('blockMemberList'));
+        document.getElementById('blockMemberList').outerHTML = html;
+
+        document.getElementById('messageSelect').classList.add('hidden');
+        document.getElementById('blockMemberList').classList.remove('hidden');
+    })
+
+}
+
+function unblockMember(element) {
+    const memberEmail = element.previousElementSibling.textContent;
+
+    fetch("/message/unblockMember?memberEmail=" + memberEmail)
+        .then(response => response.text())
+        .then(result => {
+            if (result > 0) {
+                showBlockedMembers();
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+}
