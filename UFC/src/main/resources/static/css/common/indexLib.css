@@ -171,11 +171,7 @@ a.libLink {
 .libLeftContent {
   flex: 1; /* 공간을 남은 곳을 채움 */
   padding: 10px;
-  border-right: 2px dashed black;
-  min-height: 95%;
 }
-
-/* ---- */
 
 #infoContainer {
   position: relative;
@@ -196,12 +192,26 @@ a.libLink {
   transform: translateY(0);
 }
 
+/* 오른쪽 버튼 모음 */
+.libRightContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 자식 요소들이 세로로 가운데 정렬 */
+  align-items: center; /* 아이템들이 세로로 가운데 정렬 */
+  height: 100%; /* 부모 높이를 채워 수직 가운데 정렬이 적용되도록 설정 */
+}
+
+
 .libColBtn {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px 5px;
+  margin: 0px 5px;
+  padding: 5px;
+
+  border: 2px dashed black;
+  border-radius: 10px;
 }
 
 .libColBtn button {

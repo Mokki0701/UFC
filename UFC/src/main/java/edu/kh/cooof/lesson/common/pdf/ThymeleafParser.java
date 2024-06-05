@@ -43,7 +43,7 @@
 //        String savedFilePath = filePath + "/" + fileName + ".pdf";
 //
 //        try (FileOutputStream outputStream = new FileOutputStream(savedFilePath)) {
-//            ITextRenderer renderer = new ITextRenderer();
+////            ITextRenderer renderer = new ITextRenderer();
 //            
 //            
 //            // 폰트 리졸버에 한글 폰트 추가
