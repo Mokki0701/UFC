@@ -114,31 +114,43 @@ public class LessonInstructorController {
 	            		);
 
 	            System.out.println("PDF saved at: " + savedFilePath);
-	            
-	            
-	            
-	            
-				/*
-				 * String resumePath = pdfService.saveUploadedPdf(pdfFile,
-				 * loginMember.getMemberNo());
-				 * 
-				 * // PDF 파일 생성 및 저장 map.put("resumePath", resumePath); String pdfFilePath =
-				 * pdfService.generatePdf("pdfTemplate", map);
-				 */
 
-	            // PDF 생성이 완료되면 결과 메시지 설정
-				/*
-				 * redirectAttributes.addFlashAttribute("message", "PDF 생성 성공: " + pdfFilePath);
-				 */
-	        }
+				// 기존 PDF 파일 저장
+				
+				if (!pdfFile.isEmpty()) {
+					File uploadedPdf = new File("C:/mokkie/lesson/instReg/" + pdfFile.getOriginalFilename());
+					pdfFile.transferTo(uploadedPdf);
+				}
+				
+				// 맵에 파일명 담기
+				map.put("instResume", pdfFile.getOriginalFilename());
+				map.put("instInfo", loginMember.getMemberNo() + "_지원서.pdf");
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        redirectAttributes.addFlashAttribute("message", "PDF 생성 실패: " + e.getMessage());
-	    }
+
+				Integer result = service.addToInstTable(map);
+
+				// 새로운 강사 신청이 정상적으로 추가되지 않은 경우 처리
+				if (result == null || result == 0) {
+					redirectAttributes.addFlashAttribute("message", "강사 신청에 실패했습니다.");
+					return "redirect:/lesson/inst";
+				}
+			}
+
+			// 승낙 대기중 상태로 만든다
+			int result = service.regRequest(loginMember.getMemberNo());
+
+			// 성공 메시지
+			redirectAttributes.addFlashAttribute("message", "지원서 신청 성공");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("message", "지원서 신청 실패");
+		}
 
 	    return "redirect:/lesson/inst";
-	}
+	        }
+
+	    
 
 	
 	@GetMapping("regCheck")

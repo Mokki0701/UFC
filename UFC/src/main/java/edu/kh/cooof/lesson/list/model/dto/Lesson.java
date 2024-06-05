@@ -42,6 +42,9 @@ public class Lesson {
 	// 즐겨찾기 관련 컬럼 (LESSONS_WISHLIST)
 	private int wishListYN; // 0 : 즐찾 X, 1 : 즐찾 O
 	
+	// MEMBER 테이블 JOIN 후 사용할 것
+	private String instName;
+	
 	
 
 }
