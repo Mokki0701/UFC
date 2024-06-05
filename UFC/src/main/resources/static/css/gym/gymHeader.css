@@ -1,0 +1,121 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.gym_headerMenu {
+    background-color: #333;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.gym_headerMenu h2 {
+    color: white;
+    margin: 0 20px;
+}
+
+.gym_main_logo {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gym_main_logo li {
+    margin: 0 10px;
+    position: relative;
+}
+
+.gym_main_logo li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.gym_main_logo li a:hover, .dropdown:hover .dropbtn {
+    background-color: #555;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #555;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 플래시 메시지 스타일 */
+#flashMessage {
+    display: none;
+    background-color: #ffdd57;
+    color: #333;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+/* 드롭다운 메뉴의 스타일 */
+.gym_headerMenu ul.gym_main_logo li.dropdown {
+    display: inline-block;
+}
+
+.gym_headerMenu ul.gym_main_logo li.dropdown ul.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.gym_headerMenu ul.gym_main_logo li.dropdown ul.dropdown-content li {
+    clear: both;
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.gym_headerMenu ul.gym_main_logo li.dropdown ul.dropdown-content li a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.gym_headerMenu ul.gym_main_logo li.dropdown ul.dropdown-content li a:hover {
+    background-color: #555;
+}
+
+.gym_headerMenu ul.gym_main_logo li.dropdown:hover ul.dropdown-content {
+    display: block;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쪽지 쓰기</title>
+    <style>
+        #messageSendPopup {
+            width: 450px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+            position: relative; /* 부모 요소가 relative여야 absolute 위치 지정이 가능 */
+        }
+        #messageSendPopup h2 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        #messageSendPopup label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        #messageSendPopup .message-info {
+            margin-bottom: 10px;
+        }
+        #messageSendPopup .message-content {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            overflow-y: auto;
+        }
+        #messageSendPopup .button-container {
+            text-align: right;
+        }
+        #messageSendPopup button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #messageSendPopup button[type="button"] {
+            background-color: #6c757d;
+        }
+        #messageSendPopup .closeMessageSend-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #000; /* 버튼 텍스트 색상을 검정색으로 설정 */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #000; /* 버튼 테두리를 검정색으로 설정 */
+        }
+        #messageSendPopup .closeMessageSend-button:hover {
+            background-color: #f2f2f2; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+        }
+        /* input 태그 스타일링 */
+        #messageSendPopup input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="messageSendPopup">
+        <h2>쪽지 쓰기</h2>
+        <div class="messageSendForm">
+            <div>
+                <div class="message-info"><strong>받는이:</strong>
+                    <span class="member-email" th:if="${memberEmail != null}" th:text="${memberEmail}"></span>
+                    <input class="member-email" type="text" th:if="${memberEmail == null}">
+                </div>
+                <div class="message-info"><strong>제목:</strong><input type="text" id="messageTitle"></div>
+                <div><strong>내용</strong></div>
+                <div class="message-content" contenteditable="true" id="messageContent"></div>
+                <div class="button-container">
+                    <button type="button" onclick="sendMessage()">보내기</button>
+                    <button type="button" onclick="if (confirm('정말 닫으시겠습니까?')) { window.close(); }">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+
+    function sendMessage() {
+        
+        const memberEmailElements = document.querySelectorAll(".member-email");
+        let memberEmail = "";
+    
+        memberEmailElements.forEach(element => {
+            if (element.style.display !== "none") {
+                memberEmail = element.textContent || element.value; // textContent for span, value for input
+            }
+        });
+
+        const messageTitle = document.querySelector("#messageTitle").value;
+        const messageContent = document.querySelector("#messageContent").innerText;
+
+        
+
+        const obj = {
+            "memberEmail" : memberEmail,
+            "messageTitle"  : messageTitle,
+            "messageContent": messageContent
+        };
+
+        fetch("/message/sendMessage",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj)
+        })
+        .then(response => response.text())
+        .then(result => {
+
+            if(result > 0){
+                alert("메시지 발송 성공!");
+            }
+
+            window.close();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+        
+        
+    }
+
+
+
+</script>
+</html>

@@ -128,4 +128,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			swiperContainerElement.slideTo(4); // 네 번째 슬라이드로 이동
 		}
 	});
+
 });
+

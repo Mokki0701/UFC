@@ -77,16 +77,25 @@
         <td th:text="${member.instIntro}" class="member-intro"></td>
 
         <td class="member-intro">
-          <a th:href="@{|/mokkie/lesson/instReg/${member.instInfo}|}" th:text="${member.instInfo}"></a>
+
+          <a th:href="|@{/lesson/download/{instInfo} 
+           (instInfo=${member.instInfo})}|" th:text="${member.instInfo}" download></a>
         </td>
+
+
         <td class="member-intro">
-          <a th:href="@{/mokkie/lesson/instReg/${member.instResume}}" th:text="${member.instResume}" th:download="${member.instResume}"></a>
+
+
+          <a th:href="|@{/lesson/download/{memberNo}_지원서
+           (lastName=${member.memberLastName})}|" download>지원서</a>
+
+
         </td>
 
         <td class="member-action">
           <div class="action-buttons">
-            <button type="button" class="accept-btn" th:onclick="'accept(' + ${member.memberNo} + ')'">승낙</button>
-            <button type="button" class="reject-btn" th:onclick="'reject(' + ${member.memberNo} + ')'">거절</button>
+            <button type="button" class="accept-btn" th:onclick="'accept(' + ${member.memberNo} + ', this)'">승낙</button>
+            <button type="button" class="reject-btn" th:onclick="'reject(' + ${member.memberNo} + ', this)'">거절</button>
           </div>
         </td>
       </tr>
@@ -96,12 +105,50 @@
   <script>
 
     // 승낙/거절 버튼 클릭 시
-    function accept(memberNo) {
-      alert(memberNo + "번 회원의 요청이 승낙되었습니다.");
+    function accept(memberNo, button) {
+      fetch('/lesson/inst/accept', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(memberNo)
+      })
+        .then(response => {
+          if (response.ok) {
+            alert(memberNo + "번 회원의 요청이 승낙되었습니다.");
+            const row = button.closest('tr');
+            row.remove();
+          } else {
+            alert('승낙 요청에 실패했습니다.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('승낙 요청 중 오류가 발생했습니다.');
+        });
     }
-    
-    function reject(memberNo) {
-      alert(memberNo + "번 회원의 요청이 거절되었습니다.");
+
+    function reject(memberNo, button) {
+      fetch('/lesson/inst/reject', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(memberNo)
+      })
+        .then(response => {
+          if (response.ok) {
+            alert(memberNo + "번 회원의 요청이 거절되었습니다.");
+            const row = button.closest('tr');
+            row.remove();
+          } else {
+            alert('거절 요청에 실패했습니다.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('거절 요청 중 오류가 발생했습니다.');
+        });
     }
     // 승낙/거절 버튼 클릭 시 끝
   </script>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import edu.kh.cooof.common.scheduler.service.CommonSchedulingService;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.member.model.dto.Member;
 import lombok.extern.slf4j.Slf4j;
 
 /* Spring Scheduler : 
@@ -93,7 +94,15 @@ public class CommonScheduling {
 	}
 
 	@Scheduled(cron = "0/10 * * * * *") // 0초 기준, 10초 마다
-	public void lessonCloseYNCheck() {
+	public void lessonCloseYNCheck() { // 잔여좌석 체크 + 강사 권한 부여!!!!
+		
+		// 강사 권한 부여!!!
+		int result = service.authorityCheck();
+		if(result > 0) {
+			log.info("----- 강사 권한 부여됨 -----");
+		} else {
+			log.info("----- 강사 권한 부여할 인원 없음 -----");
+		}
 
 		List<Lesson> noRemainsList = service.checkRemains();
 
@@ -105,6 +114,9 @@ public class CommonScheduling {
 		for (Lesson l : noRemainsList) {
 			service.setCloseYn(l.getLessonNo());
 		}
+		
+		
+
 
 	}
 	

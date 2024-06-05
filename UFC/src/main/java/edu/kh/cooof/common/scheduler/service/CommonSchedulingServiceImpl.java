@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.cooof.common.scheduler.mapper.SchedulingMapper;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -31,6 +32,12 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 		mapper.setCloseYn(lessonNo);		
 	}
 	
+	// 권한 부여 체크
+	@Override
+	public int authorityCheck() {
+		
+		return mapper.authorityCheck();
+	}
 	@Override
 	public void deleteLibAll() {
 		

@@ -3,6 +3,51 @@
 <mapper namespace="edu.kh.cooof.common.scheduler.mapper.SchedulingMapper">
 
 
+	<select id="selectLessonImageNames" resultType="string">
+	SELECT IMG_PATH  FROM LESSONS WHERE DELETE_YN = 1
+	</select>
+	
+	<select id="checkRemains" resultType="Lesson">
+	SELECT * FROM LESSONS WHERE LESSON_REMAINS = 0 AND CLOSE_YN = 0
+	</select>
+	
+	<update id="setCloseYn">
+	UPDATE LESSONS SET CLOSE_YN = 1 WHERE LESSON_NO = #{lessonNo}
+	</update>
+	
+	<update id="authorityCheck">
+	UPDATE MEMBER m
+	SET m.MEMBER_AUTHORITY = 1
+	WHERE m.MEMBER_NO IN (
+	SELECT m2.MEMBER_NO
+	FROM MEMBER m2
+	JOIN LESSON_INSTRUCTOR li
+	ON m2.MEMBER_NO = li.MEMBER_NO
+	WHERE m2.MEMBER_AUTHORITY = 0 AND li.INST_STAT = 0
+	)
+	</update>
+
+	<delete id="deleteLibLoan">
+		DELETE FROM LOAN_BOOK
+		<![CDATA[
+		WHERE BOOK_END < ADD_MONTHS(SYSDATE, -12);
+		]]>
+		AND LOAN_BOOK_STATUS = 0
+	</delete>
+	
+	<delete id="deleteLibRent">
+		DELETE FROM RENT_BOOK
+		<![CDATA[
+		WHERE BOOK_RESERVE < ADD_MONTHS(SYSDATE, -12);
+		]]>
+		AND RENT_BOOK_CHECK = 0
+	</delete>
+	
+	<delete id="deleteLibHope">
+		DELETE FROM NEW_BOOK
+		WHERE NEW_BOOK_CHECK = 1
+	</delete>
+
 
 
 </mapper>

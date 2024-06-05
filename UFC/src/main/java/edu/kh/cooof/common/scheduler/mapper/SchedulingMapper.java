@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.member.model.dto.Member;
 
 @Mapper
 public interface SchedulingMapper {
@@ -24,6 +25,11 @@ public interface SchedulingMapper {
 	 */
 	void setCloseYn(int lessonNo);
 
+	/** 강사 권한 부여 체크
+	 * @return
+	 */
+	int authorityCheck();
+	
 	void deleteLibLoan();
 
 	void deleteLibRent();

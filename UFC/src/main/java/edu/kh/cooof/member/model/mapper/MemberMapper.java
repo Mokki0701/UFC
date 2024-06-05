@@ -17,8 +17,10 @@ public interface MemberMapper {
 	// 로그인
 	Member login(String memberEmail);
 
+
 	// 아이디 중복 확인
-	String checkEmail(String email);
+	int checkEmail(String memberEmail);
+	
 
 	
 
