@@ -14,7 +14,7 @@ body{
   align-items: center;
   min-height: 60vh;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f2e2ce;
 }
 
 #instPostFrm {
@@ -76,7 +76,7 @@ body{
 
 .custom-file-label {
   padding: 10px;
-  background-color: #992BF2;
+  background-color: #bf9d5e;
   color: white;
   border: none;
   cursor: pointer;
@@ -85,7 +85,7 @@ body{
 }
 
 .custom-file-label:hover {
-  background-color: #6a1ea8;
+  background-color: #d9bd89;
 }
 
 #file-name {
@@ -97,7 +97,7 @@ body{
 
 /* :focus-within : 내부 input 요소에 포커스가 맞춰졌을 때 */
 .lesson-input-area:focus-within {
-  border-bottom-color: #992BF2;
+  border-bottom-color: #bf9d5e;
 }
 
 /* 입력 관련 메세지 */
@@ -124,7 +124,7 @@ body{
   border: none;
   font-size: 20px;
   font-weight: bold;
-  background-color: #992BF2;
+  background-color: #bf9d5e;
   color: white;
   cursor: pointer;
   border-radius: 5px;
@@ -132,7 +132,7 @@ body{
 }
 
 #instRegBtn:hover {
-  background-color: #6a1ea8;
+  background-color: #d9bd89;
 }
 
 #instRegBtn:active {

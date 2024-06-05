@@ -3,6 +3,22 @@
       <div>
     
         <!-- 로그인 만들고 -->
+        <th:block th:if="${loginMember == null}"></th:block>
+        <main>
+          <form action="/member/loginMember" method="post" id="loginForm">
+            <section class="input-box">
+              <input type="text" name="memberEmail" placeholder="Email" value="" required />
+            </section>
+      
+            <section class="input-box">
+              <input type="password" name="memberPw" placeholder="Password" required />
+            </section>
+      
+            <button class="login-btn">Login</button>
+    
+          </form> 
+        </main>
+
       
       
         <main>
@@ -75,15 +91,16 @@
                 <input type="radio" name="memberGender" id="female" value="F">
                 <label for="female">여자</label>
               </div>
+              <span class="gender-message" id="genderMessage">성별을 선택해 주세요.</span>
               
               <br>
               <!-- 생년월일 입력 -->
               <label for="memberBirthday">* 생년월일
-                <input type="date" id="memberBirthday" name="memberBirthday" value="2000-01-01"
+                <input type="date" id="memberBirthday" name="memberBirthday" 
                   min="1950-01-01" max="2020-12-31">
               </label>
               <br>
-              <span class="birthdate-message">정확한 생년월일을 입력해주세요.</span>
+              <span class="birthdate-message" id="birthdateMessage">정확한 생년월일을 입력해주세요.</span>
               <br>
       
               <!-- 전화번호 입력 -->
@@ -133,7 +150,7 @@
       <!-- 다음 주소 API 추가 -->
       <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
       
-      <script src="/js/member/signup.js"></script>
+      <script src="/js/member/signup2.js"></script>
     
     
 

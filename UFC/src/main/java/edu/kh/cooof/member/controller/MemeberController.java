@@ -64,7 +64,7 @@ public class MemeberController {
 		return "member/login";
 	}
 	
-	@PostMapping("login")
+	@PostMapping("loginMember")
 	public String memberLogin(
 			RedirectAttributes ra,
 			Member inputMember,
@@ -130,16 +130,12 @@ public class MemeberController {
 	
 	@ResponseBody
 	@GetMapping("checkEmail")
-	public String checkEmail(
-			 @RequestParam("memberEmailId") String memberEmailId,
-			 @RequestParam("memberEmailDomain") String memberEmailDomain
+	public int checkEmail(
+			 @RequestParam("memberEmail") String memberEmail
+		
 			 ) {
 		
-		// 이메일 아이디와 도메인을 합쳐서 이메일 주소를 만듭니다.
-		String email = memberEmailId + "@" + memberEmailDomain;
-	
 		
-		
-		return service.checkEmail(email);
+		return service.checkEmail(memberEmail);
 	}
 }

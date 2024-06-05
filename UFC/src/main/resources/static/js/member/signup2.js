@@ -48,6 +48,11 @@ function execDaumPostcode() {
 }
 
 
+
+
+
+
+
 /* 주소 검색 버튼 클릭 시 */
 document.querySelector("#searchAddress").addEventListener("click", execDaumPostcode);
 
@@ -60,7 +65,7 @@ const checkObj = {
     "memberPw"         : false,
     "memberPwConfirm"  : false,
     "memberLastName"   : false,
-    "memberFirestName" : false,
+    "memberFirstName"  : false,
     "memberGender"     : false,
     "memberBirthday"   : false,
     "memberPhone"      : false
@@ -73,61 +78,58 @@ const memberEmailId = document.querySelector("#memberEmailId")
 const memberEmailDomain = document.querySelector("#memberEmailDomain")
 const emailMessage = document.querySelector("#emailMessage")
 
-memberEmailId.addEventListener("input", e =>{
-
-    const inputEmailId = e.target.value
-    const inputEmailDomain = e.target.value
+const emailDulicateCheck = e => {
+    const inputEmailId = memberEmailId.value;
+    const inputEmailDomain = memberEmailDomain.value;
 
     if(inputEmailId.trim().length === 0){
         emailMessage.innerText = "앞에 아이디는 영어,숫자 4~20글자로 입력해주세요.";
         emailMessage.classList.remove("confirm","error");
         checkObj.memberEmail = false;
         return;
-    }
+    }    
+       
+    
 
-    if(inputEmailDomain.trim().length === 0){
-        emailMessage.innerText = "이메일을 입력해 주세요.";
-        emailMessage.classList.remove("confirm", "error");
-        checkObj.memberEmail = false;
-        return;
-    }
-
-    const regExp = /^[a-zA-Z0-9]+$/
-    const domain = ['naver.com', 'gmail.com', 'hanmail.net', 'nate.com', 'kakao.com']
+    const regExp = /^[a-zA-Z0-9]{4,20}$/
+    
 
     if(!regExp.test(inputEmailId)){
         emailMessage.innerHTML = "알맞은 아이디 형식을 작성해주세요.";
-        emailMessage.remove("confirm");
-        emailMessage.add("error");
+        emailMessage.classList.remove("confirm");
+        emailMessage.classList.add("error");
         checkObj.memberEmail = false;
         return;
     }
 
 
-    fetch("/member/checkEmail?memberEmail=" + inputEmailId + "@"+ inputEmailDomain) 
-    .then(response => response.text())
+    fetch("/member/checkEmail?memberEmail=" + inputEmailId +"@"+ inputEmailDomain)
+    .then(response => response.text())  
     .then( count => {
-
         if(count == 1){ // 중복 O
             emailMessage.innerText = "이미 사용중인 이메일 입니다.";
             emailMessage.classList.add('error');
             emailMessage.classList.remove('confirm');
             checkObj.memberEmail = false; // 중복은 유효하지 않음
             return;
-          }
+        }
       
-          // 중복 x 인 경우
-          emailMessage.innerText = "사용 가능한 이메일 입니다.";
-          emailMessage.classList.add('confirm');
-          emailMessage.classList.remove('error');
-          checkObj.memberEmail = true; // 유요한 이메일
+        // 중복 x 인 경우
+        emailMessage.innerText = "사용 가능한 이메일 입니다.";
+        emailMessage.classList.add('confirm');
+        emailMessage.classList.remove('error');
+        checkObj.memberEmail = true; // 유요한 이메일
       
-        })
-        .catch( e => {
-          // fetch() 수행 중 예외 발생 시 처리
-          console.log(e); // 발생한 예외(e) 출력 
-        })
-})
+    })
+    .catch( e => {
+        // fetch() 수행 중 예외 발생 시 처리
+        console.log(e); // 발생한 예외(e) 출력 
+    })
+}
+
+memberEmailId.addEventListener("input", emailDulicateCheck);
+memberEmailDomain.addEventListener("input", emailDulicateCheck);
+document.querySelector("#domain-list").addEventListener("change", emailDulicateCheck);
 
 
 
@@ -207,10 +209,10 @@ const checkPw = () => {
     });
 
 
+    // 성 입력 조건
     const memberLastName = document.querySelector("#memberLastName")
     const lnameMessage = document.querySelector("#lnameMessage")
 
-    // 성 입력 조건
     memberLastName.addEventListener("input" , e =>{
 
         const inputName = e.target.value;
@@ -218,7 +220,7 @@ const checkPw = () => {
         if(inputName.trim().length === 0){
             lnameMessage.innerText = "한글 1~5글자 사이로 입력해 주세요"
             lnameMessage.classList.remove("confirm", "error");
-            checkObj.memberFirestName = false;
+            checkObj.memberLastName = false;
             memberLastName.value = "";
             return;
         }
@@ -229,7 +231,7 @@ const checkPw = () => {
             lnameMessage.innerText = "성이 유효하지 않습니다";
             lnameMessage.classList.remove("confirm");
             lnameMessage.classList.add("error");
-            checkObj.memberFirestName = false;
+            checkObj.memberLastName = false;
             
             return;
         }
@@ -237,15 +239,15 @@ const checkPw = () => {
         lnameMessage.innerText = "유효한 작성 형식입니다";
         lnameMessage.classList.remove("error");
         lnameMessage.classList.add("confirm");
-        checkObj.memberFirestName = true;
+        checkObj.memberLastName = true;
         
     })
 
 
-    const memberFirstName = document.querySelector("#memberFirstName")
+    // 이름 입력 조건
+    const memberFirstName = document.querySelector("#memberFirstName");
     const fnameMessage = document.querySelector("#fnameMessage");
     
-    // 이름 입력 조건
     memberFirstName.addEventListener("input" , e =>{
 
         const nameinput = e.target.value;
@@ -254,8 +256,8 @@ const checkPw = () => {
         if(nameinput.trim().length === 0){
             fnameMessage.innerText = "한글 1~7글자 사이로 입력해 주세요."
             fnameMessage.classList.remove("confirm", "error");
-            checkObj.memberLastName = false; 
-            memberLastName.value = "";
+            checkObj.memberFirstName = false; 
+            memberFirstName.value = "";
             return;
         }
 
@@ -263,20 +265,64 @@ const checkPw = () => {
 
         if( !regExp.test(nameinput)) {
             fnameMessage.innerText = "이름이 유효하지 않습니다";
-            fnameMessage.classList.add("error");
             fnameMessage.classList.remove("confirm");
-            checkObj.memberLastName = false;   
+            fnameMessage.classList.add("error");
+            checkObj.memberFirstName = false;   
             return;
         }
 
         fnameMessage.innerText = "유효한 작성 형식입니다";
-        fnameMessage.classList.add("confirm");
         fnameMessage.classList.remove("error");
-        checkObj.memberLastName = true;
+        fnameMessage.classList.add("confirm");
+        checkObj.memberFirstName = true;
     });
 
 
+    // 성별 입력
+    const genderMessage = document.querySelector("#genderMessage");
 
+    // 모든 라디오 버튼 요소들을 가져옵니다.
+    const genderInputs = document.querySelectorAll('input[name="memberGender"]');
+
+     // 각 라디오 버튼에 change 이벤트 리스너를 추가합니다.
+    genderInputs.forEach(input => {
+        input.addEventListener('change', e => {
+        // 선택된 라디오 버튼의 값을 가져옵니다.
+        const selectedGender = e.target.value;
+
+        if (selectedGender) {
+            // 선택된 값이 있으면 메시지를 업데이트합니다.
+            genderMessage.textContent = `선택된 성별: ${selectedGender === 'M' ? '남자' : '여자'}`;
+            checkObj.memberGender = true;
+        } else {
+            // 선택된 값이 없으면 기본 메시지를 유지합니다.
+            genderMessage.textContent = '성별을 선택해 주세요.';
+            checkObj.memberGender = false;
+        }
+        });
+    });
+
+    // 생년월일 입력
+    const memberBirthday = document.querySelector("#memberBirthday");
+    const birthdateMessage = document.querySelector("#birthdateMessage");
+
+    memberBirthday.addEventListener("change", e=>{
+        
+        const inputday = e.target.value
+
+        if(inputday) {
+            birthdateMessage.textContent = `선택된 생년월일: ${inputday}`;
+            checkObj.memberBirthday = true;
+        } else {
+            birthdateMessage.textContent = "생년월일을 선택해 주세요."
+            checkObj.memberBirthday = false;
+        }
+    });
+    
+
+
+
+    // 전화번호 입력 조건
     const memberPhone = document.querySelector("#memberPhone")
     const telMessage = document.querySelector("#telMessage")
 
@@ -306,6 +352,47 @@ const checkPw = () => {
               telMessage.classList.remove("error");
               checkObj.memberPhone = true;
           });
-          
-    
+
+
+        // 회원가입 제출 버튼 클릭 시 유효성 검사
+        const signupForm = document.querySelector("#signUpForm");
+
+        // 회원가입 제출 버튼 클릭 시 유효성 검사
+        signupForm.addEventListener("submit", e =>{
+
+            for(let key in checkObj){
+
+                if( !checkObj[key]){
+
+                    let str;
+
+                    switch(key){
+
+                        case "memberEmail" : str = "이메일이 유효하지 않습니다"; break;
+                
+                        case "memberPw": str = "비밀번호가 유효하지 않습니다"; break;
+                
+                        case "memberPwConfirm": str = "비밀번호가 일치하지 않습니다"; break;
+                
+                        case "memberLastName": str = "성이 유효하지 않습니다"; break;
+
+                        case "memberFirstName": str = "이름이 유효하지 않습니다"; break;
+                        
+                        case "memberGender" : str = "성별을 선택하지 않았습니다"; break;
+                
+                        case "memberBirthday": str = "생년월일을 선택하지 않습니다"; break; 
+
+                        case "memberPhone" : str  = "핸드폰 번호가 유효하지 않습니다"; break;
+                    }
+
+                    alert(str);
+
+
+
+                    e.preventDefault(); // 폼 제출 중단
+                    return;
+                }
+            }
+    });
+
 });
