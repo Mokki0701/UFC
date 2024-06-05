@@ -40,7 +40,7 @@
 		SELECT COUNT(*) 
 		FROM "MEMBER"
 		WHERE MEMBER_CANCEL = 0
-		AND MEMBER_EMAIL  = #{memberEmail;
+		AND MEMBER_EMAIL  = #{memberEmail}
 	</select>
 
 </mapper>
