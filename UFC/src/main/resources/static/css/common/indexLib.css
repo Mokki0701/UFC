@@ -50,6 +50,8 @@
   cursor: pointer;
 
   background-color: #bb800052;
+
+  transition: background-color 0.3s;
 }
 
 .libContentHead{
@@ -144,7 +146,7 @@ a.libLink {
 
 
 
-  transition-duration: 0.3s;
+  transition-duration: background-color 0.3s;
 }
 
 .libLink > span{
@@ -156,6 +158,39 @@ a.libLink {
   margin-top: 20px;
 
 }
+
+
+
+
+/* 1번 인덱스 슬라이드 스타일 */
+
+
+#libInfoAtIndex{
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

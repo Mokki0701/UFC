@@ -23,3 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+function check(){
+  console.log("클릭 이벤트 감지함");
+}

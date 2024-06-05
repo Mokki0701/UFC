@@ -75,12 +75,15 @@ const openTab = (tabName) => {
 };
 
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
 	const tabs = document.querySelectorAll('.tab');
 	tabs.forEach(tab => {
 		tab.addEventListener('click', () => {
 			const tabName = tab.dataset.tab;
 			openTab(tabName);
+
 		});
 	});
 	openTab('main'); // 기본적으로 첫 번째 탭 열기
@@ -91,59 +94,38 @@ document.addEventListener("DOMContentLoaded", () => {
 // ------------------ 도서관 스와이퍼 내부 이동 ------------------- //
 
 // 도서관 스와이퍼에서 각 버튼 클릭 시 해당 인덱스 슬라이드로 이동
-
-
-
+// 도서관 스와이퍼에서 각 버튼 클릭 시 해당 인덱스 슬라이드로 이동
 document.addEventListener('DOMContentLoaded', function () {
-	// 도서관의 스와이퍼 초기화
-	const swiperContainer = document.querySelector('.libSwiper');
-	const libSwiper = new Swiper(swiperContainer, {
-		effect: "cube",
-		speed: 900,
-		grabCursor: false,
-		cubeEffect: {
-			shadow: false,
-			slideShadows: true,
-		},
-		direction: "vertical",
-		pagination: false,
-		mousewheel: {
-			invert: false,
-		},
-		// 드래그 막기 (마우스로 화면전환 x -> 필요시 지우기)
-		touchRatio: 0,
-		loop: false,
-		on: {
-			slideChange: function (swiper) {
-				// const arrowDown = activeTab.querySelector('.arrow-down');
-				if (swiper.isEnd) {
-					arrowDown.innerHTML = '&#8593;'; // 화살표를 위로 변경
-				} else if (swiper.isBeginning) {
-					arrowDown.innerHTML = '&#8595;'; // 화살표를 아래로 변경
-				}
-			}
-		}
-	});
-	
 	const libToZeroSlide = document.querySelector("#libToZeroSlide");
 	const libToFirstSlide = document.querySelector("#libToFirstSlide");
 	const libToSecondSlide = document.querySelector("#libToSecondSlide");
 	const libToThirdSlide = document.querySelector("#libToThirdSlide");
 
-
 	libToZeroSlide.addEventListener('click', () => {
-		libSwiper.slideTo(1);
+		const swiperContainerElement = document.querySelector('.libSwiper').swiper;
+		if (swiperContainerElement) {
+			swiperContainerElement.slideTo(1); // 첫 번째 슬라이드로 이동
+		}
 	});
 
 	libToFirstSlide.addEventListener('click', () => {
-		libSwiper.slideTo(2);
+		const swiperContainerElement = document.querySelector('.libSwiper').swiper;
+		if (swiperContainerElement) {
+			swiperContainerElement.slideTo(2); // 두 번째 슬라이드로 이동
+		}
 	});
 
 	libToSecondSlide.addEventListener('click', () => {
-		libSwiper.slideTo(3);
+		const swiperContainerElement = document.querySelector('.libSwiper').swiper;
+		if (swiperContainerElement) {
+			swiperContainerElement.slideTo(3); // 세 번째 슬라이드로 이동
+		}
 	});
 
 	libToThirdSlide.addEventListener('click', () => {
-		libSwiper.slideTo(3);
+		const swiperContainerElement = document.querySelector('.libSwiper').swiper;
+		if (swiperContainerElement) {
+			swiperContainerElement.slideTo(4); // 네 번째 슬라이드로 이동
+		}
 	});
 });
