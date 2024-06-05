@@ -1,76 +1,133 @@
-<!DOCTYPE html>
-<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>쪽지함</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 800px;
-            margin: 0 auto;
-            border: 1px solid black;
-            padding: 20px;
-        }
-        .title {
-            margin-bottom: 20px;
-        }
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        .tabs div {
-            border: 1px solid black;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .tabs div:not(:last-child) {
-            border-right: none;
-        }
-        .message-list {
-            border: 1px solid black;
-            margin-bottom: 20px;
-            height: 200px;
-            overflow-y: auto;
-        }
-        .message-list div {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid black;
-        }
-        .message-list div:last-child {
-            border-bottom: none;
-        }
-        .write-message {
-            text-align: right;
-        }
-        .write-message button {
-            padding: 10px;
-        }
+    .message-container {
+    width: 800px;
+    margin: 0 auto;
+    border: 1px solid black;
+    padding: 20px;
+    display: none; /* 초기에는 숨김 */
+
+    }
+
+    .message-title {
+        margin-bottom: 20px;
+    }
+
+    .message-tabs {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .message-tabs button {
+        border: 1px solid black;
+        padding: 10px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .message-tabs button:not(:last-child) {
+        border-right: none;
+    }
+
+    .message-list {
+        border: 1px solid black;
+        margin-bottom: 20px;
+        height: 200px;
+        overflow-y: auto;
+    }
+
+    .message-list div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid black;
+    }
+
+    .message-list div:last-child {
+        border-bottom: none;
+    }
+
+    .message-item {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+    }
+
+    .message-item span {
+        margin-right: 20px;
+    }
+
+    .write-message {
+        text-align: right;
+    }
+
+    .write-message button {
+        padding: 10px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .message-disabled {
+        background-color: grey;
+        pointer-events: none; /* 모든 클릭 이벤트 비활성화 */
+        opacity: 0.6; /* 시각적으로 비활성화됨을 표시 */
+    }
+
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="title">
+
+<body id="message_body">
+    <div class="message-container">
+        <div class="message-title">
             <h1>쪽지함</h1>
         </div>
-        <div class="tabs">
-            <div>받은 쪽지</div>
-            <div>보낸 쪽지</div>
+        
+        <div class="message-tabs">
+            <button id="receivedTab">받은 쪽지</button>
+            <button id="sentTab">보낸 쪽지</button>
         </div>
-        <div class="message-list">
-            <div>
-                <span>이메일 / 제목 / 보낸 날짜</span>
-                <button>삭제</button>
+        
+        <div class="messageSelect" th:fragment="messageSelect">
+            <div id="receivedMessages" class="message-list" >
+                <div th:each="message : ${messageList}" th:object="${message}">
+                    <div class="message-item">
+                        <span th:text="*{memberEmail}">이메일</span>
+                        <span th:text="*{messageTitle}">제목</span>
+                        <span th:text="*{messageDate}">보낸 날짜</span>
+                        <div th:text="*{messageNo}" style="display:none"></div>
+                        <button class="messageDeleteBtn" onclick="deleteMessage(this)">삭제</button>
+                    </div>
+                </div>
+                <!-- 더 많은 받은 쪽지 메시지를 여기에 추가할 수 있습니다. -->
             </div>
-            <!-- 더 많은 메시지를 여기에 추가할 수 있습니다. -->
+
+            <!-- <div th:object="${pagination}">
+                <li><button th:onclick="'paginationMessage(1)'">&lt;&lt;</button></li>
+                <li><button th:onclick="'paginationMessage(' + *{prevPage} + ')'">&lt;</button></li>
+                <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
+                    <li th:classappend="${i} == *{currentPage} ? 'active'">
+                        <button th:onclick="'paginationMessage(' + ${i} + ')'"
+                                th:text="${i}"></button>
+                    </li>
+                </th:block>
+                <li><button th:onclick="'paginationMessage(' + *{nextPage} + ')'">&gt;</button></li>
+                <li><button th:onclick="'paginationMessage(' + *{maxPage} + ')'">&gt;&gt;</button></li>
+            </div> -->
         </div>
+
         <div class="write-message">
             <button>쪽지 쓰기</button>
         </div>
     </div>
 </body>
-</html>
+
