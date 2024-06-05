@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.cooof.member.model.dto.Member;
 import edu.kh.cooof.message.model.dto.Message;
 
 @Mapper
@@ -30,5 +31,21 @@ public interface MessageMapper {
 	int getRevMemberNo(String memberEmail);
 
 	int sendMessage(Message message);
+
+	String getRevMemberEmail(String memberName);
+
+	int blockMessage(Map<String, Integer> map);
+
+	int getBlockMemberNo(String memberName);
+
+	int blockCheck(Map<String, Integer> map);
+
+	List<Member> blockMemberList(int memberNo);
+
+	String getMemberEmail(int memberNo);
+
+	int getMemberNo(String memberEmail);
+
+	int unblockMember(Map<String, Integer> map);
 
 }

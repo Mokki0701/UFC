@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>강사 현황</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <th:block th:replace="~{common/common}"></th:block>
   <style>
     body {
       background-color: #f2e2ce;;
@@ -120,6 +121,42 @@
       justify-content: center;
       align-items: center;
     }
+
+    /* ----------------------------- */
+
+    .messageDropdown {
+        cursor: pointer;
+    }
+
+    .messageDropdown:hover {
+        color: gray; /* 색상을 원하는 대로 변경할 수 있습니다 */
+    }
+
+    .dropdown-content {
+        display: none;
+        background-color: white;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border: 1px solid #ccc;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 10px 12px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .show {
+        display: block;
+    }
+
+    /* ----------------------------- */
   </style>
 </head>
 
@@ -139,7 +176,7 @@
       <!-- 반복되는 카드 시작 -->
       <div th:each="instructor : ${instList}" class="card-bg">
         <div class="card-header">
-          <h2 th:text="${instructor.memberLastName + instructor.memberFirstName}">강사명</h2>
+          <h2 th:text="${instructor.memberLastName + instructor.memberFirstName}" class="messageDropdown" onclick="clickDropDown(this)">강사명</h2>
           <p class="inst-category" th:text="${instructor.instCategory}">분야</p>
         </div>
         <div class="card-body">

@@ -3,6 +3,7 @@ package edu.kh.cooof.message.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,8 +84,13 @@ public class MessageController {
 	@GetMapping("send")
 	public String sendMessage(
 			@RequestParam(value="memberEmail", required = false) String memberEmail,
+			@RequestParam(value="memberName", required = false) String memberName,
 			Model model
 			) {
+		
+		if(memberName != null) {
+			memberEmail = service.getRevMemberEmail(memberName);
+		}
 		
 		model.addAttribute("memberEmail", memberEmail);
 		
@@ -103,6 +109,52 @@ public class MessageController {
 		
 		return service.sendMessage(message);
 	}
+	
+	@GetMapping("block")
+	@ResponseBody
+	public int blockMessage(
+			@RequestParam(value="memberName", required = false) String memberName,
+			@SessionAttribute("loginMember") Member loginMember,
+			Model model
+			) {
+		
+		int memberNo = service.getBlockMemberNo(memberName);
+		
+		return service.blockMessage(memberNo, loginMember.getMemberNo());
+	}
+	
+	@GetMapping("blockMember")
+	@Async
+	public String blocMember(
+			@SessionAttribute("loginMember") Member loginMember,
+			Model model
+			) {
+		
+		List<Member> emailList = service.blockMemberList(loginMember.getMemberNo());
+		
+		model.addAttribute("emailList", emailList);
+		
+		return "common/main/message :: blockMemberList";
+	}
+	
+	@GetMapping("unblockMember")
+	@ResponseBody
+	public int unblockMember(
+			@RequestParam("memberEmail") String memberEmail,
+			@SessionAttribute("loginMember") Member loginMember
+			) {
+		
+		return service.unblockMember(memberEmail, loginMember.getMemberNo());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

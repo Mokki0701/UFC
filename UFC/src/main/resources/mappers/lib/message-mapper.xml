@@ -9,10 +9,15 @@
 	</select>
 	
 	<select id="selectMessageList">
-		SELECT MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV, MEMBER_EMAIL 
+		SELECT MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV, MEMBER_EMAIL
 		FROM "MESSAGE"
-		JOIN "MEMBER" ON(MESSAGE_REV = MEMBER_NO)
+		JOIN "MEMBER" ON (MESSAGE_SEN = MEMBER_NO)
 		WHERE MESSAGE_REV = #{memberNo}
+		  AND MESSAGE_SEN NOT IN (
+		    SELECT BLOCK_BEING
+		    FROM MESSAGE_BLOCK
+		    WHERE BLOCK_DO = #{memberNo}
+		  )
 		ORDER BY MESSAGE_NO DESC
 	</select>
 	
@@ -27,6 +32,11 @@
 		FROM "MESSAGE"
 		JOIN "MEMBER" ON(MESSAGE_REV = MEMBER_NO)
 		WHERE MESSAGE_SEN = #{memberNo}
+		  AND MESSAGE_REV NOT IN (
+		    SELECT BLOCK_BEING
+		    FROM MESSAGE_BLOCK
+		    WHERE BLOCK_DO = #{memberNo}
+		  )
 		ORDER BY MESSAGE_NO DESC
 	</select>
 	
@@ -68,7 +78,53 @@
 		VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, #{messageTitle}, #{messageContent}, DEFAULT, #{messageSen}, #{messageRev})
 	</insert>
 	
+	<select id="getRevMemberEmail">
+		SELECT MEMBER_EMAIL
+		FROM "MEMBER"
+		WHERE MEMBER_LAST_NAME || MEMBER_FIRST_NAME = #{memberName}
+	</select>
 	
+	<insert id="blockMessage">
+		INSERT INTO MESSAGE_BLOCK(BLOCK_NO, BLOCK_DO, BLOCK_BEING)
+		VALUES(SEQ_BLOCK_NO.NEXTVAL, #{loginMemberNo}, #{memberNo} )
+	</insert>
+	
+	<select id="getBlockMemberNo">
+		SELECT MEMBER_NO
+		FROM "MEMBER"
+		WHERE MEMBER_LAST_NAME || MEMBER_FIRST_NAME = #{memberName}
+	</select>
+	
+	<select id="blockCheck">
+		SELECT COUNT(*)
+		FROM MESSAGE_BLOCK
+		WHERE BLOCK_DO = #{loginMemberNo}
+		AND BLOCK_BEING = #{memberNo}
+	</select>
+	
+	<select id="blockMemberList">
+		SELECT BLOCK_BEING
+		FROM MESSAGE_BLOCK
+		WHERE BLOCK_DO = #{memberNo}
+	</select>
+	
+	<select id="getMemberEmail">
+		SELECT MEMBER_EMAIL
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<delete id="unblockMember">
+		DELETE FROM MESSAGE_BLOCK
+		WHERE BLOCK_DO = #{memberNo}
+		AND BLOCK_BEING = #{blockedMemberNo}
+	</delete>
+	
+	<select id="getMemberNo">
+		SELECT MEMBER_NO
+		FROM "MEMBER"
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
 	
 	
 

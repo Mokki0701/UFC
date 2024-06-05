@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.cooof.lesson.list.model.dto.LessonPagination;
+import edu.kh.cooof.member.model.dto.Member;
 import edu.kh.cooof.message.model.dto.Message;
 import edu.kh.cooof.message.model.mapper.MessageMapper;
 import lombok.RequiredArgsConstructor;
@@ -99,6 +100,59 @@ public class MessageServiceImpl implements MessageService {
 		return mapper.sendMessage(message);
 	}
 	
+	@Override
+	public String getRevMemberEmail(String memberName) {
+		
+		return mapper.getRevMemberEmail(memberName);
+	}
+	
+	@Override
+	public int blockMessage(int memberNo, int loginMemberNo) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("loginMemberNo", loginMemberNo);
+		
+		int result = mapper.blockCheck(map);
+		if(result > 0) {
+			return 0;
+		}
+		
+		return mapper.blockMessage(map);
+	}
+	
+	
+	@Override
+	public int getBlockMemberNo(String memberName) {
+		
+		return mapper.getBlockMemberNo(memberName);
+	}
+	
+	@Override
+	public List<Member> blockMemberList(int memberNo) {
+		
+		List<Member> blockMemberList = mapper.blockMemberList(memberNo);
+		
+		for(Member member : blockMemberList) {
+			
+			member.setMemberEmail(mapper.getMemberEmail(member.getBlockBeing()));
+			
+		}
+		
+		return blockMemberList;
+	}
+	
+	@Override
+	public int unblockMember(String memberEmail, int memberNo) {
+		
+		int blockedMemberNo = mapper.getMemberNo(memberEmail);
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("blockedMemberNo", blockedMemberNo);
+		
+		return mapper.unblockMember(map);
+	}
 	
 	
 	
