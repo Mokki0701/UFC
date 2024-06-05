@@ -318,7 +318,7 @@ body {
   height: 100%;
   color: #ad8d63;
   overflow: hidden;
-  animation: typing 6s steps(31) 0.5;
+  animation: typing 7s steps(31) 0.5;
 }
 
 @keyframes typing {

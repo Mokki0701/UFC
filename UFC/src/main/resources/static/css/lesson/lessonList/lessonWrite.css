@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 .lesson-post-content {
@@ -10,7 +11,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f2e2ce;
 }
 
 #lessonPostFrm {
@@ -81,7 +82,7 @@
 
 /* :focus-within : 내부 input 요소에 포커스가 맞춰졌을 때 */
 .lesson-input-area:focus-within {
-  border-bottom-color: #992BF2;
+  border-bottom-color: #bf9d5e;
 }
 
 /* 입력 관련 메세지 */
@@ -108,7 +109,7 @@
   border: none;
   font-size: 20px;
   font-weight: bold;
-  background-color: #992BF2;
+  background-color: #bf9d5e;
   color: white;
   cursor: pointer;
   border-radius: 5px;
@@ -116,7 +117,7 @@
 }
 
 #lessonPostBtn:hover, #lessonUpdateBtn:hover {
-  background-color: #6a1ea8;
+  background-color: #d9bd89;
 }
 
 #lessonPostBtn:active, #lessonUpdateBtn:active {
@@ -171,7 +172,7 @@
   border: none;
   font-size: 20px;
   font-weight: bold;
-  background-color: #992BF2;
+  background-color: #bf9d5e;
   color: white;
   cursor: pointer;
   border-radius: 5px;
@@ -179,7 +180,7 @@
 }
 
 .custom-button:hover {
-  background-color: #6a1ea8;
+  background-color: #d9bd89;
 }
 
 .custom-button:active {
