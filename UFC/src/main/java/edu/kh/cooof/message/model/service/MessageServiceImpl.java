@@ -70,6 +70,35 @@ public class MessageServiceImpl implements MessageService {
 		return mapper.deleteMessage(messageNo);
 	}
 	
+	@Override
+	public Message detailMessage(int messageNo, int memberNo) {
+		
+		int checkRead = mapper.checkRead(messageNo);
+		
+		Map	<String, Integer> map = new HashMap<>();
+		map.put("messageNo", messageNo);
+		map.put("memberNo", memberNo);
+				
+		if(checkRead > 0) {
+			
+			mapper.updateStatus(map);
+			
+		}
+		
+		
+		return mapper.detailMessage(messageNo);
+	}
+	
+	@Override
+	public int sendMessage(Message message) {
+		
+		int memberRev = mapper.getRevMemberNo(message.getMemberEmail());
+		
+		message.setMessageRev(memberRev);
+		
+		return mapper.sendMessage(message);
+	}
+	
 	
 	
 	

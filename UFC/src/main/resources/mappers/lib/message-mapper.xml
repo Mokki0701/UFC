@@ -13,6 +13,7 @@
 		FROM "MESSAGE"
 		JOIN "MEMBER" ON(MESSAGE_REV = MEMBER_NO)
 		WHERE MESSAGE_REV = #{memberNo}
+		ORDER BY MESSAGE_NO DESC
 	</select>
 	
 	<select id="getRevListCount">
@@ -24,13 +25,51 @@
 	<select id="selectRevMessageList">
 		SELECT MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV, MEMBER_EMAIL 
 		FROM "MESSAGE"
-		JOIN "MEMBER" ON(MESSAGE_SEN = MEMBER_NO)
+		JOIN "MEMBER" ON(MESSAGE_REV = MEMBER_NO)
 		WHERE MESSAGE_SEN = #{memberNo}
+		ORDER BY MESSAGE_NO DESC
 	</select>
 	
 	<delete id="deleteMessage">
 		DELETE FROM "MESSAGE"
 		WHERE MESSAGE_NO = #{messageNo}
 	</delete>
+	
+	<select id="checkRead">
+		SELECT COUNT(*)
+		FROM "MESSAGE"
+		WHERE MESSAGE_NO = #{messageNo}
+		AND MESSAGE_STATUS = 0
+	</select>
+	
+	<update id="updateStatus">
+		UPDATE "MESSAGE"
+		SET MESSAGE_STATUS = 1,
+			SEEN_DATE = SYSDATE
+		WHERE MESSAGE_NO = #{messageNo}
+		AND MESSAGE_REV = #{memberNo}
+	</update>
+	
+	<select id="detailMessage">
+		SELECT MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV, MEMBER_EMAIL, MESSAGE_CONTENT
+		FROM "MESSAGE"
+		JOIN "MEMBER" ON(MESSAGE_SEN = MEMBER_NO)
+		WHERE MESSAGE_NO = #{messageNo}
+	</select>
+
+	<select id="getRevMemberNo" resultType="_int">
+		SELECT MEMBER_NO
+		FROM "MEMBER"
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
+	
+	<insert id="sendMessage">
+		INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
+		VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, #{messageTitle}, #{messageContent}, DEFAULT, #{messageSen}, #{messageRev})
+	</insert>
+	
+	
+	
+	
 
 </mapper>

@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +33,8 @@ public class MessageController {
 			Model model
 			) {
 		
+		// 이거 타입에 따라서 쪽지 리스트에 들어가야 이메일에 들어가야 할 값을 보낸 사람이메일인지 받은 사람 이메일인지 확인 해야함
+		
 		if(type == 0) {
 			
 			Map<String, Object> map = service.selectMessageList(loginMember.getMemberNo(), cp);
@@ -47,7 +51,7 @@ public class MessageController {
 			model.addAttribute("pagination", map.get("pagination"));
 			model.addAttribute("messageList", map.get("messageList"));
 			
-		}
+		} 
 		
 		
 		return "common/main/message :: messageSelect";
@@ -60,6 +64,44 @@ public class MessageController {
 			) {
 		
 		return service.deleteMessage(messageNo);
+	}
+	
+	@GetMapping("detail")
+	public String detailMessage(
+			@RequestParam("messageNo") int messageNo,
+			@SessionAttribute("loginMember") Member loginMember,
+			Model model
+			) {
+		
+		Message message = service.detailMessage(messageNo, loginMember.getMemberNo());
+		
+		model.addAttribute("realMessage", message);
+		
+		return "common/main/messageDetail";
+	}
+	
+	@GetMapping("send")
+	public String sendMessage(
+			@RequestParam(value="memberEmail", required = false) String memberEmail,
+			Model model
+			) {
+		
+		model.addAttribute("memberEmail", memberEmail);
+		
+		return "common/main/messageSend";
+	}
+	
+	@PostMapping("sendMessage")
+	@ResponseBody
+	public int sendMessage(
+			@RequestBody Message message,
+			@SessionAttribute("loginMember") Member loginMember
+			) {
+		
+		message.setMessageSen(loginMember.getMemberNo());
+		
+		
+		return service.sendMessage(message);
 	}
 	
 	

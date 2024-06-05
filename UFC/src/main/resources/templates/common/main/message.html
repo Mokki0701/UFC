@@ -83,6 +83,8 @@
         opacity: 0.6; /* 시각적으로 비활성화됨을 표시 */
     }
 
+   
+
     </style>
 </head>
 
@@ -102,32 +104,39 @@
                 <div th:each="message : ${messageList}" th:object="${message}">
                     <div class="message-item">
                         <span th:text="*{memberEmail}">이메일</span>
-                        <span th:text="*{messageTitle}">제목</span>
+                        <span th:text="*{messageNo}" style="display:none"></span>
+                        <th:block th:if="*{messageStatus} == 0">
+                            <span onclick="openMessagePopup(this)" th:text="*{messageTitle}">제목</span>
+                        </th:block>
+                        <th:block th:if="*{messageStatus} == 1">
+                            <span onclick="openMessagePopup(this)" th:utext="|*{messageTitle} <span style='color: red;'>[읽은 시간 : *{seenDate}]</span>|">제목</span>
+                        </th:block>
                         <span th:text="*{messageDate}">보낸 날짜</span>
                         <div th:text="*{messageNo}" style="display:none"></div>
                         <button class="messageDeleteBtn" onclick="deleteMessage(this)">삭제</button>
                     </div>
                 </div>
                 <!-- 더 많은 받은 쪽지 메시지를 여기에 추가할 수 있습니다. -->
+                <!-- <div th:object="${pagination}">
+                    <li><button th:onclick="'paginationMessage(1)'">&lt;&lt;</button></li>
+                    <li><button th:onclick="'paginationMessage(' + *{prevPage} + ')'">&lt;</button></li>
+                    <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
+                        <li th:classappend="${i} == *{currentPage} ? 'active'">
+                            <button th:onclick="'paginationMessage(' + ${i} + ')'"
+                                    th:text="${i}"></button>
+                        </li>
+                    </th:block>
+                    <li><button th:onclick="'paginationMessage(' + *{nextPage} + ')'">&gt;</button></li>
+                    <li><button th:onclick="'paginationMessage(' + *{maxPage} + ')'">&gt;&gt;</button></li>
+                </div> -->
             </div>
 
-            <!-- <div th:object="${pagination}">
-                <li><button th:onclick="'paginationMessage(1)'">&lt;&lt;</button></li>
-                <li><button th:onclick="'paginationMessage(' + *{prevPage} + ')'">&lt;</button></li>
-                <th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
-                    <li th:classappend="${i} == *{currentPage} ? 'active'">
-                        <button th:onclick="'paginationMessage(' + ${i} + ')'"
-                                th:text="${i}"></button>
-                    </li>
-                </th:block>
-                <li><button th:onclick="'paginationMessage(' + *{nextPage} + ')'">&gt;</button></li>
-                <li><button th:onclick="'paginationMessage(' + *{maxPage} + ')'">&gt;&gt;</button></li>
-            </div> -->
         </div>
 
         <div class="write-message">
-            <button>쪽지 쓰기</button>
+            <button onclick="openSendMessagePopup()">쪽지 쓰기</button>
         </div>
     </div>
+
 </body>
 

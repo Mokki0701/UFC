@@ -13,4 +13,10 @@ public interface MessageService {
 
 	int deleteMessage(int messageNo);
 
+	Message detailMessage(int messageNo, int memberNO);
+
+	int sendMessage(Message message);
+
+	
+
 }

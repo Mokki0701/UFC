@@ -1,6 +1,7 @@
 package edu.kh.cooof.message.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -19,5 +20,15 @@ public interface MessageMapper {
 	List<Message> selectRevMessageList(int memberNo, RowBounds rowBounds);
 
 	int deleteMessage(int messageNo);
+
+	Message detailMessage(int messageNo);
+
+	void updateStatus(Map<String, Integer> map);
+
+	int checkRead(int messageNo);
+
+	int getRevMemberNo(String memberEmail);
+
+	int sendMessage(Message message);
 
 }

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/common/indexLib.css">
   <link rel="stylesheet" href="/css/gym/gymMain.css">
   <link rel="stylesheet" href="/css/member/signup-style.css">
+  <style id="message-styles"></style>
 
   
 
@@ -49,7 +50,11 @@
   <div>
 
 
-  <div th:replace="~{common/header}"/></div>
+    <div class="messageDropdown" onclick="clickDropDown()">
+      무끼 ▼
+    </div>
+
+  <div th:replace="~{common/header}"></div>
   <!-- 임시 헤더 -->
 
 
