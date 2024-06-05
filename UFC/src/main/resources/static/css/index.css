@@ -371,7 +371,58 @@ body {
   padding: 60px;
 }
 
+.main_info div:nth-of-type(2){
+  width: 50%;
+  height: 100%;
+  padding: 60px;
+}
+
 .conBox1 > p{
   margin-top: px;
 }
+
+.conBox2 {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 60% !important;
+  box-sizing: border-box;
+}
+
+.conBox2 .box {
+  flex-grow: 0;    /* 아이템의 증가 가능성을 0으로 설정 */
+  flex-shrink: 0;  /* 아이템의 감소 가능성을 0으로 설정 */
+  flex-basis: 50%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+}
+
+.conBox2 .box:nth-of-type(1) {
+  border-right: 1px solid #ad8d63;
+  border-bottom: 2px solid #ad8d63;
+  border-radius: 10px; /* 테두리의 모서리를 둥글게 만듭니다 */
+  background: url('../images/lib-removebg-preview.png') no-repeat center center;
+}
+.conBox2 .box:nth-of-type(2) {
+  border-left: 1px solid #ad8d63;
+  border-bottom: 2px solid #ad8d63;
+  border-radius: 10px; /* 테두리의 모서리를 둥글게 만듭니다 */
+  background: url('../images/lesson-removebg-preview.png') no-repeat center center;
+}
+.conBox2 .box:nth-of-type(3) {
+  border-right: 1px solid #ad8d63;
+  border-radius: 10px; /* 테두리의 모서리를 둥글게 만듭니다 */
+  background: url('../images/gym-removebg-preview.png') no-repeat center center;
+}
+
+.conBox2 .box:nth-of-type(4) {
+  border-left: 1px solid #ad8d63;
+  border-top: 1px solid #ad8d63;
+  border-radius: 10px;
+  background: url('../images/center.png') no-repeat center center;
+}
+
+
+
 
