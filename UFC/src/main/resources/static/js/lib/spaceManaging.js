@@ -248,7 +248,8 @@ function sendDivInfo() {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data);
+      alert(`${data} 개의 공간 저장이 완료되었습니다.`);
+      console.log(data);
     })
     .catch((error) => {
       console.error('Error:', error);
