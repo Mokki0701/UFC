@@ -23,7 +23,6 @@
 .libContentBox{
   display: flex;
   flex-direction: column;
-  border: 1px dotted red;
 
 }
 
@@ -279,9 +278,18 @@ a.libLink {
   display: block; /* 이미지에 호버 시 메시지 보이기 */
 }
 
+/* ---------------------- 세번째 슬라이드 : 열람실 이용 안내 ---------------------- */
 
+#libThirdInfoSlide{
 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
+.libSecondSlideChild{
+  min-width: 50%;
+}
 
 
 
