@@ -235,7 +235,7 @@ function closeModal() {
   if (checkMySeat) {
     checkMySeat.style.display = "none";
   }
-} 
+}
 
 // 모달 외부 클릭 시 닫기
 window.onclick = function (e) {
@@ -268,7 +268,6 @@ window.onclick = function (e) {
 
 // 모달 표시하기
 function openBookingSeatModal() {
-
   const seatNo = document.getElementById('currentSelectSeat').innerText.trim();
   if (!seatNo) {
     alert("예약하고자 하는 열람실 좌석을 선택해주세요.");
@@ -283,7 +282,63 @@ function openBookingSeatModal() {
   const now = new Date();
   currentTimeSpan.textContent = now.toLocaleTimeString();
 
+  // 현재 시간 기준 +1시간 설정
+  let nextHour = new Date(now);
+  nextHour.setHours(nextHour.getHours() + 1);
+
+  let amPm = nextHour.getHours() >= 12 ? 'PM' : 'AM';
+  let hour = nextHour.getHours() % 12;
+  if (hour === 0) hour = 12; // 12시 표기 처리
+  let minute = nextHour.getMinutes();
+
+  // 값 설정
+  document.getElementById('amPm').value = amPm;
+  document.getElementById('hour').value = hour.toString().padStart(2, '0');
+  document.getElementById('minute').value = (Math.floor(minute / 5) * 5).toString().padStart(2, '0'); // 5분 단위로 반올림
+
+  // 시간 선택 옵션 설정
+  setAvailableTimes(now);
 }
+
+// 현재 시간 전 시간은 선택하지 못하게 하기.
+function setAvailableTimes(currentTime) {
+  const amPmSelect = document.getElementById('amPm');
+  const hourSelect = document.getElementById('hour');
+  const minuteSelect = document.getElementById('minute');
+
+  const currentHour = currentTime.getHours();
+  const currentMinute = currentTime.getMinutes();
+
+  // AM/PM 설정
+  if (currentHour >= 12) {
+    amPmSelect.querySelector('option[value="AM"]').disabled = true;
+    amPmSelect.querySelector('option[value="PM"]').disabled = false;
+  } else {
+    amPmSelect.querySelector('option[value="AM"]').disabled = false;
+    amPmSelect.querySelector('option[value="PM"]').disabled = false;
+  }
+
+  // 시간 설정
+  Array.from(hourSelect.options).forEach(option => {
+    const hourValue = parseInt(option.value);
+    let hour24 = hourValue;
+    if (amPmSelect.value === 'PM' && hour24 !== 12) {
+      hour24 += 12;
+    } else if (amPmSelect.value === 'AM' && hour24 === 12) {
+      hour24 = 0;
+    }
+    option.disabled = (hour24 < currentHour) || (hour24 === currentHour && parseInt(minuteSelect.value) <= currentMinute);
+  });
+
+  // 분 설정
+  Array.from(minuteSelect.options).forEach(option => {
+    option.disabled = (parseInt(option.value) <= currentMinute && hourSelect.value == currentHour % 12);
+  });
+}
+
+document.getElementById('amPm').addEventListener('change', () => setAvailableTimes(new Date()));
+document.getElementById('hour').addEventListener('change', () => setAvailableTimes(new Date()));
+document.getElementById('minute').addEventListener('change', () => setAvailableTimes(new Date()));
 
 function realBookingSeat() {
   const seatNo = document.getElementById('currentSelectSeat').innerText.trim();
@@ -395,13 +450,13 @@ function extendSeat() {
       .then(response => response.json())
       .then(result => {
         alert(result.message);
-        
+
       })
       .catch(error => {
         console.error('Error:', error);
         alert('오류 발생, 관리자에게 문의하세요.');
       });
-      closeModal();
+    closeModal();
   }
 
 
@@ -439,7 +494,7 @@ function checkMySeatReservation() {
 
   // 모달 
   const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
-  
+
 
   fetch('/lib/seats/checkMySeatReservation', {
     method: 'POST',
