@@ -1,11 +1,11 @@
 body {
   font-family: Arial, sans-serif;
   /* 폰트 스타일 설정 */
-  background-color: #f9f9f9;
+  background-color: #f2e2ce;
   /* 배경 색상 설정 */
   margin: 0;
   /* 기본 여백 제거 */
-  padding: 20px;
+  padding: 0px;
   /* 내부 여백 설정 */
 }
 
@@ -169,7 +169,7 @@ body {
   /* 모서리 둥글게 설정 */
   transition: all 0.2s;
   /* 모든 변화에 대한 전환 효과 설정 */
-  background: #992BF2;
+  background: #bf9d5e;
   /* 배경 색상 설정 */
   border: none;
   /* 테두리 제거 */
@@ -178,7 +178,7 @@ body {
 .deleteBtn:hover,
 .signupBtn:hover,
 .gobackBtn:hover {
-  background: #7b23c3;
+  background: #dcb002;
   /* 배경 색상 변경 */
 }
 
