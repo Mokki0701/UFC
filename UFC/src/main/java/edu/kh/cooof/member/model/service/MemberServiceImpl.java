@@ -36,10 +36,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	// 로그인
 	@Override
-	public Member login(Member inputMember) {
-		
-	
-		
+	public Member login(Member inputMember) {		
 		
 		Member loginMember = mapper.login(inputMember.getMemberEmail());
 		if(loginMember == null) return null;

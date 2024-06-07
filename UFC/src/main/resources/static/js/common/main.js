@@ -4,7 +4,8 @@ const tabColors = {
 	'lesson': '#D9BD89',
 	'health': '#ffffdd',
 	'community': '#F2DDB6',
-	'myPage': '#BF7B54'
+	'myPage': '#BF7B54',
+	'login' : '#BF7B54'
 };
 
 const openTab = (tabName) => {

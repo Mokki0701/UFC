@@ -207,6 +207,11 @@ body {
   background-color: #ffffdd;
 }
 
+.login,
+.tab.login.active {
+  background-color: #ffffdd;
+}
+
 .arrow-down {
   position: absolute;
   right: 50px;
@@ -275,6 +280,7 @@ body {
 .swiper-slide:nth-of-type(5)>div {
   background-color: bisque;
 }
+
 
 /* pagination  안보이게 하기 */
 .swiper-pagination {
