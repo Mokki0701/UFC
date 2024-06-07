@@ -158,6 +158,7 @@ public class CommonScheduling {
 
 		// 열람실 이용 종료 시간 확인하기
 		LibSeatDTO checkReadingDone = service.checkReadingDone(sysdate);
+		log.info("시간 만료된 회원의 열람실 이용 종료 실행");
 
 		// 이용 종료 시간이 sysdate인 사람이 있다면
 		if (checkReadingDone != null) {
