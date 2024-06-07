@@ -287,7 +287,7 @@ function realBookingSeat() {
     startTime: selectedTime
   };
 
-  
+
 
   // 1. 좌석이 예약 가능한지 여부 판단하기
   fetch('/lib/seats/checkAvailReservation', {
@@ -320,8 +320,7 @@ function realBookingSeat() {
 function checkMySeat() {
   const checkMyseat = document.getElementById('checkMyseat');
 
-  // 필요한 정보를 보여주는 모달 표시
-  checkMyseat.style.display = "block";
+
 
   // 정보를 표시 할 span
 
@@ -343,6 +342,9 @@ function checkMySeat() {
         checkMyseat.style.display = "none";
 
       } else {
+        // 필요한 정보를 보여주는 모달 표시
+        checkMyseat.style.display = "block";
+
         // 내부 텍스트를 결과로 표시하기
         // 현재 시간은 24시간제, hh:mm:ss:로 표시됨.
         const startTime = document.querySelector("#startTime");
