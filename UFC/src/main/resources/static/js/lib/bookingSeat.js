@@ -87,7 +87,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 버튼 클릭 시 동작
+  // 이용 불가능한 좌석 클릭시 alert
+  // + 선택 된 좌석임을 가시적으로 표시.
+  const seatAlert = document.querySelectorAll(".seat");
+
+  seatAlert.forEach(seat => {
+    seat.addEventListener("click", function () {
+      
+      if (seat.classList.contains("disavailSeat")) {
+        alert("해당 좌석은 사용 불가능합니다.");
+        return;
+      }
+  
+      if (seat.classList.contains("nowUsing")) {
+        alert("해당 좌석은 이미 다른 사람이 사용 중 입니다.");
+        return;
+      }
+  
+      if (seat.classList.contains("aisle")) {
+        alert("클릭하신 공간은 이동 통로로 이용이 불가능합니다.");
+        return;
+      }
+  
+      // 모든 seat의 nowSelected 클래스를 제거
+      seatAlert.forEach(s => s.classList.remove("nowSelectedSeat"));
+      
+      // 현재 선택된 seat에 nowSelected 클래스를 추가
+      seat.classList.add("nowSelectedSeat");
+    });
+  });
+  
+
+
+  // 이용하기 버튼 클릭 시 동작
   const useSeatBtn = document.querySelector("#useSeat");
 
   // 이용 가능한 좌석에만 반응하기
