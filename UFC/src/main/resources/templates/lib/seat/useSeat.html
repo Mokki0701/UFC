@@ -21,7 +21,7 @@
 
   <div id="seatSack">
     <h1>열람실 자리 확인/이용</h1>
-  
+
     <!-- 좌석의 상태를 안내하는 div 모음 -->
     <div class="sampleSeatSack">
       <div class="sampleSeatPair">
@@ -37,10 +37,10 @@
         <span> 사용중인 좌석</span>
       </div>
     </div>
-  
-  
+
+
     <br><br>
-  
+
     <!-- 좌석이 만들어지는 div 칸 -->
     <div class="seat-chart" id="seatChart"></div>
   </div>
@@ -72,7 +72,7 @@
     <button id="bookingSeat" type="button" onclick="openBookingSeatModal()">예약하기</button>
 
     <button type="button" onclick="checkMySeat()">이용중인 열람실 확인하기</button>
-    
+
     <button type="button" onclick="checkMySeatReservation()">열람실 예약 확인하기</button>
 
     <button id="stopUsingSeat">이용 종료</button>
@@ -86,7 +86,7 @@
 
 
 
-  <!-- 공간 예약하기 모달 -->
+  <!-- 좌석 예약하기 모달 -->
   <div id="bookingModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -130,7 +130,9 @@
           <option value="55">55</option>
         </select>
       </div>
-      <button onclick="realBookingSeat()">예약하기</button>
+      <div class="buttonSack">
+        <button onclick="realBookingSeat()">예약하기</button>
+      </div>
     </div>
   </div>
 
@@ -173,7 +175,7 @@
 
 
   <!-- 열람실 예약 확인용 모달 -->
-  
+
   <div id="checkMySeatReservation" class="checkMySeatReservationModal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
