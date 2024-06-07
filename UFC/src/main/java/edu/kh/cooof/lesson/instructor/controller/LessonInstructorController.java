@@ -169,10 +169,11 @@ public class LessonInstructorController {
 	@PostMapping("accept")
 	@ResponseBody
 	public int instAccept(
-			@RequestBody int memberNo
+			@RequestBody int memberNo,
+			@SessionAttribute("loginMember") Member loginMember
 			) {
 		
-		int result = service.instAccept(memberNo);
+		int result = service.instAccept(memberNo, loginMember.getMemberNo());
 		
 		return result;
 	}
@@ -181,10 +182,11 @@ public class LessonInstructorController {
 	@PostMapping("reject")
 	@ResponseBody
 	public int instReject(
-			@RequestBody int memberNo
+			@RequestBody int memberNo,
+			@SessionAttribute("loginMember") Member loginMember
 			) {
 		
-		int result = service.instReject(memberNo);
+		int result = service.instReject(memberNo, loginMember.getMemberNo());
 		
 		return result;
 	}

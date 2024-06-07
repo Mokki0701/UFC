@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 안내/신청</title>
 
+    <th:block th:replace="~{common/common}"></th:block>
     <link rel="stylesheet" href="/css/lesson/lessonList/lessonDetail.css">
 
 
@@ -60,7 +61,7 @@
                 <td th:if="${lesson.lessonTuitionFee == 0}" th:text="무료">수강료</td>
                 <td th:if="${lesson.lessonTuitionFee != 0}" th:text="${lesson.lessonTuitionFee} + '원'">수강료</td>
                 <th>강사명</th>
-                <td th:text="${lesson.instName}">강사명</td>
+                <td th:text="${lesson.instName}" class="messageDropdown" onclick="clickDropDown(this)">강사명</td>
             </tr>
 
 

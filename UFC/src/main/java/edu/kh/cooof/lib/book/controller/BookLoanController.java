@@ -178,10 +178,11 @@ public class BookLoanController {
 	@ResponseBody
 	public void extendLoan(
 			@SessionAttribute("loginMember") Member loginMember,
-			@RequestParam("loanBookNo") int loanBookNo
+			@RequestParam("loanBookNo") int loanBookNo,
+			@RequestParam("loanMemberNo") int applyMemberNo
 			) {
 		
-		service.loanExtend(loanBookNo);
+		service.loanExtend(loanBookNo, applyMemberNo, loginMember.getMemberNo());
 		
 	}
 	
@@ -226,10 +227,11 @@ public class BookLoanController {
 	public int completeHopeBook(
 			@SessionAttribute("loginMember") Member loginMember,
 			@RequestParam("newBookNo") int newBookNo,
+			@RequestParam("applyMemberNo") int applyMemberNo,
 			Model model
 			) {
 		
-		return service.completeHopeBook(newBookNo);
+		return service.completeHopeBook(newBookNo, applyMemberNo, loginMember.getMemberNo());
 	}
 	
 	// ------------------------------------------------------------------

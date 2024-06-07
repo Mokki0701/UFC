@@ -44,14 +44,16 @@ public interface LessonInstructorService {
 
 	/** 강사 요청 승인
 	 * @param memberNo
+	 * @param loginMemberNo 
 	 * @return
 	 */
-	int instAccept(int memberNo);
+	int instAccept(int memberNo, int loginMemberNo);
 
 	/** 강사 요청 거절
 	 * @param memberNo
+	 * @param i 
 	 * @return
 	 */
-	int instReject(int memberNo);
+	int instReject(int memberNo, int i);
 
 }
