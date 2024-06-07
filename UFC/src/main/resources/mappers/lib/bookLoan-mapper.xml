@@ -182,7 +182,26 @@
 		ORDER BY LOAN_BOOK_NO 
 	</select>
 
-
+	<insert id="transmitMessage">
+    <choose>
+        <when test="checkNo == 1">
+            INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
+            VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, '희망 도서 신청 완료', '신청하신 희망 도서가 입고하였습니다.', DEFAULT, #{memberNo}, #{applyMemberNo})
+        </when>
+        <when test="checkNo == 2">
+            INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
+            VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, '도서 연장 신청 완료', '신청하신 도서 연장이 완료되었습니다.', DEFAULT, #{memberNo}, #{applyMemberNo})
+        </when>
+        <when test="checkNo == 3">
+            INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
+            VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, '강사 신청 승인', '지원하신 강사 자리에 신청 승인 되었습니다.', DEFAULT, #{memberNo}, #{applyMemberNo})
+        </when>
+        <when test="checkNo == 4">
+            INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
+            VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, '강사 신청 거절', '지원하신 강사 자리에 신청 거절 되었습니다.', DEFAULT, #{memberNo}, #{applyMemberNo})
+        </when>
+    </choose>
+</insert>
 
 
 

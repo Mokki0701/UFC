@@ -59,4 +59,6 @@ public interface BookLoanMapper {
 
 	List<LoanBook> queryExtendList(String query, RowBounds rowBounds);
 
+	void transmitMessage(Map<String, Integer> map);
+
 }

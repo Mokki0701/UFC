@@ -21,7 +21,7 @@ public interface BookLoanService {
 
 	Map<String, Object> selectCompleteList(int cp, String query, int loanBookNo, int bookNo);
 
-	void loanExtend(int loanBookNo);
+	void loanExtend(int loanBookNo, int applyMemberNo, int memberNo);
 
 	Map<String, Object> selectHopeList(int cp);
 
@@ -29,7 +29,7 @@ public interface BookLoanService {
 
 	Map<String, Object> queryHopeList(int cp, String query);
 
-	int completeHopeBook(int newBookNo);
+	int completeHopeBook(int newBookNo, int applyMemberNo, int memberNo);
 
 	Map<String, Object> queryExtendList(int cp, String query);
 
