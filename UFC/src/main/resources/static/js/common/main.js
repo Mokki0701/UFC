@@ -78,17 +78,43 @@ const openTab = (tabName) => {
 
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
 	const tabs = document.querySelectorAll('.tab');
 	tabs.forEach(tab => {
 		tab.addEventListener('click', () => {
 			const tabName = tab.dataset.tab;
 			openTab(tabName);
-
 		});
 	});
+
+	const messageBody = document.querySelector(".message-container");
+
+	if(loginCheck) {
+
+		messageBody.style.display="block";
+
+		messageListSelect(0);
+
+
+	}
+	else{
+		messageBody.style.display="none";
+
+
+	}
 	openTab('main'); // 기본적으로 첫 번째 탭 열기
 });
+
+function messageListSelect(type){
+
+	fetch("/message/select?type="+type)
+		.then(response => response.text())
+		.then(html => {
+			document.querySelector('.messageSelect').innerHTML = html;
+		})
+
+}
 
 
 

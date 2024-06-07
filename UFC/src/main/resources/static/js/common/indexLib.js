@@ -40,6 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 200);
       });
 
+      // 모든 버튼에서 libSelectedBtn 클래스 제거
+      buttons.forEach(btn => btn.classList.remove('libSelectedBtn'));
+
+      // 클릭된 버튼에 libSelectedBtn 클래스 추가
+      button.classList.add('libSelectedBtn');
+
       // 해당하는 정보 div를 표시
       const activeDiv = document.querySelector(`#infoContainer > div[data-floor="${floor}"]`);
       if (activeDiv) {
@@ -57,5 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
   firstDiv.classList.add('active');
   firstDiv.style.opacity = 1;
   firstDiv.style.transform = 'translateY(0)';
-  
+
+  // 초기 설정: 지상 1층 버튼 활성화
+  const firstButton = buttons[1];
+  firstButton.classList.add('libSelectedBtn');
 });
+
+
+// 이미지 호버 시 메세지가 커서를 따라가게 하기
+document.addEventListener('DOMContentLoaded', () => {
+  const libBackElements = document.querySelectorAll('.libBack');
+
+  libBackElements.forEach(libBack => {
+    const libHoverMessage = libBack.querySelector('.libHoverMessage');
+
+    libBack.addEventListener('mousemove', (event) => {
+      const rect = libBack.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      libHoverMessage.style.left = `${x}px`;
+      libHoverMessage.style.top = `${y}px`;
+    });
+
+    libBack.addEventListener('mouseenter', () => {
+      libHoverMessage.style.display = 'block';
+    });
+
+    libBack.addEventListener('mouseleave', () => {
+      libHoverMessage.style.display = 'none';
+    });
+  });
+});
+

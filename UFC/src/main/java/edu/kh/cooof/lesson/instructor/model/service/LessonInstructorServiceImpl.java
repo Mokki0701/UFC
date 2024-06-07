@@ -13,6 +13,7 @@ import edu.kh.cooof.lesson.instructor.model.dto.LessonInstructor;
 import edu.kh.cooof.lesson.instructor.model.mapper.LessonInstructorMapper;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.lesson.list.model.mapper.EditLessonListMapper;
+import edu.kh.cooof.lib.book.model.mapper.BookLoanMapper;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class LessonInstructorServiceImpl implements LessonInstructorService {
 
 	private final LessonInstructorMapper mapper;
+	
+	private final BookLoanMapper messageMapper;
 
 	// 강사 조회
 	@Override
@@ -71,15 +74,34 @@ public class LessonInstructorServiceImpl implements LessonInstructorService {
 
 	// 강사 승인
 	@Override
-	public int instAccept(int memberNo) {
+	public int instAccept(int memberNo, int loginMemberNo) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("applyMemberNo", memberNo);
+		map.put("memberNo", loginMemberNo);
+		map.put("checkNo", 3);
+		
+		messageMapper.transmitMessage(map);
 		
 		return mapper.instAccept(memberNo);
 	}
 	
 	// 강사 거절
 	@Override
-	public int instReject(int memberNo) {
+	public int instReject(int memberNo, int loginMemberNo) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("applyMemberNo", memberNo);
+		map.put("memberNo", loginMemberNo);
+		map.put("checkNo", 4);
+		
+		messageMapper.transmitMessage(map);
+		
 		return mapper.instReject(memberNo);
 	}
 
+	
+	
+	
+	
 }

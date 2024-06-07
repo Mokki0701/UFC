@@ -2,12 +2,16 @@ body.application-list-body {
     margin: 0;
     padding: 0;
     font-family: 'TTHakgyoansimMonggeulmonggeulR';
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 최소 높이를 전체 화면 높이로 설정 */
 }
 
 .application-list {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
+    flex-grow: 1; /* 남은 공간을 채우도록 설정 */
 }
 
 .application-list h3 {
@@ -66,4 +70,11 @@ body.application-list-body {
 .table a.detail-link:hover {
     color: darkblue; /* 호버 시 더 진한 푸른색 */
     text-decoration: underline;
+}
+
+footer {
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto; /* 페이지 하단에 위치하도록 설정 */
 }

@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym 게시글 상세 보기</title>
-    <link rel="stylesheet" href="/css/gym/gymMain.css">
+    <link rel="stylesheet" href="/css/gym/gymHeader.css">
+    <link rel="stylesheet" href="/css/common/header.css">
 </head>
 <body>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
+
     <h1 th:text="${gymReview.gymTitle}"></h1>
     <p>작성자: <span th:text="${gymReview.memberLastName} + '**'  "></span></p>
     <p th:text="${gymReview.gymContent}"></p>
     <p>작성일: <span th:text="${gymReview.gymWriteDate}"></span></p>
     <!-- 다른 게시글 내용을 추가로 표시할 수 있음 -->
+
+    <th:block th:replace="~{/common/footer}">footer</th:block>
 </body>
 </html>

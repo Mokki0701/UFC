@@ -1,4 +1,64 @@
 <div id="community" class="tab-content community">
-  <div class="content"></div>
-  <div class="arrow-down">&#8595;</div>
+  <div class="content">
+
+    <!-- 도서 -->
+    <div class="community_wrapper">
+      <table class="board-table">
+        <h3>BEST 도서</h3>
+        <thead>
+          <tr>
+              <th scope="col" class="th-num">번호</th>
+              <th scope="col" class="th-title">제목</th>
+              <th scope="col" class="th-date">출판사</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="book : ${bookList}" th:object="${book}">
+              <td th:text="*{bookNo}">책번호</td>
+              <th>
+                <a th:href="@{|/book/bookDetail?bookNo=${book.bookNo}|}" th:text="*{bookTitle}">제목</a>
+                <!-- <p th:text="*{bookPublisher}">테스트</p> -->
+              </th>
+              <td th:text="*{bookPublisher}">출판사</td>
+          </tr>
+        </tbody>
+    </table>
+    </div>
+    
+    <!-- 평생교육 -->
+    <div>
+
+      <table class="board-table">
+        <h3>BEST 프로그램</h3>
+        <thead>
+          <tr>
+              <th scope="col" class="th-num">번호</th>
+              <th scope="col" class="th-title">수업명</th>
+              <th scope="col" class="th-date">교육 요일 및 시간</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="lesson : ${lessonList}" th:object="${lesson}">
+            <td th:text="*{lessonNo}">프로그램번호</td>
+            <th>
+              <a th:href="@{|/lesson/list/${lesson.lessonNo}|}" th:text="*{lessonTitle}">프로그램제목</a>
+              <!-- <p th:text="*{bookPublisher}">테스트</p> -->
+            </th>
+            <td th:text="*{lessonSchedule}">스케쥴</td>
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
+    
+    <!-- 헬스 -->
+    <div></div>
+
+
+
+
+  </div>
+  <!-- <div class="arrow-down">&#8595;</div> -->
 </div>

@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 게시판</title>
-    <link rel="stylesheet" href="/css/gym/gymMain.css">
+    <link rel="stylesheet" href="/css/gym/gymHeader.css">
     <link rel="stylesheet" href="/css/common/header.css">
+    <th:block th:replace="~{common/common}"></th:block>
     <style>
         /* 간단한 스타일 추가 */
         table {
@@ -30,10 +31,46 @@
         .pagination .active {
             font-weight: bold;
         }
+
+        /* ----------------------------- */
+
+        .messageDropdown {
+        cursor: pointer;
+        }
+
+        .messageDropdown:hover {
+        color: gray; /* 색상을 원하는 대로 변경할 수 있습니다 */
+        }
+
+        .dropdown-content {
+        display: none;
+        background-color: white;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border: 1px solid #ccc;
+        }
+
+        .dropdown-content a {
+        color: black;
+        padding: 10px 12px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        }
+
+        .show {
+        display: block;
+        }
+
+        /* ----------------------------- */
+
     </style>
 </head>
 <body>
-    <th:block th:replace="~{common/header}"></th:block>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
 
     
@@ -59,7 +96,9 @@
                         <td>
                             <a th:href="@{/reviews/view(gymNo=${gym.gymNo})}" th:text="${gym.gymTitle}"></a>
                         </td>
-                        <td th:text="${gym.memberLastName} + ${gym.memberFirstName}"></td>
+
+                        <td th:text="${gym.memberLastName}+${gym.memberFirstName}" class="messageDropdown" onclick="clickDropDown(this)"></td>
+
                         <td th:text="${gym.gymWriteDate}"></td>
                             
                     </tr>
@@ -95,7 +134,7 @@
 
     
     
-
+    <th:block th:replace="~{/common/footer}">footer</th:block>
    <script src="/js/gym/gymReview.js"></script>
    
  

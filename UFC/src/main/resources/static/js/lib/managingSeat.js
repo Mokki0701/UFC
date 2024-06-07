@@ -157,8 +157,18 @@ doneSeat.addEventListener('click', () => {
   });
 });
 
+// 로딩창 모달
+
+
+
+
 // 좌석 편집 현황 저장
 document.getElementById('saveSeat').addEventListener('click', () => {
+
+  // 로딩 모달 창 열기
+  const loadingModal = document.querySelector("#loadingModal");
+  loadingModal.style.display = "flex";
+
   const seatData = [];
   const seats = document.querySelectorAll('.seat');
   seats.forEach((seat, index) => {  // index를 사용하여 SEAT_NO 고유하게 설정
@@ -190,9 +200,11 @@ document.getElementById('saveSeat').addEventListener('click', () => {
     .then(data => {
       console.log('Save successful', data);
       alert("변경 사항 저장 완료");
+      loadingModal.style.display = "none";
     })
     .catch(error => {
       console.error('There was a problem with the fetch operation:', error);
+      loadingModal.style.display = "none";
     });
 });
 

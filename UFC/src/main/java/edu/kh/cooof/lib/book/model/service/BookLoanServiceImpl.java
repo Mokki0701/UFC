@@ -217,10 +217,16 @@ public class BookLoanServiceImpl implements BookLoanService {
 	}
 	
 	@Override
-	public void loanExtend(int loanBookNo) {
+	public void loanExtend(int loanBookNo, int applyMemberNo, int memberNo) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("applyMemberNo", applyMemberNo);
+		map.put("memberNo", memberNo);
+		map.put("checkNo", 2);
+		
+		mapper.transmitMessage(map);
 		
 		mapper.loanExtend(loanBookNo);
-		
 	}
 
 	
@@ -274,7 +280,15 @@ public class BookLoanServiceImpl implements BookLoanService {
 	
 	
 	@Override
-	public int completeHopeBook(int newBookNo) {
+	public int completeHopeBook(int newBookNo, int applyMemberNo, int memberNo) {
+		
+		// check가 1일 땐 희망도서 입고
+		Map<String, Integer> map = new HashMap<>();
+		map.put("applyMemberNo", applyMemberNo);
+		map.put("memberNo", memberNo);
+		map.put("checkNo", 1);
+		
+		mapper.transmitMessage(map);
 		
 		return mapper.completeHopeBook(newBookNo);
 	}
