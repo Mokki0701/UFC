@@ -54,9 +54,9 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 	
 	// 열람실 이용 종료 시간 체크하기
 	@Override
-	public LibSeatDTO checkReadingDone(Date sysdate) {
+	public List<LibSeatDTO> checkReadingDone(Date sysdate) {
 		
-		return  mapper.checkReadingDone(sysdate);
+		return  (List<LibSeatDTO>) mapper.checkReadingDone(sysdate);
 	}
 	
 	// 열람실 이용 종료 실행
@@ -69,6 +69,7 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 		// 좌석 상태 업데이트하기
 		int setAvail = mapper.setAvail(expiredSeat);
 		
-		return 0;
+		// 두 작업의 성공 여부를 합산하여 반환
+        return setSeat + setAvail;
 	}
 }
