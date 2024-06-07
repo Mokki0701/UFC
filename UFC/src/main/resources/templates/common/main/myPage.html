@@ -134,6 +134,37 @@
         </section>
 
       </div>
+      <div class="swiper-slide">
+        <div>
+          <h1>마이페이지</h1>
+          <div>
+            내 정보
+          </div>
+          <div>
+            <h1>비밀번호 변경</h1>
+            <span>
+              현재 비밀번호와 일치하는 경우
+              새 비밀번호로 변할 수 있습니다
+            </span>
+
+            <form action="changePw" method="POST" name="" id="changePw">
+
+              <div class="myPAGE"></div>
+
+            </form>
+
+          </div>
+          <div>
+            회원탈퇴
+          </div>
+          <div class="MessageSize">
+        
+            <div th:replace="~{common/main/message}"></div>
+        
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
            
@@ -141,14 +172,7 @@
       
 
       
-      <div>
-        
-        <div th:replace="~{common/main/message}"></div>
-        
-
-
-    
-      </div>
+      
       
     
     
