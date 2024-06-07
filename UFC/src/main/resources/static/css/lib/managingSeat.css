@@ -28,7 +28,7 @@
 
 .seat-chart {
   display: grid;
-  grid-template-columns: repeat(20, 30px);
+  grid-template-columns: repeat(20, 40px);
   grid-gap: 2px;
   position: relative;
 
@@ -37,8 +37,8 @@
 }
 
 .seat {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   background-color: #ddd;
   border: 1px solid #666;
   box-sizing: border-box;
@@ -46,16 +46,15 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .seat:hover{
-  background-color: rgba(66, 34, 12, 0.3);
-  border: 2px dashed rgba(46, 18, 0, 0.6);
-  color: black;
+  border: 2px dotted rgba(255, 0, 0, 0.6);
+  color: yellow;
   /* font-weight: bold; */
 
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 

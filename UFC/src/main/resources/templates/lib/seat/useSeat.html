@@ -159,7 +159,9 @@
           <p>현재 연장 기회 : <span id="remainingExtensions"></span> </p>
 
           <!-- 연장 버튼  -->
-          <button type="button" onclick="extendSeat()">연장 하기</button>
+          <div class="buttonSack">
+            <button type="button" onclick="extendSeat()">연장 하기</button>
+          </div>
         </th:block>
       </div>
       <div th:if="${session.memberAndSeatSession == null}">

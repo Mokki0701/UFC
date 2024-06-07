@@ -190,8 +190,6 @@ stopUsingSeat.addEventListener("click", () => {
         } else {
           console.warn(`Seat with seatNo ${seatNo} not found`);
         }
-        // 페이지를 리다이렉트
-        window.location.href = '/';
       }
     })
     .catch(error => {
