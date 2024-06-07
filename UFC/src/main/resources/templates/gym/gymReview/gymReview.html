@@ -96,7 +96,9 @@
                         <td>
                             <a th:href="@{/reviews/view(gymNo=${gym.gymNo})}" th:text="${gym.gymTitle}"></a>
                         </td>
+
                         <td th:text="${gym.memberLastName}+${gym.memberFirstName}" class="messageDropdown" onclick="clickDropDown(this)"></td>
+
                         <td th:text="${gym.gymWriteDate}"></td>
                             
                     </tr>
