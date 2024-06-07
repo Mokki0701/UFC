@@ -235,7 +235,7 @@ function closeModal() {
   if (checkMySeat) {
     checkMySeat.style.display = "none";
   }
-}
+} 
 
 // 모달 외부 클릭 시 닫기
 window.onclick = function (e) {
@@ -437,9 +437,9 @@ function formatDateTime(dateTimeStr) {
 
 function checkMySeatReservation() {
 
-  // 모달 열기
+  // 모달 
   const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
-  checkMySeatReservation.style.display = "block";
+  
 
   fetch('/lib/seats/checkMySeatReservation', {
     method: 'POST',
@@ -459,6 +459,8 @@ function checkMySeatReservation() {
 
       if (result.SEATNO && result.STARTBOOKING) {
         if (reservedSeatNoElement && startBookingTimeElement) {
+          // 모달 열기
+          checkMySeatReservation.style.display = "block";
           reservedSeatNoElement.innerText = result.SEATNO;
           startBookingTimeElement.innerText = formatDateTime(result.STARTBOOKING);
         } else {
