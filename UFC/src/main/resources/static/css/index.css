@@ -467,6 +467,7 @@ body {
   line-height: 1.4;
   word-break: break-all;
   vertical-align: middle;
+  text-decoration: none;
 }
 .board-table a:hover {
   text-decoration: underline;
