@@ -200,6 +200,16 @@
             INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
             VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, '강사 신청 거절', '지원하신 강사 자리에 신청 거절 되었습니다.', DEFAULT, #{memberNo}, #{applyMemberNo})
         </when>
+		<when test="checkNo == 5">
+            INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
+            VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, '열람실 반환 5분전', '현재 사용하고 계시는 열림실의 이용 시간이 5분 남았습니다.', DEFAULT, #{memberNo}, #{applyMemberNo})
+        </when>
+        <when test="checkNo == 6">
+            INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_DATE, SEEN_DATE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SEN, MESSAGE_REV)
+            VALUES (SEQ_MESSAGE_NO.NEXTVAL, SYSDATE, SYSDATE, '열람실 사용 종료', '현재 사용하고 계시는 열림실의 이용 시간이 끝났습니다.', DEFAULT, #{memberNo}, #{applyMemberNo})
+        </when>        
+        
+        
     </choose>
 </insert>
 

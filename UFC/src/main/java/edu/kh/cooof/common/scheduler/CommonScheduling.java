@@ -14,12 +14,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import edu.kh.cooof.common.scheduler.mapper.SchedulingMapper;
 import edu.kh.cooof.common.scheduler.service.CommonSchedulingService;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.lib.book.model.mapper.BookLoanMapper;
 import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.member.model.dto.Member;
+import jakarta.servlet.ServletContext;
 import lombok.extern.slf4j.Slf4j;
 
 /* Spring Scheduler : 
@@ -47,7 +50,13 @@ public class CommonScheduling {
 	private CommonSchedulingService service;
 
 	@Autowired
+    private ServletContext servletContext;
+	
+	@Autowired
 	private SchedulingMapper mapper;
+	
+	@Autowired
+	private BookLoanMapper messageMapper;
 
 	@Value("${lesson.folder-path}")
 	private String lessonLocation; // 게시글 이미지 저장 경로
@@ -129,6 +138,9 @@ public class CommonScheduling {
 	@Scheduled(cron = "0/60 * * * * *")
 	public void mrChan() {
 
+		Member chiefMember = (Member)servletContext.getAttribute("chiefMember");
+		int chiefMemberNo = chiefMember.getMemberNo();
+		
 		// 좌석 이용 종료 판단을 위한 현재 시간
 		Date sysdate = new Date();
 
@@ -151,7 +163,14 @@ public class CommonScheduling {
 
 			// memberNo를 매개변수로 메세지를 보내주시면 됩니다.
 			// ex) sendMessageToMember(memberNo);
+			Map<String, Integer> map = new HashMap<>();
+			map.put("applyMemberNo", memberNo);
+			map.put("memberNo", chiefMemberNo);
+			map.put("checkNo", 5);
+			
+			messageMapper.transmitMessage(map);
 
+			// 2. 열람실 이용 종료 실행
 		}
 
 		// -------------------- 시간이 되면 열람실 이용 종료 시키기 --------------------
@@ -178,6 +197,10 @@ public class CommonScheduling {
 					log.info(memberNo + "번 회원의 " + seatNo2 + "번 자리 이용이 종료되었습니");
 					// 이 부분에서 메세지를 보내면 됩니다.
 				}
+				Map<String, Integer> map = new HashMap<>();
+				map.put("applyMemberNo", memberNo);
+				map.put("memberNo", chiefMemberNo);
+				map.put("checkNo", 6);
 			}
 		}
 
