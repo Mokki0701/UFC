@@ -1,8 +1,29 @@
+// 12시간제로 변환하는 함수
+function formatTo12Hour(time24) {
+  const [datePart, timePart] = time24.split(' ');
+  let [hours, minutes] = timePart.split(':');
+  let period = '오전';
+
+  hours = parseInt(hours, 10);
+  if (hours >= 12) {
+    period = '오후';
+    if (hours > 12) {
+      hours -= 12;
+    }
+  } else if (hours === 0) {
+    hours = 12;
+  }
+
+  // 시간을 나타낼 형식 설정
+  const formattedTime = `${period} ${hours.toString().padStart(2, '0')}시 ${minutes}분 `;
+  return `${datePart} ${formattedTime}`;
+}
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
-
-
-
-
   const seatChart = document.querySelector('.seat-chart');
   const rows = 20;
   const cols = 20;
@@ -320,8 +341,6 @@ function realBookingSeat() {
 function checkMySeat() {
   const checkMyseat = document.getElementById('checkMyseat');
 
-
-
   // 정보를 표시 할 span
 
   // 필요한 정보 비동기로 받아오기
@@ -340,25 +359,24 @@ function checkMySeat() {
         // 열람실 이용중이 아니면 모달 닫기
         // 이용중이 아닐 때에만 메세지가 있다 -> 메세지가 있다면 모달을 닫는다.
         checkMyseat.style.display = "none";
-
       } else {
         // 필요한 정보를 보여주는 모달 표시
         checkMyseat.style.display = "block";
 
         // 내부 텍스트를 결과로 표시하기
-        // 현재 시간은 24시간제, hh:mm:ss:로 표시됨.
+        // 현재 시간은 24시간제, hh:mm:ss로 표시됨.
         const startTime = document.querySelector("#startTime");
         const endTime = document.querySelector('#endTime');
         const remainingExtensions = document.querySelector('#remainingExtensions');
 
-        startTime.innerText = map.startTime;
-        endTime.innerText = map.endTime;
+        startTime.innerText = formatTo12Hour(map.startTime);
+        endTime.innerText = formatTo12Hour(map.endTime);
         remainingExtensions.innerText = map.readingExtend;
       }
     });
 }
 
-// 좌석 연장버튼 기능
+// 열람실 자리 연장버튼 기능
 // 1. 내 자리의 연장하고자 하는 시간에 예약이 있다면 연장 불가
 // 필요한 테이블 : SEAT_SPACE_BOOKING ssb, RENT_SEAT rs
 // 필요한 컬럼 : 전달 받은 #{seatNo}를 기준으로. 
@@ -377,11 +395,13 @@ function extendSeat() {
       .then(response => response.json())
       .then(result => {
         alert(result.message);
+        
       })
       .catch(error => {
         console.error('Error:', error);
         alert('오류 발생, 관리자에게 문의하세요.');
       });
+      closeModal();
   }
 
 
