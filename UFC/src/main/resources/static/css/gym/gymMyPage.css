@@ -4,10 +4,22 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.gym_my_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 100%;
+    padding: 20px;
 }
 
 .container {
-    max-width: 800px;
+    width: 800px;
     margin: 20px;
     padding: 30px;
     background-color: #ffffff;
@@ -16,11 +28,58 @@ body {
     border: 1px solid #eaeaea;
 }
 
+.container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    border: 1px solid #eaeaea;
+}
+
+.container2 img {
+    width: 50%; /* 이미지 너비를 부모 요소에 맞춤 */
+    height: auto; /* 이미지 비율 유지 */
+    border-radius: 10px; /* 이미지 모서리 둥글게 */
+    margin-bottom: 20px; /* 이미지와 텍스트 간격 */
+}
+
+.container2 h2 {
+    font-size: 24px;
+    color: #333; /* 텍스트 색상 */
+    margin-bottom: 10px; /* 제목과 본문 간격 */
+}
+
+.container2 p {
+    font-size: 16px;
+    color: #666; /* 본문 텍스트 색상 */
+    margin-bottom: 20px; /* 본문과 링크 간격 */
+}
+
+.container2 a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff; /* 링크 텍스트 색상 */
+    background-color: #007bff; /* 링크 배경 색상 */
+    border-radius: 5px; /* 링크 모서리 둥글게 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+}
+
+.container2 a:hover {
+    background-color: #0056b3; /* 호버 시 배경 색상 */
+}
+
 h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
     text-align: center;
-    color: #4CAF50; /* 메인 헤더 색상 변경 */
+    color: #4CAF50;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -36,13 +95,13 @@ h1 {
 }
 
 .info-item:hover {
-    background: #f0f0f0; /* 호버 시 배경 색상 변경 */
+    background: #f0f0f0;
 }
 
 .info-icon {
     font-size: 2em;
     margin-right: 15px;
-    color: #4CAF50; /* 아이콘 색상 변경 */
+    color: #4CAF50;
 }
 
 .info-title {
@@ -68,7 +127,7 @@ h1 {
 
 .info-content li::before {
     content: '•';
-    color: #4CAF50; /* 아이템 앞 점 색상 변경 */
+    color: #4CAF50;
     display: inline-block; 
     width: 1em;
     margin-left: -1em;
@@ -87,4 +146,12 @@ h1 {
     .info-content {
         font-size: 1em;
     }
+}
+
+footer {
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto;
+    width: 100%;
 }
