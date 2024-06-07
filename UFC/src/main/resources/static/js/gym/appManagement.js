@@ -34,6 +34,8 @@ approve.addEventListener("click", () => {
             // 트레이너 변경하기 버튼 표시
             trainerChange.style.display = "block";
 
+            row.querySelector("td span").textContent = "승인완료"; // 상태 업데이트
+
         } else {
             alert("이메일 전송에 실패했습니다.");
         }

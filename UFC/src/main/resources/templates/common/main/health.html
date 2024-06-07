@@ -141,10 +141,13 @@
                 </div>
 
                 <div class="gym_apply">
-                  <a href="/trainerSelect/apply">
-                    지원하기<i class="fa-solid fa-angles-right"></i>
+                  <a href="#" th:if="${session.loginMember == null}" onclick="alert('로그인 후 이용해 주세요.'); return false;">
+                      지원하기<i class="fa-solid fa-angles-right"></i>
                   </a>
-                </div>
+                  <a href="/trainerSelect/apply" th:if="${session.loginMember != null}">
+                      지원하기<i class="fa-solid fa-angles-right"></i>
+                  </a>
+              </div>
 
               </div>
 
