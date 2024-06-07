@@ -175,7 +175,7 @@ public class CommonScheduling {
 
 				if (finishUsingSeat > 0) {
 
-					log.info(memberNo + "번 회원의 " + seatNo2 + "번 자리 이용이 종료되었습니다.");
+					log.info(memberNo + "번 회원의 " + seatNo2 + "번 자리 이용이 종료되었습니");
 					// 이 부분에서 메세지를 보내면 됩니다.
 				}
 			}
