@@ -1,19 +1,178 @@
 <footer>
   <p>Copyright &copy; KH Information Educational Institute COOOF</p>
 
-
   <article>
-    <a href="#">찾아오시는길</a>
-    <br><Br>
-
+    <a href="#" class="footer-tags" id="openLocationModal">찾아오시는길</a>
+    <br><br>
   </article>
   <article>
-    <a href="#">프로젝트 소개</a>
+    <a href="#" class="footer-tags" id="openProjectModal">프로젝트 소개</a>
     <span>|</span>
-    <a href="#">이용약관</a>
+    <a href="#" class="footer-tags" id="openTermsModal">이용약관</a>
     <span>|</span>
-    <a href="#">개인정보처리방침</a>
+    <a href="#" class="footer-tags" id="openPrivacyModal">개인정보처리방침</a>
     <span>|</span>
-    <a href="#">고객센터</a>
+    <a href="#" class="footer-tags" id="openSupportModal">고객센터</a>
   </article>
 </footer>
+
+<!-- Modal Structure -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  footer {
+    padding: 20px;
+    background-color: #f1f1f1;
+    text-align: center;
+  }
+
+  a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close-btn:hover,
+  .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+
+
+<!-- 카카오 JavaScript app 키 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef7339c7be50d1426f12f9213331158d"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const modal = document.getElementById('modal');
+    const closeBtn = document.querySelector('.close-btn');
+    const modalBody = document.getElementById('modal-body');
+
+    document.querySelectorAll(".footer-tags").forEach(item => {
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+      });
+    });
+
+    const openModal = (content, callback) => {
+      modalBody.innerHTML = content;
+      modal.style.display = 'block';
+      if (callback) callback();
+    };
+
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+
+    window.onclick = (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    document.getElementById('openLocationModal').onclick = () => {
+      openModal('<div id="map" style="width:500px;height:400px;"></div>', initializeMap);
+    };
+
+    document.getElementById('openProjectModal').onclick = () => {
+      openModal('<h2>프로젝트 소개</h2><p>UFC는 주민들을 위한 각종 편의 제공 프로그램을 운영하며, 주민들에게 수준 높은 편의 서비스를 제공하고 있습니다. 본 프로젝트는 주민들이 손쉽게 온라인으로 편리하게 시설들을 이용할 수 있도록 지원하는 것을 목표로 합니다. </p>');
+    };
+
+    document.getElementById('openTermsModal').onclick = () => {
+      openModal('<h2>이용약관</h2><p>본 웹사이트를 이용함으로써 귀하는 다음의 이용약관에 동의하는 것으로 간주됩니다. 웹사이트의 콘텐츠 및 서비스는 사전 고지 없이 변경될 수 있으며, 이용자는 항상 최신 이용약관을 확인할 책임이 있습니다.</p><p>1. 서비스 이용: 이용자는 본 웹사이트의 서비스를 개인적이고 비상업적인 목적으로만 사용할 수 있습니다.</p><p>2. 금지 행위: 이용자는 본 웹사이트를 통해 불법적이거나 부적절한 콘텐츠를 업로드하거나 배포할 수 없습니다.</p><p>3. 개인정보 보호: 이용자의 개인정보는 당사의 개인정보처리방침에 따라 보호됩니다.</p><p>4. 면책 조항: 당사는 본 웹사이트의 이용으로 발생하는 어떠한 손해에 대해서도 책임을 지지 않습니다.</p><p>자세한 내용은 전체 이용약관을 참고하시기 바랍니다.</p>');
+    };
+
+    document.getElementById('openPrivacyModal').onclick = () => {
+      openModal('<h2>개인정보처리방침</h2><p>UFC는 이용자의 개인정보를 중요시하며, 개인정보 보호법을 준수하고 있습니다. 본 개인정보처리방침은 이용자가 제공한 개인정보가 어떻게 사용되고 보호되는지를 설명합니다.</p><p>1. 수집하는 개인정보: 이름, 이메일 주소, 전화번호 등</p><p>2. 개인정보의 이용: 수집된 개인정보는 교육 서비스 제공 및 고객 지원을 위해 사용됩니다.</p><p>3. 개인정보의 보호: 당사는 이용자의 개인정보를 안전하게 보호하기 위해 최선을 다하고 있으며, 무단 접근, 공개, 사용, 변경을 방지하기 위한 다양한 보안 조치를 시행하고 있습니다.</p><p>4. 개인정보의 공유: 당사는 이용자의 동의 없이 개인정보를 제3자와 공유하지 않습니다.</p><p>자세한 내용은 전체 개인정보처리방침을 참고하시기 바랍니다.</p>');
+    };
+
+    document.getElementById('openSupportModal').onclick = () => {
+      openModal('<h2>고객센터</h2><p>UFC 고객센터는 이용자의 문의에 신속하고 정확하게 응답하기 위해 최선을 다하고 있습니다. 궁금한 사항이 있으면 언제든지 아래의 연락처로 문의해 주세요.</p><p>이메일: support@cooof.com</p><p>전화번호: 02-1234-5678</p><p>운영 시간: 월요일 - 금요일, 09:00 - 18:00 (주말 및 공휴일 제외)</p><p>자주 묻는 질문(FAQ) 페이지도 참고해 보세요. 많은 질문에 대한 답변을 찾아보실 수 있습니다.</p>');
+    };
+
+    const initializeMap = () => {
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+    };
+  });
+</script>
+
+
+
