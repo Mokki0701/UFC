@@ -2,6 +2,10 @@
   user-select: none;
 }
 
+.dispalyNone{
+  display: none;
+}
+
 .temp {
   display: flex;
   flex-direction: row;
@@ -27,6 +31,8 @@
   grid-template-columns: repeat(20, 30px);
   grid-gap: 2px;
   position: relative;
+
+  margin-bottom: 5vh;
   /* 좌석 차트를 기준으로 절대 위치 설정 */
 }
 
@@ -44,15 +50,54 @@
 }
 
 .seat:hover{
-  background-color: rgba(42, 191, 255, 0.3);
-  border: 2px dashed rgba(42, 191, 255, 0.6);
+  background-color: rgba(66, 34, 12, 0.3);
+  border: 2px dashed rgba(46, 18, 0, 0.6);
   color: black;
-  font-weight: bold;
+  /* font-weight: bold; */
 
+  transition: all 0.5s;
+}
+
+
+
+/* ----------------- 열람실 버튼 css 시작 ----------------- */
+
+.buttonSack{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  margin: 30px 0px;
+}
+
+.buttonSack > button {
+
+  width: 200px;
+  height: 50px;
+
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.buttonSack > button:hover{
+
+  cursor: pointer;
+
+  background-color: burlywood;
+  border: 2px solid rgb(117, 90, 53);
   transition: all 0.3s;
 }
 
 
+
+
+
+
+
+
+/* ----------------- 열람실 버튼 css  끝 ----------------- */
 
 /* ----------------- 샘플 좌석 보여주기 --------------------- 시작 */
 
@@ -63,7 +108,20 @@
   justify-content: center;
   gap: 10px;
 
-  min-width: 90vw;
+  margin: 20px 20px;
+
+  background-color: rgba(222, 184, 135, 0.555);
+  border-radius: 20px;
+}
+
+#seatSack > h1{
+
+  border: 3px solid rgb(141, 97, 40);
+  padding: 10px;
+  border-radius: 10px;
+
+  background-color: rgba(222, 184, 135, 0.534);
+
 }
 
 .sampleSeatSack {
@@ -81,7 +139,7 @@
 
 
 .can {
-  background-color: rgb(12, 57, 0);
+  background-color: rgba(60, 179, 113, 1);
 }
 
 .cant {
@@ -107,12 +165,14 @@
 
 .aisle {
   background-color: gray;
+  border-radius: 5px;
 }
 
 .availSeat {
-  background-color: rgb(12, 57, 0);
-  color: white;
-  border: 2px solid black;
+  background-color: rgba(60, 179, 113, 1);
+  color: black;
+  border: 2px solid rgb(80, 45, 0);
+  border-radius: 5px;
 }
 
 .disavailSeat {
@@ -120,7 +180,8 @@
   color: black;
   font-weight: bold;
   font-size: 14px;
-  border: 2px solid black;
+  border: 2px solid rgb(80, 45, 0);
+  border-radius: 5px;
 }
 
 .nowUsing {
@@ -128,13 +189,14 @@
   color: white;
   font-weight: bold;
   font-size: 14px;
-  border: 2px solid black;
+  border: 2px solid rgb(80, 45, 0);
+  border-radius: 5px;
 }
 
 /* 선택된 seat */
 .nowSelectedSeat{
-  background-color: rgba(42, 191, 255, 0.3);
-  border: 2px dashed rgba(42, 191, 255, 0.6);
+  background-color: rgba(66, 34, 12, 0.3);
+  border: 2px dashed rgba(46, 18, 0, 0.6);
   color: black;
   font-weight: bold;
 }
