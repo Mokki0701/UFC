@@ -23,7 +23,6 @@
 .libContentBox{
   display: flex;
   flex-direction: column;
-  border: 1px dotted red;
 
 }
 
@@ -120,8 +119,7 @@
 
 .libImg{
   margin: 10px;
-  width: 80%;
-  border-radius: 10px;
+  height: 55vh;
 }
 
 
@@ -172,15 +170,11 @@ a.libLink {
 .libLeftContent {
   flex: 1; /* 공간을 남은 곳을 채움 */
   padding: 10px;
-  border: 1px solid black;
-  min-height: 95%;
 }
-
-/* ---- */
 
 #infoContainer {
   position: relative;
-  height: 650px; /* 적절한 높이 설정 */
+  height: 80vh; /* 적절한 높이 설정 */
   overflow: hidden;
 }
 
@@ -197,31 +191,40 @@ a.libLink {
   transform: translateY(0);
 }
 
+/* 오른쪽 버튼 모음 */
+.libRightContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 자식 요소들이 세로로 가운데 정렬 */
+  align-items: center; /* 아이템들이 세로로 가운데 정렬 */
+  height: 100%; /* 부모 높이를 채워 수직 가운데 정렬이 적용되도록 설정 */
+}
+
+
 .libColBtn {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin: 0px 5px;
+  padding: 5px;
+
+  border: 2px dashed black;
+  border-radius: 10px;
 }
 
 .libColBtn button {
-  margin: 5px 0;
+  margin: 5px 5px;
   padding: 10px 20px;
   width: 100%;
   max-width: 200px;
   box-sizing: border-box;
 }
 
-.libMargin{
-
-  margin: 20px;
-
-}
-
 .libBack{
   border: 2px solid burlywood;
-  margin-top: 30px;
+  background-color: rgba(207, 177, 138, 0.514);
+  margin-top: 20px;
   border-radius: 10px;
 }
 
@@ -241,10 +244,52 @@ a.libLink {
   transition: all 0.3s;
 }
 
+/* 선택된 버튼의 호버 효과 지우기 */
+.libIntBtn.libSelectedBtn:hover {
+  border: 2px solid rgb(131, 46, 46);
+  background-color: rgb(151, 86, 0);
+  transform: none; /* 원래 상태 유지 */
+  transition: none; /* 애니메이션 제거 */
+}
 
 
+.libSelectedBtn{
+  border: 2px solid rgb(131, 46, 46);
+  background-color: rgb(151, 86, 0);
+}
 
 
+/* --------------- 이미지 호버 메세지 --------------- */
+.libHoverMessage {
+  display: none; /* 기본적으로 숨김 */
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 10;
+  pointer-events: none; /* 메시지 위로 마우스 이벤트가 지나가도록 설정 */
+  white-space: nowrap; /* 메시지 내용이 한 줄로 유지되도록 설정 */
+
+  min-height: 30px;
+}
+
+.libBack:hover .libHoverMessage {
+  display: block; /* 이미지에 호버 시 메시지 보이기 */
+}
+
+/* ---------------------- 세번째 슬라이드 : 열람실 이용 안내 ---------------------- */
+
+#libThirdInfoSlide{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.libSecondSlideChild{
+  min-width: 50%;
+}
 
 
 

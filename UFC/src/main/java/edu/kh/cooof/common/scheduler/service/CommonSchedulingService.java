@@ -1,8 +1,11 @@
 package edu.kh.cooof.common.scheduler.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.member.model.dto.Member;
 
 public interface CommonSchedulingService {
@@ -31,5 +34,11 @@ public interface CommonSchedulingService {
 	 * 
 	 */
 	void deleteLibAll();
+
+	// 열람실 이용 종료 시간 체크하기
+	LibSeatDTO checkReadingDone(Date sysdate);
+
+	// 열람실 이용 종료 실행
+	int finishUsingSeat(Map<String, Object> expiredSeat);
 
 }

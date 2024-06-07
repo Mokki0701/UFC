@@ -402,4 +402,7 @@ public class LibSeatController {
 		return map;
 	}	
 
+	
+	// 시간이 되면 열람실 이용 종료시키기
+	
 }

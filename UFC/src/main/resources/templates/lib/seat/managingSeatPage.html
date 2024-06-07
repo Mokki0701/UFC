@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="/css/lib/managingSeat.css">
   <link rel="stylesheet" href="/css/libMain.css">
   <title>좌석 관리 페이지</title>
+
+
+  <style>
+    .seat:hover {
+      pointer-events: none;
+    }
+    .seat.availSeat:hover,
+    .seat.disavailSeat:hover,
+    .seat.aisle:hover {
+      pointer-events: all;
+    }
+  </style>
 </head>
 
 <body>
@@ -64,6 +76,17 @@
 
   </section>
 
+  <!-- 로딩창 모달 -->
+  <div id="loadingModal">
+
+    <div id="modalBox">
+
+      <div id="modalCircle"></div>
+
+    </div>
+
+  </div>
+
 
 
 
@@ -78,11 +101,12 @@
 
 
 
-  
+
 
 
 
 
 </body>
 <script src="/js/lib/managingSeat.js"></script>
+
 </html>
