@@ -59,7 +59,7 @@
                         <td>
                             <a th:href="@{/reviews/view(gymNo=${gym.gymNo})}" th:text="${gym.gymTitle}"></a>
                         </td>
-                        <td th:text="${gym.memberLastName} + '**'"></td>
+                        <td th:text="${gym.memberLastName} + ${gym.memberFirstName}"></td>
                         <td th:text="${gym.gymWriteDate}"></td>
                             
                     </tr>
