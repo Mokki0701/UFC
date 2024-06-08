@@ -141,9 +141,10 @@ function handleHopeComplete(button){
     const actionButtonsTd = button.parentElement;
     const row = actionButtonsTd.parentElement;
     const firstTd = row.children[0];
+    const applyMemberNo = row.children[4].innerText.trim();
     
     const firstTdValue = firstTd.innerText.trim();
-    fetch("/loan/hopeComplete?newBookNo=" + firstTdValue)
+    fetch("/loan/hopeComplete?newBookNo=" + firstTdValue + "&applyMemberNo=" + applyMemberNo)
     .then(resp => resp.text())
     .then(result => {
         if(result > 0){
@@ -158,10 +159,11 @@ function handleExtend(button) {
     const actionButtonsTd = button.parentElement;
     const row = actionButtonsTd.parentElement;
     const loanNoCell = row.children[0];
+    const loanMemberNo = row.children[3].innerText.trim();
     const returnDateCell = row.children[6];
     const loanNo = loanNoCell.innerText.trim();
     const returnDate = returnDateCell.innerText;
-    fetch("/loan/extendComplete?loanBookNo=" + loanNo)
+    fetch("/loan/extendComplete?loanBookNo=" + loanNo + "&loanMemberNo=" + loanMemberNo);
     const date = new Date(returnDate);
     date.setDate(date.getDate() + 7);
     const year = date.getFullYear();

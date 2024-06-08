@@ -48,6 +48,36 @@
 		WHERE NEW_BOOK_CHECK = 1
 	</delete>
 
+	<!-- 이용 종료 5분 전인 사람들 select -->
+	<select id="getFiveMinBeforeMemberNo" resultType="java.lang.Integer">
+		SELECT MEMBER_NO 
+		FROM RENT_SEAT rs
+		WHERE rs.READING_DONE = #{fiveMinBefore}
+	</select>
 
 
+
+	<!-- 열람실 이용 종료 시간 체크하기 -->
+	<select id="checkReadingDone" parameterType="java.util.Date" resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
+        SELECT COUNT(*) 
+        FROM RENT_SEAT 
+         WHERE TRUNC(READING_DONE, 'MI') = TRUNC(#{sysdate}, 'MI')
+    </select>
+    
+    <!-- 열람실 이용 종료 실행하기 : 해당 회원 이용 종료시키기 -->
+    <delete id="finishUsingSeat">
+    	DELETE
+		FROM RENT_SEAT rs 
+		WHERE MEMBER_NO = #{memberNo}
+    </delete>
+    
+    <!-- 열람실 이용 종료 실행하기 : 해당 좌석 상태 업데이트하기 -->
+	<update id="setAvail">
+		UPDATE SEAT
+		SET SEAT_AVAIL = 0
+		WHERE SEAT_NO = #{seatNo2}
+	</update>
+	
+	
+	
 </mapper>

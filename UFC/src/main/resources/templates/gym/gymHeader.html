@@ -1,5 +1,5 @@
 <div class="gym_headerMenu">
-    <h2 class="gym_header"><a href="/gym/gymMain" style="color: rgba(139,168,128); text-decoration: none;">헬스장</a></h2>
+    <h2 class="gym_header" onclick="location.href='/';" style="cursor: pointer;">헬스장</h2>
     <ul class="gym_main_logo">
         <li class="dropdown">
             <a href="/gym/information/useMachines">운동정보</a>
@@ -14,7 +14,7 @@
                 <li><a href="/trainerSelect/trainerSelect">트레이너</a></li>
 
                 <li>
-                    <a href="/trainerSelect/apply">지원하기</a>
+                    <a href="/trainerSelect/apply" >지원하기</a>
                 </li>
 
                 <li th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
@@ -31,7 +31,7 @@
             </ul>
         </li>
 
-        <li><a href="/gym/myPage/gymMyPage">내 정보</a></li>
+        <li><a href="/gym/myPage/gymMyPage"  th:if="${session.loginMember != null}">내 정보</a></li>
     </ul>
 
 

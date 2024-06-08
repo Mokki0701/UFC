@@ -64,6 +64,7 @@ public class MemeberController {
 		return "member/login";
 	}
 	
+	// 로그인 하기
 	@PostMapping("loginMember")
 	public String memberLogin(
 			RedirectAttributes ra,

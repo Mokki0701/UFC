@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.main.mapper.MainPageMapper">
+
+	<select id="bookList" resultType="edu.kh.cooof.lib.book.model.dto.Book">
+	
+		SELECT *
+		FROM BOOK_INFO
+		WHERE BOOK_NO IN (
+		    SELECT BOOK_NO
+		    FROM (
+		        SELECT BOOK_NO, COUNT(*) AS LOAN_COUNT
+		        FROM LOAN_BOOK
+		        GROUP BY BOOK_NO
+		        ORDER BY LOAN_COUNT DESC
+		        FETCH FIRST 10 ROWS ONLY
+		    )
+		)
+		
+	</select>
+
+	<select id="lessonList" resultType="edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO">
+	
+		SELECT COUNT(*), lw.LESSON_NO, l.LESSON_TITLE , l.LESSON_SCHEDULE  
+
+		FROM LESSONS_WISHLIST lw 
+		
+		JOIN LESSONS l ON lw.LESSON_NO = l.LESSON_NO 
+		
+		GROUP BY lw.LESSON_NO, l.LESSON_TITLE , l.LESSON_SCHEDULE  
+		
+		ORDER BY COUNT(*) DESC
+	
+	</select>
+
+
+
+</mapper>

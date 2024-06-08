@@ -1,10 +1,13 @@
 package edu.kh.cooof.common.scheduler.mapper;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.member.model.dto.Member;
 
 @Mapper
@@ -35,5 +38,21 @@ public interface SchedulingMapper {
 	void deleteLibRent();
 
 	void deleteLibHope();
+
+	// 열람실 이용 종료 5분 전인 사람의 memberNo select
+	List<Integer> getFiveMinBeforeMemberNo(Date fiveMinBefore);
+	
+	
+	// 열람실 이용 종료 시간 체크하기
+	LibSeatDTO checkReadingDone(Date sysdate);
+
+	// 열람실 이용 종료 실행하기 : 해당 사용자 사용 종료시키기
+	int finishUsingSeat(Map<String, Object> expiredSeat);
+
+	// 열람실 이용 종료 실행하기 : 해당 좌석 상태 업데이트 하기
+	int setAvail(Map<String, Object> expiredSeat);
+
+	
+	
 
 }

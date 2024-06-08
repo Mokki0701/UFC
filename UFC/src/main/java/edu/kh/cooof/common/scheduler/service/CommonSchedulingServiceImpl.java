@@ -1,11 +1,14 @@
 package edu.kh.cooof.common.scheduler.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import edu.kh.cooof.common.scheduler.mapper.SchedulingMapper;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
+import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
@@ -49,4 +52,24 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 		
 	}
 	
+	// 열람실 이용 종료 시간 체크하기
+	@Override
+	public List<LibSeatDTO> checkReadingDone(Date sysdate) {
+		
+		return  (List<LibSeatDTO>) mapper.checkReadingDone(sysdate);
+	}
+	
+	// 열람실 이용 종료 실행
+	@Override
+	public int finishUsingSeat(Map<String, Object> expiredSeat) {
+		
+		// 빌린 기록 지우기
+		int setSeat = mapper.finishUsingSeat(expiredSeat);
+		
+		// 좌석 상태 업데이트하기
+		int setAvail = mapper.setAvail(expiredSeat);
+		
+		// 두 작업의 성공 여부를 합산하여 반환
+        return setSeat + setAvail;
+	}
 }

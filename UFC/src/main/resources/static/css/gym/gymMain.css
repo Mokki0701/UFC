@@ -135,9 +135,9 @@
   .gym_events_notices h1, .gym_reviews h1 {
     font-size: 2.5em; /* 글씨 크기 키움 */
     margin-bottom: 20px;
-    border-bottom: 2px solid #8BB226; /* 하단 선 추가 */
+    border-bottom: 2px solid #8a6028; /* 하단 선 추가 */
     padding-bottom: 10px;
-    color: #8BB226; /* 제목 색상 */
+    color: #8a6028; /* 제목 색상 */
   }
   
   .gym_events_notices_content {
@@ -157,9 +157,9 @@
   .gym_events h2, .gym_notices h2, .gym_reviews h2 {
     font-size: 1.8em; /* 글씨 크기 조정 */
     margin-bottom: 10px;
-    border-bottom: 2px solid #D2B48C; /* 하단 선 추가 */
+    border-bottom: 2px solid #8a6028; /* 하단 선 추가 */
     padding-bottom: 5px;
-    color: #8BB226; /* 제목 색상 */
+    color: #8a6028; /* 제목 색상 */
   }
   
   .gym_events ul, .gym_notices ul, .gym_reviews .review_list {
@@ -194,17 +194,7 @@
     text-align: right;
     color: #777;
   }
-  
-  /* 애니메이션 효과 추가 */
-  .gym_events ul li, .gym_notices ul li, .gym_reviews .review_list .review {
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .gym_events ul li:hover, .gym_notices ul li:hover, .gym_reviews .review_list .review:hover {
-    transform: translateY(-5px);
-    background-color: #f0f0f0;
-  }
-  
+
 /* 모달 스타일 */
 .modal {
     display: none; /* 숨김 상태 */
@@ -246,6 +236,90 @@
   /* li 항목 커서 포인터 추가 */
   .gym_events ul li, .gym_notices ul li {
     cursor: pointer;
+  }
+
+  /* *********************************************************** */
+  /* 3번째 페이지 */
+
+  .gym_collect_form {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .gym_collect {
+    width: 40%; /* 비율 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gym_collect img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  
+  .gym_form_apply {
+    width: 60%; /* 비율 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .gym_form {
+    background: #fff5e1; /* 부드러운 파스텔톤 배경색 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .gym_form h2 {
+    font-size: 1.5em;
+    color: #8A4B08;
+    border-bottom: 2px solid #8A4B08;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .gym_form ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .gym_form li {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .gym_apply{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gym_apply a {
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 수직 정렬 */
+    justify-content: center; /* 수평 정렬 */
+    background: #D2B48C;
+    color: black;
+    text-align: center;
+    padding: 30px; /* 패딩을 더 크게 설정 */
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.8em; /* 글꼴 크기 증가 */
+    width: 50%; /* 너비를 100%로 설정 */
+    transition: background 0.3s;
+  }
+  
+  .gym_apply a:hover {
+    background: #DEB887;
+  }
+  
+  .gym_apply a i {
+    margin-left: 10px; /* 아이콘과 텍스트 사이 간격 */
   }
   
   

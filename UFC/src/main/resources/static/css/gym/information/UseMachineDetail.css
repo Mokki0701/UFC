@@ -1,12 +1,94 @@
-.gym_detail_container {
-    padding: 20px;
+body {
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
 }
+
+.gym_detail_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff; /* 배경색 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    border-radius: 12px; /* 모서리 둥글게 */
+}
+
+.gym_detail_container h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 3px solid #ddd;
+    padding-bottom: 10px;
+}
+
 .gym_video {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
-.gym_info h3 {
-    margin-top: 20px;
+
+.gym_info {
+    text-align: left; /* 좌측 정렬이 필요한 텍스트는 그대로 둡니다 */
+    width: 100%;
 }
+
+.gym_info h3 {
+    font-size: 1.8em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #444;
+    border-bottom: 2px solid #ddd; /* 밑줄 추가 */
+    padding-bottom: 5px;
+}
+
 .gym_info p {
-    white-space: pre-wrap; /* 줄 바꿈을 처리하기 위해 사용 */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.gym_info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.gym_info ul li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #555;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 리스트 항목에 그림자 추가 */
+}
+
+.gym_info ul li + li {
+    margin-top: 10px;
+}
+
+.gym_info p, .gym_info ul li {
+    text-align: justify;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #555;
 }

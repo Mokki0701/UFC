@@ -1,8 +1,29 @@
+// 12시간제로 변환하는 함수
+function formatTo12Hour(time24) {
+  const [datePart, timePart] = time24.split(' ');
+  let [hours, minutes] = timePart.split(':');
+  let period = '오전';
+
+  hours = parseInt(hours, 10);
+  if (hours >= 12) {
+    period = '오후';
+    if (hours > 12) {
+      hours -= 12;
+    }
+  } else if (hours === 0) {
+    hours = 12;
+  }
+
+  // 시간을 나타낼 형식 설정
+  const formattedTime = `${period} ${hours.toString().padStart(2, '0')}시 ${minutes}분 `;
+  return `${datePart} ${formattedTime}`;
+}
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
-
-
-
-
   const seatChart = document.querySelector('.seat-chart');
   const rows = 20;
   const cols = 20;
@@ -87,7 +108,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 버튼 클릭 시 동작
+  // 이용 불가능한 좌석 클릭시 alert
+  // + 선택 된 좌석임을 가시적으로 표시.
+  const seatAlert = document.querySelectorAll(".seat");
+
+  seatAlert.forEach(seat => {
+    seat.addEventListener("click", function () {
+
+      if (seat.classList.contains("disavailSeat")) {
+        alert("해당 좌석은 사용 불가능합니다.");
+        return;
+      }
+
+      if (seat.classList.contains("nowUsing")) {
+        alert("해당 좌석은 이미 다른 사람이 사용 중 입니다.");
+        return;
+      }
+
+      if (seat.classList.contains("aisle")) {
+        alert("클릭하신 공간은 이동 통로로 이용이 불가능합니다.");
+        return;
+      }
+
+      // 모든 seat의 nowSelected 클래스를 제거
+      seatAlert.forEach(s => s.classList.remove("nowSelectedSeat"));
+
+      // 현재 선택된 seat에 nowSelected 클래스를 추가
+      seat.classList.add("nowSelectedSeat");
+    });
+  });
+
+
+
+  // 이용하기 버튼 클릭 시 동작
   const useSeatBtn = document.querySelector("#useSeat");
 
   // 이용 가능한 좌석에만 반응하기
@@ -158,8 +211,6 @@ stopUsingSeat.addEventListener("click", () => {
         } else {
           console.warn(`Seat with seatNo ${seatNo} not found`);
         }
-        // 페이지를 리다이렉트
-        window.location.href = '/';
       }
     })
     .catch(error => {
@@ -170,25 +221,34 @@ stopUsingSeat.addEventListener("click", () => {
 
 // 모달 닫는 기능
 function closeModal() {
-
   const bookingModal = document.getElementById('bookingModal');
-  bookingModal.style.display = "none";
+  if (bookingModal) {
+    bookingModal.style.display = "none";
+  }
 
-  // const checkMySpaceDataModal = document.querySelector('.checkMySpaceDataModal');
-  // checkMySpaceDataModal.style.display = "none";
+  const checkMySeatReservationModal = document.querySelector('.checkMySeatReservationModal');
+  if (checkMySeatReservationModal) {
+    checkMySeatReservationModal.style.display = "none";
+  }
 
-  // const checkMySpaceReservationModal = document.querySelector('.checkMySpaceReservationModal');
-  // checkMySpaceReservationModal.style.display = "none";
-
-  const checkMyseat = document.getElementById('checkMyseat');
-  checkMyseat.style.display = "none";
+  const checkMySeat = document.getElementById('checkMyseat');
+  if (checkMySeat) {
+    checkMySeat.style.display = "none";
+  }
 }
 
 // 모달 외부 클릭 시 닫기
-// window.onclick function(e) {
-//   const bookingModal = document.getElementById('bookingModal');
-//   bookingModal.style.display = "none"; 
-// }
+window.onclick = function (e) {
+  const bookingModal = document.getElementById('bookingModal');
+  const checkMySeat = document.getElementById('checkMyseat');
+  const checkMySeatReservationModal = document.querySelector('.checkMySeatReservationModal');
+
+  if (e.target === bookingModal || e.target === checkMySeat || e.target === checkMySeatReservationModal) {
+    closeModal();
+  }
+}
+
+
 
 
 
@@ -208,10 +268,10 @@ function closeModal() {
 
 // 모달 표시하기
 function openBookingSeatModal() {
-
-  const seatNo = document.getElementById('currentSelectSeat').innerText;
-  if (seatNo === null) {
+  const seatNo = document.getElementById('currentSelectSeat').innerText.trim();
+  if (!seatNo) {
     alert("예약하고자 하는 열람실 좌석을 선택해주세요.");
+    closeModal();
     return;
   }
 
@@ -222,16 +282,71 @@ function openBookingSeatModal() {
   const now = new Date();
   currentTimeSpan.textContent = now.toLocaleTimeString();
 
+  // 현재 시간 기준 +1시간 설정
+  let nextHour = new Date(now);
+  nextHour.setHours(nextHour.getHours() + 1);
+
+  let amPm = nextHour.getHours() >= 12 ? 'PM' : 'AM';
+  let hour = nextHour.getHours() % 12;
+  if (hour === 0) hour = 12; // 12시 표기 처리
+  let minute = nextHour.getMinutes();
+
+  // 값 설정
+  document.getElementById('amPm').value = amPm;
+  document.getElementById('hour').value = hour.toString().padStart(2, '0');
+  document.getElementById('minute').value = (Math.floor(minute / 5) * 5).toString().padStart(2, '0'); // 5분 단위로 반올림
+
+  // 시간 선택 옵션 설정
+  setAvailableTimes(now);
 }
 
+// 현재 시간 전 시간은 선택하지 못하게 하기.
+function setAvailableTimes(currentTime) {
+  const amPmSelect = document.getElementById('amPm');
+  const hourSelect = document.getElementById('hour');
+  const minuteSelect = document.getElementById('minute');
 
+  const currentHour = currentTime.getHours();
+  const currentMinute = currentTime.getMinutes();
+
+  // AM/PM 설정
+  if (currentHour >= 12) {
+    amPmSelect.querySelector('option[value="AM"]').disabled = true;
+    amPmSelect.querySelector('option[value="PM"]').disabled = false;
+  } else {
+    amPmSelect.querySelector('option[value="AM"]').disabled = false;
+    amPmSelect.querySelector('option[value="PM"]').disabled = false;
+  }
+
+  // 시간 설정
+  Array.from(hourSelect.options).forEach(option => {
+    const hourValue = parseInt(option.value);
+    let hour24 = hourValue;
+    if (amPmSelect.value === 'PM' && hour24 !== 12) {
+      hour24 += 12;
+    } else if (amPmSelect.value === 'AM' && hour24 === 12) {
+      hour24 = 0;
+    }
+    option.disabled = (hour24 < currentHour) || (hour24 === currentHour && parseInt(minuteSelect.value) <= currentMinute);
+  });
+
+  // 분 설정
+  Array.from(minuteSelect.options).forEach(option => {
+    option.disabled = (parseInt(option.value) <= currentMinute && hourSelect.value == currentHour % 12);
+  });
+}
+
+document.getElementById('amPm').addEventListener('change', () => setAvailableTimes(new Date()));
+document.getElementById('hour').addEventListener('change', () => setAvailableTimes(new Date()));
+document.getElementById('minute').addEventListener('change', () => setAvailableTimes(new Date()));
 
 function realBookingSeat() {
-  const seatNo = document.getElementById('currentSelectSeat').innerText;
+  const seatNo = document.getElementById('currentSelectSeat').innerText.trim();
   const amPm = document.getElementById('amPm').value;
   const hour = document.getElementById('hour').value;
   const minute = document.getElementById('minute').value;
   const memberNo = document.getElementById('userInfo').getAttribute('data-member-no');
+
 
   // 시간 형식 변환 12시간제 -> 24시간제
   let selectedHour = parseInt(hour);
@@ -248,6 +363,8 @@ function realBookingSeat() {
     startTime: selectedTime
   };
 
+
+
   // 1. 좌석이 예약 가능한지 여부 판단하기
   fetch('/lib/seats/checkAvailReservation', {
     method: 'POST',
@@ -259,7 +376,7 @@ function realBookingSeat() {
     .then(response => response.json())
     .then(result => {
       if (result.success) {
-        alert('예약이 성공적으로 완료되었습니다.\n' + result.message);
+        alert(result.message);
         if (result.redirectUrl) {
           window.location.href = result.redirectUrl;
         } else {
@@ -279,9 +396,6 @@ function realBookingSeat() {
 function checkMySeat() {
   const checkMyseat = document.getElementById('checkMyseat');
 
-  // 필요한 정보를 보여주는 모달 표시
-  checkMyseat.style.display = "block";
-
   // 정보를 표시 할 span
 
   // 필요한 정보 비동기로 받아오기
@@ -297,20 +411,27 @@ function checkMySeat() {
       if (map.message) {
         alert(map.message);
         console.log(map.message);
+        // 열람실 이용중이 아니면 모달 닫기
+        // 이용중이 아닐 때에만 메세지가 있다 -> 메세지가 있다면 모달을 닫는다.
+        checkMyseat.style.display = "none";
       } else {
+        // 필요한 정보를 보여주는 모달 표시
+        checkMyseat.style.display = "block";
+
         // 내부 텍스트를 결과로 표시하기
+        // 현재 시간은 24시간제, hh:mm:ss로 표시됨.
         const startTime = document.querySelector("#startTime");
         const endTime = document.querySelector('#endTime');
         const remainingExtensions = document.querySelector('#remainingExtensions');
 
-        startTime.innerText = map.startTime;
-        endTime.innerText = map.endTime;
+        startTime.innerText = formatTo12Hour(map.startTime);
+        endTime.innerText = formatTo12Hour(map.endTime);
         remainingExtensions.innerText = map.readingExtend;
       }
     });
 }
 
-// 좌석 연장버튼 기능
+// 열람실 자리 연장버튼 기능
 // 1. 내 자리의 연장하고자 하는 시간에 예약이 있다면 연장 불가
 // 필요한 테이블 : SEAT_SPACE_BOOKING ssb, RENT_SEAT rs
 // 필요한 컬럼 : 전달 받은 #{seatNo}를 기준으로. 
@@ -329,11 +450,13 @@ function extendSeat() {
       .then(response => response.json())
       .then(result => {
         alert(result.message);
+
       })
       .catch(error => {
         console.error('Error:', error);
         alert('오류 발생, 관리자에게 문의하세요.');
       });
+    closeModal();
   }
 
 
@@ -351,8 +474,94 @@ function extendSeat() {
 
 // 2.
 
-function checkMySeatReservation() {
-  fetch('/lib/seats/extend', {
+// 날짜 형식 변환 function
+function formatDateTime(dateTimeStr) {
+  const date = new Date(dateTimeStr);
 
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${year}년 ${month}월 ${day}일 ${hours}:${minutes.toString().padStart(2, '0')}`;
+}
+
+
+
+
+function checkMySeatReservation() {
+
+  // 모달 
+  const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
+
+
+  fetch('/lib/seats/checkMySeatReservation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
+    .then(response => response.json())
+    .then(result => {
+      console.log("Response Result:", result);  // 응답 결과 로그 출력
+
+      const reservedSeatNoElement = document.getElementById('reservedSeatNo');
+      const startBookingTimeElement = document.getElementById('startBookingTime');
+
+      console.log("reservedSeatNoElement:", reservedSeatNoElement);
+      console.log("startBookingTimeElement:", startBookingTimeElement);
+
+      if (result.SEATNO && result.STARTBOOKING) {
+        if (reservedSeatNoElement && startBookingTimeElement) {
+          // 모달 열기
+          checkMySeatReservation.style.display = "block";
+          reservedSeatNoElement.innerText = result.SEATNO;
+          startBookingTimeElement.innerText = formatDateTime(result.STARTBOOKING);
+        } else {
+          console.error('HTML 요소를 찾을 수 없습니다.');
+        }
+      } else {
+        alert('예약된 정보가 없습니다.');
+
+        // 모달 닫기
+        checkMySeatReservation.style.display = "none";
+      }
+    })
+    .catch(error => {
+      // 모달 닫기
+      checkMySeatReservation.style.display = "none";
+
+      console.error('Error:', error);
+      alert('열람실 예약이 없습니다.');
+
+
+    });
+}
+
+// 공간 예약 취소하기
+function cancleSeatBooking() {
+
+  fetch('/lib/seats/cancleSeatBooking', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => {
+      alert(result.message);
+
+      // 모달 내부 텍스트 지우기
+      const reservedSeatNo = document.querySelector("#reservedSeatNo");
+      const startBookingTime = document.querySelector("#startBookingTime");
+
+      reservedSeatNo.innerText = '';
+      startBookingTime.innerText = '';
+
+    })
+
+  // 모달 닫기
+  const checkMySeatReservation = document.querySelector("#checkMySeatReservation");
+  checkMySeatReservation.style.display = "none";
 }

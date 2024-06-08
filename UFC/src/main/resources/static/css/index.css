@@ -207,6 +207,11 @@ body {
   background-color: #ffffdd;
 }
 
+.login,
+.tab.login.active {
+  background-color: #ffffdd;
+}
+
 .arrow-down {
   position: absolute;
   right: 50px;
@@ -216,6 +221,7 @@ body {
   animation: scroll_ani 2s infinite;
   z-index: 100;
   font-weight: 800;
+  user-select: none;
 }
 
 @keyframes scroll_ani {
@@ -274,6 +280,7 @@ body {
 .swiper-slide:nth-of-type(5)>div {
   background-color: bisque;
 }
+
 
 /* pagination  안보이게 하기 */
 .swiper-pagination {
@@ -424,5 +431,75 @@ body {
 }
 
 
+/* community tab ===============================*/
+.community > .content{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.community > .content div{
+  border: 1px solid #8a4b08;
+  width: calc(100% / 3);
+  margin: 5px;
+}
+
+/* 도서=================================== */
+/* .community > .content  div:nth-of-type(1){
+  background: lavender;
+} */
 
 
+/* 공통 테이블 css */
+.board-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 13px;
+  width: 100%;
+  border-top: 1px solid #8a4b08;
+  border-bottom: 1px solid #8a4b08;
+}
+
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+.board-table a:hover {
+  text-decoration: underline;
+}
+.board-table th {
+  text-align: center;
+}
+
+.board-table .th-num {
+  width: 100px;
+  text-align: center;
+}
+
+.board-table .th-date {
+  width: 200px;
+}
+
+.board-table th, .board-table td {
+  padding: 14px 0;
+}
+
+.board-table tbody td {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+}
+
+.board-table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+
+.board-table tbody th p{
+  display: none;
+}

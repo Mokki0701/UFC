@@ -1,11 +1,14 @@
 	package edu.kh.cooof.main.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import edu.kh.cooof.lib.book.model.dto.Book;
 import edu.kh.cooof.main.model.sevice.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("main")
 public class MainController {
+	
+	
 
 	private final MainService service; 
 	
@@ -31,6 +36,7 @@ public class MainController {
 	public String libMain() {
 		return "liblary/libMain";
 	}
+	
 
 	
 }
