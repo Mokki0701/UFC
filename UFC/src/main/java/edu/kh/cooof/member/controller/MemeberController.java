@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -94,7 +95,7 @@ public class MemeberController {
 		return "member/signup";
 	}
 
-	
+	// 회원가입 
 	@PostMapping("signup")
 	public String memberSignup(
 			  @RequestParam("memberEmailId") String memberEmailId,
@@ -129,14 +130,47 @@ public class MemeberController {
 		
 	}
 	
+	// 아이디 중복 확인
 	@ResponseBody
 	@GetMapping("checkEmail")
 	public int checkEmail(
-			 @RequestParam("memberEmail") String memberEmail
-		
+			 @RequestParam("memberEmail") String memberEmail		
 			 ) {
-		
 		
 		return service.checkEmail(memberEmail);
 	}
+	
+	
+	
+// ------------------ 마이페이지 -------------------------------
+	
+	// 비밀번호 변경
+	@PostMapping("changePw")
+	public String changePw(
+			@RequestParam("currentPw")String currentPw,
+			@RequestParam("newPw")String newPw,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra
+			) {
+		
+		int result = service.changePw(currentPw, newPw, loginMember);
+		
+		String message = null;
+		String path = null;
+		
+		if(result == 0) {
+			message = "현재 비밀번호가 일치하지 않습니다";
+			
+		} else {
+			message = "비밀번호가 변경 되었습니다";
+			
+		}
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	
 }

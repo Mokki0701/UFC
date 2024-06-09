@@ -20,6 +20,14 @@ public interface MemberMapper {
 
 	// 아이디 중복 확인
 	int checkEmail(String memberEmail);
+
+
+	// 비밀번호 조회
+	String changePw(Member loginMember);
+
+	// 비밀번호 변경
+	int newChangePw(Member loginMember);
+	
 	
 
 	
