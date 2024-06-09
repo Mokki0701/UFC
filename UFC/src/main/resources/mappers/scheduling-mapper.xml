@@ -59,9 +59,9 @@
 
 	<!-- 열람실 이용 종료 시간 체크하기 -->
 	<select id="checkReadingDone" parameterType="java.util.Date" resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
-        SELECT COUNT(*) 
-        FROM RENT_SEAT 
-         WHERE TRUNC(READING_DONE, 'MI') = TRUNC(#{sysdate}, 'MI')
+        SELECT *
+        FROM RENT_SEAT
+        WHERE TRUNC(READING_DONE, 'MI') = TRUNC(#{sysdate}, 'MI')
     </select>
     
     <!-- 열람실 이용 종료 실행하기 : 해당 회원 이용 종료시키기 -->

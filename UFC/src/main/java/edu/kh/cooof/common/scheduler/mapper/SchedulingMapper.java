@@ -44,8 +44,8 @@ public interface SchedulingMapper {
 	
 	
 	// 열람실 이용 종료 시간 체크하기
-	LibSeatDTO checkReadingDone(Date sysdate);
-
+	List<LibSeatDTO> checkReadingDone(Date sysdate);
+	 
 	// 열람실 이용 종료 실행하기 : 해당 사용자 사용 종료시키기
 	int finishUsingSeat(Map<String, Object> expiredSeat);
 
