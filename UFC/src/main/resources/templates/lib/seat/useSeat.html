@@ -19,11 +19,13 @@
 
   <br>
 
+  <!-- 제목, 샘플좌석, 현재 좌석 표시 -->
   <div id="seatSack">
-    <h1>열람실 자리 확인/이용</h1>
 
     <!-- 좌석의 상태를 안내하는 div 모음 -->
     <div class="sampleSeatSack">
+
+      <h1>열람실 자리 확인/이용</h1>
       <div class="sampleSeatPair">
         <div class="sampleSeat can"></div>
         <span> 사용 가능한 좌석 </span>
@@ -36,6 +38,22 @@
         <div class="sampleSeat saled"></div>
         <span> 사용중인 좌석</span>
       </div>
+
+
+
+      <!-- 버튼 모음 -->
+      <div class="buttonSack"> <button id="useSeat">이용하기</button>
+
+        <button id="bookingSeat" type="button" onclick="openBookingSeatModal()">예약하기</button>
+
+        <button type="button" onclick="checkMySeat()">이용중인 열람실 확인하기</button>
+
+        <button type="button" onclick="checkMySeatReservation()">열람실 예약 확인하기</button>
+
+        <button id="stopUsingSeat">이용 종료</button>
+
+      </div>
+
     </div>
 
 
@@ -45,13 +63,11 @@
     <div class="seat-chart" id="seatChart"></div>
   </div>
 
+  <!-- 버튼 모음 -->
 
 
-
-
-
-
-  <div class="dispalyNone">
+  <!-- <div class="dispalyNone"> -->
+  <div>
 
 
     <span>x 좌표 : <span id="coordiX"></span> </span>
@@ -64,20 +80,6 @@
 
   </div>
 
-
-  <div class="buttonSack">
-
-    <button id="useSeat">이용하기</button>
-
-    <button id="bookingSeat" type="button" onclick="openBookingSeatModal()">예약하기</button>
-
-    <button type="button" onclick="checkMySeat()">이용중인 열람실 확인하기</button>
-
-    <button type="button" onclick="checkMySeatReservation()">열람실 예약 확인하기</button>
-
-    <button id="stopUsingSeat">이용 종료</button>
-
-  </div>
 
 
   <!-- 이용하기 버튼 클릭 시 표시될 모달 -->
@@ -116,7 +118,7 @@
         </select>
 
         <span>:</span>
-        
+
         <select id="minute">
           <option value="00">00</option>
           <option value="05">05</option>
@@ -206,9 +208,9 @@
 
 
 
-  <footer>
+  <!-- <footer>
     공용 푸터가 들어갈 부분
-  </footer>
+  </footer> -->
 
 </body>
 

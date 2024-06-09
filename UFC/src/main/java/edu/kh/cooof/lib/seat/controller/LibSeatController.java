@@ -355,10 +355,11 @@ public class LibSeatController {
 		}
 
 		if (result != null) {
-
+			
 			map.put("startTime", result.getReadingStart());
 			map.put("endTime", result.getReadingDone());
 			map.put("readingExtend", result.getReadingExtend());
+			
 		}
 		return map;
 

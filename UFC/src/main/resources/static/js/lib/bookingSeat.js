@@ -145,14 +145,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 이용 가능한 좌석에만 반응하기
   useSeatBtn.addEventListener("click", () => {
+    if(selectedSeat == null) {
+      alert("먼저 좌석을 선택해 주세요.");
+      return;
+    }
 
 
     if (selectedSeat && selectedSeat.classList.contains('availSeat') && !selectedSeat.classList.contains('nowUsing') && !selectedSeat.classList.contains('disavailSeat')) {
-      const dbSeatNo = document.getElementById('dbSeatNo').textContent;
+      const dbSeatNo = document.getElementById('dbSeatNo').innerText;
       // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
       const seatCondition = selectedSeat.classList.contains('availSeat') ? 1 :
-        selectedSeat.classList.contains('disavailSeat') ? 2 :
-          0;
+        selectedSeat.classList.contains('disavailSeat') ? 2 : 0;
+
       if (dbSeatNo !== '') {
         fetch('/lib/seats/useSeat', {
           method: 'POST',
@@ -171,6 +175,9 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Seat usage response:', data);
             alert(data.message);
             loadSeatData(); // 좌석 데이터 다시 로드
+            // 여기에 현재 이용중인 좌석 데이터 로드?
+            // -> checkMyseat()이 비동기식이라서 안됨..
+            // checkMySeat();
           })
           .catch(error => console.error('Error using seat:', error));
       } else {
@@ -398,7 +405,7 @@ function checkMySeat() {
 
   // 정보를 표시 할 span
 
-  // 필요한 정보 비동기로 받아오기
+  // 필요한 정보 비동기로 받아오기  
   fetch('/lib/seats/getMySeatInfo', {
     method: 'POST',
     headers: {
@@ -415,6 +422,7 @@ function checkMySeat() {
         // 이용중이 아닐 때에만 메세지가 있다 -> 메세지가 있다면 모달을 닫는다.
         checkMyseat.style.display = "none";
       } else {
+        // 메세지가 없다 -> 이용중이다.
         // 필요한 정보를 보여주는 모달 표시
         checkMyseat.style.display = "block";
 
