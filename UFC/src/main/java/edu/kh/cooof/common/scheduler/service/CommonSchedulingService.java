@@ -46,7 +46,7 @@ public interface CommonSchedulingService {
 
 	// 열람실 이용 종료 시간 체크하기
 	List<LibSeatDTO> checkReadingDone(Date sysdate);
-
+	
 	// 열람실 이용 종료 실행
 	int finishUsingSeat(Map<String, Object> expiredSeat);
 

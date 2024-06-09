@@ -28,17 +28,17 @@
 
 .seat-chart {
   display: grid;
-  grid-template-columns: repeat(20, 40px);
+  grid-template-columns: repeat(20, 4.3vh);
   grid-gap: 2px;
   position: relative;
 
-  margin-bottom: 5vh;
+  margin: 5vh 0px;
   /* 좌석 차트를 기준으로 절대 위치 설정 */
 }
 
 .seat {
-  width: 40px;
-  height: 40px;
+  width: 4vh;
+  height: 4vh;
   background-color: #ddd;
   border: 1px solid #666;
   box-sizing: border-box;
@@ -46,7 +46,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .seat:hover{
@@ -63,7 +63,7 @@
 
 .buttonSack{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -102,7 +102,7 @@
 
 #seatSack{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -113,7 +113,7 @@
   border-radius: 20px;
 }
 
-#seatSack > h1{
+.sampleSeatSack > h1{
 
   border: 3px solid rgb(141, 97, 40);
   padding: 10px;
@@ -125,7 +125,7 @@
 
 .sampleSeatSack {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -178,7 +178,7 @@
   background-color: rgb(255, 0, 0);
   color: black;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   border: 2px solid rgb(80, 45, 0);
   border-radius: 5px;
 }

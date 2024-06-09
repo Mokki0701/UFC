@@ -1,3 +1,6 @@
+const loadingModal = document.querySelector("#loadingModal");
+
+
 // 12시간제로 변환하는 함수
 function formatTo12Hour(time24) {
   const [datePart, timePart] = time24.split(' ');
@@ -72,6 +75,10 @@ document.addEventListener('DOMContentLoaded', function () {
   loadSeatData();
 
   function loadSeatData() {
+
+    // 로딩 모달 창 열기
+    loadingModal.style.display = 'flex';
+
     fetch('/lib/seats/data')
       .then(response => response.json())
       .then(data => {
@@ -91,12 +98,16 @@ document.addEventListener('DOMContentLoaded', function () {
           } else {
             console.warn('Seat not found for coords:', seat.coordiX, seat.coordiY); // 디버깅용 로그 추가
           }
+          // 로딩 모달 창 닫기
+          loadingModal.style.display = 'none';
         });
 
         // 좌석 번호 할당
         assignSeatNumbers();
       })
       .catch(error => console.error('Error loading seats:', error));
+
+
   }
 
   // 좌석 번호 할당 함수
@@ -145,14 +156,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 이용 가능한 좌석에만 반응하기
   useSeatBtn.addEventListener("click", () => {
-
+    if (selectedSeat == null) {
+      alert("먼저 좌석을 선택해 주세요.");
+      return;
+    }
 
     if (selectedSeat && selectedSeat.classList.contains('availSeat') && !selectedSeat.classList.contains('nowUsing') && !selectedSeat.classList.contains('disavailSeat')) {
-      const dbSeatNo = document.getElementById('dbSeatNo').textContent;
+      const dbSeatNo = document.getElementById('dbSeatNo').innerText;
       // 클릭된 좌석의 상태를 기준으로 seatCondition 설정
       const seatCondition = selectedSeat.classList.contains('availSeat') ? 1 :
-        selectedSeat.classList.contains('disavailSeat') ? 2 :
-          0;
+        selectedSeat.classList.contains('disavailSeat') ? 2 : 0;
+
       if (dbSeatNo !== '') {
         fetch('/lib/seats/useSeat', {
           method: 'POST',
@@ -248,10 +262,6 @@ window.onclick = function (e) {
   }
 }
 
-
-
-
-
 // 좌석 예약하기
 // how?
 
@@ -264,7 +274,6 @@ window.onclick = function (e) {
 // !!! -> 실제 좌석 번호, db 좌석 번호 다르다   !!!
 //    --> 따라서 db용 좌석 번호를 받아와야 한다 !!!
 //    --> db용 좌석 번호 : #currentSelectSeat.innerText
-
 
 // 모달 표시하기
 function openBookingSeatModal() {
@@ -398,7 +407,7 @@ function checkMySeat() {
 
   // 정보를 표시 할 span
 
-  // 필요한 정보 비동기로 받아오기
+  // 필요한 정보 비동기로 받아오기  
   fetch('/lib/seats/getMySeatInfo', {
     method: 'POST',
     headers: {
@@ -415,6 +424,7 @@ function checkMySeat() {
         // 이용중이 아닐 때에만 메세지가 있다 -> 메세지가 있다면 모달을 닫는다.
         checkMyseat.style.display = "none";
       } else {
+        // 메세지가 없다 -> 이용중이다.
         // 필요한 정보를 보여주는 모달 표시
         checkMyseat.style.display = "block";
 
