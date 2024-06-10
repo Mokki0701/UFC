@@ -71,7 +71,7 @@ public class LibSeatController {
 
 	// 열람실 좌석 이용하기
 	@PostMapping("/useSeat")
-	public ResponseEntity<Map<String, String>> useSeat(@RequestBody LibSeatDTO libSeat,
+	public ResponseEntity<Map<String, Object>> useSeat(@RequestBody LibSeatDTO libSeat,
 			@SessionAttribute("loginMember") Member loginMember, HttpServletRequest request, HttpSession session) {
 
 		String result = null;
@@ -79,6 +79,7 @@ public class LibSeatController {
 		int memberNo = loginMember.getMemberNo();
 		int isMemberUsing = service.isMemberUsing(memberNo);
 		int seatCondition = libSeat.getCondition();
+		int userSeatNo = 0;
 
 		// 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
 		if (seatCondition != 1) {
@@ -106,7 +107,7 @@ public class LibSeatController {
 				int dbSeatNo = libSeat.getSeatNo();
 
 				// 사용자에게 보여줄 열람실 번호
-				int userSeatNo = dbSeatNo - cacRealSeatNo;
+				userSeatNo = dbSeatNo - cacRealSeatNo;
 
 				// 회원이 이용 중인 자리 session에 저장하기
 				Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
@@ -128,9 +129,10 @@ public class LibSeatController {
 
 		}
 
-		Map<String, String> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>();
 		response.put("message", message);
 		response.put("result", result);
+		response.put("userSeatNo", userSeatNo);
 
 		return ResponseEntity.ok(response);
 	}
@@ -236,6 +238,7 @@ public class LibSeatController {
 		Map<String, Object> response = new HashMap<>();
 		response.put("result", result);
 		response.put("message", message);
+		
 		return response;
 	}
 
@@ -343,7 +346,7 @@ public class LibSeatController {
 		String message = null;
 		int memberNo = loginMember.getMemberNo();
 
-		// 정보를 가저욜 service
+		// 정보를 가져올 service
 		LibSeatDTO result = service.getMySeatInfo(memberNo);
 
 		// 결과를 담아 보낼 map
@@ -356,9 +359,11 @@ public class LibSeatController {
 
 		if (result != null) {
 			
+			
 			map.put("startTime", result.getReadingStart());
 			map.put("endTime", result.getReadingDone());
 			map.put("readingExtend", result.getReadingExtend());
+			
 			
 		}
 		return map;

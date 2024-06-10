@@ -185,6 +185,12 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Seat usage response:', data);
             alert(data.message);
             loadSeatData(); // 좌석 데이터 다시 로드
+
+            const seatNo = document.querySelector(".seatNo");
+            seatNo.innerText = data.userSeatNo + "번 좌석";
+            const noSeatNo = document.querySelector(".noSeatNo");
+            noSeatNo.style.display = 'none';
+
           })
           .catch(error => console.error('Error using seat:', error));
       } else {
