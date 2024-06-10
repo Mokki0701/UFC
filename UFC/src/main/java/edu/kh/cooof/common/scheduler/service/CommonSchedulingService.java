@@ -28,8 +28,9 @@ public interface CommonSchedulingService {
 	 * 잔여 정원 0인 수업 삭제 처리
 	 * 
 	 * @param lessonNo
+	 * @return 
 	 */
-	void setCloseYn(int lessonNo);
+	int setCloseYn(int lessonNo);
 
 	/**
 	 * 권한 부여 체크
@@ -49,5 +50,17 @@ public interface CommonSchedulingService {
 	
 	// 열람실 이용 종료 실행
 	int finishUsingSeat(Map<String, Object> expiredSeat);
+
+	/** 수업 종료 태그 추가
+	 * @param lessonNo
+	 * @return 
+	 */
+	int setCloseTagAdd(int lessonNo);
+
+	/** 모집 중 태그 삭제
+	 * @param lessonNo
+	 * @return
+	 */
+	int removeOpenTag(int lessonNo);
 
 }
