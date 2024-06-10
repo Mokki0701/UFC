@@ -91,7 +91,7 @@ function checkCategory(){
             catParams.push(encodeURIComponent(i.nextElementSibling.innerText));
         }
     }
-
+    
     // 쿼리 스트링 형태로 변환
     let queryString = catParams.map((param, index) => `cat${index + 1}=${param}`).join('&');
     

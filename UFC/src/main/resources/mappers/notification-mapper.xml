@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.common.scheduler.mapper.NotificationMapper">
 
+	<insert id="insertNotification">
+		INSERT INTO NOTIFICATION
+		VALUES(SEQ_NOTIFICATION_NO.NEXTVAL, #{notificationContent}, DEFAULT, DEFAULT, #{notificationUrl}, #{sendMemberNo}, #{receiveMemberNo})
+	</insert>
+
+	<select id="selectMessage">
+		SELECT *
+		FROM "MESSAGE"
+		WHERE MESSAGE_NO = #{messageNo}
+	</select>
+
 </mapper>
