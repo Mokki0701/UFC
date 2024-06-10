@@ -39,14 +39,23 @@
         <span> 사용중인 좌석</span>
       </div>
 
+      <div class="usingSeatInfo">
 
+        <th:block
+          th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
+          <p>회원님이 사용 중인 좌석 번호:
+            <span class="seatNo" th:text="${seatNo}"></span>
+            <span class="noSeatNo" th:if="${session.memberAndSeatSession[session.loginMember.memberNo] == null}">이용중인 좌석 없음</span>
+            <span  th:if="${session.memberAndSeatSession[session.loginMember.memberNo] != null}">번 좌석 이용 중</span>
+          </p>
+      </div>
 
       <!-- 버튼 모음 -->
       <div class="buttonSack"> <button id="useSeat">이용하기</button>
 
         <button id="bookingSeat" type="button" onclick="openBookingSeatModal()">예약하기</button>
 
-        <button type="button" onclick="checkMySeat()">이용중인 열람실 확인하기</button>
+        <button type="button" onclick="checkMySeat()">checkMySeat <br> / 연장하기</button>
 
         <button type="button" onclick="checkMySeatReservation()">열람실 예약 확인하기</button>
 
@@ -153,7 +162,7 @@
         <th:block
           th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
           <p>회원님이 사용 중인 좌석 번호:
-            <span th:text="${seatNo}"></span>
+            <span class="seatNo" th:text="${seatNo}"></span>
           </p>
 
           <!-- 이용 시작한 시간 표시 -->
@@ -186,15 +195,15 @@
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
 
-      <div class="middleTitle">나의 공간 예약 현황</div>
+      <div class="middleTitle">나의 열람실 예약 현황</div>
 
       <div>
         <div class="checkMySeatContent">
-          내가 예약한 공간 번호 : <span id="reservedSeatNo"></span>
+          내가 예약한 열람실 좌석 번호 : <span id="reservedSeatNo"></span>
         </div>
 
         <div class="checkMySeatContent">
-          공간 이용 시작 시간 : <span id="startBookingTime"></span>
+          열람실 이용 시작 시간 : <span id="startBookingTime"></span>
         </div>
 
         <button type="button" onclick="cancleSeatBooking()">공간 예약 취소하기</button>

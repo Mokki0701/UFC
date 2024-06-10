@@ -185,6 +185,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Seat usage response:', data);
             alert(data.message);
             loadSeatData(); // 좌석 데이터 다시 로드
+
+            const seatNo = document.querySelectorAll(".seatNo");
+            seatNo.forEach(e => {
+              e.innerText = data.userSeatNo + "번 좌석";
+            });
+            const noSeatNo = document.querySelector(".noSeatNo");
+            noSeatNo.style.display = 'none';
+
           })
           .catch(error => console.error('Error using seat:', error));
       } else {
@@ -219,6 +227,12 @@ stopUsingSeat.addEventListener("click", () => {
         // 현재 회원이 이용 중인 좌석의 좌표를 사용하여 nowUsing 클래스를 제거
         const seatNo = data.seatNo;
         const seatDiv = document.querySelector(`[data-seat-no="${seatNo}"]`);
+
+        const seatNo2 = document.querySelector(".seatNo");
+        const noSeatNo = document.querySelector(".noSeatNo");
+        seatNo2.style.display = 'none';
+        noSeatNo.style.display = 'inline';
+
         if (seatDiv) {
           console.log(`Removing 'nowUsing' class from seat with seatNo: ${seatNo}`);
           seatDiv.classList.remove('nowUsing');
@@ -227,10 +241,6 @@ stopUsingSeat.addEventListener("click", () => {
         }
       }
     })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('이용 종료 중 오류가 발생했습니다.');
-    });
 });
 
 // 모달 닫는 기능
