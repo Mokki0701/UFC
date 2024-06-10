@@ -48,6 +48,7 @@ public class DashBoardController {
 		List<LessonListDTO> lessonList = service.findLesson(loginMemberId);
 		List<LessonInstructorDTO> instructorLessons = service.instructorLesson(loginMemberId);
 		List<LessonListDTO> lessonBookMarks = service.bookmarkList(loginMemberId);
+		List<Map<String, Object>> certificateList = service.getPerfectAttendanceLessons(loginMember.getMemberNo());
 		
 		//즐겨찾기 강의 목록
 		
@@ -55,6 +56,7 @@ public class DashBoardController {
 		model.addAttribute("lessonList",lessonList);
 		model.addAttribute("instructorLessons",instructorLessons);
 		model.addAttribute("lessonBookMarks",lessonBookMarks);
+		model.addAttribute("certificateList",certificateList);
 		
 		return "lessonDashBoard/dashBoard";
 	}
@@ -113,6 +115,8 @@ public class DashBoardController {
 			
 			return attendanceList;
 		}
+		
+		
 		
 		//출석 등록 
 		@PostMapping("dashboard/submit")

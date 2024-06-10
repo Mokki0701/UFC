@@ -217,6 +217,11 @@
 		AND MEMBER_NO = #{memberNo}
 	
 	</delete>
+	
+	<!-- 수료한 수업 목록 조회 -->
+	<select id="finishedList" resultType="LessonListDTO">
+	
+	</select>
 
 			
 

@@ -543,7 +543,29 @@ studentStatusBtn.addEventListener("click", e=>{
   })
 });
 
+/* 수료증 관련 JS */
 
+// 모달 창 요소 가져오기
+const modal = document.getElementById('certificate-modal');
+const btn = document.querySelector('.certificate-modal-open');
+const span = document.getElementsByClassName('close')[0];
+
+// 버튼 클릭 시 모달 창 열기
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// 닫기 버튼 클릭 시 모달 창 닫기
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// 모달 창 외부 클릭 시 모달 창 닫기
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 
 

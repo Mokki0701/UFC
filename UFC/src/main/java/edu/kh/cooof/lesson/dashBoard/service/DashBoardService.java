@@ -47,6 +47,20 @@ public interface DashBoardService {
 	//즐겨찾기 삭제
 	int bookmarkRemove(LessonListDTO lessonList);
 
+	/** 수료한 수업 목록 조회
+	 * @param loginMemberId
+	 * @return
+	 */
+	List<LessonListDTO> finishedList(int loginMemberId);
+
+	/** 출석률이 100%인 수업만 반환하는 메소드
+	 * @param memberNo
+	 * @return
+	 */
+	List<Map<String, Object>> getPerfectAttendanceLessons(int memberNo);
+	
+	
+
 	
 
 	

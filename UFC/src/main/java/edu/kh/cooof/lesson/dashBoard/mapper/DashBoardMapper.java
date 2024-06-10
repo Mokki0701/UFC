@@ -62,6 +62,12 @@ public interface DashBoardMapper {
 	//즐겨찾기 삭제
 	int bookmarkRemove(LessonListDTO lessonList);
 
+	/** 수료한 수업 목록 조회
+	 * @param loginMemberId
+	 * @return
+	 */
+	List<LessonListDTO> finishedList(int loginMemberId);
+
 
 
 	
