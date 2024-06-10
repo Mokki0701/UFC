@@ -38,4 +38,32 @@
   </nav>
 </div>
 
+<!-- 알림 영역 -->
+<div class="notification-container" th:if="${session.loginMember}">
+
+  <!-- 알림 버튼 -->
+  <button class="notification-btn fa-regular fa-bell" id="my-element"></button>
+
+  <ul class="notification-list">
+    <li class="notification-item">
+      <div class="notification-text">
+        <img src="/images/user.png">
+        <div class="notification-content-container">
+          <p class="notification-date">20분 전</p>
+          <p class="notification-content">
+            <b>test</b>님이
+            <b>[1500번글]</b>을 좋아합니다
+            asdasdasdasdas
+            123123sssssssssssssssssssssssssssssssssssssssssssssssssss
+          </p>
+        </div>
+      </div>
+
+      <span class="notidication-delete">&times;</span>
+    </li>
+  </ul>
+</div>
+
+
+
 

@@ -26,7 +26,8 @@ public class Notification {
 	
 	private String notificationType; // 알림 내용을 구분해서 만드는 용도
 	
-	private String title; 			 // 알림 내용에 추가될 게시글 제목
+	private String messageNo;		 // 알림이 보내진 쪽지 번호
+	private String messageTitle; 	 // 알림이 보내진 쪽지 제목
 	
 	
 	

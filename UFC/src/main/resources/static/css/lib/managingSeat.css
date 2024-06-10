@@ -67,17 +67,21 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  
 
   margin: 30px 0px;
 }
 
 .buttonSack > button {
 
-  width: 200px;
-  height: 50px;
-
+  width: 250px;
+  height: 70px;
+  background-color: rgb(164, 150, 129);
+  color: white;
   border: 2px solid black;
   border-radius: 10px;
+
+  font-size: 17px;
 }
 
 .buttonSack > button:hover{
@@ -86,17 +90,23 @@
 
   background-color: burlywood;
   border: 2px solid rgb(117, 90, 53);
+  color: black;
   transition: all 0.3s;
 }
 
 
 
-
-
-
-
-
 /* ----------------- 열람실 버튼 css  끝 ----------------- */
+
+/* 현재 이용중인 열람실 정보 간략하게 보여주는 부분 */
+
+.usingSeatInfo{
+  display: flex;
+  flex-direction: row;
+}
+
+
+
 
 /* ----------------- 샘플 좌석 보여주기 --------------------- 시작 */
 
@@ -126,6 +136,8 @@
 .sampleSeatSack {
   display: flex;
   flex-direction: column;
+  margin-right: 20px;
+
   gap: 10px;
 }
 
@@ -142,7 +154,7 @@
 }
 
 .cant {
-  background-color: rgb(255, 0, 0);
+  background-color: rgba(255, 0, 0, 0.7);
 }
 
 .saled {
@@ -175,10 +187,10 @@
 }
 
 .disavailSeat {
-  background-color: rgb(255, 0, 0);
+  background-color: rgba(255, 0, 0, 0.652);
   color: black;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: bolder;
+  font-size: 13px;
   border: 2px solid rgb(80, 45, 0);
   border-radius: 5px;
 }

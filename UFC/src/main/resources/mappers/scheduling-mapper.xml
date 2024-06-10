@@ -50,9 +50,9 @@
 
 	<!-- 이용 종료 5분 전인 사람들 select -->
 	<select id="getFiveMinBeforeMemberNo" resultType="java.lang.Integer">
-		SELECT MEMBER_NO 
-		FROM RENT_SEAT rs
-		WHERE rs.READING_DONE = #{fiveMinBefore}
+		SELECT MEMBER_NO
+        FROM RENT_SEAT
+        WHERE TRUNC(READING_DONE, 'MI') = TRUNC(#{fiveMinBefore}, 'MI')
 	</select>
 
 
