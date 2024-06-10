@@ -3,7 +3,7 @@
   <!-- Swiper -->  
   <div class="swiper mySwiper">
     <div class="swiper-wrapper"> 
-      <div class="swiper-slide">
+      <div class="swiper-slide" >
         <div>   
           <form action="/member/loginMember" method="post" id="loginForm">
             <h2>로그인</h2>
@@ -20,7 +20,8 @@
 
         </div>
       </div>
-      <div class="swiper-slide">
+      <!-- 회원가입 -->
+      <div class="swiper-slide" >
         <section class="signUp-content">
           <form action="/member/signup" method="POST" name="signUpForm" id="signUpForm">
     
@@ -42,9 +43,21 @@
                   <option value="nate.com">nate.com</option>
                   <option value="kakao.com">kakao.com</option>
                 </select>
+                <button id="sendAuthKeyBtn" type="button">인증번호 받기</button>
               </div>
             <span class="signUp-message" id="emailMessage">옳바른 이메일을 입력해주세요</span>
-    
+
+            <!-- 인증번호 입력 -->
+            <label for="emailCheck">
+              <span class="authKeyNumber">*</span> 인증번호
+            </label>
+
+            <div class="signUp-input-area">
+              <input type="text" name="authKey" id="authKey" placeholder="인증번호 입력" maxlength="6" autocomplete="off">
+              <button id="checkAuthKeyBtn" type="button">인증하기</button>
+            </div>
+            <span class="signUp-message" id="authKeyMessage"></span>
+
             <br>
             <!-- 비밀번호/비밀번호 확인 입력 -->
             <label for="memberPw">
@@ -134,7 +147,7 @@
         </section>
 
       </div>
-      <div class="swiper-slide">
+      <div class="swiper-slide" th:unless="${sessionMember != null}">
         <div>
           <h1>마이페이지</h1>
           <div>
@@ -148,7 +161,7 @@
               새 비밀번호로 변할 수 있습니다
             </span>
 
-            <form action="changePw" method="POST" name="myPageFrm" id="changePw">
+            <form action="/member/changePw" method="POST" name="myPageFrm" id="changePw">
 
               <div class="myPage-row">
                   <label>현재 비밀번호</label>
@@ -165,7 +178,7 @@
                   <input type="password" name="newPwConfirm" id="newPwConfirm" maxlength="30">              
               </div>
     
-              <button type="submit" class="myPage-submit">변경하기</button>
+              <button class="myPage-submit">변경하기</button>
     
             </form>
 
@@ -200,6 +213,12 @@
       <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
       <script src="/js/member/signup2.js"></script>
+
+      <script th:inline="javascript">
+        var sessionMember = /*[[${sessionMember}]]*/ null;
+        
+        
+    </script>
   
       <div class="arrow-down">&#8595;</div>
    
