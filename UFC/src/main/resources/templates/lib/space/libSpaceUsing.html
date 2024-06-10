@@ -28,13 +28,29 @@
     <h1>일반 회원이 공간을 대여하는 페이지</h1>
 
     <!-- 출입구 표시 -->
-    <div id="exitSack">
-      <div class="exit">출입구</div>
-      <div class="exit">출입구</div>
-    </div>
+
 
     <!-- 생성된 div가 표시되는 부분 -->
-    <div id="drawingArea"></div>
+    <button onclick="spaceInfo()">눌러라</button>
+
+    <div class="spaceInfoArea">
+    <div class="spaceUsage">
+        <!-- 여기에 공간 정보가 동적으로 추가됩니다 -->
+    </div>
+</div>
+
+
+
+
+      <div class="spaceInfoDetails">
+        <div id="exitSack">
+          <div class="exit">출입구</div>
+          <div class="exit">출입구</div>
+        </div>
+        <div id="drawingArea"></div>
+      </div>
+
+    </div>
 
     <!-- 생성된 div 크기 조정 -->
 
@@ -153,7 +169,7 @@
         <button onclick="realBookingSpace()">예약하기</button>
       </div>
     </div>
-    
+
   </div>
 
 

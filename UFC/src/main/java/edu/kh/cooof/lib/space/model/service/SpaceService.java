@@ -1,8 +1,10 @@
 package edu.kh.cooof.lib.space.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.cooof.lib.space.model.dto.SpaceDTO;
+import edu.kh.cooof.lib.space.model.dto.SpaceRentInfoDTO;
 
 public interface SpaceService {
 
@@ -38,7 +40,10 @@ public interface SpaceService {
 
 	// 공간 예약 내역 확인하기
 	SpaceDTO spaceReservationInfo(int memberNo);
-	
+
+	 int countSpace();
+	// 공간의 종료 시간 가져오기
+	Map<String, Object> spaceDoneTime();
 
 	
 

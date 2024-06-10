@@ -88,6 +88,54 @@
   transition: background-color 0.3s ease-in-out; /* 배경색 전환 효과 추가 */
 }
 
+.spaceManager {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spaceInfoDetails{
+  display: flex;
+  flex-direction: column;
+}
+
+.spaceInfoArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* space 이용 정보를 나타내는 공간 */
+.spaceUsage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 200px;
+  height: 500px;
+  border: 2px solid black;
+  border-radius: 10px;
+
+  margin-right: 40px; /* 필요에 따라 조정 */
+}
+
+.smallSpaceUsage{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: space-between;
+  border: 1px dotted burlywood;
+  border-radius: 10px;
+
+  min-width: 80%;
+}
+
+
 #exitSack{
   display: flex;
   justify-content: space-between;
@@ -174,6 +222,8 @@ button:hover{
   position: relative;
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 0.5px solid gray;
+  border-radius: 10px;
 }
 
 .drawnDiv {

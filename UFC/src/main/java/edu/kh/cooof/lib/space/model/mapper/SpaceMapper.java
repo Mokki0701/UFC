@@ -67,4 +67,12 @@ public interface SpaceMapper {
 	// 공간 예약 취소하기
 	int cancleSpceBooking(int memberNo);
 
+	// 생성된 공간 갯수 세기
+	int countSpace();
+
+	// 각 공간마다 종료 시간 가져오기
+	Map<String, Object> spaceDoneTime();
+
+
+
 }
