@@ -51,7 +51,7 @@
                 <i class="fas fa-receipt info-icon"></i>
                 <div>
                     <div class="info-title">결제 내역</div>
-                    <div class="info-content" th:text="${gymMyPage.ptStrDate} + ': PT ' + ${gymMyPage.ptYN} + '회권 - ' + ${gymMyPage.ptPrice} + '원'">
+                    <div class="info-content" th:text="' PT ' + ${gymMyPage.ptYN} + '회권 - ' + ${gymMyPage.ptPrice} + '원'">
                         2024-01-01: PT 10회권 - 500,000원
                     </div>
                 </div>

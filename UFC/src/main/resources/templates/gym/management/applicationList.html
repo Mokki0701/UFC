@@ -47,9 +47,7 @@
                         </td>
                         <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}" class="detail-link">상세 보기</a></td>
                         <td>
-                            <span th:if="${app.status} == 'approved'">승인완료</span>
-                            <span th:if="${app.status} == 'rejected'">거절완료</span>
-                            <span th:if="${app.status} == 'pending'">미완료</span>
+                            <span th:text="${app.status}">미완료</span>
                         </td>
                     </tr>
 

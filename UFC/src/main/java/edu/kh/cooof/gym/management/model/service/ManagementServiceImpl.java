@@ -40,9 +40,9 @@ public class ManagementServiceImpl implements ManagementService{
 		return mapper.selectApplicationNo(applicationNo);
 	}
 	
-	// 승인 이메일 보내기
+	// 이메일 보내기
     @Override
-    public boolean sendEmail(String email) {
+    public boolean sendEmail(String email , String status) {
         try {
             // MimeMessage 생성
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -50,10 +50,14 @@ public class ManagementServiceImpl implements ManagementService{
 
             // 이메일 설정
             helper.setTo(email);
-            helper.setSubject("트레이너 승인 완료");
+            helper.setSubject("트레이너 신청 결과");
+            
+            // Thymeleaf context 설정
+            Context context = new Context();
+            context.setVariable("status", status);
 
             // HTML 내용 로드
-            String htmlContent = loadHtml("/gymEmail");
+            String htmlContent = templateEngine.process("gym/management/email/gymEmail", context);
 
             helper.setText(htmlContent, true);
 
@@ -87,6 +91,13 @@ public class ManagementServiceImpl implements ManagementService{
     public int updateMemberAuthority(Integer memberNo) {
     	
     	return mapper.updateAuthority(memberNo);
+    }
+    
+    
+    @Override
+    public int updateApplicationStatus(int memberNo, String status) {
+    	
+    	return mapper.updateApplicationStatus(memberNo, status);
     }
 	
 }
