@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let colors = ["#FFD1DC", "#B3E5FC", "#C8F7C5", "#E6E6FA", "#8BA590"]; // 색상 배열
             colorIndex++; // 다음 색상을 사용하도록 인덱스 증가
             data.forEach(lesson => {
-              const backgroundColor = lesson.wishListYN === 1? 'Gold' : colors[colorIndex % colors.length]; // 색상 순환
+              const backgroundColor = lesson.wishYn === 'Y' ? 'Gold' : colors[colorIndex % colors.length]; // 색상 순환
               colorIndex++;
               const lessonDays = lesson.lessonSchedule.split(' '); // 수업 요일 및 시간 배열로 변환
               const lessonDay = convertDayToNumber(lessonDays[0]); // 수업 요일만 숫자로 변환

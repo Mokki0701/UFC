@@ -35,14 +35,6 @@ public class LessonCalendarController {
 		// 로그인한 회원 번호로 수업 조회
 		List<Lesson> lessonsCalendar = service.selectCalendar(loginMember.getMemberNo());
 		
-		if (loginMember != null) {
-	        
-	        for (Lesson lesson : lessonsCalendar) {
-	            boolean isWishlisted = listService.isWishlisted(lesson.getLessonNo(), loginMember.getMemberNo());
-	            lesson.setWishListYN(isWishlisted ? 1 : 0);
-	        }
-	    }
-		
 		return lessonsCalendar;
 	}
 	
