@@ -15,7 +15,7 @@
 
         <tbody>
           <tr th:each="book : ${bookList}" th:object="${book}">
-              <td th:text="*{bookNo}">책번호</td>
+              <td class="index">책번호</td>
               <th>
                 <a th:href="@{|/book/bookDetail?bookNo=${book.bookNo}|}" th:text="*{bookTitle}">제목</a>
                 <!-- <p th:text="*{bookPublisher}">테스트</p> -->
@@ -41,7 +41,7 @@
 
         <tbody>
           <tr th:each="lesson : ${lessonList}" th:object="${lesson}">
-            <td th:text="*{lessonNo}">프로그램번호</td>
+            <td class="index">프로그램번호</td>
             <th>
               <a th:href="@{|/lesson/list/${lesson.lessonNo}|}" th:text="*{lessonTitle}">프로그램제목</a>
               <!-- <p th:text="*{bookPublisher}">테스트</p> -->
@@ -54,7 +54,31 @@
     </div>
     
     <!-- 헬스 -->
-    <div></div>
+    <div>
+
+      
+      <table class="board-table">
+        <h3>BEST 트레이너</h3>
+        <thead>
+          <tr>
+              <th scope="col" class="th-num">번호</th>
+              <th scope="col" class="th-title">강사명</th>
+              <th scope="col" class="th-date">비용</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="trainer : ${trainerList}" th:object="${trainer}">
+            <td class="index">번호</td>
+            <th th:text="*{trainerName}">
+              <!-- <a th:href="@{|/lesson/list/${lesson.lessonNo}|}" th:text="*{lessonTitle}">프로그램제목</a> -->
+            </th>
+            <td th:text="*{trainerPrice}">비용</td>
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
 
 
 

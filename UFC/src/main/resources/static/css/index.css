@@ -455,10 +455,10 @@ body {
 .board-table {
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: 13px;
+  font-size: 18px;
   width: 100%;
   border-top: 1px solid #8a4b08;
-  border-bottom: 1px solid #8a4b08;
+  /* border-bottom: 1px solid #8a4b08; */
 }
 
 .board-table a {

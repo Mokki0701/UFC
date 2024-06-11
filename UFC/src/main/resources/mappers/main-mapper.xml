@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.main.mapper.MainPageMapper">
 
+	<!-- 인기 도서 리스트 -->
 	<select id="bookList" resultType="edu.kh.cooof.lib.book.model.dto.Book">
 	
 		SELECT *
@@ -19,6 +20,7 @@
 		
 	</select>
 
+	<!-- 인기 교육 -->
 	<select id="lessonList" resultType="edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO">
 	
 		SELECT COUNT(*), lw.LESSON_NO, l.LESSON_TITLE , l.LESSON_SCHEDULE  
@@ -30,9 +32,28 @@
 		GROUP BY lw.LESSON_NO, l.LESSON_TITLE , l.LESSON_SCHEDULE  
 		
 		ORDER BY COUNT(*) DESC
+		
+		FETCH FIRST 10 ROWS ONLY
 	
 	</select>
-
-
+	
+	
+	<!-- 인기 트레이너 -->
+	<select id="getTrainerList" resultType="edu.kh.cooof.gym.trainerSelect.model.dto.Trainer">
+	
+		SELECT *
+		FROM TRAINER 
+		WHERE TRAINER_NO IN (
+			SELECT TRAINER_NO 
+			FROM (
+				SELECT TRAINER_NO , COUNT(*) AS PT_COUNT
+				FROM PT p 
+				GROUP BY TRAINER_NO
+				ORDER BY PT_COUNT DESC
+				FETCH FIRST 10 ROWS ONLY
+			)
+		)
+	
+	</select>
 
 </mapper>
