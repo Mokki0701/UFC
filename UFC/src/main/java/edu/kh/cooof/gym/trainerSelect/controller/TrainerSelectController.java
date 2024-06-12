@@ -45,8 +45,10 @@ public class TrainerSelectController {
 			path = "redirect:/gym/gymMain";
 			
 		} else {
-			List<Trainer> trainers = service.getAllTrainers();	
+			List<Trainer> trainers = service.getAllTrainers();
+			
 			model.addAttribute("trainers", trainers);
+			model.addAttribute("loginMember", loginMember);
 			path = "gym/trainerSelect/trainerSelect";
 		}
 		

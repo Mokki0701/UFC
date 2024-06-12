@@ -21,9 +21,11 @@ function checkSelectAll() {
 }
 
 
+const gymPrice = document.querySelectorAll("#gym_price");
 
-
-
+gymPrice.addEventListener("click", e =>{
+    
+});
 
 
 const gymPrices = document.querySelectorAll(".gym_price");

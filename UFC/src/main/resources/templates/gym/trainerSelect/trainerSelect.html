@@ -28,9 +28,9 @@
 
       </div>
       <div>
-        <button class="gym_price" data-pt-count="1"  th:text="'1회 가격: '  + ${trainer.trainerPrice}        + '원'">1회 가격</button>
-        <button class="gym_price" data-pt-count="5"  th:text="'5회 가격: '  + (${trainer.trainerPrice} * 5)  + '원'">5회 가격</button>
-        <button class="gym_price" data-pt-count="10" th:text="'10회 가격: ' + (${trainer.trainerPrice} * 10) + '원'">10회 가격</button>
+        <button class="gym_price" id="gym_price" data-pt-count="1"  th:text="'1회 가격: '  + ${trainer.trainerPrice}        + '원'">1회 가격</button>
+        <button class="gym_price" id="gym_price" data-pt-count="5"  th:text="'5회 가격: '  + (${trainer.trainerPrice} * 5)  + '원'">5회 가격</button>
+        <button class="gym_price" id="gym_price" data-pt-count="10" th:text="'10회 가격: ' + (${trainer.trainerPrice} * 10) + '원'">10회 가격</button>
 
 
           <!-- <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice})}" id="tenTimesLink" data-pt-count="1">
