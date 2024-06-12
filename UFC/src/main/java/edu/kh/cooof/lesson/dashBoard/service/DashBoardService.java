@@ -65,6 +65,12 @@ public interface DashBoardService {
 	 * @return
 	 */
 	Lesson selectCertificateLesson(int lessonNo);
+
+	/** 수료증 수료할 회원 정보 가공을 위한 조회
+	 * @param memberNo
+	 * @return
+	 */
+	Member selectCertificateMember(int memberNo);
 	
 	
 

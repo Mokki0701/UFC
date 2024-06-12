@@ -75,7 +75,13 @@ public interface DashBoardMapper {
 	 */
 	Lesson selectCertificateLesson(int lessonNo);
 
+	/** 수료증 발급받을 회원 정보 가공을 위한 조회
+	 * @param memberNo
+	 * @return
+	 */
+	Member selectCertificateMember(int memberNo);
 
+	
 
 	
 

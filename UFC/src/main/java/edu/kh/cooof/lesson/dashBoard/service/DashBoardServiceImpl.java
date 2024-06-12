@@ -233,4 +233,10 @@ public class DashBoardServiceImpl implements DashBoardService {
 		return mapper.selectCertificateLesson(lessonNo);
 	}
 	
+	
+	@Override
+	public Member selectCertificateMember(int memberNo) {
+		return mapper.selectCertificateMember(memberNo);
+	}
+	
 }
