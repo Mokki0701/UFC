@@ -1,9 +1,15 @@
 package edu.kh.cooof.lib.space.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.lib.seat.model.service.LibSeatService;
 import edu.kh.cooof.lib.space.model.dto.SpaceDTO;
+import edu.kh.cooof.lib.space.model.dto.SpaceRentInfoDTO;
 import edu.kh.cooof.lib.space.model.mapper.SpaceMapper;
 import edu.kh.cooof.lib.space.model.service.SpaceService;
 import edu.kh.cooof.member.model.dto.Member;
@@ -32,6 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("lib/space")
 public class SpaceController {
+
+	private static final Logger logger = LoggerFactory.getLogger(SpaceController.class);
 
 	private final SpaceService service;
 	// controller에서 mapper를 바로 호출하지 않는 이유..
@@ -296,13 +305,13 @@ public class SpaceController {
 							int spaceAvail = mapper.checkAvail(spaceNo);
 							log.debug("checkAvail result: {}", spaceAvail);
 							if (spaceAvail == 1) { // 공간이 사용 가능하면 1
-								
+
 								int checkStartTime = service.checkStartTime(spaceNo, startTime);
 								log.debug("checkStartTime result: {}", checkStartTime);
-								
+
 								if (checkStartTime == 1) {
 									message = "해당 공간은 이용 불가합니다.";
-									
+
 								} else {
 									int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
 									log.debug("bookSpace result: {}", bookSpace);
@@ -399,16 +408,80 @@ public class SpaceController {
 
 		return result;
 	}
-	
-	
+
 	// 공간 예약 취소하기
 	@PostMapping("cancleSpceBooking")
 	@ResponseBody
 	public int cancleSpceBooking(@SessionAttribute("loginMember") Member loginMember, Model model) {
 		int memberNo = loginMember.getMemberNo();
-		
+
 		return mapper.cancleSpceBooking(memberNo);
 	}
-	
+
+	// 종료 시간 체크
+	@GetMapping("/spaceDoneTime")
+	@ResponseBody
+	public List<Map<String, Object>> spaceDoneTime() {
+		int repeat = service.countSpace();
+		List<Map<String, Object>> responseList = new ArrayList<>();
+
+		for (int i = 0; i < repeat; i++) {
+			int spaceNo = i + 1;
+			Map<String, Object> spaceDoneTime = service.spaceDoneTime(spaceNo);
+
+			// 로그 추가
+			logger.info("Space number: " + spaceNo);
+
+			if (spaceDoneTime == null) {
+				spaceDoneTime = new HashMap<>();
+				spaceDoneTime.put("spaceNo2", spaceNo);
+				spaceDoneTime.put("spaceDone", null);
+			} else {
+				spaceDoneTime.put("spaceNo2", spaceNo);
+			}
+
+			logger.info("Space done time details: " + spaceDoneTime);
+
+			responseList.add(spaceDoneTime);
+		}
+
+		// 응답 로그 추가
+		logger.info("Response List: " + responseList);
+
+		return responseList;
+	}
+
+	// 종료 시간에 따른 알람 및 종료
+	@PostMapping("doneTimeCheck")
+	@ResponseBody
+	public void doneTimeCheck(
+			@RequestBody String requestBody
+			) {
+
+		// body에서 현재 시간 가져오기
+		String currentTime = requestBody;
+		
+		System.out.println("현재 시간 : " + currentTime);
+		
+		// 현재 공간을 이용 중인 memberNo를 가져오기
+		List<Integer> getSpaceUserNo = service.getSpaceUserNo();
+		
+		// 공간 이용 중인 member마다 실행하기
+		// 리스트의 0번째 부터 마지막번째 까지
+		for (int i = 0; i < getSpaceUserNo.size(); i++) {
+			
+			// i 번째 요소 가져오기
+			int userNo = getSpaceUserNo.get(i);
+			
+			// memberNo에 맞는 공간 이용 종료 시간 가져오기
+			String spaceUserDoneTime = service.spaceUserDoneTime(userNo);
+			System.out.printf("db에 저장된 시간 : " , spaceUserDoneTime);
+			
+			// 현재 시간과 spaceUserDoneTime이 같을 때 실행한다.
+			
+		}
+
+
+	}
 
 }

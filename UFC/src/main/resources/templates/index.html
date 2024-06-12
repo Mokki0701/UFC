@@ -5,7 +5,7 @@
   <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UFC</title>
-  <!-- <link rel="stylesheet" href="/css/common/header.css"> -->
+  <link rel="stylesheet" href="/css/common/header.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="/images/favicon.ico">
   <link rel="stylesheet" href="/css/index.css">
@@ -43,13 +43,16 @@
 </head>
 
 
+
+ 
+
 <body>
   <div th:replace="~{common/header}"></div>
   
   <div th:replace="~{common/sidebar}"></div>
 
  
-  <!-- 임시 헤더 -->
+
 
 
   <div>
@@ -81,6 +84,7 @@
     </div>
   </div>
   
+<script src="/js/common/header.js"></script>
 </body>
 
 <div th:replace="~{common/footer}"></div>
@@ -92,6 +96,7 @@
   const message =  /*[[${message}]]*/ "전달 받은 message";
   if (message != null) alert(message);
   const loginCheck = /*[[${session?.loginMember} ? true : false]]*/ '로그인 체크';
+  
 
 </script>
 

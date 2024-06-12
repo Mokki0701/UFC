@@ -1,14 +1,17 @@
 package edu.kh.cooof.lib.space.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.cooof.lib.space.model.dto.SpaceDTO;
+import edu.kh.cooof.lib.space.model.dto.SpaceRentInfoDTO;
 import edu.kh.cooof.lib.space.model.mapper.SpaceMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -197,4 +200,42 @@ public class SpaceServiceImpl implements SpaceService {
 	public SpaceDTO spaceReservationInfo(int memberNo) {
 		return mapper.spaceReservationInfo(memberNo);
 	}
+
+	// 공간의 종료 시간 가져오기
+	@Override
+	public Map<String, Object> spaceDoneTime(int spaceNo) {
+
+		return mapper.spaceDoneTime(spaceNo);
+	}
+
+	@Override
+	public int countSpace() {
+		return mapper.countSpace();
+	}
+
+	@Override
+	public List<Integer> getSpaceUserNo() {
+
+		return mapper.getSpaceUserNo();
+	}
+
+	@Override
+	public String spaceUserDoneTime(int userNo) {
+
+		return mapper.spaceUserDoneTime(userNo);
+	}
+
+	@Override
+	public int updateSpaceToAvailable(int spaceNo) {
+		return mapper.updateSpaceToAvailable(spaceNo);
+	}
+	
+	
+	// 이용 종료시키기
+	@Override
+	public int getOut(int userNo) {
+		return mapper.getOut(userNo);
+	}
+	
+	
 }
