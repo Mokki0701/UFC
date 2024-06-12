@@ -38,7 +38,7 @@
 	
 	<select id="updateNotification">
 		UPDATE "NOTIFICATION" SET
-		NOTIFICATION_CHECK = 'Y'
+		NOTIFICATION_CHECK = 1
 		WHERE NOTIFICATION_NO = #{notificationNo}
 	</select>
 	
@@ -46,7 +46,7 @@
 		SELECT COUNT(*) 
 		FROM "NOTIFICATION"
 		WHERE RECEIVE_MEMBER_NO = #{memberNo}
-		AND NOTIFICATION_CHECK = 'N'
+		AND NOTIFICATION_CHECK = 0
 	</select>
 	
 	<delete id="deleteNotification">

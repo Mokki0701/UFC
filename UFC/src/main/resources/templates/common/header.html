@@ -3,28 +3,30 @@
         <div class="header-center">
             <a href="/">UFC</a>
         </div>
-        <div class="header-notification-container" th:if="${session.loginMember}">
-            <!-- 알림 버튼 -->
-            <input type="checkbox" id="notification-toggle" class="header-notification-toggle">
-            <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell"></label>
-            <!-- 알림 목록 -->
-            <ul class="header-notification-list" id="notification-list">
-                <li class="header-notification-item">
-                    <div class="header-notification-text">
-                        <div class="header-notification-content-container">
-                            <p class="header-notification-date">20분 전</p>
-                            <p class="header-notification-content">
-                                <b>test</b>님이
-                                <b>[1500번글]</b>을 좋아합니다
-                                asdasdasdasdas
-                                123123sssssssssssssssssssssssssssssssssssssssssssssssssss
-                            </p>
-                        </div>
-                    </div>
-                    <span class="header-notification-delete">&times;</span>
-                </li>
-            </ul>
+        <input type="checkbox" id="notification-toggle" class="header-notification-toggle">
+        <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell"></label>
+        <div class="header-notification-num">
+            <span class="noti-number"></span>
         </div>
     </header>
+
+    <div class="header-notification-container header-content" id="notification-list" th:if="${session.loginMember}">
+        <ul class="header-notification-list" >
+            <li class="header-notification-item">
+                <div class="header-notification-text">
+                    <div class="header-notification-content-container">
+                        <p class="header-notification-date">20분 전</p>
+                        <p class="header-notification-content">
+                            <b>test</b>님이
+                            <b>[1500번글]</b>을 좋아합니다
+                            asdasdasdasdas
+                            123123sssssssssssssssssssssssssssssssssssssssssssssssssss
+                        </p>
+                    </div>
+                </div>
+                <span class="header-notification-delete">&times;</span>
+            </li>
+        </ul>
+    </div>
   </body>
   

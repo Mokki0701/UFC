@@ -10,7 +10,8 @@
     padding: 10px 20px;
     position: fixed;
     width: 100%;
-    top: 0;
+    height: 40px;
+    top: 0; right: 0;
     z-index: 1000;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -18,7 +19,7 @@
 .header-center {
     flex-grow: 1;
     text-align: center;
-    margin-left: 25%;
+    /* margin-left: 25%; */
 }
 
 .header-center a {
@@ -27,39 +28,52 @@
     font-weight: bold;
     color: black;
     transition: color 0.3s;
-}
-
-.header-notification-container {
     position: absolute;
     top: 50%;
-    right: 25%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+.header-notification-toggle {
+    display: none;
 }
 
 .header-notification-btn {
     font-size: 20px;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 1);
-    border: none;
     position: absolute;
-    top: 7px;
-    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15%;
+    /* background-color: rgba(255, 255, 255, 1); */
+    border: none;
+}
+
+.header-notification-container {
+    position: absolute;
+    top: 60px; /* 부모 요소의 높이만큼 아래로 이동 */
+    right: 20px;
+    width: 380px;
+    height: 400px;
+    padding: 10px;
+    background: #f0f3fa;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px #eee, 0 4px 8px 0 rgba(0, 0, 0, .3);
+    display: none; /* 기본적으로 숨겨진 상태 */
+    z-index: 9999;
 }
 
 /* 체크박스가 체크된 경우 알림 창 보이게 하기 */
-.header-notification-toggle:checked ~ .header-notification-list {
+.header-notification-toggle:checked ~ .header-notification-container {
     display: block;
 }
 
-
-/* 알림 창 보이게 하기 */
-.notification-show {
-    display: block;
-    z-index: 9999;
-    position: fixed;
+.header-notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .header-notification-item {
@@ -86,7 +100,7 @@
 }
 
 .header-notification-content-container {
-    height: 90%;
+    /* height: 90%; */
 }
 
 .header-notification-date {
@@ -106,8 +120,8 @@
 
 .header-notification-delete {
     position: absolute;
-    top: -5px;
-    right: 2px;
+    top: 10px;
+    right: 20px;
     user-select: none;
     cursor: pointer;
     font-size: 18px;
@@ -121,19 +135,34 @@
 .header-notification-item:hover > .header-notification-text {
     text-decoration: underline;
 }
-.header-notification-list {
-    position: fixed; /* fixed로 설정하여 항상 화면의 최상위에 위치 */
-    top: 50px; /* 화면 상단에서의 거리 조정 */
-    right: 20px; /* 화면 오른쪽에서의 거리 조정 */
-    width: 380px;
-    height: 400px;
-    padding: 10px;
-    list-style: none;
-    z-index: 9999 !important; /* 매우 높은 z-index 값 설정 */
-    background: #f0f3fa;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 0 1px #eee, 0 4px 8px 0 rgba(0, 0, 0, .3);
-    display: none; /* 처음에 알림 창이 보이지 않게 함 */
+
+.content {
+    margin-top: 70px; /* Fixed 요소 아래 내용이 겹치지 않도록 여백 추가 */
+    padding: 20px;
+    background-color: cornflowerblue;
+    width: 400px;
+    height: 400px; /* 긴 페이지를 만들어 스크롤 테스트 */
+    /* display: none; */
+    position: fixed;
+    z-index: 9999;
+    top: 0; right:100px;
+}
+
+.notification-show{
+    display: block;
+}
+
+.header-notification-num{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: red;
+    font-size: 12px;
+    line-height: 12px;
+    position: absolute;
+    top: 20%; right: 14%;
+}
+
+.header-notification-num > span{
+    line-height: 16px;
 }

@@ -35,6 +35,8 @@ public class NotificationController {
 			@SessionAttribute("loginMember") Member loginMember
 			) {
 		
+		List<Notification> list = service.selectNotification(loginMember.getMemberNo());
+				
 		return service.selectNotification(loginMember.getMemberNo());
 	}
 	

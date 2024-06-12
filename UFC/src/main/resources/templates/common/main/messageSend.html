@@ -109,6 +109,44 @@
     </div>
 </body>
 
+<!-- 여기에 알림 html양식을 추가해서 js에서 만들 수 있게 해줘야 하나? -->
+<!-- <div class="header-body" style="display: none;">
+    <header class="header-container">
+        <div class="header-center">
+            <a href="/">UFC</a>
+        </div>
+        <div class="header-notification-container" th:if="${session.loginMember}">
+
+            <input type="checkbox" id="notification-toggle" class="header-notification-toggle">
+            <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell"></label>
+
+            <ul class="header-notification-list" id="notification-list">
+                <li class="header-notification-item">
+                    <div class="header-notification-text">
+                        <div class="header-notification-content-container">
+                            <p class="header-notification-date">20분 전</p>
+                            <p class="header-notification-content">
+                                <b>test</b>님이
+                                <b>[1500번글]</b>을 좋아합니다
+                                asdasdasdasdas
+                                123123sssssssssssssssssssssssssssssssssssssssssssssssssss
+                            </p>
+                        </div>
+                    </div>
+                    <span class="header-notification-delete">&times;</span>
+                </li>
+            </ul>
+        </div>
+    </header>
+  </div> -->
+
+
+
+
+
+<!-- --------------------------------------------- -->
+
+
 <!-- <script th:inline="javascript">
     const notificationLoginCheck = /*[[${session.loginMember} ? true : false]]*/ '로그인 체크';
   </script>
@@ -154,7 +192,7 @@
             alert("메시지 발송 성공!");
 
             sendNotificationFn("sendMessage", location.pathname, messageNo);
-            // window.close();
+            window.close();
             
         })
 

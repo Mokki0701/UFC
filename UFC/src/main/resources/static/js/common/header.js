@@ -12,7 +12,7 @@ if(notificationLoginCheck){
     notificationSock = new SockJS("/notification/send");
 
     sendNotificationFn = (type, url, messageNo) =>{
-        console.log("adsfasdf", type, url, messageNo);
+        
         const notification = {
 
             "notificationType": type,
@@ -47,6 +47,7 @@ if(notificationLoginCheck){
             .then(resp => resp.json())
             .then(selectList => {
 
+                console.log(selectList);
                 const notificationList = document.querySelector(".header-notification-list");
                 notificationList.innerHTML = "";
 
@@ -55,7 +56,7 @@ if(notificationLoginCheck){
                     const notiItem = document.createElement("li");
                     notiItem.className = 'header-notification-item';
 
-                    if(data.notificationCheck === "N"){
+                    if(data.notificationCheck === 0){
                         notiItem.classList.add("not-read");
                     }
 
@@ -64,7 +65,7 @@ if(notificationLoginCheck){
 
                     notiText.addEventListener("click", ()=>{
 
-                        if(data.notificationCheck === "N"){
+                        if(data.notificationCheck === 0){
                             fetch("/notification", {
                                 method: "PUT",
                                 headers: {
@@ -109,6 +110,9 @@ if(notificationLoginCheck){
                             notReadCheckFn().then(notReadCount => {
                                 
                                 const notificationBtn = document.querySelector(".header-notification-btn");
+                                const notificationCount = document.querySelector(".header-notification-num");
+
+                                notificationCount.innerText= notReadCount;
 
                                 if(notReadCount > 0){
                                     notificationBtn.classList.remove("fa-regular");
@@ -124,9 +128,9 @@ if(notificationLoginCheck){
 
                     })
 
-                    notiList.append(notiItem);
+                    notificationList.append(notiItem);
                     notiItem.append(notiText, notiDelete);
-                    notiText.append(senderProfile, contentContainer);
+                    notiText.append( contentContainer);
                     contentContainer.append(notiDate, notiContent);
 
                 }
@@ -139,6 +143,10 @@ if(notificationLoginCheck){
 
         notReadCheckFn().then(notReadCount => {
 
+            const notificationCount = document.querySelector(".header-notification-num");
+
+            notificationCount.innerText= notReadCount;
+
             if(notReadCount > 0){
                 notificationBtn.classList.remove("fa-regular");
                 notificationBtn.classList.add("fa-solid");
@@ -147,15 +155,15 @@ if(notificationLoginCheck){
 
         notificationBtn.addEventListener("click", ()=>{
 
-            const notiList = document.querySelector(".header-notification-list");
+            var notificationList = document.getElementById('notification-list');
 
-            if(notiList.classList.contains("notification-show")){
-                notiList.classList.remove("notification-show");
+            if (notificationList.style.display === 'block') {
+                notificationList.style.display = 'none';
                 return;
-            }
+            } 
 
             selectnNotificationFn();
-            notiList.classList.add("notification-show");
+            notificationList.style.display = 'block';
         })
 
     })
@@ -177,23 +185,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
 })
 
 // ------------------------------------------------------------------------------------------------
-
-document.getElementById('notification-btn').addEventListener('click', function() {
-    var notificationList = document.getElementById('notification-list');
-    if (notificationList.classList.contains('notification-show')) {
-        notificationList.classList.remove('notification-show');
-    } else {
-        notificationList.classList.add('notification-show');
-    }
-});
-
-document.addEventListener('click', function(event) {
-    var isClickInsideButton = document.getElementById('notification-btn').contains(event.target);
-    var isClickInsideList = document.getElementById('notification-list').contains(event.target);
-
-    if (!isClickInsideButton && !isClickInsideList) {
-        document.getElementById('notification-list').classList.remove('notification-show');
-    }
-});
 
 
