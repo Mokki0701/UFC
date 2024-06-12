@@ -1,25 +1,29 @@
 package edu.kh.cooof.lesson.dashBoard.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import edu.kh.cooof.lesson.common.pdf.ThymeleafParser;
 import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
-import edu.kh.cooof.lesson.dashBoard.dto.CalendarDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.service.DashBoardService;
@@ -48,6 +52,7 @@ public class DashBoardController {
 		List<LessonListDTO> lessonList = service.findLesson(loginMemberId);
 		List<LessonInstructorDTO> instructorLessons = service.instructorLesson(loginMemberId);
 		List<LessonListDTO> lessonBookMarks = service.bookmarkList(loginMemberId);
+		List<Map<String, Object>> certificateList = service.getPerfectAttendanceLessons(loginMember.getMemberNo());
 		
 		//즐겨찾기 강의 목록
 		
@@ -55,6 +60,7 @@ public class DashBoardController {
 		model.addAttribute("lessonList",lessonList);
 		model.addAttribute("instructorLessons",instructorLessons);
 		model.addAttribute("lessonBookMarks",lessonBookMarks);
+		model.addAttribute("certificateList",certificateList);
 		
 		return "lessonDashBoard/dashBoard";
 	}
@@ -113,6 +119,8 @@ public class DashBoardController {
 			
 			return attendanceList;
 		}
+		
+		
 		
 		//출석 등록 
 		@PostMapping("dashboard/submit")
@@ -193,16 +201,48 @@ public class DashBoardController {
 			return removeBookmark;
 		}
 		
-//		@GetMapping("/api/events")
-//		@ResponseBody
-//		private List<CalendarDTO> getEvents(
-//				@SessionAttribute("loginMember") Member loginMember
-//				){
-//			
-//			
-//			return null;
-//			
-//		}
+
+		@PostMapping(value = "dashboard/certificateReq", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	    @ResponseBody // 메서드의 반환값이 HTTP 응답 본문으로 직접 작성됨을 나타냅니다.
+	    private ResponseEntity<Resource> lessonList(
+	            @SessionAttribute("loginMember") Member loginMember, // 세션에서 loginMember 객체를 가져옵니다.
+	            @RequestParam("certificateTitle") int lessonNo // 요청 파라미터에서 certificateTitle을 가져옵니다.
+	    ) throws IOException {
+
+	        // 회원 정보와 강의 정보를 가져옵니다.
+	        Member certificateMember = service.selectCertificateMember(loginMember.getMemberNo());
+	        Lesson certificateLesson = service.selectCertificateLesson(lessonNo);
+
+	        // 회원과 강의 정보를 맵에 저장합니다.
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("certificateLesson", certificateLesson);
+	        map.put("certificateMember", certificateMember);
+
+	        // HTML 템플릿을 문자열로 파싱합니다.
+	        String html = ThymeleafParser.parseHtmlFileToString("certificateTemplate", map);
+
+	        // HTML을 PDF로 변환하여 파일에 저장합니다.
+	        String savedFilePath = ThymeleafParser.generateFromHtml(
+	                "C:\\mokkie\\lesson", // 파일이 저장될 경로입니다.
+	                loginMember.getMemberNo() + "test", // 파일 이름입니다.
+	                html // HTML 문자열입니다.
+	        );
+
+	        System.out.println("PDF saved at: " + savedFilePath); // 파일 저장 경로를 출력합니다.
+
+	        // PDF 파일을 클라이언트로 전송하기 위해 File 객체로 로드합니다.
+	        File pdfFile = new File(savedFilePath);
+	        InputStreamResource resource = new InputStreamResource(new FileInputStream(pdfFile)); // 파일을 InputStreamResource로 변환합니다.
+
+	        // ResponseEntity를 사용하여 파일을 응답으로 보냅니다.
+	        return ResponseEntity.ok()
+	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfFile.getName() + "\"") // 파일이 다운로드되도록 Content-Disposition 헤더를 설정합니다.
+	                .contentType(MediaType.APPLICATION_PDF) // 콘텐츠 타입을 PDF로 설정합니다.
+	                .contentLength(pdfFile.length()) // 파일의 길이를 설정합니다.
+	                .body(resource); // 파일 내용을 응답 본문으로 설정합니다.
+	    }
+		
+		
 		
 	
 }

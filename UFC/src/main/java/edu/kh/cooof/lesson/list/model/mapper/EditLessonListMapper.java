@@ -42,6 +42,11 @@ public interface EditLessonListMapper {
 	 * @param lessonNo
 	 */
 	void deleteTags(Integer lessonNo);
+
+	/** 모집 중 태그 추가해주기
+	 * @param lessonNo
+	 */
+	void setCloseYnToY(int lessonNo);
 	
 	
 

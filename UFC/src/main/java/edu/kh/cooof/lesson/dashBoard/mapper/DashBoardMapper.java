@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.member.model.dto.Member;
 
 @Mapper
@@ -62,7 +63,25 @@ public interface DashBoardMapper {
 	//즐겨찾기 삭제
 	int bookmarkRemove(LessonListDTO lessonList);
 
+	/** 수료한 수업 목록 조회
+	 * @param loginMemberId
+	 * @return
+	 */
+	List<LessonListDTO> finishedList(int loginMemberId);
 
+	/** 수료증 발급받을 수업 내용 조회
+	 * @param lessonNo
+	 * @return
+	 */
+	Lesson selectCertificateLesson(int lessonNo);
+
+	/** 수료증 발급받을 회원 정보 가공을 위한 조회
+	 * @param memberNo
+	 * @return
+	 */
+	Member selectCertificateMember(int memberNo);
+
+	
 
 	
 

@@ -23,8 +23,7 @@
             <p><strong>이름:</strong> <span th:text="${app.memberFirstName}"></span></p>
             <p><strong>연락처:</strong> <span th:text="${app.memberPhone}"></span></p>
             <p><strong>이메일:</strong> <span id="memberEmail" th:text="${app.memberEmail}"></span></p>
-            <p><strong>이력서:</strong> <a th:href="@{/management/download(applicationNo=${app.applicationNo})}"
-                                        th:download="${app.resumePath}">다운로드</a></p>
+            <p><strong>이력서:</strong> <a th:href="@{/management/download(fileName=${app.resumePath})}" th:download="${app.resumePath}">다운로드</a></p>
             <p><strong>지원 날짜:</strong> <span th:text="${app.applyDate}"></span></p>
         </div>
 
@@ -36,13 +35,13 @@
             <div class="noArea">
                 <button id="refuse" type="button">거절</button>
             </div>
-
-            <div class="changeArea" style="display: none;">
+            
+            <div class="changeArea">
                 <button id="trainerChange" type="button">트레이너 변경하기</button>
             </div>
-            
-            
+
         </div>
+        
     </section>
 
     <script src="/js/gym/appManagement.js"></script>

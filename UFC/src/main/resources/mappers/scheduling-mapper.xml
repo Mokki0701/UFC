@@ -78,6 +78,16 @@
 		WHERE SEAT_NO = #{seatNo2}
 	</update>
 	
+	<!-- 마감 처리된 수업에 마감 태그 추가 -->
+	<insert id="setCloseTagAdd">
+		INSERT INTO LESSON_CATEGORY VALUES (#{lessonNo}, 15)
+	</insert>
+	
+	<!-- 마감 처리된 수업에 모집중 태그 제거 -->
+	<delete id="removeOpenTag">
+	DELETE FROM LESSON_CATEGORY WHERE LESSON_NO = #{lessonNo} AND SMALL_CODE = 14
+	</delete>
+	
 	
 	
 </mapper>

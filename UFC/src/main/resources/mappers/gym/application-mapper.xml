@@ -3,13 +3,14 @@
 <mapper namespace="edu.kh.cooof.gym.application.model.mapper.ApplicationMapper">
 	
 <insert id="insertApplication">
-	INSERT INTO APPLICATION 
+	INSERT INTO APPLICATION (APPLICATION_NO, MEMBER_NO, POSITION, APPLY_ROUTE, RESUME_PATH, APPLY_DATE, STATUS)
 	VALUES (SEQ_APPLICATION_NO.NEXTVAL, 
 			#{memberNo}, 
 			#{position}, 
 			#{applyRoute}, 
 			#{resumePath}, 
-			#{applyDate}
+			#{applyDate},
+			#{status}
 			)
 </insert>
 	

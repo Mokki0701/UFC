@@ -17,6 +17,14 @@ public interface MemberService {
 	int checkEmail(String memberEmail);
 
 
+	// 비밀번호 변경
+	int changePw(String currentPw, String newPw, Member loginMember);
+
+	// 주소 생일 전화번호 변경
+	int changeAnything(Member inputMember, String[] memberAddress);
+	
+
+
 	
 
 

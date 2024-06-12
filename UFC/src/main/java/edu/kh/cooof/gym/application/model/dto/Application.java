@@ -27,4 +27,5 @@ public class Application {
     private String memberPhone;
     private String memberEmail;
     private int memberAuthority;
+    private String status = "미완료";
 }

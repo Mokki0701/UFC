@@ -181,6 +181,12 @@ public class EditLessonListServiceImpl implements EditLessonListService {
 		return mapper.lessonDelete(lessonNo);
 	}
 	
+	// 모집중 태그 추가 해주기
+	@Override
+	public void setCloseYnToY(int lessonNo) {
+		mapper.setCloseYnToY(lessonNo);
+	}
+	
 	
 
 }

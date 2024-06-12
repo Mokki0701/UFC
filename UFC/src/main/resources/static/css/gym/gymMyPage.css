@@ -1,12 +1,50 @@
-body {
-    font-family: 'TTHakgyoansimMonggeulmonggeulR', sans-serif;
-    background-color: #f4f4f4;
+body{
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
     color: #333;
+}
+
+.gym_myPage_wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     min-height: 100vh;
+}
+
+.sidebar {
+    width: 220px; /* 사이드바 너비 */
+    background-color: #2c3e50; /* 사이드바 배경 색상 */
+    padding: 20px;
+    height: auto; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px; /* 사이드바 주위에 여백 추가 */
+    border-radius: 10px; /* 모서리를 둥글게 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px; /* 항목 간 간격 조정 */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #ecf0f1; /* 링크 텍스트 색상 */
+    font-size: 1.2em;
+    display: block;
+    padding: 10px 15px; /* 링크 텍스트 패딩 */
+    border-radius: 5px; /* 링크 텍스트 모서리 둥글게 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+}
+
+.sidebar ul li a:hover {
+    background-color: #34495e; /* 호버 시 배경 색상 */
 }
 
 .gym_my_page {
@@ -14,7 +52,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    max-width: 100%;
+    max-width: calc(100% - 240px); /* 변경: 사이드바 너비만큼 뺀 공간 사용 */
     padding: 20px;
 }
 
@@ -42,37 +80,37 @@ body {
 }
 
 .container2 img {
-    width: 50%; /* 이미지 너비를 부모 요소에 맞춤 */
-    height: auto; /* 이미지 비율 유지 */
-    border-radius: 10px; /* 이미지 모서리 둥글게 */
-    margin-bottom: 20px; /* 이미지와 텍스트 간격 */
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .container2 h2 {
     font-size: 24px;
-    color: #333; /* 텍스트 색상 */
-    margin-bottom: 10px; /* 제목과 본문 간격 */
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .container2 p {
     font-size: 16px;
-    color: #666; /* 본문 텍스트 색상 */
-    margin-bottom: 20px; /* 본문과 링크 간격 */
+    color: #666;
+    margin-bottom: 20px;
 }
 
 .container2 a {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
-    color: #fff; /* 링크 텍스트 색상 */
-    background-color: #007bff; /* 링크 배경 색상 */
-    border-radius: 5px; /* 링크 모서리 둥글게 */
-    text-decoration: none; /* 링크 밑줄 제거 */
-    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
 .container2 a:hover {
-    background-color: #0056b3; /* 호버 시 배경 색상 */
+    background-color: #0056b3;
 }
 
 h1 {
@@ -146,12 +184,4 @@ h1 {
     .info-content {
         font-size: 1em;
     }
-}
-
-footer {
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: auto;
-    width: 100%;
 }

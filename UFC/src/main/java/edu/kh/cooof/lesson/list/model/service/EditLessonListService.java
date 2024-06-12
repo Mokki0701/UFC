@@ -28,4 +28,9 @@ public interface EditLessonListService {
 	 */
 	int lessonDelete(int lessonNo);
 
+	/** 모집중 태그 추가
+	 * @param lessonNo
+	 */
+	void setCloseYnToY(int lessonNo);
+
 }

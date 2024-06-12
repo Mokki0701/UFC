@@ -25,8 +25,9 @@ public interface SchedulingMapper {
 
 	/** 잔여좌석이 없는 수업 마감 처리
 	 * @param lessonNo
+	 * @return 
 	 */
-	void setCloseYn(int lessonNo);
+	int setCloseYn(int lessonNo);
 
 	/** 강사 권한 부여 체크
 	 * @return
@@ -51,6 +52,18 @@ public interface SchedulingMapper {
 
 	// 열람실 이용 종료 실행하기 : 해당 좌석 상태 업데이트 하기
 	int setAvail(Map<String, Object> expiredSeat);
+
+	/** 마감 처리된 수업 마감 태그 추가
+	 * @param lessonNo
+	 * @return
+	 */
+	int setCloseTagAdd(int lessonNo);
+
+	/** 모집중 태그 삭제
+	 * @param lessonNo
+	 * @return
+	 */
+	int removeOpenTag(int lessonNo);
 
 	
 	

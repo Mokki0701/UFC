@@ -7,6 +7,7 @@ import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.CalendarDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.member.model.dto.Member;
 
 public interface DashBoardService {
@@ -46,6 +47,32 @@ public interface DashBoardService {
 
 	//즐겨찾기 삭제
 	int bookmarkRemove(LessonListDTO lessonList);
+
+	/** 수료한 수업 목록 조회
+	 * @param loginMemberId
+	 * @return
+	 */
+	List<LessonListDTO> finishedList(int loginMemberId);
+
+	/** 출석률이 100%인 수업만 반환하는 메소드
+	 * @param memberNo
+	 * @return
+	 */
+	List<Map<String, Object>> getPerfectAttendanceLessons(int memberNo);
+
+	/** 수료증 신청한 수업 조회
+	 * @param lessonNo
+	 * @return
+	 */
+	Lesson selectCertificateLesson(int lessonNo);
+
+	/** 수료증 수료할 회원 정보 가공을 위한 조회
+	 * @param memberNo
+	 * @return
+	 */
+	Member selectCertificateMember(int memberNo);
+	
+	
 
 	
 
