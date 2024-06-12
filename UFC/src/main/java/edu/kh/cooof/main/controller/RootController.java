@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.cooof.gym.trainerSelect.model.dto.Trainer;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lib.book.model.dto.Book;
 import edu.kh.cooof.main.model.sevice.MainService;
@@ -41,9 +42,12 @@ public class RootController {
 		List<Book> bookList = bookService.bookList();
 		//프로그램
 		List<LessonListDTO> lessonList = bookService.lessonList();
+		//인기 트레이너
+		List<Trainer> trainerList = bookService.getTrainerList();
 		
 		model.addAttribute("bookList",bookList);
 		model.addAttribute("lessonList",lessonList);
+		model.addAttribute("trainerList",trainerList);
 		
 		return "index";
 	}
