@@ -12,7 +12,12 @@
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             font-family: Arial, sans-serif;
-            position: relative; /* 부모 요소가 relative여야 absolute 위치 지정이 가능 */
+            position: fixed; /* fixed로 변경하여 화면 중앙에 위치하도록 함 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 화면 중앙으로 이동 */
+            max-height: 100vh; /* 최대 높이를 뷰포트의 90%로 설정 */
+            overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능 */
         }
         #messageSendPopup h2 {
             margin: 0 0 10px 0;
@@ -80,6 +85,8 @@
             font-size: 14px;
         }
     </style>
+
+    <th:block th:replace="~{common/common}"></th:block>
 </head>
 <body>
     <div id="messageSendPopup">
@@ -102,8 +109,15 @@
     </div>
 </body>
 
-<script>
+<!-- <script th:inline="javascript">
+    const notificationLoginCheck = /*[[${session.loginMember} ? true : false]]*/ '로그인 체크';
+  </script>
 
+<script src="/js/common/header.js"></script> -->
+
+<script>
+    
+    
 
     function sendMessage() {
         
@@ -135,17 +149,15 @@
             body: JSON.stringify(obj)
         })
         .then(response => response.text())
-        .then(result => {
+        .then(messageNo => {
 
-            if(result > 0){
-                alert("메시지 발송 성공!");
-            }
+            alert("메시지 발송 성공!");
 
-            window.close();
+            sendNotificationFn("sendMessage", location.pathname, messageNo);
+            // window.close();
+            
         })
-        .catch(error => {
-            console.error("Error:", error);
-        });
+
         
         
     }

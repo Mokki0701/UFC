@@ -1,211 +1,139 @@
-@font-face {
-    font-family: 'TTHakgyoansimMonggeulmonggeulR';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMonggeulmonggeulR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-body {
-    font-family: 'TTHakgyoansimMonggeulmonggeulR';
+.header-body {
     margin: 0;
-    padding: 0;
-
+    font-family: Arial, sans-serif;
 }
-
-a{
-    text-decoration: none;
-}
-
-.header-logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 40px;
-    font-size: 30px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    padding-top: 10px;
-
-    background: white;
-    z-index: 10;
-}
-
-.header-logo-container h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-
-.header-logo-container img {
-    height: 100px;
-    margin-right: 20px;
-
-}
-
-.header-login-container {
-    position: absolute;
-    right: 20px;
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 20px;
-
-    z-index: 11;
-
-}
-
-.header-login-container span {
-    margin: 0 10px;
-    font-size: 1em;
-}
-
-
-.header-logo-container a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.1em;
-}
-
-/* .header-logo-container :hover {
-    text-decoration: underline;
-} */
-
-.content {
-    display: flex;
-    flex: 1;
-    margin-top: 80px;
-    /* header 높이만큼 여백 추가 */
-    
-}
-
-.header-menu {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 20px;
-    /* width: 200px; */
-    box-sizing: border-box;
-    position: fixed;
-    right: 0;
-    top: 80px;
-    /* header 높이만큼 아래로 이동 */
-    /* height: calc(100% - 80px); */
-    /* header 높이만큼 높이 조정 */
-    align-items: center;
-    /* 가운데 정렬 */
-    z-index: 10;
-}
-
-.header-menu a{
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.1em;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    /* 세로 가운데 정렬 */
-    margin: 10px 0;
-    border-radius: 50%;
-    display: block;
-    transition: background-color 0.3s;
-}
-
-.header-menu .a {
-    background-color: rgb(85, 43, 8, 0.8);
-}
-
-.header-menu .b {
-    background-color: rgb(185, 204, 174);
-}
-
-.header-menu .c {
-    background-color: rgb(139, 168, 128);
-}
-
-.header-menu .d {
-    font-size: 1.0em;
-    background-color: rgb(84, 108, 72);
-}
-/* 
-.header-menu :hover {
-    text-decoration: underline;
-} */
-
 
 .header-container {
-    height: 157px;
-
-}
-
-
-/*  footer */
-
-footer {
-    background-color: rgba(85, 43, 8, 0.6);
-    color: white;
-    padding: 20px;
-    text-align: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-@font-face {
-    font-family: 'TTHakgyoansimMonggeulmonggeulR';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMonggeulmonggeulR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.footer-wave {
-    position: absolute;
-    bottom: 100%;
-    /* SVG가 푸터 위쪽에 위치하도록 설정 */
-    left: 0;
-    width: 100%;
-    height: 100px;
-    /* SVG의 높이 */
-    overflow: hidden;
-    /* 넘치는 부분을 숨김 */
-    line-height: 0;
-}
-
-.footer-wave svg {
-    position: relative;
-    display: block;
-    width: calc(100% + 1.3px);
-    /* SVG가 화면 전체를 덮도록 */
-    height: 100px;
-}
-
-.shape-fill {
-    fill: #333;
-    /* SVG 모양 색상 */
-}
-
-
-body {
-    font-family: 'TTHakgyoansimMonggeulmonggeulR';
-
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    align-items: center;
+    background-color: #F2E2CE;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-.common-main-container {
+.header-center {
     flex-grow: 1;
+    text-align: center;
+    margin-left: 25%;
 }
 
-.my-page>a{
+.header-center a {
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: bold;
     color: black;
-    
+    transition: color 0.3s;
+}
+
+.header-notification-container {
+    position: absolute;
+    top: 50%;
+    right: 25%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-notification-btn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 1);
+    border: none;
+    position: absolute;
+    top: 7px;
+    left: 20px;
+}
+
+/* 체크박스가 체크된 경우 알림 창 보이게 하기 */
+.header-notification-toggle:checked ~ .header-notification-list {
+    display: block;
 }
 
 
+/* 알림 창 보이게 하기 */
+.notification-show {
+    display: block;
+    z-index: 9999;
+    position: fixed;
+}
 
+.header-notification-item {
+    background-color: white;
+    margin: 15px 0;
+    border-radius: 5px;
+    width: 100%;
+    height: 70px;
+    font-size: 15px;
+    letter-spacing: -1px;
+    position: relative;
+}
+
+.header-notification-item.not-read {
+    background-color: rgba(176, 208, 238, 0.7);
+}
+
+.header-notification-text {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header-notification-content-container {
+    height: 90%;
+}
+
+.header-notification-date {
+    font-size: 12px;
+    color: gray;
+}
+
+.header-notification-content {
+    width: 270px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.header-notification-delete {
+    position: absolute;
+    top: -5px;
+    right: 2px;
+    user-select: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.header-notification-delete:hover {
+    color: red;
+}
+
+.header-notification-item:hover > .header-notification-text {
+    text-decoration: underline;
+}
+.header-notification-list {
+    position: fixed; /* fixed로 설정하여 항상 화면의 최상위에 위치 */
+    top: 50px; /* 화면 상단에서의 거리 조정 */
+    right: 20px; /* 화면 오른쪽에서의 거리 조정 */
+    width: 380px;
+    height: 400px;
+    padding: 10px;
+    list-style: none;
+    z-index: 9999 !important; /* 매우 높은 z-index 값 설정 */
+    background: #f0f3fa;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px #eee, 0 4px 8px 0 rgba(0, 0, 0, .3);
+    display: none; /* 처음에 알림 창이 보이지 않게 함 */
+}

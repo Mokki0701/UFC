@@ -87,23 +87,24 @@ public class NotificationWebsocketHandler extends TextWebSocketHandler {
 			
 		case "sendMessage" :
 			
-			content = String.format("<b>%s</b>님이 쪽지를 보냈습니다.", 
-						   	        sendMember.getMemberEmail());
+			content = String.format("<b>%s</b>님이 쪽지를 보냈습니다. <b>%s</b>", 
+						   	        sendMember.getMemberEmail(),message.getMessageTitle());
 			
 			notification.setNotificationContent(content);
 			
 			notification.setReceiveMemberNo(message.getMessageRev());
-		
-		
-		case "completeReservation" :
-			
-			content = String.format("<b>%s</b>님의 열람실 예약 시간 종료 10분전 입니다.", sendMember.getMemberEmail());
-			
-			notification.setNotificationContent(content);
-			
-			notification.setReceiveMemberNo(message.getMessageRev());
-			
 			break;
+		
+		
+//		case "completeReservation" :
+//			
+//			content = String.format("<b>%s</b>님의 열람실 예약 시간 종료 10분전 입니다.", sendMember.getMemberEmail());
+//			
+//			notification.setNotificationContent(content);
+//			
+//			notification.setReceiveMemberNo(message.getMessageRev());
+//			
+//			break;
 		
 			
 		}

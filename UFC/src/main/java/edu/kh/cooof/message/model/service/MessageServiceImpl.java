@@ -97,7 +97,9 @@ public class MessageServiceImpl implements MessageService {
 		
 		message.setMessageRev(memberRev);
 		
-		return mapper.sendMessage(message);
+		int reseult = mapper.sendMessage(message);
+		
+		return mapper.getMessageNo();
 	}
 	
 	@Override
