@@ -33,9 +33,10 @@
         </div>
         <div class="gym_pagination">
             <ul class="pagination">
-                <li th:each="i : ${#numbers.sequence(0, (result.totalItems / result.pageSize) + 1)}">
+                <li th:each="i : ${#numbers.sequence(0, (result.totalItems / result.pageSize) + 1)}"
+                    th:if="${i * result.pageSize < result.totalItems}">
                     <a th:href="@{/gym/information/useMachines(page=${i}, size=${result.pageSize})}"
-                       th:text="${i + 1}" th:class="${i == result.currentPage} ? 'current' : ''"></a>
+                       th:text="${i + 1}" th:classappend="${i == result.currentPage} ? 'current' : ''"></a>
                 </li>
             </ul>
         </div>

@@ -1,5 +1,6 @@
 package edu.kh.cooof.gym.management.controller;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,44 +78,64 @@ public class ManagementController {
         Application app = service.getApplicationNo(applicationNo);
 
         model.addAttribute("app", app);
-
+        
         return "gym/management/applicationDetail";
     }
 
     // 파일 다운로드
     @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFile(@RequestParam("applicationNo") int applicationNo) {
+    public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String fileName) {
         try {
-            // 실제 파일 경로 (예: applicationNo에 따라 파일 이름을 결정)
-            Path file = Paths.get(gymFolderPath).resolve("resume_" + applicationNo + ".pdf");
+            // 지정된 디렉토리와 파일명을 결합하여 파일 경로를 만듦
+            Path file = Paths.get(gymFolderPath).resolve(fileName).normalize();
+            // 파일을 Resource 객체로 만듦
             Resource resource = new UrlResource(file.toUri());
 
-            if (resource.exists() || resource.isReadable()) {
+            // 리소스가 존재하고 읽을 수 있는지 확인함
+            if (resource.exists() && resource.isReadable()) {
+                // 파일의 MIME 타입을 결정함
+                String contentType = Files.probeContentType(file);
+                // MIME 타입이 null이면 기본값을 설정함
+                if (contentType == null) {
+                    contentType = "application/octet-stream";
+                }
+
+                // ResponseEntity를 만들어서 파일을 클라이언트에 반환함
                 return ResponseEntity.ok()
+                        // 컨텐츠 타입을 설정함
+                        .contentType(org.springframework.http.MediaType.parseMediaType(contentType))
+                        // 파일 다운로드를 위한 헤더를 설정함
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                        // 리소스를 응답 본문으로 설정함
                         .body(resource);
             } else {
-                throw new RuntimeException("Could not read the file!");
+                // 리소스가 존재하지 않거나 읽을 수 없으면 404 상태 코드를 반환함
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            // 예외가 발생하면 500 상태 코드를 반환함
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-		return null;
     }
 
-    // 승인 이메일 보내기
+
+
+
+    // 승인 이메일
     @ResponseBody
-    @PostMapping("sendEmail")
-    public ResponseEntity<Map<String, Object>> sendEmail(@RequestBody Map<String, String> requestData) {
+    @PostMapping("approveApplication")
+    public ResponseEntity<Map<String, Object>> approveApplication(@RequestBody Map<String, String> requestData) {
         String email = requestData.get("email");
+        String memberNo = requestData.get("memberNo");
+        String status = requestData.get("status");
 
         Map<String, Object> response = new HashMap<>();
 
         try {
-            // 이메일 전송 로직
-            boolean emailSent = service.sendEmail(email);
+            boolean emailSent = service.sendEmail(email, "approved");
 
             if (emailSent) {
+            	int result = service.updateApplicationStatus(Integer.parseInt(memberNo) , "승인완료");
                 response.put("success", true);
             } else {
                 response.put("success", false);
@@ -125,6 +147,35 @@ public class ManagementController {
 
         return ResponseEntity.ok(response);
     }
+
+    // 거절 이메일
+    @ResponseBody
+    @PostMapping("refuseApplication")
+    public ResponseEntity<Map<String, Object>> refuseApplication(@RequestBody Map<String, String> requestData) {
+        String email = requestData.get("email");
+        String memberNo = requestData.get("memberNo");
+        
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            boolean emailSent = service.sendEmail(email, "refused");
+
+            if (emailSent) {
+            	service.updateApplicationStatus(Integer.parseInt(memberNo), "거절완료");
+                response.put("success", true);
+            } else {
+                response.put("success", false);
+                response.put("message", "이메일 전송 실패");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    
+    
 
     // 회원 권한 업데이트
     @ResponseBody

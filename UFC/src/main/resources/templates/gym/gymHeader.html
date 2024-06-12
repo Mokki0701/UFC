@@ -9,12 +9,12 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a href="/trainerSelect/trainerSelect">PT신청</a>
+            <a href="/trainerSelect/trainerSelect" th:if="${session.loginMember != null}">PT신청</a>
             <ul class="dropdown-content">
-                <li><a href="/trainerSelect/trainerSelect">트레이너</a></li>
+                <li><a href="/trainerSelect/trainerSelect" th:if="${session.loginMember != null}">트레이너</a></li>
 
                 <li>
-                    <a href="/trainerSelect/apply" >지원하기</a>
+                    <a href="/trainerSelect/apply" th:if="${session.loginMember != null}">지원하기</a>
                 </li>
 
                 <li th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
