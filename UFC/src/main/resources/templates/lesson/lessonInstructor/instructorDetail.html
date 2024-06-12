@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>강사 상세 정보</title>
+  <th:block th:replace="~{common/common}"></th:block>
   <style>
     body {
       background-color: #f2e2ce;
@@ -146,6 +147,8 @@
 
 <body>
 
+  <div th:replace="~{common/header}"></div>
+  <div th:replace="~{common/sidebar}"></div>
   <!-- 세미 헤더 들어가는 곳 시작 -->
   <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
   <!-- 세미 헤더 들어가는 곳 끝 -->
@@ -185,6 +188,7 @@
   <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
   <!-- lessonCommon 들어가는 곳 끝 -->
 
+  <div th:replace="~{common/footer}"></div>
 </body>
 
 </html>
