@@ -81,7 +81,7 @@ public interface SpaceMapper {
 
 	String spaceUserDoneTime(int userNo);
 
-	int updateSpaceToAvailable(int spaceNo);
+	int updateSpaceToAvailable(int userNo);
 
 	int getOut(int userNo);
 

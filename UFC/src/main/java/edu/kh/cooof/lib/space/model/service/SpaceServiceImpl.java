@@ -226,8 +226,8 @@ public class SpaceServiceImpl implements SpaceService {
 	}
 
 	@Override
-	public int updateSpaceToAvailable(int spaceNo) {
-		return mapper.updateSpaceToAvailable(spaceNo);
+	public int updateSpaceToAvailable(int userNo) {
+		return mapper.updateSpaceToAvailable(userNo);
 	}
 	
 	

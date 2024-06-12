@@ -51,7 +51,7 @@ public interface SpaceService {
 	String spaceUserDoneTime(int userNo);
 
 	// 이용 가능하게 업데이트 하기
-	int updateSpaceToAvailable(int spaceNo);
+	int updateSpaceToAvailable(int userNo);
 
 	// 이용 종료시키기
 	int getOut(int userNo);

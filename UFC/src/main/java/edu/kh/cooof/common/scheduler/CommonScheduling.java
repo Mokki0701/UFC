@@ -145,90 +145,89 @@ public class CommonScheduling {
 	@Scheduled(cron = "0 * * * * *")
 	public void mrChan() {
 
-		
-	    // 좌석 이용 종료 판단을 위한 현재 시간
-	    Date sysdate = new Date();
-	    
-	    // 5분 전에 미리 알림을 보내기 위해 현재시간 +5분인 시간을 찾기
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(sysdate);
-	    calendar.add(Calendar.MINUTE, +5);
-
-	    // -------------------- 열람실 종료 5분 전에 알람 보내기 --------------------
-
-	    // 좌석 이용 종료 5분 전에 미리 알림을 보내기 위한 시간
-	    Date fiveMinBefore = calendar.getTime();
-	    
-	    Member chiefMember = (Member) servletContext.getAttribute("chiefMember");
-
-	    // 이용 종료 시간이 fiveMinBefore인 사람에게 메세지 보내기
-	    // 1. 특정인의 회원번호 조회
-	    // 동일한 시간에 끝난 사람이 여러명일 경우를 대비해 List로 쿼리 결과 받기
-	    List<Integer> result = mapper.getFiveMinBeforeMemberNo(fiveMinBefore);
-	    for (Integer memberNo : result) {
-	        // memberNo를 매개변수로 메세지를 보내주시면 됩니다.
-	        // ex) sendMessageToMember(memberNo);
-	    	
-	    	Map<String, Integer> map = new HashMap<>();
-	    	map.put("applyMemberNo", memberNo);
-	    	map.put("memberNo", chiefMember.getMemberNo());
-	    	map.put("checkNo", 5);
-	    	
-	    	messageMapper.transmitMessage(map);
-	    	
-	    }
-
-	    // -------------------- 시간이 되면 열람실 이용 종료 시키기 --------------------
-
-	    // 이용 종료 시간이 sysdate인 회원 리스트 확인
-	    List<LibSeatDTO> expiredMembers = service.checkReadingDone(sysdate);
-	    log.info("시간 만료된 회원의 열람실 이용 종료 실행");
-
-	    // 이용 종료 시간이 sysdate인 회원들이 있다면
-	    if (expiredMembers != null && !expiredMembers.isEmpty()) {
-	        for (LibSeatDTO member : expiredMembers) {
-	            int seatNo2 = member.getSeatNo2();
-	            int memberNo = member.getMemberNo();
-	            
-	            Map<String, Integer> map = new HashMap<>();
-		    	map.put("applyMemberNo", memberNo);
-		    	map.put("memberNo", chiefMember.getMemberNo());
-		    	map.put("checkNo", 6);
-		    	
-		    	messageMapper.transmitMessage(map);
-	            
-	            Map<String, Object> expiredSeat = new HashMap<>();
-	            expiredSeat.put("seatNo2", seatNo2);
-	            expiredSeat.put("memberNo", memberNo);
-
-	            // 열람실 이용 종료 실행
-	            int finishUsingSeat = service.finishUsingSeat(expiredSeat);
-
-	            if (finishUsingSeat > 0) {
-	                log.info(memberNo + "번 회원의 " + seatNo2 + "번 자리 이용이 종료되었습니다.");
-	                // 이 부분에서 메세지를 보내면 됩니다.a
-	            }
-	        }
-	    }
-	}
-
 		// 좌석 이용 종료 판단을 위한 현재 시간
 		Date sysdate = new Date();
+
 		// 5분 전에 미리 알림을 보내기 위해 현재시간 +5분인 시간을 찾기
-
 		Calendar calendar = Calendar.getInstance();
-
 		calendar.setTime(sysdate);
-
 		calendar.add(Calendar.MINUTE, +5);
 
 		// -------------------- 열람실 종료 5분 전에 알람 보내기 --------------------
 
 		// 좌석 이용 종료 5분 전에 미리 알림을 보내기 위한 시간
-
 		Date fiveMinBefore = calendar.getTime();
 
 		Member chiefMember = (Member) servletContext.getAttribute("chiefMember");
+
+		// 이용 종료 시간이 fiveMinBefore인 사람에게 메세지 보내기
+		// 1. 특정인의 회원번호 조회
+		// 동일한 시간에 끝난 사람이 여러명일 경우를 대비해 List로 쿼리 결과 받기
+		List<Integer> result = mapper.getFiveMinBeforeMemberNo(fiveMinBefore);
+		for (Integer memberNo : result) {
+			// memberNo를 매개변수로 메세지를 보내주시면 됩니다.
+			// ex) sendMessageToMember(memberNo);
+
+			Map<String, Integer> map = new HashMap<>();
+			map.put("applyMemberNo", memberNo);
+			map.put("memberNo", chiefMember.getMemberNo());
+			map.put("checkNo", 5);
+
+			messageMapper.transmitMessage(map);
+
+		}
+
+		// -------------------- 시간이 되면 열람실 이용 종료 시키기 --------------------
+
+		// 이용 종료 시간이 sysdate인 회원 리스트 확인
+		List<LibSeatDTO> expiredMembers = service.checkReadingDone(sysdate);
+		log.info("시간 만료된 회원의 열람실 이용 종료 실행");
+
+		// 이용 종료 시간이 sysdate인 회원들이 있다면
+		if (expiredMembers != null && !expiredMembers.isEmpty()) {
+			for (LibSeatDTO member : expiredMembers) {
+				int seatNo2 = member.getSeatNo2();
+				int memberNo = member.getMemberNo();
+
+				Map<String, Integer> map = new HashMap<>();
+				map.put("applyMemberNo", memberNo);
+				map.put("memberNo", chiefMember.getMemberNo());
+				map.put("checkNo", 6);
+
+				messageMapper.transmitMessage(map);
+
+				Map<String, Object> expiredSeat = new HashMap<>();
+				expiredSeat.put("seatNo2", seatNo2);
+				expiredSeat.put("memberNo", memberNo);
+
+				// 열람실 이용 종료 실행
+				int finishUsingSeat = service.finishUsingSeat(expiredSeat);
+
+				if (finishUsingSeat > 0) {
+					log.info(memberNo + "번 회원의 " + seatNo2 + "번 자리 이용이 종료되었습니다.");
+					// 이 부분에서 메세지를 보내면 됩니다.a
+				}
+			}
+		}
+//	}
+
+		// 좌석 이용 종료 판단을 위한 현재 시간
+//	Date sysdate = new Date();
+		// 5분 전에 미리 알림을 보내기 위해 현재시간 +5분인 시간을 찾기
+
+//	Calendar calendar = Calendar.getInstance();
+
+//	calendar.setTime(sysdate);
+
+//	calendar.add(Calendar.MINUTE,+5);
+
+		// -------------------- 열람실 종료 5분 전에 알람 보내기 --------------------
+
+		// 좌석 이용 종료 5분 전에 미리 알림을 보내기 위한 시간
+
+//	Date fiveMinBefore = calendar.getTime();
+
+//	Member chiefMember = (Member) servletContext.getAttribute("chiefMember");
 
 		// 이용 종료 시간이 fiveMinBefore인 사람에게 메세지 보내기
 
@@ -236,7 +235,7 @@ public class CommonScheduling {
 
 		// 동일한 시간에 끝난 사람이 여러명일 경우를 대비해 List로 쿼리 결과 받기
 
-		List<Integer> result = mapper.getFiveMinBeforeMemberNo(fiveMinBefore);
+//	List<Integer> result = mapper.getFiveMinBeforeMemberNo(fiveMinBefore);
 
 		for (Integer memberNo : result) {
 
@@ -256,12 +255,11 @@ public class CommonScheduling {
 
 		}
 
-
 		// -------------------- 시간이 되면 열람실 이용 종료 시키기 --------------------
 
 		// 이용 종료 시간이 sysdate인 회원 리스트 확인
 
-		List<LibSeatDTO> expiredMembers = service.checkReadingDone(sysdate);
+//	List<LibSeatDTO> expiredMembers = service.checkReadingDone(sysdate);
 
 		log.info("시간 만료된 회원의 열람실 이용 종료 실행");
 
@@ -309,6 +307,6 @@ public class CommonScheduling {
 
 	}
 
-	// ----------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------
 
 }

@@ -21,6 +21,9 @@ public class SpaceRentInfoDTO {
 	
 	private int repeat;
     private Map<String, Object> spaceDoneTime;
+    
+    
+    
 
 
 	
