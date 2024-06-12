@@ -47,7 +47,10 @@
 
               <div class="gym_menu">
                 <div class="gym_active"><a href="/gym/information/useMachines">운동정보</a></div>
-                <div class="gym_pt"><a href="/trainerSelect/trainerSelect">PT 신청</a></div>
+                <div class="gym_pt">
+                  <a href="#" th:if="${session.loginMember == null}" onclick="alert('로그인 후 이용해 주세요.'); return false;">PT 신청</a>
+                  <a href="/trainerSelect/trainerSelect" th:if="${session.loginMember != null}">PT 신청</a>
+                </div>
                 <div class="gym_review"><a href="/reviews/gymReview">헬스장 후기 게시판</a></div>
               </div>
             </div>

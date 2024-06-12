@@ -44,7 +44,9 @@ form.apply-form {
 .apply-form input[type="text"],
 .apply-form input[type="tel"],
 .apply-form input[type="email"],
-.apply-form input[type="file"] {
+.apply-form input[type="file"],
+.apply-form input[type="price"],
+.apply-form input[type="profile_img"]{
     width: calc(100% - 22px); /* Adjust to match padding */
     padding: 10px;
     border: 1px solid #ccc;

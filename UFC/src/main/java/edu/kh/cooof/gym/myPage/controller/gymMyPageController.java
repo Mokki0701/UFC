@@ -14,14 +14,11 @@ import edu.kh.cooof.gym.myPage.model.service.gymMyPageService;
 import edu.kh.cooof.member.model.dto.Member;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/gym/myPage")
-@Slf4j
 public class gymMyPageController {
 
     private final gymMyPageService service;
@@ -60,11 +57,42 @@ public class gymMyPageController {
                     completedPT = gymMyPage.getPtYN();
                 }
             }
+            
+         // PT 진행 횟수가 PT 최대 횟수와 같아지면 gymMyPage를 null로 설정
+            if (completedPT == gymMyPage.getPtYN()) {
+                gymMyPage = null;
+            } else {
+            	
+            	// PT 진행 횟수를 설정
+                gymMyPage.setPtCount(completedPT);
+            }
 
-            gymMyPage.setPtCount(completedPT); // PT 진행 횟수를 설정
             model.addAttribute("gymMyPage", gymMyPage);
         }
 
         return "gym/myPage/gymMyPage";
     }
+    
+    
+    // 지난 PT 기록
+    @GetMapping("/ptRecord")
+    public String ptRecord(
+            @SessionAttribute("loginMember") 
+            Member loginMember,
+            Model model
+            ) {
+
+        // 세션에서 memberNo를 가져옴
+        int memberNo = loginMember.getMemberNo();
+
+        // 서비스 호출하여 PT 정보 조회
+        GymMyPage gymMyPage = service.getPTInfo(memberNo);
+
+        // PT 정보를 모델에 추가
+        model.addAttribute("gymMyPage", gymMyPage);
+
+        return "gym/myPage/ptRecord";
+    }
+
+    
 }
