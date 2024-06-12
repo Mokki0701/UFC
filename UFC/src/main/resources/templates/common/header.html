@@ -1,69 +1,32 @@
-<div class="header-container">
-  <article class="header-login-container">
-            <!-- 로그인 X -->
-            <th:block th:if="${session.loginMember == null}">
-                <a href="/member/login">로그인</a>
-                |
-                <a href="/member/signup">회원가입</a>
-              </th:block>
-        
-        
-            <!-- 로그인 O -->
-            <th:block th:unless="${session.loginMember == null}">
-              
-                <a href="/member/logout">로그아웃</a>
-
-            </th:block>
-
-  </article>
-
-
-  <header class="header-logo-container">
-      
-       <a href="/">
-        <img  src="/images/logo.jpg" alt="logo" href="/index">
-       </a>
-      
-
-      <div class="my-page" th:unless="${session.loginMember == null}">
-        <a href="/member/mypage">MY PAGE</a>
-      </div>
-  </header>
-
-  <nav class="header-menu">
-      <a class="a" href="/">HOME</a>
-      <a class="b" href="/main/libMain">도서관</a>
-      <a class="c" href="/gym/gymMain">헬스장</a>
-      <a class="d" href="/lesson">문화센터</a>
-  </nav>
-</div>
-
-<!-- 알림 영역 -->
-<div class="notification-container" th:if="${session.loginMember}">
-
-  <!-- 알림 버튼 -->
-  <button class="notification-btn fa-regular fa-bell" id="my-element"></button>
-
-  <ul class="notification-list">
-    <li class="notification-item">
-      <div class="notification-text">
-        <img src="/images/user.png">
-        <div class="notification-content-container">
-          <p class="notification-date">20분 전</p>
-          <p class="notification-content">
-            <b>test</b>님이
-            <b>[1500번글]</b>을 좋아합니다
-            asdasdasdasdas
-            123123sssssssssssssssssssssssssssssssssssssssssssssssssss
-          </p>
+<body class="header-body">
+    <header class="header-container">
+        <div class="header-center">
+            <a href="/">UFC</a>
         </div>
-      </div>
+        <input type="checkbox" id="notification-toggle" class="header-notification-toggle">
+        <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell"></label>
+        <div class="header-notification-num">
+            <span class="noti-number"></span>
+        </div>
+    </header>
 
-      <span class="notidication-delete">&times;</span>
-    </li>
-  </ul>
-</div>
-
-
-
-
+    <div class="header-notification-container header-content" id="notification-list" th:if="${session.loginMember}">
+        <ul class="header-notification-list" >
+            <li class="header-notification-item">
+                <div class="header-notification-text">
+                    <div class="header-notification-content-container">
+                        <p class="header-notification-date">20분 전</p>
+                        <p class="header-notification-content">
+                            <b>test</b>님이
+                            <b>[1500번글]</b>을 좋아합니다
+                            asdasdasdasdas
+                            123123sssssssssssssssssssssssssssssssssssssssssssssssssss
+                        </p>
+                    </div>
+                </div>
+                <span class="header-notification-delete">&times;</span>
+            </li>
+        </ul>
+    </div>
+  </body>
+  

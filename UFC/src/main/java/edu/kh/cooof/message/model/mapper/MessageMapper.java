@@ -48,4 +48,6 @@ public interface MessageMapper {
 
 	int unblockMember(Map<String, Integer> map);
 
+	int getMessageNo();
+
 }
