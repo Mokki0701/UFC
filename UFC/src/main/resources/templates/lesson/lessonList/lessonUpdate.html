@@ -7,13 +7,15 @@
   <title>수업 수정</title>
 
   <link rel="stylesheet" href="/css/lesson/lessonList/lessonWrite.css">
-
+  <th:block th:replace="~{common/common}"></th:block>
 </head>
 
 <body>
 
   <main>
 
+    <div th:replace="~{common/header}"></div>
+    <div th:replace="~{common/sidebar}"></div>
     <!-- 세미 헤더 들어가는 곳 시작 -->
     <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
     <!-- 세미 헤더 들어가는 곳 끝 -->
@@ -196,6 +198,8 @@
   <!-- lessonCommon 들어가는곳 시작 -->
   <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
   <!-- lessonCommon 들어가는곳 끝 -->
+
+  <div th:replace="~{common/footer}"></div>
 
   <!-- 푸터 부분 시작 -->
   <!-- <th:block th:replace="~{common/footer}"></th:block> -->

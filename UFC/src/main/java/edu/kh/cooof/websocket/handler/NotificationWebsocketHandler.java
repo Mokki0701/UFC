@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -29,6 +30,11 @@ public class NotificationWebsocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sessions.add(session);
+	}
+	
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		sessions.remove(session);
 	}
 	
 	@Override
@@ -59,15 +65,7 @@ public class NotificationWebsocketHandler extends TextWebSocketHandler {
 			if(loginMemberNo == notification.getReceiveMemberNo()) {
 				s.sendMessage(new TextMessage(objectMapper.writeValueAsString(notification)));
 			}
-			
 		}
-			
-		
-		
-		
-		
-		
-		
 	}
 	
 	
@@ -87,23 +85,24 @@ public class NotificationWebsocketHandler extends TextWebSocketHandler {
 			
 		case "sendMessage" :
 			
-			content = String.format("<b>%s</b>님이 쪽지를 보냈습니다.", 
-						   	        sendMember.getMemberEmail());
+			content = String.format("<b>%s</b>님이 쪽지를 보냈습니다. <b>%s</b>", 
+						   	        sendMember.getMemberEmail(),message.getMessageTitle());
 			
 			notification.setNotificationContent(content);
 			
 			notification.setReceiveMemberNo(message.getMessageRev());
-		
-		
-		case "completeReservation" :
-			
-			content = String.format("<b>%s</b>님의 열람실 예약 시간 종료 10분전 입니다.", sendMember.getMemberEmail());
-			
-			notification.setNotificationContent(content);
-			
-			notification.setReceiveMemberNo(message.getMessageRev());
-			
 			break;
+		
+		
+//		case "completeReservation" :
+//			
+//			content = String.format("<b>%s</b>님의 열람실 예약 시간 종료 10분전 입니다.", sendMember.getMemberEmail());
+//			
+//			notification.setNotificationContent(content);
+//			
+//			notification.setReceiveMemberNo(message.getMessageRev());
+//			
+//			break;
 		
 			
 		}

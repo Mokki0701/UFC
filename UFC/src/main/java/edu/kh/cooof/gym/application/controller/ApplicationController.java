@@ -46,6 +46,7 @@ public class ApplicationController {
 
             // 이력서 파일 저장
             String resumePath = saveFile(resumeCoverLetter);
+            
 
             if (resumePath == null) {
             	ra.addFlashAttribute("message", "파일 저장 실패");

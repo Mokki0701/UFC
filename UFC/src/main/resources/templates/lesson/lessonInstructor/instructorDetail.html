@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>강사 상세 정보</title>
+  <th:block th:replace="~{common/common}"></th:block>
   <style>
     body {
       background-color: #f2e2ce;
@@ -146,6 +147,8 @@
 
 <body>
 
+  <div th:replace="~{common/header}"></div>
+  <div th:replace="~{common/sidebar}"></div>
   <!-- 세미 헤더 들어가는 곳 시작 -->
   <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
   <!-- 세미 헤더 들어가는 곳 끝 -->
@@ -158,7 +161,7 @@
       </div>
 
       <div class="right-profile">
-        <h1>권태영 강사</h1>
+        <h1 th:text="|${inst.memberLastName}${inst.memberFirstName}|">강사명</h1>
         <div class="info">
           <div><span>상태 : </span><span th:text="${inst.instStat == 0 ? '활동중' : '활동 정지'}">활동 여부</span></div>
           <div><span>강좌분류 : </span><span th:text="${inst.instCategory}">강좌 분류</span></div>
@@ -185,6 +188,7 @@
   <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
   <!-- lessonCommon 들어가는 곳 끝 -->
 
+  <div th:replace="~{common/footer}"></div>
 </body>
 
 </html>

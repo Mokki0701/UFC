@@ -126,6 +126,11 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 	
+	<select id="getMessageNo">
+		SELECT SEQ_MESSAGE_NO.CURRVAL
+		FROM DUAL
+	</select>
+	
 	
 
 </mapper>

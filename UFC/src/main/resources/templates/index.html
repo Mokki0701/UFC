@@ -23,7 +23,8 @@
   <script src="/js/common/indexLib.js"></script>
   <script src="/js/gym/gymMain.js"></script>
   <script src="/js/member/signup.js"></script>
-  <script src="/js/common/notification.js"></script>
+
+  
   
 <!-- <style>
  .temp-container{
@@ -41,50 +42,21 @@
 
 </head>
 
+
+
+ 
+
 <body>
+  <div th:replace="~{common/header}"></div>
+  
+  <div th:replace="~{common/sidebar}"></div>
 
+ 
 
-  <!-- <div th:replace="~{common/header}"></div> -->
-  <!-- 임시 헤더 -->
 
 
   <div>
 
-
-
-
-  <div class="quickLoginBtnSack">
-    일반회원 <br>
-    <button class="quickLoginBtn">testMem01@naver.com</button> <br>
-    <button class="quickLoginBtn">testMem02@naver.com</button>
-    <button class="quickLoginBtn">test0@naver.com</button>
-    <button class="quickLoginBtn">testMem02@nave.crom</button>
-
-
-
-    <button class="quickLoginBtn">test01@naver.com</button>
-    <button class="quickLoginBtn">test02@naver.com</button>
-    <button class="quickLoginBtn">test03@naver.com</button>
-    <button class="quickLoginBtn">test04@naver.com</button>
-    <button class="quickLoginBtn">test05@naver.com</button>
-    <button class="quickLoginBtn">test06@naver.com</button>
-    <button class="quickLoginBtn">test07@naver.com</button>
-    <button class="quickLoginBtn">test08@naver.com</button>
-    <button class="quickLoginBtn">test09@naver.com</button>
-    <br> <br>
-    관리자 회원 :
-    <button class="quickLoginBtn">testMem03@naver.com</button>
-  </div>
-
-  <br>
-
-  <!-- 로그인이 된 경우 -->
-  <th:block th:if="${session.loginMember != null}">
-    <span>이메일 : </span>
-    <span th:text="${session.loginMember.memberEmail}">현재 로그인한 회원 이메일</span>
-  </th:block>
-
-  <br>
 
   <div class="main_wrapper">
     <div class="main_container">
@@ -95,10 +67,13 @@
         <li class="tab lesson" data-tab="lesson"><p class="tabTitle">평생학습관</p></li>
         <li class="tab health" data-tab="health"><p class="tabTitle">운동시설</p></li>
         <li class="tab community" data-tab="community"><p class="tabTitle">커뮤니티</p></li>
-        <li class="tab myPage" data-tab="myPage"><p class="tabTitle">myPage</p></li>
+        <li class="tab myPage" data-tab="myPage"><p class="tabTitle"
+          th:text="${session.loginMember != null ? 'myPage' : 'Login'}">myPage</p></li>
         
       </ul>
-  
+
+
+      
       <!-- 화면 전환 부분 -->
       <div class="swiper" th:replace="~{common/main/swiper}"></div>
       <div th:replace="~{common/main/lib}"></div>
@@ -111,6 +86,9 @@
   
 <script src="/js/common/header.js"></script>
 </body>
+
+<div th:replace="~{common/footer}"></div>
+
 
 <script src="/js/index.js"></script>
 

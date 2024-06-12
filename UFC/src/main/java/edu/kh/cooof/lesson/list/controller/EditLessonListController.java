@@ -57,11 +57,13 @@ public class EditLessonListController {
 		
 		if (lessonNo > 0) {
 			
+			// 모집중 태그 추가
+			service.setCloseYnToY(lessonNo);
 			
 			message = "수업 게시되었습니다.";
 			
 			// !! 경로 수정해야 함 (상세보기 화면으로) !! 
-			path = "lesson/lessonMain";
+			path = "redirect:/lesson/list/" + lessonNo;
 			
 			
 		} else {
