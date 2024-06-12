@@ -224,8 +224,10 @@ public class DashBoardController {
 	        // HTML을 PDF로 변환하여 파일에 저장합니다.
 	        String savedFilePath = ThymeleafParser.generateFromHtml(
 	                "C:\\mokkie\\lesson", // 파일이 저장될 경로입니다.
-	                loginMember.getMemberNo() + "test", // 파일 이름입니다.
-	                html // HTML 문자열입니다.
+	                loginMember.getMemberNo()  
+	                + certificateLesson.getLessonTitle() // !!!! 한글 가능하게 수정해야함   !!! 
+	                + "_수료증",
+	                html 
 	        );
 
 	        System.out.println("PDF saved at: " + savedFilePath); // 파일 저장 경로를 출력합니다.
