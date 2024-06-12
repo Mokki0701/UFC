@@ -12,6 +12,7 @@ import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.mapper.DashBoardMapper;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
@@ -225,6 +226,11 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Override
 	public List<LessonListDTO> finishedList(int loginMemberId) {
 		return mapper.finishedList(loginMemberId);
+	}
+	
+	@Override
+	public Lesson selectCertificateLesson(int lessonNo) {
+		return mapper.selectCertificateLesson(lessonNo);
 	}
 	
 }

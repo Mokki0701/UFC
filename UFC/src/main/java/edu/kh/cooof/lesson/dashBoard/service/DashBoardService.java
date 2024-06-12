@@ -7,6 +7,7 @@ import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.CalendarDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.member.model.dto.Member;
 
 public interface DashBoardService {
@@ -58,6 +59,12 @@ public interface DashBoardService {
 	 * @return
 	 */
 	List<Map<String, Object>> getPerfectAttendanceLessons(int memberNo);
+
+	/** 수료증 신청한 수업 조회
+	 * @param lessonNo
+	 * @return
+	 */
+	Lesson selectCertificateLesson(int lessonNo);
 	
 	
 

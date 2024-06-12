@@ -193,15 +193,12 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>수료증 발급</h2>
-            <form id="certificate-form">
-                <label for="studentName">학생 이름:</label>
-                <input type="text" id="studentName" name="studentName" required>
-
-                <label for="courseTitle">강의 선택:</label>
-                <select id="courseTitle" name="courseTitle" required>
+            <form action="/lesson/dashboard/certificateReq" method="POST" name="certificateFrm" id="certificateFrm">
+                <label for="certificateTitle">강의 선택:</label>
+                <select id="certificateTitle" name="certificateTitle" required>
                     <option value="" disabled selected>강의를 선택하세요</option>
-                    <option th:each="certificate : ${certificateList}" th:value="${certificate.courseId}"
-                        th:text="${certificate.courseTitle}">강의 1</option>
+                    <option th:each="certificate : ${certificateList}" 
+                        th:text="${certificate.lessonTitle}" th:value="${certificate.lessonNo}">수료증 발급받을 수업</option>
                 </select>
 
                 <button type="submit">발급</button>

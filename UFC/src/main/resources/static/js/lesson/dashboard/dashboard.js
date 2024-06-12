@@ -543,7 +543,7 @@ studentStatusBtn.addEventListener("click", e=>{
   })
 });
 
-/* 수료증 관련 JS */
+/* 수료증 관련 */
 
 // 모달 창 요소 가져오기
 const modal = document.getElementById('certificate-modal');

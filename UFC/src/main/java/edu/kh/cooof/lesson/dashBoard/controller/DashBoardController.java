@@ -197,16 +197,21 @@ public class DashBoardController {
 			return removeBookmark;
 		}
 		
-//		@GetMapping("/api/events")
-//		@ResponseBody
-//		private List<CalendarDTO> getEvents(
-//				@SessionAttribute("loginMember") Member loginMember
-//				){
-//			
-//			
-//			return null;
-//			
-//		}
+
+		@PostMapping("dashboard/certificateReq")
+		private String lessonList(
+				@SessionAttribute("loginMember") Member loginMember,
+				@RequestParam("certificateTitle") int lessonNo
+				) {
+			
+			Lesson certificateLesson = service.selectCertificateLesson(lessonNo);
+			
+			
+			
+			
+			return "index"; // 임시
+		}
+		
 		
 	
 }
