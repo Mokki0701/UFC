@@ -215,18 +215,27 @@
 		WHERE SPACE_NO2 = #{spaceNo}
 	</select>
 
-	<select id="getSpaceUserNo" resultType = "list">
-	
-		SELECT MEMBER_NO
-		FROM RENT_SPACE
-	
-	</select>
+	 <select id="getSpaceUserNo" resultType="int">
+        SELECT MEMBER_NO
+        FROM RENT_SPACE
+    </select>
 
-	<select id="spaceUserDoneTime" parameterType="int" resultType = "map">
-	
-		SELECT SAPCE_DONE AS spaceDone, USER_NO AS userNo
+    <select id="spaceUserDoneTime" parameterType="int">
+        SELECT TO_CHAR(SPACE_DONE, 'yyyy-mm-dd hh24:mi') AS spaceDone
+		FROM RENT_SPACE
 		WHERE MEMBER_NO = #{userNo}
-	
-	</select>
+    </select>
+
+    <update id="updateSpaceToAvailable" parameterType="int">
+        UPDATE SPACE
+        SET SPACE_AVAIL = 1
+        WHERE SPACE_NO = #{spaceNo}
+    </update>
+
+    <delete id="getOut" parameterType="int">
+        DELETE 
+        FROM RENT_SPACE
+        WHERE MEMBER_NO = #{userNo}
+    </delete>
 	
 </mapper>

@@ -452,61 +452,36 @@ public class SpaceController {
 	}
 
 	// 종료 시간에 따른 알람 및 종료
-	@GetMapping("/doneTimeCheck")
+	@PostMapping("doneTimeCheck")
 	@ResponseBody
-	public Map<String, Object> doneTimeCheck() {
+	public void doneTimeCheck(
+			@RequestBody String requestBody
+			) {
 
-		Map<String, Object> response = new HashMap<>();
-
-		// 기준이 될 memberNo list 가져오기
-		List<Integer> spaceUserNo = service.getSpaceUserNo();
-
-		// 결과 값이 있으면 실행
-		if (!spaceUserNo.isEmpty()) {
-
-			// 리스트 안의 memberNo별로 map을 가져오고
-			for (int userNo : spaceUserNo) {
-
-				Map<String, Object> spaceDoneChecker = service.spaceUserDoneTime(userNo);
-				if (spaceDoneChecker == null || spaceDoneChecker.isEmpty())
-					continue;
-
-				logger.info("Space done checker: " + spaceDoneChecker);
-
-				// 가져온 map(userNo, doneTime) 에 따라서 다음을 실행
-				String doneTimeStr = (String) spaceDoneChecker.get("spaceDone");
-				logger.info("Done time: " + doneTimeStr);
-
-				// 현재 시간
-				LocalDateTime currentTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-
-				// doneTime을 LocalDateTime으로 변환
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-				LocalDateTime doneTime = doneTime = LocalDateTime.parse(doneTimeStr, formatter)
-						.truncatedTo(ChronoUnit.MINUTES);
-
-				// 현재 시간과 doneTime을 비교
-				long minutesUntilDone = ChronoUnit.MINUTES.between(currentTime, doneTime);
-				logger.info("Minutes until done: " + minutesUntilDone);
-
-				// 5분 전 알람 보내기
-				if (minutesUntilDone == 5) {
-					System.out.printf("종료시간 5분 전이다. 회원 번호 : " + userNo);
-					// 여기에서 알람을 보내면 됩니다.
-					// seatWebSocketHandler.sendMessageToUser(userNo, "공간 이용 종료 시간이 5분 남았습니다.");
-				}
-
-				// 이용 종료시키기
-				if (minutesUntilDone <= 0) {
-					int getOut = service.getOut(userNo);
-					// 여기에서 알람을 보내면 됩니다.
-					System.out.printf(userNo + "번 회원의 공간 이용이 종료됨");
-				}
-			}
+		// body에서 현재 시간 가져오기
+		String currentTime = requestBody;
+		
+		System.out.println("현재 시간 : " + currentTime);
+		
+		// 현재 공간을 이용 중인 memberNo를 가져오기
+		List<Integer> getSpaceUserNo = service.getSpaceUserNo();
+		
+		// 공간 이용 중인 member마다 실행하기
+		// 리스트의 0번째 부터 마지막번째 까지
+		for (int i = 0; i < getSpaceUserNo.size(); i++) {
+			
+			// i 번째 요소 가져오기
+			int userNo = getSpaceUserNo.get(i);
+			
+			// memberNo에 맞는 공간 이용 종료 시간 가져오기
+			String spaceUserDoneTime = service.spaceUserDoneTime(userNo);
+			System.out.printf("db에 저장된 시간 : " , spaceUserDoneTime);
+			
+			// 현재 시간과 spaceUserDoneTime이 같을 때 실행한다.
+			
 		}
 
-		response.put("status", "done");
-		return response;
+
 	}
 
 }

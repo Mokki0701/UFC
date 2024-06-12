@@ -205,8 +205,6 @@ public class SpaceServiceImpl implements SpaceService {
 	@Override
 	public Map<String, Object> spaceDoneTime(int spaceNo) {
 
-		
-		
 		return mapper.spaceDoneTime(spaceNo);
 	}
 
@@ -214,16 +212,30 @@ public class SpaceServiceImpl implements SpaceService {
 	public int countSpace() {
 		return mapper.countSpace();
 	}
-	
+
 	@Override
 	public List<Integer> getSpaceUserNo() {
-		
+
 		return mapper.getSpaceUserNo();
 	}
 
 	@Override
-	public Map<String, Object> spaceUserDoneTime(int userNo) {
-		
+	public String spaceUserDoneTime(int userNo) {
+
 		return mapper.spaceUserDoneTime(userNo);
 	}
+
+	@Override
+	public int updateSpaceToAvailable(int spaceNo) {
+		return mapper.updateSpaceToAvailable(spaceNo);
+	}
+	
+	
+	// 이용 종료시키기
+	@Override
+	public int getOut(int userNo) {
+		return mapper.getOut(userNo);
+	}
+	
+	
 }
