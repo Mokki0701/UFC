@@ -135,6 +135,16 @@ gymPayButton.addEventListener("click", function() {
     requestPay();
 });
 
+let number = 0;
+
+function incrementNumber() {
+    console.log(number);
+    number++;
+    setTimeout(incrementNumber, 1000); // 1000ms (1초) 간격으로 숫자를 증가시킴
+}
+
+
+
 
 
 // 카카오페이 api 
@@ -153,7 +163,7 @@ gymPayButton.addEventListener("click", function() {
       IMP.request_pay({
         pg: "kakaopay",
         pay_method: "kakaopay",
-        merchant_uid: "test_lwehztzg100003999",
+        merchant_uid: incrementNumber() ,
         name: "PT 결제",
         amount: calcResult,
         buyer_tel: memberPhone,
