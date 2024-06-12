@@ -136,7 +136,7 @@
     text-decoration: underline;
 }
 
-.content {
+.header-content {
     margin-top: 70px; /* Fixed 요소 아래 내용이 겹치지 않도록 여백 추가 */
     padding: 20px;
     background-color: cornflowerblue;
@@ -165,4 +165,13 @@
 
 .header-notification-num > span{
     line-height: 16px;
+}
+
+.header-logout-btn {
+    width: 100px;
+    height: 50px;
+    color: black;
+    background-color: #F2E2CE;
+    border:none;
+    z-index: 9999;
 }

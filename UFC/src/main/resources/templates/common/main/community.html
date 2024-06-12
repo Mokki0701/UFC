@@ -70,7 +70,7 @@
         <tbody>
           <tr th:each="trainer : ${trainerList}" th:object="${trainer}">
             <td class="index">번호</td>
-            <th th:text="*{trainerName}">
+            <th th:text="*{trainerName}" class="messageDropdown" onclick="clickDropDown(this)">
               <!-- <a th:href="@{|/lesson/list/${lesson.lessonNo}|}" th:text="*{lessonTitle}">프로그램제목</a> -->
             </th>
             <td th:text="*{trainerPrice}">비용</td>

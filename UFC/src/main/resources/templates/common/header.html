@@ -3,11 +3,14 @@
         <div class="header-center">
             <a href="/">UFC</a>
         </div>
-        <input type="checkbox" id="notification-toggle" class="header-notification-toggle">
-        <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell"></label>
-        <div class="header-notification-num">
+        <input type="checkbox" id="notification-toggle" class="header-notification-toggle" th:if="${session.loginMember}">
+        <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell" th:if="${session.loginMember}"></label>
+        <div class="header-notification-num" th:if="${session.loginMember}">
             <span class="noti-number"></span>
         </div>
+        <form action="/member/logout" method="GET">
+            <input type="submit" value="Logout" class="header-logout-btn" th:if="${session.loginMember}">
+        </form>
     </header>
 
     <div class="header-notification-container header-content" id="notification-list" th:if="${session.loginMember}">
@@ -28,5 +31,6 @@
             </li>
         </ul>
     </div>
+    
   </body>
   
