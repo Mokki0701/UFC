@@ -215,6 +215,18 @@
 		WHERE SPACE_NO2 = #{spaceNo}
 	</select>
 
+	<select id="getSpaceUserNo" resultType = "list">
+	
+		SELECT MEMBER_NO
+		FROM RENT_SPACE
+	
+	</select>
 
-
+	<select id="spaceUserDoneTime" parameterType="int" resultType = "map">
+	
+		SELECT SAPCE_DONE AS spaceDone, USER_NO AS userNo
+		WHERE MEMBER_NO = #{userNo}
+	
+	</select>
+	
 </mapper>

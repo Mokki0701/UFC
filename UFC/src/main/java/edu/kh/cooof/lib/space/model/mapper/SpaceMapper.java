@@ -73,6 +73,10 @@ public interface SpaceMapper {
 	// 각 공간마다 종료 시간 가져오기
 	Map<String, Object> spaceDoneTime(int spaceNo);
 
+	List<Integer> getSpaceUserNo();
+
+	Map<String, Object> spaceUserDoneTime(int userNo);
+
 
 
 }

@@ -161,13 +161,13 @@ public class CommonScheduling {
 	    for (Integer memberNo : result) {
 	        // memberNo를 매개변수로 메세지를 보내주시면 됩니다.
 	        // ex) sendMessageToMember(memberNo);
+	    	
 	    	Map<String, Integer> map = new HashMap<>();
 	    	map.put("applyMemberNo", memberNo);
 	    	map.put("memberNo", chiefMember.getMemberNo());
 	    	map.put("checkNo", 5);
 	    	
 	    	messageMapper.transmitMessage(map);
-	    	
 	    	
 	    }
 

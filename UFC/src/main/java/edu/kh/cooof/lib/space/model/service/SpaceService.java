@@ -45,4 +45,11 @@ public interface SpaceService {
 
 	Map<String, Object> spaceDoneTime(int spaceNo);
 
+	
+	List<Integer> getSpaceUserNo();
+
+	Map<String, Object> spaceUserDoneTime(int userNo);
+
+	int getOut(int userNo);
+
 }

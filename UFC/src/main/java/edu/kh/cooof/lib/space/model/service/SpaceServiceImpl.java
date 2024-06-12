@@ -214,5 +214,16 @@ public class SpaceServiceImpl implements SpaceService {
 	public int countSpace() {
 		return mapper.countSpace();
 	}
+	
+	@Override
+	public List<Integer> getSpaceUserNo() {
+		
+		return mapper.getSpaceUserNo();
+	}
 
+	@Override
+	public Map<String, Object> spaceUserDoneTime(int userNo) {
+		
+		return mapper.spaceUserDoneTime(userNo);
+	}
 }
