@@ -10,11 +10,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <!-- 풀캘린더 -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.11/index.global.min.js'></script>
+    <th:block th:replace="~{common/common}"></th:block>
 
 </head>
 
 <body>
 
+    <div th:replace="~{common/header}"></div>
+  
+    <div th:replace="~{common/sidebar}"></div>
     <!-- lessonCommon 들어가는 곳 시작 -->
     <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
     <!-- lessonCommon 들어가는 곳 끝 -->
@@ -207,7 +211,8 @@
     </div>
 
 
-
+    <div th:replace="~{common/footer}"></div>
+  
 
     <script th:inline="javascript">
 
