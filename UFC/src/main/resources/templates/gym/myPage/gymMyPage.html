@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 정보</title>
 
-    <link rel="stylesheet" href="/css/common/header.css">
     <link rel="stylesheet" href="/css/gym/gymHeader.css">
     <link rel="stylesheet" href="/css/gym/gymMyPage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -15,70 +14,81 @@
     <th:black th:replace="~{gym/gymHeader}"></th:black>
 
 <body>
+    
+    <div class="gym_myPage_wrapper">
 
-    <div class="gym_my_page">
-        <div class="container" th:if="${gymMyPage != null}">
-            <h1 th:text="${gymMyPage.memberLastName} + ' ' + ${gymMyPage.memberFirstName} + ' 회원님'">OOO 회원님</h1>
-            <div class="info-item">
-                <i class="fas fa-dumbbell info-icon"></i>
-                <div>
-                    <div class="info-title">PT 총 횟수</div>
-                    <div class="info-content" th:text="${gymMyPage.ptYN + '회'}">20회</div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="/gym/myPage/gymMyPage"  th:if="${session.loginMember != null}">내 정보</a></li>
+                <li><a href="/gym/myPage/ptRecord">지난 PT 기록</a></li>
+                <li><a href="/trainerSelect/trainerSelect">트레이너 매칭</a></li>
+                <li><a href="/gymWrite/insert">리뷰 남기기</a></li>
+            </ul>
+        </div>
+    
+        <div class="gym_my_page">
+            <div class="container" th:if="${gymMyPage != null}">
+                <h1 th:text="${gymMyPage.memberLastName} + ' ' + ${gymMyPage.memberFirstName} + ' 회원님'">OOO 회원님</h1>
+                <div class="info-item">
+                    <i class="fas fa-dumbbell info-icon"></i>
+                    <div>
+                        <div class="info-title">PT 총 횟수</div>
+                        <div class="info-content" th:text="${gymMyPage.ptYN + '회'}">20회</div>
+                    </div>
                 </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-running info-icon"></i>
-                <div>
-                    <div class="info-title">PT 진행 횟수</div>
-                    <div class="info-content" th:text="${gymMyPage.ptCount + '회'}">1회</div>
+                <div class="info-item">
+                    <i class="fas fa-running info-icon"></i>
+                    <div>
+                        <div class="info-title">PT 진행 횟수</div>
+                        <div class="info-content" th:text="${gymMyPage.ptCount + '회'}">1회</div>
+                    </div>
                 </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-user info-icon"></i>
-                <div>
-                    <div class="info-title">담당 트레이너</div>
-                    <div class="info-content" th:text="${gymMyPage.trainerName}">홍길동</div>
+                <div class="info-item">
+                    <i class="fas fa-user info-icon"></i>
+                    <div>
+                        <div class="info-title">담당 트레이너</div>
+                        <div class="info-content" th:text="${gymMyPage.trainerName}">홍길동</div>
+                    </div>
                 </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-lock info-icon"></i>
-                <div>
-                    <div class="info-title">락커룸 사용 여부</div>
-                    <div class="info-content" th:text="${gymMyPage.ptLkroom == 1 ? '사용 중' : '사용 안 함'}">사용 중</div>
+                <div class="info-item">
+                    <i class="fas fa-lock info-icon"></i>
+                    <div>
+                        <div class="info-title">락커룸 사용 여부</div>
+                        <div class="info-content" th:text="${gymMyPage.ptLkroom == 1 ? '사용 중' : '사용 안 함'}">사용 중</div>
+                    </div>
                 </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-receipt info-icon"></i>
-                <div>
-                    <div class="info-title">결제 내역</div>
-                    <div class="info-content" th:text="${gymMyPage.ptStrDate} + ': PT ' + ${gymMyPage.ptYN} + '회권 - ' + ${gymMyPage.ptPrice} + '원'">
-                        2024-01-01: PT 10회권 - 500,000원
+                <div class="info-item">
+                    <i class="fas fa-receipt info-icon"></i>
+                    <div>
+                        <div class="info-title">결제 내역</div>
+                        <div class="info-content" th:text="' PT ' + ${gymMyPage.ptYN} + '회권 - ' + ${gymMyPage.ptPrice} + '원'">
+                            2024-01-01: PT 10회권 - 500,000원
+                        </div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt info-icon"></i>
+                    <div>
+                        <div class="info-title">PT 시작일</div>
+                        <div class="info-content" th:text="${#dates.format(gymMyPage.ptStrDate, 'yyyy-MM-dd')}">2024-01-01</div>
                     </div>
                 </div>
             </div>
-            <div class="info-item">
-                <i class="fas fa-calendar-alt info-icon"></i>
-                <div>
-                    <div class="info-title">PT 시작일</div>
-                    <div class="info-content" th:text="${#dates.format(gymMyPage.ptStrDate, 'yyyy-MM-dd')}">2024-01-01</div>
-                </div>
+
+            <div class="container2" th:if="${gymMyPage == null}">
+        
+                <img src="/images/gym/모집공고4.png" alt="트레이너 이미지">
+        
+                <h2>PT 신청 내역이 없습니다.</h2>
+                <p>현재 PT 신청 내역이 없습니다. PT를 신청하여 개인 트레이닝을 시작해 보세요!</p>
+                <a href="/trainerSelect/trainerSelect">PT 신청하러 가기</a>
             </div>
-    
+
         </div>
 
-        <div class="container2" th:if="${gymMyPage == null}">
-
-            <img src="/images/gym/모집공고4.png" alt="트레이너 이미지">
-
-            <h2>PT 신청 내역이 없습니다.</h2>
-            <p>현재 PT 신청 내역이 없습니다. PT를 신청하여 개인 트레이닝을 시작해 보세요!</p>
-            <a href="/trainerSelect/trainerSelect">PT 신청하러 가기</a>
-        </div>
     </div>
-
-
 
     <th:block th:replace="~{/common/footer}">footer</th:block>
 </body>
-</html>
 
+</html>

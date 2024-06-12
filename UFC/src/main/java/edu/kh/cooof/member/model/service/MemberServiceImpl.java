@@ -75,10 +75,47 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
+	// 아이디 중복 확인
 	@Override
 	public int checkEmail(String memberEmail) {
 		
 		return mapper.checkEmail(memberEmail);
+	}
+	
+	
+	// 비밀번호 변경
+	@Override
+	public int changePw(String currentPw, String newPw, Member loginMember) {
+		
+		String changePw = mapper.changePw(loginMember);
+		
+		if(!bcrypt.matches(currentPw, changePw)) {
+			return 0;
+		}else {
+			String encPw = bcrypt.encode(newPw);
+			loginMember.setMemberPw(encPw);
+			
+			return mapper.newChangePw(loginMember);
+		}
+		
+		
+	}
+	
+	
+	// 주소 생일 전화번호 변경
+	@Override
+	public int changeAnything(Member inputMember, String[] memberAddress) {
+		
+		if( inputMember.getMemberAddress().equals(",,")) {
+			inputMember.setMemberAddress(null);
+			
+		} else {
+			String address = String.join("^^^", memberAddress);
+			
+			inputMember.setMemberAddress(address);
+		}
+		
+		return mapper.changeAnything(inputMember);
 	}
 
 	

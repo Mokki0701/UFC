@@ -14,11 +14,20 @@
 		   MEMBER_PHONE,
 		   MEMBER_EMAIL,
 		   RESUME_PATH,
-		   APPLY_DATE 
+		   APPLY_DATE,
+		   STATUS
 	FROM "APPLICATION"
 	JOIN "MEMBER" USING(MEMBER_NO)
+	ORDER BY APPLY_DATE DESC
 	
 </select>
+
+<update id="updateApplicationStatus">
+	UPDATE APPLICATION 
+	SET STATUS  = #{status}
+	WHERE MEMBER_NO = #{memberNo}
+</update>
+
 
 <select id="selectApplicationNo" parameterType="_int">
     SELECT 

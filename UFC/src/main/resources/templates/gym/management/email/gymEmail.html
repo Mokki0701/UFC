@@ -2,17 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- 메일은 header 불필요 -->
 <body>
-
   <!-- css/js 파일은 이메일 첨부 불가 -->
   <div style="display: flex; flex-direction: column; align-items: center;">
-    
     <!-- Content-ID로 등록된 이미지 중 logo를 출력 -->
     <img src="cid:logo" width="200px">
-
-    <h3>
+    
+    <!-- 조건부로 메시지 표시 -->
+    <h3 th:if="${status == 'approved'}">
         트레이너 합격입니다! 축하드립니다
     </h3>
-
+    <h3 th:if="${status == 'refused'}">
+        트레이너 신청이 거절되었습니다. 죄송합니다.
+    </h3>
   </div>
 </body>
 </html>

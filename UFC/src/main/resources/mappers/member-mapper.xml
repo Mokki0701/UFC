@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.kh.cooof.member.model.mapper.MemberMapper">
 
 	<!-- 빠른로그인용으로 만든 로그인 sql -->
@@ -42,5 +42,26 @@
 		WHERE MEMBER_CANCEL = 0
 		AND MEMBER_EMAIL  = #{memberEmail}
 	</select>
-
+	
+	<select id="changePw" resultType="String">
+		SELECT MEMBER_PW
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="newChangePw">
+		 UPDATE MEMBER SET
+		 MEMBER_PW = #{memberPw}
+		 WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	<update id="changeAnything">
+		UPDATE "MEMBER" SET
+			MEMBER_BIRTHDAY = #{memberBirthday},
+			MEMBER_PHONE = #{memberPhone},
+			MEMBER_ADDRESS = #{memberAddress}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>

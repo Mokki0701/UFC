@@ -28,6 +28,7 @@
                         <th>지원날짜</th>
                         <th>현재상태</th>
                         <th>상세보기</th>
+                        <th>처리상태</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,9 @@
                             <span th:if="${app.memberAuthority} == 3">관리자</span>
                         </td>
                         <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}" class="detail-link">상세 보기</a></td>
+                        <td>
+                            <span th:text="${app.status}">미완료</span>
+                        </td>
                     </tr>
 
                 </tbody>
@@ -54,6 +58,7 @@
 
     </section>
 
+    <script src="/js/gym/appManagement.js"></script>
     <th:block th:replace="~{/common/footer}"></th:block>
 
 </body>

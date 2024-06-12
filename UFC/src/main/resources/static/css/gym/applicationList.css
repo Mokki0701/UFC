@@ -1,7 +1,6 @@
 body.application-list-body {
     margin: 0;
     padding: 0;
-    font-family: 'TTHakgyoansimMonggeulmonggeulR';
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* 최소 높이를 전체 화면 높이로 설정 */
