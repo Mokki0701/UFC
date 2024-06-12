@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 	
 	private final SchedulingMapper mapper;
@@ -34,8 +35,8 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 	}
 	
 	@Override
-	public void setCloseYn(int lessonNo) {
-		mapper.setCloseYn(lessonNo);		
+	public int setCloseYn(int lessonNo) {
+		return mapper.setCloseYn(lessonNo);		
 	}
 	
 	// 권한 부여 체크
@@ -72,4 +73,16 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 		// 두 작업의 성공 여부를 합산하여 반환
 		return setSeat + setAvail;
 	}
+	
+	// 마감 처리된 수업 마감 태그 추가
+	@Override
+	public int setCloseTagAdd(int lessonNo) {
+		return mapper.setCloseTagAdd(lessonNo);
+	}
+	
+	@Override
+	public int removeOpenTag(int lessonNo) {
+		return mapper.removeOpenTag(lessonNo);
+	}
+	
 }

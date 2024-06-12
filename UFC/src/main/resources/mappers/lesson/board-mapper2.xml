@@ -217,7 +217,33 @@
 		AND MEMBER_NO = #{memberNo}
 	
 	</delete>
-
+	
+	<select id="selectCertificateLesson" resultType="Lesson">
+	SELECT * FROM LESSONS WHERE LESSON_NO = #{lessonNo}	
+	</select>
+	
+	<select id="selectCertificateMember" resultType="Member">
+	SELECT
+	MEMBER_NO,
+	MEMBER_EMAIL,
+	MEMBER_PW,
+	MEMBER_LAST_NAME,
+	MEMBER_FIRST_NAME,
+	TO_CHAR(MEMBER_BIRTHDAY, 'YYYY"년" MM"월" DD"일"') AS	MEMBER_BIRTHDAY,
+	MEMBER_PHONE,
+	MEMBER_GENDER,
+	MEMBER_AUTHORITY,
+	MEMBER_CANCEL,
+	LOAN_AVAIL,
+	ENROLL_DATE,
+	PENALTY_CHECK,
+	MEMBER_ADDRESS
+	
+	FROM
+	MEMBER
+	
+	WHERE MEMBER_NO = #{memberNo}
+	</select>
 			
 
 </mapper>

@@ -45,6 +45,13 @@ public class Lesson {
 	// MEMBER 테이블 JOIN 후 사용할 것
 	private String instName;
 	
+	// 달력에서 쓸 필드
+	private String wishYn; // 즐찾 Y 안되있음 N
+	private String enrollYn; // 수업 등록 되있으면 Y 아니면 N
+	
+	
+	
+	
 	
 
 }

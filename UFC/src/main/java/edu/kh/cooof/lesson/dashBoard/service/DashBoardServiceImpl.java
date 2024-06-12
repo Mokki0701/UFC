@@ -12,6 +12,7 @@ import edu.kh.cooof.lesson.dashBoard.dto.AttendanceDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonInstructorDTO;
 import edu.kh.cooof.lesson.dashBoard.dto.LessonListDTO;
 import edu.kh.cooof.lesson.dashBoard.mapper.DashBoardMapper;
+import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
@@ -161,6 +162,47 @@ public class DashBoardServiceImpl implements DashBoardService {
 		
 		return attendanceRates;
 	}
+	
+	// 출석률이 100%인 수업만 반환하는 메소드
+	@Override
+	public List<Map<String, Object>> getPerfectAttendanceLessons(int memberNo) {
+
+	    List<LessonListDTO> lessons = mapper.findLesson(memberNo);
+	    List<Map<String, Object>> perfectAttendanceLessons = new ArrayList<>();
+	    
+	    for(LessonListDTO lesson : lessons) {
+	        
+	        int lessonNo = lesson.getLessonNo();
+	        
+	        int totalDays = mapper.getTotalLessonDays(lessonNo);
+	        
+	        AttendanceDTO attendanceDTO = new AttendanceDTO();
+	        attendanceDTO.setMemberNo(memberNo);
+	        attendanceDTO.setLessonNo(lessonNo);
+	        
+	        int attendanceCount = mapper.getAttendanceCount(attendanceDTO);
+	        
+	        double attendanceRate = 0.0;
+	        
+	        if(totalDays > 0) {
+	            attendanceRate = (double) attendanceCount / totalDays * 100;
+	        }
+	        
+	        // 출석률이 100%인 수업만 추가
+	        if (attendanceRate == 100.0) {
+	            Map<String, Object> result = new HashMap<>();
+	            result.put("attendanceRate", attendanceRate);
+	            result.put("lessonTitle", lesson.getLessonTitle());
+	            result.put("lessonNo", lesson.getLessonNo());
+	            
+	            perfectAttendanceLessons.add(result);
+	        }
+	    }
+	    
+	    return perfectAttendanceLessons;
+	}
+	
+	
 
 	@Override
 	public int deleteList(List<AttendanceDTO> attendanceList) {
@@ -180,5 +222,21 @@ public class DashBoardServiceImpl implements DashBoardService {
 		return mapper.bookmarkRemove(lessonList);
 	}
 	
+	// 수료한 수업 목록 조회
+	@Override
+	public List<LessonListDTO> finishedList(int loginMemberId) {
+		return mapper.finishedList(loginMemberId);
+	}
+	
+	@Override
+	public Lesson selectCertificateLesson(int lessonNo) {
+		return mapper.selectCertificateLesson(lessonNo);
+	}
+	
+	
+	@Override
+	public Member selectCertificateMember(int memberNo) {
+		return mapper.selectCertificateMember(memberNo);
+	}
 	
 }
