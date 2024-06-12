@@ -55,5 +55,13 @@
 		 WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
-
+	
+	<update id="changeAnything">
+		UPDATE "MEMBER" SET
+			MEMBER_BIRTHDAY = #{memberBirthday},
+			MEMBER_PHONE = #{memberPhone},
+			MEMBER_ADDRESS = #{memberAddress}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>

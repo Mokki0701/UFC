@@ -171,6 +171,39 @@ public class MemeberController {
 	}
 	
 	
+	@PostMapping("changeAnything")
+	public String changeAnything(
+			Member inputMember,
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam("memberAddress") String[] memberAddress,
+			RedirectAttributes ra) {
+		
+			int memberNo = loginMember.getMemberNo();
+			inputMember.setMemberNo(memberNo);
+			
+			int result = service.changeAnything(inputMember, memberAddress);
+			
+			String message = null;
+			
+			
+			
+			if(result > 0) {
+				message = "회원 정보 수정 성공~";
+				loginMember.setMemberBirthday(inputMember.getMemberBirthday());
+				
+				loginMember.setMemberPhone(inputMember.getMemberPhone());
+				
+				loginMember.setMemberAddress(inputMember.getMemberAddress());
+				
+				
+			} else {
+				message = "회원 정보 수정 실패...";
+			}
+			
+			ra.addFlashAttribute("message" ,message);
+			
+			return "redirect:/";
+	}
 	
 	
 }

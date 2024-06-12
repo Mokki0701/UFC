@@ -3,7 +3,8 @@
   <!-- Swiper -->  
   <div class="swiper mySwiper">
     <div class="swiper-wrapper"> 
-      <div class="swiper-slide" >
+      <div class="swiper-slide"  th:unless="${session.loginMember != null}" id="loginSignup" >
+        <!-- 로그인 -->
         <div>   
           <form action="/member/loginMember" method="post" id="loginForm">
             <h2>로그인</h2>
@@ -21,10 +22,9 @@
         </div>
       </div>
       <!-- 회원가입 -->
-      <div class="swiper-slide" >
+      <div class="swiper-slide"  th:unless="${session.loginMember != null}" id="loginSignup">
         <section class="signUp-content">
           <form action="/member/signup" method="POST" name="signUpForm" id="signUpForm">
-    
             <!-- 이메일 입력 -->
             <label for="memberEmail">
               <span class="required">*</span> 아이디(이메일)
@@ -145,13 +145,44 @@
             <button type="submit" id="signUpBtn">가입하기</button>
           </form>
         </section>
-
       </div>
-      <div class="swiper-slide" th:unless="${sessionMember != null}">
+
+
+      <!-- 마이페이지 -->
+      <div class="swiper-slide"  th:if="${session.loginMember != null}" id="myPageContent">
         <div>
           <h1>마이페이지</h1>
           <div>
-            내 정보
+            <button id="modalOpenButton">내 정보 보기</button>
+
+            <div id="modalContainer" class="hidden">
+              <div id="modalContent">
+                  <div>
+                    <label>성명 :
+                      <span th:text="${session.loginMember.memberLastName}"></span>
+                      <span th:text="${session.loginMember.memberFirstName}"></span>
+                    </label>
+                  </div>
+                  <div>
+                    <label for="memberEmail">이메일 :</label>
+                    <span th:text="${session.loginMember.memberEmail}"></span>
+                  </div>
+                  <div>
+                    <label>전화번호 :</label>
+                    <span th:text="${session.loginMember.memberPhone}"></span>
+                  </div>
+                  <div>
+                    <label>생년월일 :</label>
+                    <span th:text="${session.loginMember.memberBirthday} "></span>
+                  </div>
+                  <div>
+                    <label>우편번호 :</label>
+                    <span th:text="${session.loginMember.memberAddress}"></span>
+                  </div>
+                
+                <button id="modalCloseButton">닫기</button>
+              </div>
+            </div>
           </div>
           <!-- 비밀번호 변경 -->
           <section>
@@ -162,7 +193,6 @@
             </span>
 
             <form action="/member/changePw" method="POST" name="myPageFrm" id="changePw">
-
               <div class="myPage-row">
                   <label>현재 비밀번호</label>
                   <input type="password" name="currentPw" id="currentPw" maxlength="30" >              
@@ -176,13 +206,50 @@
               <div class="myPage-row">
                   <label>새 비밀번호 확인</label>
                   <input type="password" name="newPwConfirm" id="newPwConfirm" maxlength="30">              
-              </div>
-    
+              </div>    
               <button class="myPage-submit">변경하기</button>
-    
             </form>
-
           </section>
+
+
+          <section>
+            <form action="/member/changeAnything" method="POST" name="myPageFrm" id="changeAnything">
+              <div>
+                <h1>주소 변경</h1>
+                <span>원하는 주소 변경 가능.</span>
+                <div class="myPage-row info-address">
+                  <span>우편번호</span>
+                  <input type="text" name="memberAddress" placeholder="우편번호" id="postcode"  th:value="${postcode}">
+                  <button type="button" id="searchAddress">검색</button>
+                </div>
+
+                <div class="myPage-row info-address">
+                  <span>도로명/지번 주소</span>
+                  <input type="text" name="memberAddress" placeholder="도로명/지번 주소" id="address" th:value="${address}">
+                </div>
+
+                <div class="myPage-row info-address">
+                  <span>상세 주소</span>
+                  <input type="text" name="memberAddress" placeholder="상세 주소" id="detailAddress" th:value="${detailAddress}">
+                </div>
+              </div>
+              <div>
+                <h1>생년월일 ,전화번호 변경</h1>
+                <span>원하는 생년월일 ,전화번호 변경 가능</span>
+                <div>
+                  <span>전화번호</span>
+                  <input type="text" name="memberPhone" maxlength="11" id="memberTel">
+                </div>
+                <div>
+                  <span>생년월일</span>
+                  <input type="date" id="memberBirthday" name="memberBirthday" 
+                  min="1950-01-01" max="2020-12-31">
+                </div>
+              </div>
+              <button class="anythingChange">변경하기</button>
+            </form>
+          </section>
+
           <div>
           
       

@@ -38,14 +38,16 @@ public class EmailServiceImpl implements EmailService {
 			
 			try {
 				
+				// 제목
 				String subject = null;
 				
 				switch(htmlName) {
 				case "signup"
-					: subject = "회원 가입 인증번호입니다.";
+					: subject = "[UFC_COOOF] 회원 가입 인증번호입니다.";
 					break;
 				}
 				
+				// MimeMessage : java 에서 메일 보내는 객체
 				MimeMessage mimeMessage = mailSender.createMimeMessage();
 				
 				MimeMessageHelper helper
@@ -140,6 +142,12 @@ public class EmailServiceImpl implements EmailService {
 	        }
 	        return key;
 		}  
+		
+		// 이메일, 인증번호 확인
+		@Override
+		public int checkAuthKey(Map<String, Object> map) {
+			return mapper.checkAuthKey(map);
+		}
 		
 		
 }

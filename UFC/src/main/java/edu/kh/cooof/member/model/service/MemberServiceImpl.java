@@ -100,6 +100,23 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 	}
+	
+	
+	// 주소 생일 전화번호 변경
+	@Override
+	public int changeAnything(Member inputMember, String[] memberAddress) {
+		
+		if( inputMember.getMemberAddress().equals(",,")) {
+			inputMember.setMemberAddress(null);
+			
+		} else {
+			String address = String.join("^^^", memberAddress);
+			
+			inputMember.setMemberAddress(address);
+		}
+		
+		return mapper.changeAnything(inputMember);
+	}
 
 	
 	

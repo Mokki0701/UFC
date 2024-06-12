@@ -12,6 +12,8 @@ public interface EmailMapper {
 
 	int insertAuthKey(Map<String, String> map);
 
+	int checkAuthKey(Map<String, Object> map);
+
 	
 	
 }

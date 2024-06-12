@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.cooof.email.model.mapper.EmailMapper">
+
 	<update id="updateAuthKey">
 	  	UPDATE "TB_AUTH_KEY" SET
 	  	"AUTH_KEY" = #{authKey},
@@ -10,8 +11,15 @@
   	
   	<insert id="insertAuthKey">
 	  	INSERT INTO "TB_AUTH_KEY"
-	  	VALUES(SEQ_KEY_NO.NEXTVAL, #{email}, #{authKey})
+	  	VALUES(SEQ_KEY_NO.NEXTVAL, #{email}, #{authKey}, DEFAULT)
   	</insert>
+  	
+  	<select id="checkAuthKey" resultType="_int">
+    SELECT COUNT(*) 
+    FROM "TB_AUTH_KEY"
+	WHERE EMAIL = #{email}
+	AND AUTH_KEY = #{authKey}	
+  </select>
 	
 	
 

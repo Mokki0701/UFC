@@ -1,25 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const domainListEl = document.querySelector('#domain-list')
-    const domainInputEl = document.querySelector('#memberEmailDomain')
-    const tabTitle = document.querySelector("tabTitle")
-
-    // select 옵션 변경 시
-    domainListEl.addEventListener('change', (event) => {
-        // option에 있는 도메인 선택 시
-        if (event.target.value !== "type") {
-            // 선택한 도메인을 수정된 도메인 입력란에 입력하고 readOnly 
-            // disabled로 하면 값이 넘어가질 못한다
-            domainInputEl.value = event.target.value
-            domainInputEl.readOnly = true
-        } else { // 직접 입력 시
-            // 수정: 기존 input 요소의 value를 초기화
-            document.querySelector('#memberEmailDomain').value = ""
-            // 수정: 직접 입력 가능하도록 변경
-            domainInputEl.readOnly = false
-        }
-    })
-
-
+    
+    
+    
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -47,14 +29,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }).open();
     }
 
-
-
-
-
-
-
     /* 주소 검색 버튼 클릭 시 */
     document.querySelector("#searchAddress").addEventListener("click", execDaumPostcode);
+    
+    
+    const loginSignupEl = document.querySelector('#loginSignup');
+    
+    if (loginSignupEl){
+    const domainListEl = document.querySelector('#domain-list')
+    const domainInputEl = document.querySelector('#memberEmailDomain')
+    // select 옵션 변경 시
+    domainListEl.addEventListener('change', (event) => {
+        // option에 있는 도메인 선택 시
+        if (event.target.value !== "type") {
+            // 선택한 도메인을 수정된 도메인 입력란에 입력하고 readOnly 
+            // disabled로 하면 값이 넘어가질 못한다
+            domainInputEl.value = event.target.value
+            domainInputEl.readOnly = true
+        } else { // 직접 입력 시
+            // 수정: 기존 input 요소의 value를 초기화
+            document.querySelector('#memberEmailDomain').value = ""
+            // 수정: 직접 입력 가능하도록 변경
+            domainInputEl.readOnly = false
+        }
+    })
+
+
 
 
 
@@ -75,9 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // 아이디 유효성 검사
-    const memberEmailId = document.querySelector("#memberEmailId")
-    const memberEmailDomain = document.querySelector("#memberEmailDomain")
-    const emailMessage = document.querySelector("#emailMessage")
+    const memberEmailId = document.querySelector("#memberEmailId");
+    const memberEmailDomain = document.querySelector("#memberEmailDomain");
+    const emailMessage = document.querySelector("#emailMessage");
+    const fullEmail = `${memberEmailId.value}@${memberEmailDomain.value}`;
 
     const emailDulicateCheck = e => {
         const inputEmailId = memberEmailId.value;
@@ -355,46 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // 회원가입 제출 버튼 클릭 시 유효성 검사
-    const signupForm = document.querySelector("#signUpForm");
-
-    // 회원가입 제출 버튼 클릭 시 유효성 검사
-    signupForm.addEventListener("submit", e => {
-
-        for (let key in checkObj) {
-
-            if (!checkObj[key]) {
-
-                let str;
-
-                switch (key) {
-
-                    case "memberEmail": str = "이메일이 유효하지 않습니다"; break;
-
-                    case "memberPw": str = "비밀번호가 유효하지 않습니다"; break;
-
-                    case "memberPwConfirm": str = "비밀번호가 일치하지 않습니다"; break;
-
-                    case "memberLastName": str = "성이 유효하지 않습니다"; break;
-
-                    case "memberFirstName": str = "이름이 유효하지 않습니다"; break;
-
-                    case "memberGender": str = "성별을 선택하지 않았습니다"; break;
-
-                    case "memberBirthday": str = "생년월일을 선택하지 않습니다"; break;
-
-                    case "memberPhone": str = "핸드폰 번호가 유효하지 않습니다"; break;
-                }
-
-                alert(str);
-
-
-
-                e.preventDefault(); // 폼 제출 중단
-                return;
-            }
-        }
-    });
+  
 
     // ---------------------------- 이메일 인증 --------------------------
 
@@ -456,10 +418,143 @@ document.addEventListener('DOMContentLoaded', () => {
 
             })
 
+
+
+        authKeyMessage.innerText = initTitme;
+        authKeyMessage.classList.remove("confirm", "error");
+
+        alert("인증번호가 발송되었습니다.");
+
+
+
+        authTimer = setInterval(() => {
+
+            authKeyMessage.innerText = `${addZero(min)}:${addZero(sec)}`;
+            
+            if(min == 0 && sec == 0){
+                checkObj.authKey = false;
+                clearInterval(authTimer);
+                authKeyMessage.classList.add("error");
+                authKeyMessage.classList.remove("confirm");
+                return;
+            }
+
+            if(sec == 0){
+                sec = 60;
+                min--;
+            }
+
+            sec--;
+
+        }, 1000);
     });
 
+    function addZero(number){
+        if( number < 10) return "0" + number;
+        else             return number;
+    }
 
 
+
+
+
+      // ------------------------------------------------------
+      // 회원가입 제출 버튼 클릭 시 유효성 검사
+      const signupForm = document.querySelector("#signUpForm");
+
+      // 회원가입 제출 버튼 클릭 시 유효성 검사
+      signupForm.addEventListener("submit", e => {
+  
+          for (let key in checkObj) {
+  
+              if (!checkObj[key]) {
+  
+                  let str;
+  
+                  switch (key) {
+  
+                      case "memberEmail": str = "이메일이 유효하지 않습니다"; break;
+
+                      case "authKey" : str = "이메일이 인증되지 않았습니다"; break;
+  
+                      case "memberPw": str = "비밀번호가 유효하지 않습니다"; break;
+  
+                      case "memberPwConfirm": str = "비밀번호가 일치하지 않습니다"; break;
+  
+                      case "memberLastName": str = "성이 유효하지 않습니다"; break;
+  
+                      case "memberFirstName": str = "이름이 유효하지 않습니다"; break;
+  
+                      case "memberGender": str = "성별을 선택하지 않았습니다"; break;
+  
+                      case "memberBirthday": str = "생년월일을 선택하지 않습니다"; break;
+  
+                      case "memberPhone": str = "핸드폰 번호가 유효하지 않습니다"; break;
+                  }
+  
+                  alert(str);
+  
+  
+  
+                  e.preventDefault(); // 폼 제출 중단
+                  return;
+              }
+          }
+      });
+
+
+        // -------------------------------------------------------------------------
+
+        checkAuthKeyBtn.addEventListener("click", () =>{
+            const memberEmailId = document.querySelector("#memberEmailId");
+            const memberEmailDomain = document.querySelector("#memberEmailDomain");
+            const fullEmail = `${memberEmailId.value}@${memberEmailDomain.value}`;
+
+            if(min == 0 && sec == 0){
+                alert("인증번호 입력 제한시간을 초과하였습니다.");
+                return;
+            }
+
+            if(authKey.value.length < 6){
+                alert("인증번호를 정확히 입력해 주세요");
+                return;
+            }
+
+            const obj ={
+                "email" : fullEmail,
+                "authKey" : authKey.value
+            }
+
+            fetch("/email/checkAuthKey", {
+                method : "POST",
+                headers : {"Content-Type" : "application/json"},
+                body : JSON.stringify(obj) // obj를 JSON 변경 
+                })
+                .then(resp => resp.text())
+                .then(result => {
+
+                // == : 값만 비교
+                // === : 값 + 타입 비교
+                if(result == 0){
+                    alert("인증번호가 일치하지 않습니다");
+                    checkObj.authKey = false;
+                    return;
+                }
+
+                clearInterval(authTimer); // 타이머 멈춤
+
+                authKeyMessage.innerText = "인증 되었습니다";
+                authKeyMessage.classList.remove("error");
+                authKeyMessage.classList.add("confirm");
+
+                checkObj.authKey = true; // 인증번호 검사여부 true
+
+                })
+            
+        });
+
+
+    }
 
     // ---------------------- 마이페이지 -------------------------------
     const changePw = document.querySelector("#changePw");
@@ -507,6 +602,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+    // ----------------- 모달 창
+    const modalOpenButton = document.getElementById('modalOpenButton');
+    const modalCloseButton = document.getElementById('modalCloseButton');
+    const modal = document.getElementById('modalContainer');
+
+    modalOpenButton.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    });
+
+    modalCloseButton.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    });
+
+
+
+    const modalOpenButton2 = document.getElementById('modalOpenButton2');
+    const modalCloseButton2 = document.getElementById('modalCloseButton2');
+
+    modalOpenButton.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    });
+
+    modalCloseButton.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    });
+
+
+
 });
+
+
+
+
+
+
+
+
+
 
 

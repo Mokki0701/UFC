@@ -28,6 +28,9 @@ public interface MemberMapper {
 	// 비밀번호 변경
 	int newChangePw(Member loginMember);
 	
+	// 주소 생일 전화번호 변경
+	int changeAnything(Member inputMember);
+	
 	
 
 	
