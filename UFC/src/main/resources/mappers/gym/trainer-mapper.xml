@@ -19,5 +19,11 @@
     	VALUES (PT_NO_SEQ.NEXTVAL, #{ptCount}, #{ptPrice}, #{ptLkroom}, 
     	#{memberNo} ,#{trainerNo} , TO_DATE(#{strDate}, 'YYYY-MM-DD') )
 	</insert>
+	
+	<select id="selectPtPriceByMemberNo">
+		SELECT "PT_YN" 
+		FROM PT 
+		WHERE "MEMBER_NO" = #{memberNo}
+	</select>
 
 </mapper>

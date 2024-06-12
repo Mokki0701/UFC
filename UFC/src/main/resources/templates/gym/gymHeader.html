@@ -38,14 +38,7 @@
   </div>
 
   <div th:if="${message}" th:text="${message}" id="flashMessage" style="display: none;"></div>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-   const flashMessage = document.getElementById('flashMessage').innerText;
-   if (flashMessage) {
-       alert(flashMessage);
-   }
-   }); 
- </script>
+  
   
 
   

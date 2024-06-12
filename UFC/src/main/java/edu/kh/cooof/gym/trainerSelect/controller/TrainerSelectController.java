@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.gym.trainerSelect.model.dto.PaymentRequest;
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.gym.trainerSelect.model.dto.Trainer;
 import edu.kh.cooof.gym.trainerSelect.model.service.TrainerSelectService;
 import edu.kh.cooof.member.model.dto.Member;
@@ -37,7 +38,12 @@ public class TrainerSelectController {
 			RedirectAttributes ra) {
 		
 		Member loginMember = (Member) session.getAttribute("loginMember");
-		String path = null;	
+		int memberNo = loginMember.getMemberNo();
+		PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
+		model.addAttribute("ptPrice" , ptPrice);
+		
+		
+		String path = null;		
 		String message = null;
 		
 		if(loginMember == null) {
@@ -46,7 +52,7 @@ public class TrainerSelectController {
 			
 		} else {
 			List<Trainer> trainers = service.getAllTrainers();
-			
+				
 			model.addAttribute("trainers", trainers);
 			model.addAttribute("loginMember", loginMember);
 			path = "gym/trainerSelect/trainerSelect";
@@ -63,6 +69,7 @@ public class TrainerSelectController {
 			Model model){
 		
 		Member loginMember = (Member) session.getAttribute("loginMember");
+		
 		
 		
 		
