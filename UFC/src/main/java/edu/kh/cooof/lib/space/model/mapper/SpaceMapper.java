@@ -71,7 +71,7 @@ public interface SpaceMapper {
 	int countSpace();
 
 	// 각 공간마다 종료 시간 가져오기
-	Map<String, Object> spaceDoneTime();
+	Map<String, Object> spaceDoneTime(int spaceNo);
 
 
 

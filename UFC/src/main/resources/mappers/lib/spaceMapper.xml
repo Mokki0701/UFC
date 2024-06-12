@@ -212,6 +212,7 @@
 	<select id="spaceDoneTime" parameterType="int" resultType="map">
 		SELECT SPACE_NO2, SPACE_DONE
 		FROM RENT_SPACE
+		WHERE SPACE_NO2 = #{spaceNo}
 	</select>
 
 

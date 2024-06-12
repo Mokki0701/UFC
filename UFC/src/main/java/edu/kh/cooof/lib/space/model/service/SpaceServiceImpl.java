@@ -203,9 +203,11 @@ public class SpaceServiceImpl implements SpaceService {
 
 	// 공간의 종료 시간 가져오기
 	@Override
-	public Map<String, Object> spaceDoneTime() {
+	public Map<String, Object> spaceDoneTime(int spaceNo) {
 
-		return mapper.spaceDoneTime();
+		
+		
+		return mapper.spaceDoneTime(spaceNo);
 	}
 
 	@Override

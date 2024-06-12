@@ -25,7 +25,7 @@ public interface SpaceService {
 
 	// 공간에 다른 예약이 있는지 확인
 	int checkOtherReservation(int spaceNo, String startTime);
-	
+
 	// 내가 현재 예약한 공간이 있는지 확인
 	int ifYouHaveAnyOtherReservation(int memberNo);
 
@@ -41,10 +41,8 @@ public interface SpaceService {
 	// 공간 예약 내역 확인하기
 	SpaceDTO spaceReservationInfo(int memberNo);
 
-	 int countSpace();
-	// 공간의 종료 시간 가져오기
-	Map<String, Object> spaceDoneTime();
+	int countSpace();
 
-	
+	Map<String, Object> spaceDoneTime(int spaceNo);
 
 }

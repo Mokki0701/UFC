@@ -407,25 +407,44 @@ public class SpaceController {
 	}
 
 	// 공간 예약 취소하기
-	@PostMapping("/spaceDoneTime")
+	@PostMapping("cancleSpceBooking")
+	@ResponseBody
+	public int cancleSpceBooking(@SessionAttribute("loginMember") Member loginMember, Model model) {
+		int memberNo = loginMember.getMemberNo();
+
+		return mapper.cancleSpceBooking(memberNo);
+	}
+
+	// 종료 시간 체크
+	@GetMapping("/spaceDoneTime")
     @ResponseBody
     public List<Map<String, Object>> spaceDoneTime() {
         int repeat = service.countSpace();
-        Map<String, Object> spaceDoneTime = service.spaceDoneTime();
-
-        // 로그 추가
-        logger.info("Number of spaces: " + repeat);
-        logger.info("Space done time details: " + spaceDoneTime);
-
         List<Map<String, Object>> responseList = new ArrayList<>();
-        spaceDoneTime.forEach((key, value) -> {
-            Map<String, Object> item = new HashMap<>();
-            item.put("spaceNo2", key);
-            item.put("spaceDone", value);
-            responseList.add(item);
-        });
+
+        for (int i = 0; i < repeat; i++) {
+        	int spaceNo = i +1;
+            Map<String, Object> spaceDoneTime = service.spaceDoneTime(spaceNo);
+
+            // 로그 추가
+            logger.info("Space number: " + spaceNo);
+
+            if (spaceDoneTime == null) {
+                spaceDoneTime = new HashMap<>();
+                spaceDoneTime.put("spaceNo2", spaceNo);
+                spaceDoneTime.put("spaceDone", null);
+            } else {
+                spaceDoneTime.put("spaceNo2", spaceNo);
+            }
+
+            logger.info("Space done time details: " + spaceDoneTime);
+
+            responseList.add(spaceDoneTime);
+        }
+
+        // 응답 로그 추가
+        logger.info("Response List: " + responseList);
 
         return responseList;
     }
-
 }
