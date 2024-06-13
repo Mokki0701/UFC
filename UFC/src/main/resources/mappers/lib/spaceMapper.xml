@@ -241,6 +241,35 @@
         FROM RENT_SPACE
         WHERE MEMBER_NO = #{userNo}
     </delete>
+
+	<!-- 열람실 이용중인 회원 번호 구하기 -->    
+    <select id="getSeatUserNo" resultType="Int">
+    	SELECT MEMBER_NO
+    	FROM RENT_SEAT
+    </select>
+    
+    <select id="seateUserDoneTime" parameterType="int">
+   	 	SELECT TO_CHAR(READING_DONE, 'yyyy-mm-dd hh24:mi') AS seatDone
+	    FROM RENT_SEAT
+	    WHERE MEMBER_NO = #{userNo} 
+    </select>
+    
+    <update id="setSeatAvailable" parameterType="int">
+    	UPDATE SEAT s
+    	SET s.SEAT_AVAIL = 0
+    	WHERE s.SEAT_NO IN(
+    		SELECT rs.SEAT_NO2
+    		FROM RENT_SEAT
+    		WHERE rs.MEMBER_NO = #{memberNo}
+    	)
+    </update>
+    
+    <delete id="getOutFromSeat" parameterType="int">
+    	DELETE
+    	FROM RENT_SEAT
+    	WHERE MEMBER_NO = #{memberNo}
+    </delete>
+    
     
 	
 </mapper>

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -455,6 +456,7 @@ public class SpaceController {
 	// 종료 시간에 따른 알람 및 종료
 	@PostMapping("doneTimeCheck")
     @ResponseBody
+    @Transactional
     public void doneTimeCheck(@RequestBody DateTimeRequest request, HttpSession session) {
         Member loginMember = (Member) session.getAttribute("loginMember");
 
@@ -478,7 +480,6 @@ public class SpaceController {
         for (int userNo : getSpaceUserNo) {
             // memberNo에 맞는 공간 이용 종료 시간 가져오기
             String spaceUserDoneTime = service.spaceUserDoneTime(userNo);
-            System.out.printf("db에 저장된 시간 : %s%n", spaceUserDoneTime);
 
             // 현재 시간에 5분을 더한 시간이 같은 회원에게 메세지를 보낸다.
             if (curPlus5MinStr.equals(spaceUserDoneTime)) {
@@ -488,13 +489,40 @@ public class SpaceController {
 
             // 현재 시간과 spaceUserDoneTime이 같은 유저에게 delete, update.
             if (currentTimeStr.equals(spaceUserDoneTime)) {
-                service.getOut(userNo);
-                service.updateSpaceToAvailable(userNo);
+            	
+            	service.updateSpaceToAvailable(userNo);
+            	service.getOut(userNo);
                 
-                System.out.println(userNo + "번 회원님, 집으로 꺼지쇼.");
-                // 여기서 userNo를 기준으로 메세지를 보내면 됩니다.
+                System.out.println(userNo + "번 회원님, 공간 대여 이용 시간이 만료되었습니다.");
+                // 여기서 userNo를 기준으로 공간대여 종료 메세지를 보내면 됩니다.
             }
         }
+        
+        // 현재 열람실을 이용중인 memberNo가져오기
+        List<Integer> getSeatUserNo = service.getSeatUserNo();
+        
+        for(int seatUserNo : getSeatUserNo) {
+        	
+        	String seatUserDoneTime = service.seateUserDoneTime(seatUserNo);
+			
+        	if(curPlus5MinStr.equals(seatUserDoneTime)) {
+				
+        		// 여기서 알람을 보내면 됩니다.
+			}
+        	
+			if(currentTimeStr.equals(seatUserDoneTime)) {
+				
+				service.setSeatAvailable(seatUserNo);
+				service.getOutFromSeat(seatUserNo);
+				
+				// 여기서 알람을 보내면 됩니다. 매개변수 : seatUserNo
+			}
+        	
+        }
+
+        
+        
+        
     }
 
 }

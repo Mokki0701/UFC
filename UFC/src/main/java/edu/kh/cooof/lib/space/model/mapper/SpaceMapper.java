@@ -76,7 +76,7 @@ public interface SpaceMapper {
 	
 	// -----------------------
 	
-	
+	// 공간대여 분단위
 	List<Integer> getSpaceUserNo();
 
 	String spaceUserDoneTime(int userNo);
@@ -84,6 +84,16 @@ public interface SpaceMapper {
 	int updateSpaceToAvailable(int userNo);
 
 	int getOut(int userNo);
+
+	//  ---- 열람실 이용중인 회원들 번호 가져오기
+	List<Integer> getSeatUserNo();
+	
+	String seateUserDoneTime(int seatUserNo);
+
+	int setSeatAvailable(int seatUserNo);
+	
+	int getOutFromSeat(int seatUserNo);
+
 
 
 
