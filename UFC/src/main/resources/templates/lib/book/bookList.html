@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>도서 목록 조회</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <th:block th:replace="~{common/common}"></th:block>
     <link rel="stylesheet" href="/css/lib/bookList.css">
 </head>
-<body>
+
+<div th:replace="~{common/header}"></div>
+<div th:replace="~{common/sidebar}"></div>
+
+
+<body class="main-container">
+    <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
 
     <div class="container">
         <div class="sidebar">
@@ -55,11 +62,13 @@
             </div>
         </div>
     </div>
+    
+    <th:block th:replace="~{common/footer}"></th:block>
 
     <script inline="javascript">
         let catNumbers = /*[[${param.catNumbers != null ? param.catNumbers : '[]'}]]*/ [];
     </script>
 
-    <script src="/js/lib/bookList.js"></script>
 </body>
+<script src="/js/lib/bookList.js"></script>
 </html>

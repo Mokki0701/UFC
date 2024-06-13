@@ -51,9 +51,22 @@ if(notificationLoginCheck){
 
     notificationSock.addEventListener("message", e=>{
         
-        const notificationBtn = document.querySelector(".header-notification-btn");
-        notificationBtn.classList.remove("fa-regular");
-        notificationBtn.classList.add("fa-solid");
+        notReadCheckFn().then(notReadCount => {
+                                
+            const notificationBtn = document.querySelector(".header-notification-btn");
+            const notificationCount = document.querySelector(".header-notification-num");
+
+            notificationCount.innerText= notReadCount;
+
+            if(notReadCount > 0){
+                notificationBtn.classList.remove("fa-regular");
+                notificationBtn.classList.add("fa-solid");
+            }
+            else{
+                notificationBtn.classList.add("fa-regular");
+                notificationBtn.classList.remove("fa-solid");
+            }
+        })
 
         selectnNotificationFn();
     })

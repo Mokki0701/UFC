@@ -56,5 +56,16 @@ public interface SpaceService {
 	// 이용 종료시키기
 	int getOut(int userNo);
 
+	// 열람실 이용중인 회원 가져오기
+	List<Integer> getSeatUserNo();
+
+	// 열람실 회원의 이용 종료 시간
+	String seateUserDoneTime(int seatUserNo);
+
+	int setSeatAvailable(int seatUserNo);
+	
+	int getOutFromSeat(int seatUserNo);
+
+
 
 }

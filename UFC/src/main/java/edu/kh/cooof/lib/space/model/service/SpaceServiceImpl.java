@@ -237,5 +237,26 @@ public class SpaceServiceImpl implements SpaceService {
 		return mapper.getOut(userNo);
 	}
 	
+	// 열람실 이용중인 회원들의 회원 번호 가져오기
+	@Override
+	public List<Integer> getSeatUserNo() {
+		return mapper.getSeatUserNo();
+	}
+	
+	@Override
+	public String seateUserDoneTime(int seatUserNo) {
+		return mapper.seateUserDoneTime(seatUserNo);
+	}
+	
+	@Override
+	public int setSeatAvailable(int seatUserNo) {
+		return mapper.setSeatAvailable(seatUserNo);
+	}
+	
+	@Override
+	public int getOutFromSeat(int seatUserNo) {
+		return mapper.getOutFromSeat(seatUserNo);
+	}
+	
 	
 }
