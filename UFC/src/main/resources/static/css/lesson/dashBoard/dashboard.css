@@ -319,7 +319,7 @@ body{
 /* 수료증 발급창 css */
 
 /* 모달 창 기본 스타일 */
-.modal {
+.dashboard-modal {
   display: none; 
   position: fixed; 
   z-index: 1; 
@@ -333,7 +333,7 @@ body{
 }
 
 /* 모달 창 콘텐츠 스타일 */
-.modal-content {
+.dash-board-modal-content {
   background-color: red;
   margin: 15% auto; 
   padding: 20px;
@@ -350,15 +350,15 @@ body{
 
 
 /* 닫기 버튼 스타일 */
-.close {
+.dashboard-modal-close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.dashboard-modal-close:hover,
+.dashboard-modal-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
