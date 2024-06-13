@@ -24,9 +24,6 @@ function checkSelectAll() {
 
 
 
-
-
-
 const gymPayButton = document.querySelector("#gym_pay_button");
 // 락커룸 0,1 작동법 + 요구조건
 
@@ -151,6 +148,8 @@ function incrementNumber() {
 
             console.log('Success', data);
             alert("결제 성공")
+
+            window.location.href = "/trainerSelect/trainerSelect";
           })
           .catch((error) =>{
             console.error('Error:', error);

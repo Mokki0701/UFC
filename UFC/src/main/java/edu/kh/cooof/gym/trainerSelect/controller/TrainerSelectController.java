@@ -38,9 +38,6 @@ public class TrainerSelectController {
 			RedirectAttributes ra) {
 		
 		Member loginMember = (Member) session.getAttribute("loginMember");
-		int memberNo = loginMember.getMemberNo();
-		PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
-		model.addAttribute("ptPrice" , ptPrice);
 		
 		
 		String path = null;		
@@ -48,14 +45,25 @@ public class TrainerSelectController {
 		
 		if(loginMember == null) {
 			ra.addFlashAttribute("message", "트레이너 페이지는 로그인 후 사용 가능합니다.");
-			path = "redirect:/gym/gymMain";
+			path = "redirect:/";
 			
 		} else {
+			int memberNo = loginMember.getMemberNo();
+			PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			List<Trainer> trainers = service.getAllTrainers();
-				
-			model.addAttribute("trainers", trainers);
-			model.addAttribute("loginMember", loginMember);
-			path = "gym/trainerSelect/trainerSelect";
+		
+		    if (ptPrice == null) {
+		    		ptPrice = new PtPrice();
+		    		ptPrice.setPtYn(0); // 기본 PT 횟수
+		    		ptPrice.setPtStrdate(null); // 기본 시작일 (null)
+		    }
+		
+		model.addAttribute("ptPrice" , ptPrice);	
+		model.addAttribute("trainers", trainers);
+		model.addAttribute("loginMember", loginMember);
+		
+		path = "gym/trainerSelect/trainerSelect";
+		
 		}
 		
 	    return path;

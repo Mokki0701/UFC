@@ -33,37 +33,34 @@ gymPrices.forEach(btn => {
     })
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const ptPrice = document.getElementById('ptPrice'); // PT 정보를 담고 있는 요소
-    const buttons = document.querySelectorAll('.gym_price'); // 가격 버튼들
+const buttons = document.querySelectorAll(".gym_price");
+console.log(`ptYn: ${ptYn}, ptStrdate: ${ptStrdate}`);
 
-    if (ptPrice) {
-        const ptYn = ptPrice.dataset.ptYn; // PT 유효 여부
-        const ptStrdate = ptPrice.dataset.ptStrdate; // PT 시작일
 
-        // 현재 날짜와 PT 시작일을 비교하여 PT 유효 여부를 확인합니다
-        const currentDate = new Date();
-        const startDate = new Date(ptStrdate);
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const ptYn = button.getAttribute("data-pt-yn");
+        const ptStrdate = button.getAttribute("data-pt-strdate");
+        const ptCount = button.getAttribute("data-pt-count");
 
-        // PT가 유효한 경우에만 버튼을 활성화합니다
-        if (ptYn === '1') {
-            // PT가 유효하고 현재 날짜가 시작일 이후인 경우 버튼을 활성화합니다
-            if (currentDate >= startDate) {
-                buttons.forEach(button => {
-                    button.disabled = false; // 활성화
-                });
-            } else {
-                // PT가 유효하지만 아직 시작일이 오지 않은 경우 버튼을 비활성화합니다
-                buttons.forEach(button => {
-                    button.disabled = true; // 비활성화
-                });
+        // PT 세션 정보가 있을 때 확인
+        if (ptYn > 0 && ptStrdate !== null) {
+            const confirmation = confirm(`PT가 있습니다. ${ptStrdate}부터 ${ptYn}일 동안 PT가 진행 중입니다. 결제를 계속 하시겠습니까?`);
+            if (confirmation) {
+                // 사용자가 확인을 선택한 경우 결제 페이지로 이동
+                window.location.href = `/trainerSelect/trainerSelect`;
             }
         } else {
-            // PT가 유효하지 않은 경우 버튼을 비활성화합니다
-            buttons.forEach(button => {
-                button.disabled = true; // 비활성화
-            });
+            // PT 세션 정보가 없는 경우 바로 결제 페이지로 이동
+            window.location.href = `/trainerSelect/trainerPrice`;
         }
-    }
+    });
 });
+
+
+
+
+
+
+
 

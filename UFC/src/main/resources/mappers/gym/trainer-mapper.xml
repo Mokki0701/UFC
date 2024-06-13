@@ -21,7 +21,7 @@
 	</insert>
 	
 	<select id="selectPtPriceByMemberNo">
-		SELECT "PT_YN" 
+		SELECT *
 		FROM PT 
 		WHERE "MEMBER_NO" = #{memberNo}
 	</select>
