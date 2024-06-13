@@ -495,7 +495,6 @@ function submitAttendance() {
 const studentStatusBtn = document.querySelector("#less_student_status");
 
 studentStatusBtn.addEventListener("click", e=>{
-
   e.preventDefault();
   attendanceTable.innerHTML='';
   
