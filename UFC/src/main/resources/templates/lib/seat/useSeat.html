@@ -7,16 +7,16 @@
   <!-- useSeat, managingSeat 공통 스타일 -->
   <link rel="stylesheet" href="/css/lib/managingSeat.css">
   <link rel="stylesheet" href="/css/common/header.css">
-  <!-- 도서관 전용 헤더 스타일로만 사용하기!! -->
-  <link rel="stylesheet" href="/css/libMain.css">
+  <link rel="stylesheet" href="/css/common/sidebar.css">
   <title>자리 확인 / 예약 페이지</title>
 </head>
 
 <body>
 
-  <!-- <header th:replace="~{common/header}"></header> -->
-  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
-
+  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
+  <div th:replace="~{common/header}"></div>
+  
+  <div th:replace="~{common/sidebar}"></div>
   <br>
 
   <!-- 제목, 샘플좌석, 현재 좌석 표시 -->
@@ -39,14 +39,14 @@
         <span> 사용중인 좌석</span>
       </div>
 
-      <div class="usingSeatInfo">
+      <!-- <div class="usingSeatInfo">
 
-        <!-- <th:block
+        <th:block
           th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
           <p>회원님이 사용 중인 좌석 번호:
             <span class="seatNo" th:text="${seatNo}"></span>
             <span class="noSeatNo" th:if="${session.memberAndSeatSession[session.loginMember.memberNo] == null}">이용중인 좌석 없음</span>
-            <span  th:if="${session.memberAndSeatSession[session.loginMember.memberNo] != null}">번 좌석 이용 중</span> -->
+            <span  th:if="${session.memberAndSeatSession[session.loginMember.memberNo] != null}">번 좌석 이용 중</span>
           </p>
       </div> -->
 

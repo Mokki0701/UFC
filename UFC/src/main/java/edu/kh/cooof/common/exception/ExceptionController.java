@@ -32,6 +32,7 @@ public class ExceptionController {
     	ex.printStackTrace();
         model.addAttribute("error", "Internal Server Error");
         model.addAttribute("message", ex.getMessage());
+        ex.printStackTrace();
         return "error/500";
     }
 }
