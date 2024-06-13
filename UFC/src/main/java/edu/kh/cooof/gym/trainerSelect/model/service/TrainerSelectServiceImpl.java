@@ -38,11 +38,13 @@ public class TrainerSelectServiceImpl implements TrainerSelectService {
 	}
 	
 	// 로그인한 회원의 pt 정보
-		@Override
-		public PtPrice getPriceByMemberNo(int memberNo) {
+	@Override
+	public PtPrice getPriceByMemberNo(int memberNo) {
 			
-			return mapper.selectPtPriceByMemberNo(memberNo);
-		}
-
+		return mapper.selectPtPriceByMemberNo(memberNo);
+	}
+		
+	
+		
 	
 }

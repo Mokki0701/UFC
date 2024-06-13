@@ -45,29 +45,59 @@ public class TrainerSelectController {
 		
 		if(loginMember == null) {
 			ra.addFlashAttribute("message", "트레이너 페이지는 로그인 후 사용 가능합니다.");
-			path = "redirect:/";
+			path = "redirect:/gym/gymMain";
 			
 		} else {
 			int memberNo = loginMember.getMemberNo();
 			PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			List<Trainer> trainers = service.getAllTrainers();
 		
-		    if (ptPrice == null) {
-		    		ptPrice = new PtPrice();
-		    		ptPrice.setPtYn(0); // 기본 PT 횟수
-		    		ptPrice.setPtStrdate(null); // 기본 시작일 (null)
-		    }
+		  if (ptPrice == null) {
+		     ptPrice = new PtPrice();
+		     ptPrice.setPtYn(0); // 기본 PT 횟수
+		     ptPrice.setPtStrdate(null); // 기본 시작일 (null)
+		     }
+			
+			path = "gym/trainerSelect/trainerSelect";
+		
 		
 		model.addAttribute("ptPrice" , ptPrice);	
 		model.addAttribute("trainers", trainers);
 		model.addAttribute("loginMember", loginMember);
-		
-		path = "gym/trainerSelect/trainerSelect";
-		
 		}
-		
 	    return path;
 	}
+	
+	@GetMapping("trainerPrice")
+	public String trainerPrice1(
+			HttpSession session,
+			Model model){
+		
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		if(loginMember != null) {
+			
+			 int memberNo = loginMember.getMemberNo(); 
+			 String memberLname = loginMember.getMemberLastName();
+			 String memberFname = loginMember.getMemberFirstName();
+			 String memberGender = loginMember.getMemberGender();
+			 
+			 PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
+			 
+			
+			model.addAttribute("ptPrice" , ptPrice);
+			model.addAttribute("member", loginMember);
+			
+
+			return "/gym/trainerSelect/trainerPrice"; // ${param.ptCount}
+		}
+		
+		return "/gym/trainerSelect/trainerSelect";
+	}
+	
+	
+	
+	
 	
 	@PostMapping("trainerPrice")
 	public String trainerPrice(
@@ -88,8 +118,10 @@ public class TrainerSelectController {
 			 String memberFname = loginMember.getMemberFirstName();
 			 String memberGender = loginMember.getMemberGender();
 			 
+			 PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			 Trainer trainer = service.selectTrainer(trainerNo);
 			
+			model.addAttribute("ptPrice" , ptPrice);
 			model.addAttribute("trainer", trainer);
 			model.addAttribute("calcResult", trainer.getTrainerPrice() * ptCount);
 			model.addAttribute("member", loginMember);
