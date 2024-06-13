@@ -94,7 +94,7 @@ if(notificationLoginCheck){
         const notificationBtn = document.querySelector(".header-notification-btn");
         notificationBtn.classList.remove("fa-regular");
         notificationBtn.classList.add("fa-solid");
-
+       
         selectnNotificationFn();
     })
 
@@ -116,11 +116,11 @@ if(notificationLoginCheck){
                 notificationList.innerHTML = "";
 
                 for(let data of selectList){
-
+                    
                     const notiItem = document.createElement("li");
                     notiItem.className = 'header-notification-item';
 
-                    if(data.notificationCheck === 0){
+                    if(data.notificationCheck === "0"){
                         notiItem.classList.add("not-read");
                     }
 
@@ -128,8 +128,8 @@ if(notificationLoginCheck){
                     notiText.className = 'header-notification-text';
 
                     notiText.addEventListener("click", ()=>{
-
-                        if(data.notificationCheck === 0){
+                        // debugger;
+                        if(data.notificationCheck === "0"){
                             fetch("/notification", {
                                 method: "PUT",
                                 headers: {
@@ -138,7 +138,7 @@ if(notificationLoginCheck){
                                 body: data.notificationNo
                             })
                         }
-
+                        // console.log(">>>>>>>>>>>",data);
                         location.href= data.notificationUrl;
 
                     })
