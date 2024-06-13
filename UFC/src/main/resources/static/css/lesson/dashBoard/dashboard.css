@@ -334,18 +334,30 @@ body{
 
 /* 모달 창 콘텐츠 스타일 */
 .dash-board-modal-content {
-  background-color: red;
+  background-color: #fff;
   margin: 15% auto; 
   padding: 20px;
-  border: 1px solid red;
-  width: 200px; 
-  height: 200px;
+  border: 1px solid #ccc;
+  width: 400px; 
+  height: 300px;
   animation: slideIn 0.4s;
+  position: relative;
 }
 
 @keyframes slideIn {
   from {transform: translateY(-20%);}
   to {transform: translateY(0);}
+}
+
+.dash-board-modal-content h2{
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.dash-certificate-box{
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 
@@ -364,7 +376,8 @@ body{
   cursor: pointer;
 }
 
-.certificate-modal-open{
+.certificate-modal-open,#certificateFrm > button
+{
   display: block;
   /* 블록 요소로 설정 */
   position: relative;
@@ -397,4 +410,10 @@ body{
 
 .certificate-modal-open:hover{
   background: #a0a0a0;
+}
+
+
+#certificateFrm > button{
+  position: absolute;  
+  bottom: 20px; right: 20px;
 }

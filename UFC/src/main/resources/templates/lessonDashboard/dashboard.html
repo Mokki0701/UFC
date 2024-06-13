@@ -198,12 +198,14 @@
             <span class="dashboard-modal-close">&times;</span>
             <h2>수료증 발급</h2>
             <form action="/lesson/dashboard/certificateReq" method="POST" name="certificateFrm" id="certificateFrm">
-                <label for="certificateTitle">강의 선택:</label>
-                <select id="certificateTitle" name="certificateTitle" required>
-                    <option value="" disabled selected>강의를 선택하세요</option>
-                    <option th:each="certificate : ${certificateList}" 
-                        th:text="${certificate.lessonTitle}" th:value="${certificate.lessonNo}">수료증 발급받을 수업</option>
-                </select>
+                <div class="dash-certificate-box">
+                    <label for="certificateTitle">강의 선택:</label>
+                    <select id="certificateTitle" name="certificateTitle" required>
+                        <option value="" disabled selected>강의를 선택하세요</option>
+                        <option th:each="certificate : ${certificateList}" 
+                            th:text="${certificate.lessonTitle}" th:value="${certificate.lessonNo}">수료증 발급받을 수업</option>
+                    </select>
+                </div>
 
                 <button type="submit">발급</button>
             </form>
