@@ -68,6 +68,7 @@
   }
 </style>
 
+<body>
 <section class="lib-semiheader-container">
   <section class="program-header">
     <div class="semiheader-contents">
@@ -83,6 +84,10 @@
           <a href="/lesson/inst"><button class="lib-nav-btn">대여 현황</button></a>
         </div>
 
+
+        <th:block th:if="${session.loginMember==null}">
+          <button onclick="nonLogiUnBtn()">으하하하학!</button>
+          </th:block>
 
         <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
           <a href="/lesson/inst/reg"><button class="lib-nav-btn">대여 및 연장관리</button></a>
@@ -104,13 +109,21 @@
   </section>
 </section>
 
+
+</body>
 <script>
-const libSemiHeaderBtnSack = document.querySelector('.libSemiHeaderBtnSack');
-const libNavBtn = document.querySelectorAll('.lib-nav-btn > a');
-libNavBtn.forEach(item => {
-  if(session.loginMember == null)
-});
+  document.addEventListener('DOMContentLoaded', function () {
 
+      const libSemiHeaderBtnSack = document.querySelector('.libSemiHeaderBtnSack');
+      const libNavBtn = document.querySelectorAll('.lib-nav-btn');
 
-
+      libNavBtn.forEach(item => {
+        item.addEventListener('click', function(event) {
+          if (!session.loginMember) {
+            alert("로그인 후 이용해 주세요.");
+            event.preventDefault();
+          }
+        });
+      });
+    });
 </script>

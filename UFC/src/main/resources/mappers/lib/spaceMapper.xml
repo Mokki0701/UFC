@@ -209,24 +209,24 @@
 		FROM SPACE
 	</select>
 
-	<select id="spaceDoneTime" parameterType="int" resultType="map">
+	<select id="spaceDoneTime" parameterType="_int" resultType="map">
 		SELECT SPACE_NO2, SPACE_DONE
 		FROM RENT_SPACE
 		WHERE SPACE_NO2 = #{spaceNo}
 	</select>
 
-	 <select id="getSpaceUserNo" resultType="int">
+	 <select id="getSpaceUserNo" resultType="_int">
         SELECT MEMBER_NO
         FROM RENT_SPACE
     </select>
 
-    <select id="spaceUserDoneTime" parameterType="int" resultType="String">
-	    SELECT TO_CHAR(SPACE_DONE, 'yyyy-mm-dd hh24:mi') AS spaceDone
+    <select id="spaceUserDoneTime" parameterType="_int" resultType="string">
+	    SELECT TO_CHAR(SPACE_DONE, 'YYYY-MM-DD Hh24:MI') AS spaceDone
 	    FROM RENT_SPACE
 	    WHERE MEMBER_NO = #{userNo}
 	</select>
 
-    <update id="updateSpaceToAvailable" parameterType="int">
+    <update id="updateSpaceToAvailable" parameterType="_int">
         UPDATE SPACE s
 		SET s.SPACE_AVAIL = 0
 		WHERE s.SPACE_NO IN (
@@ -236,38 +236,38 @@
 		)
     </update>
 
-    <delete id="getOut" parameterType="int">
+    <delete id="getOut" parameterType="_int">
         DELETE 
         FROM RENT_SPACE
         WHERE MEMBER_NO = #{userNo}
     </delete>
 
 	<!-- 열람실 이용중인 회원 번호 구하기 -->    
-    <select id="getSeatUserNo" resultType="Int">
+    <select id="getSeatUserNo" resultType="_int">
     	SELECT MEMBER_NO
     	FROM RENT_SEAT
     </select>
     
-    <select id="seateUserDoneTime" parameterType="int">
-   	 	SELECT TO_CHAR(READING_DONE, 'yyyy-mm-dd hh24:mi') AS seatDone
+    <select id="seateUserDoneTime" parameterType="_int">
+   	 	SELECT TO_CHAR(READING_DONE, 'YYYY-MM-DD HH24:MI') AS seatDone
 	    FROM RENT_SEAT
 	    WHERE MEMBER_NO = #{userNo} 
     </select>
     
-    <update id="setSeatAvailable" parameterType="int">
+    <update id="setSeatAvailable" parameterType="_int">
     	UPDATE SEAT s
-    	SET s.SEAT_AVAIL = 0
+    	SET s.SEAT_AVAIL = 2
     	WHERE s.SEAT_NO IN(
     		SELECT rs.SEAT_NO2
-    		FROM RENT_SEAT
-    		WHERE rs.MEMBER_NO = #{memberNo}
+    		FROM RENT_SEAT rs
+    		WHERE rs.MEMBER_NO = #{seatUserNo}
     	)
     </update>
     
-    <delete id="getOutFromSeat" parameterType="int">
+    <delete id="getOutFromSeat" parameterType="_int">
     	DELETE
     	FROM RENT_SEAT
-    	WHERE MEMBER_NO = #{memberNo}
+    	WHERE MEMBER_NO = #{seatUserNo}
     </delete>
     
     

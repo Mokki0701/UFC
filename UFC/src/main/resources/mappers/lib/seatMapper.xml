@@ -37,7 +37,7 @@
 	</insert>
 
 
-	<select id="isMemberUsing" resultType="int">
+	<select id="isMemberUsing" resultType="_int">
 
 		SELECT COUNT(*)
 		FROM RENT_SEAT
