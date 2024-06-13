@@ -38,7 +38,7 @@
 
 <script>
   function checkDoneTime() {
-    console.log("Sending fetch request to /lib/space/doneTimeCheck");
+    console.log("Sending fetch request to /lib/doneTimeCheck");
 
     // 현재 시간 분 단위까지만 구하기
     const now = new Date();
@@ -54,7 +54,7 @@
     console.log("Current Date and Time: ", formattedDateTime);
 
     // 매 분마다 요청만 보내니까 뭐 받아서 처리할 필요 없음
-    fetch('/lib/space/doneTimeCheck', {
+    fetch('/lib/doneTimeCheck', {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'
