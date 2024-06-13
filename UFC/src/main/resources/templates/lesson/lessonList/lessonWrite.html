@@ -8,9 +8,16 @@
 
   <link rel="stylesheet" href="/css/lesson/lessonList/lessonWrite.css">
   <th:block th:replace="~{common/common}"></th:block>
-
+  <style>
+    .footer{
+      background-color: #F2E2CE !important;
+    }
+    .program-header{
+      min-height: 140px;
+    }
+  </style>
 </head>
-
+<!--  -->
 <body>
 
   <main>
@@ -187,10 +194,10 @@
       </form>
     </section>
 
+  <div th:replace="~{common/footer}"></div>
   </main>
 
 
-  <div th:replace="~{common/footer}"></div>
   <!-- lessonCommon 들어가는곳 시작 -->
   <th:block th:replace="~{lesson/lessonCommon/lessonCommon}"></th:block>
   <!-- lessonCommon 들어가는곳 끝 -->
