@@ -3,6 +3,7 @@ package edu.kh.cooof.lesson.dashBoard.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -244,9 +245,11 @@ public class DashBoardController {
 		    File pdfFile = new File(savedFilePath);
 		    InputStreamResource resource = new InputStreamResource(new FileInputStream(pdfFile)); // 파일을 InputStreamResource로 변환합니다.
 
+		    String encodingName = URLEncoder.encode( pdfFile.getName(), "UTF-8");
+		    
 		    // ResponseEntity를 사용하여 파일을 응답으로 보냅니다.
 		    return ResponseEntity.ok()
-		            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfFile.getName() + "\"") // 파일이 다운로드되도록 Content-Disposition 헤더를 설정합니다.
+		            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodingName + "\"") // 파일이 다운로드되도록 Content-Disposition 헤더를 설정합니다.
 		            .contentType(MediaType.APPLICATION_PDF) // 콘텐츠 타입을 PDF로 설정합니다.
 		            .contentLength(pdfFile.length()) // 파일의 길이를 설정합니다.
 		            .body(resource); // 파일 내용을 응답 본문으로 설정합니다.
