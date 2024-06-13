@@ -3,6 +3,7 @@ package edu.kh.cooof.lesson.dashBoard.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Base64;
 
 @Controller
 @RequiredArgsConstructor
@@ -203,44 +205,55 @@ public class DashBoardController {
 		
 
 		@PostMapping(value = "dashboard/certificateReq", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	    @ResponseBody // 메서드의 반환값이 HTTP 응답 본문으로 직접 작성됨을 나타냅니다.
-	    private ResponseEntity<Resource> lessonList(
-	            @SessionAttribute("loginMember") Member loginMember, // 세션에서 loginMember 객체를 가져옵니다.
-	            @RequestParam("certificateTitle") int lessonNo // 요청 파라미터에서 certificateTitle을 가져옵니다.
-	    ) throws IOException {
+		@ResponseBody // 메서드의 반환값이 HTTP 응답 본문으로 직접 작성됨을 나타냅니다.
+		private ResponseEntity<Resource> lessonList(
+		        @SessionAttribute("loginMember") Member loginMember, // 세션에서 loginMember 객체를 가져옵니다.
+		        @RequestParam("certificateTitle") int lessonNo // 요청 파라미터에서 certificateTitle을 가져옵니다.
+		) throws IOException {
 
-	        // 회원 정보와 강의 정보를 가져옵니다.
-	        Member certificateMember = service.selectCertificateMember(loginMember.getMemberNo());
-	        Lesson certificateLesson = service.selectCertificateLesson(lessonNo);
+		    // 회원 정보와 강의 정보를 가져옵니다.
+		    Member certificateMember = service.selectCertificateMember(loginMember.getMemberNo());
+		    Lesson certificateLesson = service.selectCertificateLesson(lessonNo);
 
-	        // 회원과 강의 정보를 맵에 저장합니다.
-	        Map<String, Object> map = new HashMap<>();
-	        map.put("certificateLesson", certificateLesson);
-	        map.put("certificateMember", certificateMember);
+		    // 회원과 강의 정보를 맵에 저장합니다.
+		    Map<String, Object> map = new HashMap<>();
+		    map.put("certificateLesson", certificateLesson);
+		    map.put("certificateMember", certificateMember);
 
-	        // HTML 템플릿을 문자열로 파싱합니다.
-	        String html = ThymeleafParser.parseHtmlFileToString("certificateTemplate", map);
+		    // HTML 템플릿을 문자열로 파싱합니다.
+		    String html = ThymeleafParser.parseHtmlFileToString("certificateTemplate", map);
 
-	        // HTML을 PDF로 변환하여 파일에 저장합니다.
-	        String savedFilePath = ThymeleafParser.generateFromHtml(
-	                "C:\\mokkie\\lesson", // 파일이 저장될 경로입니다.
-	                loginMember.getMemberNo() + "test", // 파일 이름입니다.
-	                html // HTML 문자열입니다.
-	        );
+		    // 파일 이름을 Base64로 인코딩하여 안전하게 변환합니다.
+//		    String fileName = Base64.encodeBase64URLSafeString((loginMember.getMemberNo() + "_" + certificateLesson.getLessonTitle() + "_수료증").getBytes("UTF-8"));
 
-	        System.out.println("PDF saved at: " + savedFilePath); // 파일 저장 경로를 출력합니다.
+		    String fileName = new String((loginMember.getMemberNo() + "_" + certificateLesson.getLessonTitle() + "_수료증").getBytes("UTF-8"));
+		    // HTML을 PDF로 변환하여 파일에 저장합니다.
+		    String savedFilePath = ThymeleafParser.generateFromHtml(
+		            "C:\\mokkie\\lesson", // 파일이 저장될 경로입니다.
+		            fileName, // 인코딩된 파일 이름을 사용합니다.
+		            html 
+		    );
+		    
+		    
+		    
+		    // PDF 파일을 FileChannel로 응답합니다.
+		    
 
-	        // PDF 파일을 클라이언트로 전송하기 위해 File 객체로 로드합니다.
-	        File pdfFile = new File(savedFilePath);
-	        InputStreamResource resource = new InputStreamResource(new FileInputStream(pdfFile)); // 파일을 InputStreamResource로 변환합니다.
+		    System.out.println("PDF saved at: " + savedFilePath); // 파일 저장 경로를 출력합니다.
 
-	        // ResponseEntity를 사용하여 파일을 응답으로 보냅니다.
-	        return ResponseEntity.ok()
-	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfFile.getName() + "\"") // 파일이 다운로드되도록 Content-Disposition 헤더를 설정합니다.
-	                .contentType(MediaType.APPLICATION_PDF) // 콘텐츠 타입을 PDF로 설정합니다.
-	                .contentLength(pdfFile.length()) // 파일의 길이를 설정합니다.
-	                .body(resource); // 파일 내용을 응답 본문으로 설정합니다.
-	    }
+		    // PDF 파일을 클라이언트로 전송하기 위해 File 객체로 로드합니다.
+		    File pdfFile = new File(savedFilePath);
+		    InputStreamResource resource = new InputStreamResource(new FileInputStream(pdfFile)); // 파일을 InputStreamResource로 변환합니다.
+
+		    String encodingName = URLEncoder.encode( pdfFile.getName(), "UTF-8");
+		    
+		    // ResponseEntity를 사용하여 파일을 응답으로 보냅니다.
+		    return ResponseEntity.ok()
+		            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodingName + "\"") // 파일이 다운로드되도록 Content-Disposition 헤더를 설정합니다.
+		            .contentType(MediaType.APPLICATION_PDF) // 콘텐츠 타입을 PDF로 설정합니다.
+		            .contentLength(pdfFile.length()) // 파일의 길이를 설정합니다.
+		            .body(resource); // 파일 내용을 응답 본문으로 설정합니다.
+		}
 		
 		
 		

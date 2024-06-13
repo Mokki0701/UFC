@@ -1,5 +1,6 @@
 package edu.kh.cooof.lesson.dashBoard.dto;
 
+import groovy.transform.ToString;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class LessonListDTO {
 	
 	private String lessonTitle;
