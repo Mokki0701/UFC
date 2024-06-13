@@ -141,6 +141,7 @@ public class CommonScheduling {
 		}
 	}
 
+<<<<<<< HEAD
 	// 60초에 한번 하는 스케쥴러 - MR_CHAN
 	@Scheduled(cron = "0 * * * * *")
 	public void mrChan() {
@@ -308,5 +309,7 @@ public class CommonScheduling {
 	}
 
 // ----------------------------------------------------------------------------------------------------------------------
+=======
+>>>>>>> d1a2bf91bd03bb62717d121851139cebc616179f
 
 }
