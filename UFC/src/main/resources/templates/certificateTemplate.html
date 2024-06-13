@@ -76,10 +76,10 @@
         <div class="certificate">
             <div class="certificate-title">수료증</div>
             <div class="certificate-content">
-                <p th:text="|본 수료증은 ${이름}님이 ${프로그램명}을 성공적으로 완료하였음을 인증합니다.|"></p>
-                <p>수료 날짜: [수료 날짜]</p>
+                <p th:text="|본 수료증은 ${certificateMember.memberFirstName}${certificateMember.memberLastName}님이 ${certificateLesson.lessonTitle}을(를) 성공적으로 완료하였음을 인증합니다.|"></p>
+                <p th:text="|수료 날짜: ${#strings.substring(certificateLesson.lessonEndDate, 0, 10)}|"></p>
             </div>
-            <div class="signature">발급자: [발급자 이름]</div>
+            <div class="signature">발급자: UFC 교육원장</div>
             <div class="certificate-footer">발행 기관: UFC 평생교육원</div>
         </div>
     </div>
