@@ -6,33 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UFC 도서관 공간대여</title>
   <link rel="stylesheet" href="/css/common/header.css">
-  <!-- 도서관 전용 헤더 스타일로만 사용하기!! -->
   <link rel="stylesheet" href="/css/libMain.css">
   <link rel="stylesheet" href="/css/lib/space.css">
 </head>
 
 <body>
 
-  <!-- 공용 헤더 -->
-  <!-- <header th:replace="~{common/header}"></header> -->
-
-  <!-- 도서관 전용 헤더 -->
-  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
+  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
+  <div th:replace="~{common/header}"></div>
+  <div th:replace="~{common/sidebar}"></div>
 
 
 
-
-  <!-- 세션의 회원 정보 얻어오기 -->
   <div class="spaceManager">
 
     <h1>공간 대여 페이지</h1>
 
     <!-- 출입구 표시 -->
-
-
     <div class="spaceInfoArea">
       <div class="spaceUsage">
-        <!-- 여기에 공간 정보가 동적으로 추가됩니다 -->
+        <!-- 여기에 공간 정보가 동적으로 추가됨 -->
       </div>
 
       <div class="spaceInfoDetails">

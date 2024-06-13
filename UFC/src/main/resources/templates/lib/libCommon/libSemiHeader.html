@@ -4,14 +4,14 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    background-color:#f2e2ce;
+    background-color: #f2e2ce;
   }
 
   .program-header {
     height: 100px;
     border-radius: 180px;
     background-color: #BF9D5E;
-    
+
     padding: 20px;
     color: black;
     text-align: center;
@@ -66,38 +66,51 @@
     font-weight: 900;
     letter-spacing: 5px;
   }
-
-
 </style>
 
 <section class="lib-semiheader-container">
-    <section class="program-header">
-      <div class="semiheader-contents">
-        <div>
-          <span class="lib-program-title">지식바다 도서관</span>
-        </div>
-        <div>
-          <a href="/lesson"><button class="lib-nav-btn">도서 검색 및 예약</button></a>
-          <a href="/lesson/list"><button class="lib-nav-btn">열람실</button></a>
-          <a href="/lesson/dashboard"><button class="lib-nav-btn">공간 대여</button></a>
-          <a href="/lesson/inst"><button class="lib-nav-btn">대여 현황</button></a>
-  
-          <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
-            <a href="/lesson/inst/reg"><button class="lib-nav-btn">대여 및 연장관리</button></a>
-          </th:block>
-  
-          <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
-            <a href="/lesson/inst/regCheck"><button class="lib-nav-btn">열람실 관리</button></a>
-          </th:block>
-
-          <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
-            <a href="/lesson/inst/regCheck"><button class="lib-nav-btn">공간 관리</button></a>
-          </th:block>
-  
-  
-  
-        </div>
+  <section class="program-header">
+    <div class="semiheader-contents">
+      <div>
+        <span class="lib-program-title">지식바다 도서관</span>
       </div>
-  
-    </section>
+      <div>
+
+        <div class="libSemiHeaderBtnSack">
+          <a href="/lesson"><button class="lib-nav-btn">도서 검색 및 예약</button></a>
+          <a href="/libMain/toUseSeat"><button class="lib-nav-btn">열람실</button></a>
+          <a href="/libMain/toSpace"><button class="lib-nav-btn">공간 대여</button></a>
+          <a href="/lesson/inst"><button class="lib-nav-btn">대여 현황</button></a>
+        </div>
+
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
+          <a href="/lesson/inst/reg"><button class="lib-nav-btn">대여 및 연장관리</button></a>
+        </th:block>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
+          <a href="/libMain/managingSeatPage"><button class="lib-nav-btn">열람실 관리</button></a>
+        </th:block>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
+          <a href="/libMain/managingSpace"><button class="lib-nav-btn">공간 관리</button></a>
+        </th:block>
+
+
+
+      </div>
+    </div>
+
   </section>
+</section>
+
+<script>
+const libSemiHeaderBtnSack = document.querySelector('.libSemiHeaderBtnSack');
+const libNavBtn = document.querySelectorAll('.lib-nav-btn > a');
+libNavBtn.forEach(item => {
+  if(session.loginMember == null)
+});
+
+
+
+</script>

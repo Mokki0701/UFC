@@ -11,11 +11,9 @@
 
 <body>
 
-  <!-- 공용 헤더 -->
-  <header th:replace="~{common/header.html}"></header>
-
-  <!-- 도서관 nav 조각 -->
-  <th:block th:replace ="~{common/lib/libNavVar}"></th:block>
+  <div th:replace="~{common/header}"></div>
+  
+  <div th:replace="~{common/sidebar}"></div>
 
   <div th:if="${session.loginMember != null }">
     현재 로그인한 회원 : <span th:text="${session.loginMember.memberEmail}"></span>
