@@ -15,7 +15,7 @@
         <h3 th:text="|${app.memberLastName} ${app.memberFirstName} 의 지원서|">지원서</h3>
 
         <div class="detail-wrapper">
-            <p><strong>지원서 번호:</strong> <span th:text="${app.applicationNo}"></span></p>
+            <p><strong>지원서 번호:</strong> <span id="applicationNo" th:text="${app.applicationNo}"></span></p>
             <p><strong>지원 분야:</strong> <span th:text="${app.position}"></span></p>
             <p><strong>지원 경로:</strong> <span th:text="${app.applyRoute}"></span></p>
             <p><strong>회원 번호:</strong> <span id="memberNo" th:text="${app.memberNo}"></span></p>
@@ -23,6 +23,8 @@
             <p><strong>이름:</strong> <span th:text="${app.memberFirstName}"></span></p>
             <p><strong>연락처:</strong> <span th:text="${app.memberPhone}"></span></p>
             <p><strong>이메일:</strong> <span id="memberEmail" th:text="${app.memberEmail}"></span></p>
+            <p><strong>PT 1회 가격:</strong> <span th:text="${app.trainerPrice}"></span></p>
+            <p><strong>프로필 이미지:</strong> <a th:href="@{/management/download(fileName=${app.trainerImg})}" th:download="${app.trainerImg}">다운로드</a></p>
             <p><strong>이력서:</strong> <a th:href="@{/management/download(fileName=${app.resumePath})}" th:download="${app.resumePath}">다운로드</a></p>
             <p><strong>지원 날짜:</strong> <span th:text="${app.applyDate}"></span></p>
         </div>

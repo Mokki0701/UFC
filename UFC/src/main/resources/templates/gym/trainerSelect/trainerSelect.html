@@ -17,7 +17,7 @@
     <div class="trainer-container" th:each="trainer : ${trainers}" th:data-trainer-no="${trainer.trainerNo}">
       <div class="trainer-item">
           <span>
-              <img th:src="@{/images/gym/health.jpg}" alt="헬스트레이너">
+            <img th:src="@{'/uploads/gym/' + ${trainer.trainerImg}}" alt="헬스트레이너">
           </span>
       </div>
       <div>

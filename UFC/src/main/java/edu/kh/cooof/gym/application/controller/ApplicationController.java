@@ -37,6 +37,8 @@ public class ApplicationController {
             @SessionAttribute("loginMember") Member loginMember,
             @RequestParam("position") String position,
             @RequestParam("apply-route") String applyRoute,
+            @RequestParam("trainerPrice") int trainerPrice,
+            @RequestParam("trainerImg") MultipartFile trainerImg,
             @RequestParam("resume-cover-letter") MultipartFile resumeCoverLetter,
             RedirectAttributes ra) {
 
@@ -47,8 +49,11 @@ public class ApplicationController {
             // 이력서 파일 저장
             String resumePath = saveFile(resumeCoverLetter);
             
+            // 프로필 이미지 파일 저장
+            String trainerImgPath = saveFile(trainerImg);
+            
 
-            if (resumePath == null) {
+            if (resumePath == null || trainerImgPath == null) {
             	ra.addFlashAttribute("message", "파일 저장 실패");
                 return "redirect:/trainerSelect/apply";
             }
@@ -59,6 +64,8 @@ public class ApplicationController {
             inputApply.setMemberNo(memberNo);
             inputApply.setPosition(position);
             inputApply.setApplyRoute(applyRoute);
+            inputApply.setTrainerPrice(trainerPrice);
+            inputApply.setTrainerImg(trainerImgPath);            
             inputApply.setResumePath(resumePath);
             inputApply.setApplyDate(new Date(System.currentTimeMillis()));
 
@@ -86,7 +93,7 @@ public class ApplicationController {
         }
     }
 
-    // 이력서 파일 저장
+    // 파일 저장
     private String saveFile(MultipartFile file) {
         String fileName = file.getOriginalFilename();
         // 파일 이름에 타임스탬프 추가하여 충돌 방지

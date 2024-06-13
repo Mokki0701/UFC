@@ -40,7 +40,9 @@
         MEMBER_LAST_NAME,
         MEMBER_FIRST_NAME,
         MEMBER_PHONE,
-        MEMBER_EMAIL
+        MEMBER_EMAIL,
+        TRAINER_PRICE,
+        TRAINER_IMG
     FROM "APPLICATION"
     JOIN "MEMBER" USING(MEMBER_NO)
     WHERE APPLICATION_NO = #{applicationNo}
@@ -51,5 +53,22 @@
 	SET MEMBER_AUTHORITY = 2
 	WHERE MEMBER_NO = #{memberNo}
 </update>
+
+
+<select id="selectAppMemberNo">
+	SELECT * FROM APPLICATION 
+	WHERE MEMBER_NO = #{memberNo}
+</select>
+
+<insert id="insertTrainer">
+	INSERT INTO TRAINER (TRAINER_NO, TRAINER_NAME, TRAINER_PRICE, TRAINER_IMG, MEMBER_NO)
+	VALUES (SEQ_TRAINER_NO.NEXTVAL, 
+			#{fullName},
+			#{trainerPrice},
+			#{trainerImg},
+			#{memberNo}
+			)
+</insert>
+
 
 </mapper>
