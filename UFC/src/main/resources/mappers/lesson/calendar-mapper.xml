@@ -3,39 +3,132 @@
 <mapper namespace="edu.kh.cooof.lesson.calendar.mapper.LessonCalendarMapper">
 
 	<select id="selectCalendar" resultType="Lesson">
-	SELECT
+SELECT 
+
     l.LESSON_NO,
+
     l.LESSON_TITLE,
+
     l.LESSON_ROOM,
+
     l.LESSON_SCHEDULE,
+
     l.LESSON_START_DATE,
+
     l.LESSON_END_DATE,
+
     l.LESSON_CAPACITY,
+
     l.LESSON_TUITION_FEE,
+
     l.LESSON_MATERIAL_FEE,
+
     l.LESSON_TARGET_AUDIENCE,
-    l.LESSON_TITLE ,
+
+    l.LESSON_TITLE,
+
     l.CLOSE_YN,
-    w.MEMBER_NO AS WISH_MEMBER_NO,
-    e.MEMBER_NO AS ENROLL_MEMBER_NO,
+
+    NULL AS WISH_MEMBER_NO,
+
+    NULL AS ENROLL_MEMBER_NO,
+
     l.LESSON_REGISTER_START,
+
     l.LESSON_REGISTER_END,
+
     l.LESSON_REMAINS,
+
     l.IMG_PATH,
+
     l.LESSON_DETAIL,
+
     l.DELETE_YN,
-    CASE WHEN w.MEMBER_NO IS NOT NULL THEN 'Y' ELSE 'N' END AS WISH_YN,
-    CASE WHEN e.MEMBER_NO IS NOT NULL THEN 'Y' ELSE 'N' END AS ENROLL_YN
+
+    'N' AS WISH_YN,  
+
+    'N' AS ENROLL_YN 
+
 FROM
+
     LESSONS l
+
+WHERE 
+
+    l.MEMBER_NO = #{memberNo}
+
+    
+
+UNION
+
+
+
+SELECT
+
+    l.LESSON_NO,
+
+    l.LESSON_TITLE,
+
+    l.LESSON_ROOM,
+
+    l.LESSON_SCHEDULE,
+
+    l.LESSON_START_DATE,
+
+    l.LESSON_END_DATE,
+
+    l.LESSON_CAPACITY,
+
+    l.LESSON_TUITION_FEE,
+
+    l.LESSON_MATERIAL_FEE,
+
+    l.LESSON_TARGET_AUDIENCE,
+
+    l.LESSON_TITLE,
+
+    l.CLOSE_YN,
+
+    w.MEMBER_NO AS WISH_MEMBER_NO,
+
+    e.MEMBER_NO AS ENROLL_MEMBER_NO,
+
+    l.LESSON_REGISTER_START,
+
+    l.LESSON_REGISTER_END,
+
+    l.LESSON_REMAINS,
+
+    l.IMG_PATH,
+
+    l.LESSON_DETAIL,
+
+    l.DELETE_YN,
+
+    CASE WHEN w.MEMBER_NO IS NOT NULL THEN 'Y' ELSE 'N' END AS WISH_YN,
+
+    CASE WHEN e.MEMBER_NO IS NOT NULL THEN 'Y' ELSE 'N' END AS ENROLL_YN
+
+FROM
+
+    LESSONS l
+
 LEFT JOIN LESSONS_WISHLIST w
+
     ON l.LESSON_NO = w.LESSON_NO
+
     AND w.MEMBER_NO = #{memberNo}
+
 LEFT JOIN STUDENT_ENROLLMENTS e
+
     ON l.LESSON_NO = e.LESSON_NO
+
     AND e.MEMBER_NO = #{memberNo}
+
 WHERE
+
     w.MEMBER_NO IS NOT NULL
+
     OR e.MEMBER_NO IS NOT NULL
 	</select>
 

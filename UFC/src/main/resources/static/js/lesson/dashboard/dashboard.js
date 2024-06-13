@@ -495,7 +495,6 @@ function submitAttendance() {
 const studentStatusBtn = document.querySelector("#less_student_status");
 
 studentStatusBtn.addEventListener("click", e=>{
-
   e.preventDefault();
   attendanceTable.innerHTML='';
   
@@ -548,7 +547,7 @@ studentStatusBtn.addEventListener("click", e=>{
 // 모달 창 요소 가져오기
 const modal = document.getElementById('certificate-modal');
 const btn = document.querySelector('.certificate-modal-open');
-const span = document.getElementsByClassName('close')[0];
+const span = document.getElementsByClassName('dashboard-modal-close')[0];
 
 // 버튼 클릭 시 모달 창 열기
 btn.onclick = function() {
