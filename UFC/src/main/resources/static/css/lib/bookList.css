@@ -5,6 +5,7 @@ body {
     margin: 0;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: flex-start; /* 상단 부분이 보이도록 조정 */
     min-height: 100vh; /* 전체 높이 확보 */
 }
