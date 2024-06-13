@@ -112,14 +112,15 @@ if(notificationLoginCheck){
                             })
                             .then(resp => resp.text())
                             .then(result => {
-                                console.log("결과는??"  + result);
+                                
                             })
                             
                         }
 
 
+                        window.open(data.notificationUrl, 'messagePopup', 'width=450,height=400,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no');
                         // console.log(">>>>>>>>>>>",data);
-                        location.href= data.notificationUrl;
+                        
 
 
                     })
