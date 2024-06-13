@@ -102,7 +102,7 @@ if(notificationLoginCheck){
 
                     notiText.addEventListener("click", ()=>{
 
-                        if(data.notificationCheck === 0){
+                        if(data.notificationCheck === "0"){
                             fetch("/notification", {
                                 method: "PUT",
                                 headers: {
@@ -110,9 +110,15 @@ if(notificationLoginCheck){
                                 },
                                 body: data.notificationNo
                             })
+                            .then(resp => resp.text())
+                            .then(result => {
+                                console.log("결과는??"  + result);
+                            })
+                            
                         }
 
-                        location.href= data.notificationUrl;
+
+                        // location.href= data.notificationUrl;
 
                     })
 

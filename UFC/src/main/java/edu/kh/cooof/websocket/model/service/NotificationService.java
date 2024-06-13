@@ -15,7 +15,7 @@ public interface NotificationService {
 
 	List<Notification> selectNotification(int memberNo);
 
-	void updateNotification(int notificationNo);
+	int updateNotification(int notificationNo);
 
 	int deleteNotification(int notificationNo, int memberNo);
 
