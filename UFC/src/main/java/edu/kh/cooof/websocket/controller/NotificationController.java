@@ -41,10 +41,10 @@ public class NotificationController {
 	}
 	
 	@PutMapping("")
-	public void updateNotification(
+	public int updateNotification(
 			@RequestBody int notificationNo
 			) {
-		service.updateNotification(notificationNo);
+		return service.updateNotification(notificationNo);
 	}
 	
 	@DeleteMapping("")

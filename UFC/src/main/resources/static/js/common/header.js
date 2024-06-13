@@ -101,7 +101,7 @@ if(notificationLoginCheck){
                     notiText.className = 'header-notification-text';
 
                     notiText.addEventListener("click", ()=>{
-                        // debugger;
+
                         if(data.notificationCheck === "0"){
                             fetch("/notification", {
                                 method: "PUT",
@@ -110,9 +110,17 @@ if(notificationLoginCheck){
                                 },
                                 body: data.notificationNo
                             })
+                            .then(resp => resp.text())
+                            .then(result => {
+                                console.log("결과는??"  + result);
+                            })
+                            
                         }
+
+
                         // console.log(">>>>>>>>>>>",data);
                         location.href= data.notificationUrl;
+
 
                     })
 
