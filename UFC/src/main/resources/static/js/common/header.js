@@ -51,6 +51,7 @@ if(notificationLoginCheck){
 
     notificationSock.addEventListener("message", e=>{
         
+
         notReadCheckFn().then(notReadCount => {
                                 
             const notificationBtn = document.querySelector(".header-notification-btn");
@@ -67,7 +68,6 @@ if(notificationLoginCheck){
                 notificationBtn.classList.remove("fa-solid");
             }
         })
-
         selectnNotificationFn();
     })
 
@@ -89,11 +89,11 @@ if(notificationLoginCheck){
                 notificationList.innerHTML = "";
 
                 for(let data of selectList){
-
+                    
                     const notiItem = document.createElement("li");
                     notiItem.className = 'header-notification-item';
 
-                    if(data.notificationCheck === 0){
+                    if(data.notificationCheck === "0"){
                         notiItem.classList.add("not-read");
                     }
 
@@ -118,7 +118,9 @@ if(notificationLoginCheck){
                         }
 
 
-                        // location.href= data.notificationUrl;
+                        // console.log(">>>>>>>>>>>",data);
+                        location.href= data.notificationUrl;
+
 
                     })
 
