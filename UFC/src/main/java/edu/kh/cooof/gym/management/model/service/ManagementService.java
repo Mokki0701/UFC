@@ -16,7 +16,7 @@ public interface ManagementService {
 
 	int updateApplicationStatus(int memberNo, String status);
 
+	int addTrainer(Application app);
 
-	
 
 }

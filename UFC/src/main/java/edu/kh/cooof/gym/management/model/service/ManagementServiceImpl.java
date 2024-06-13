@@ -14,10 +14,12 @@ import edu.kh.cooof.gym.application.model.dto.Application;
 import edu.kh.cooof.gym.management.model.mapper.ManagementMapper;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class ManagementServiceImpl implements ManagementService{
 	
 	private final ManagementMapper mapper;
@@ -93,11 +95,25 @@ public class ManagementServiceImpl implements ManagementService{
     	return mapper.updateAuthority(memberNo);
     }
     
-    
+    // 처리상태 업데이트
     @Override
     public int updateApplicationStatus(int memberNo, String status) {
     	
     	return mapper.updateApplicationStatus(memberNo, status);
     }
+    
 	
+    // 트레이너 테이블에 데이터 삽입
+    @Override
+    public int addTrainer(Application app) {
+    	
+    	app.setFullName(app.getMemberFirstName() + " " + app.getMemberLastName());
+    	
+    	log.info("Application Details: {}", app);
+    	    	
+    	return mapper.insertTrainer(app);
+    }
+    
+
+    
 }
