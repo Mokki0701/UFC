@@ -189,9 +189,12 @@
         .then(response => response.text())
         .then(messageNo => {
 
+            var url = "/message/detail?messageNo=" + messageNo;
+            
+
             alert("메시지 발송 성공!");
 
-            sendNotificationFn("sendMessage", location.pathname, messageNo);
+            sendNotificationFn("sendMessage", url, messageNo);
             window.close();
             
         })

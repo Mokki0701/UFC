@@ -221,7 +221,7 @@
     </select>
 
     <select id="spaceUserDoneTime" parameterType="int" resultType="String">
-	    SELECT TO_CHAR(SPACE_DONE, 'yyyy-mm-dd hh24:mi') AS spaceDone
+	    SELECT TO_CHAR(SPACE_DONE, 'YYYY-MM-DD HH24:MI') AS spaceDone
 	    FROM RENT_SPACE
 	    WHERE MEMBER_NO = #{userNo}
 	</select>
@@ -236,30 +236,30 @@
 		)
     </update>
 
-    <delete id="getOut" parameterType="int">
+    <delete id="getOut" parameterType="_int">
         DELETE 
         FROM RENT_SPACE
         WHERE MEMBER_NO = #{userNo}
     </delete>
 
 	<!-- 열람실 이용중인 회원 번호 구하기 -->    
-    <select id="getSeatUserNo" resultType="Int">
+    <select id="getSeatUserNo" resultType="_int">
     	SELECT MEMBER_NO
     	FROM RENT_SEAT
     </select>
     
-    <select id="seateUserDoneTime" parameterType="int">
-   	 	SELECT TO_CHAR(READING_DONE, 'yyyy-mm-dd hh24:mi') AS seatDone
+    <select id="seateUserDoneTime" parameterType="string">
+   	 	SELECT TO_CHAR(READING_DONE, 'YYYY-MM-DD HH24:MI') AS seatDone
 	    FROM RENT_SEAT
 	    WHERE MEMBER_NO = #{userNo} 
     </select>
     
-    <update id="setSeatAvailable" parameterType="int">
+    <update id="setSeatAvailable" parameterType="_int">
     	UPDATE SEAT s
     	SET s.SEAT_AVAIL = 0
     	WHERE s.SEAT_NO IN(
     		SELECT rs.SEAT_NO2
-    		FROM RENT_SEAT
+    		FROM RENT_SEAT rs
     		WHERE rs.MEMBER_NO = #{memberNo}
     	)
     </update>
