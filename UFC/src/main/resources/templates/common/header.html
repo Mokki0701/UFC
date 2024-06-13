@@ -60,7 +60,13 @@
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ dateTime: formattedDateTime }) // 요청 본문에 데이터 포함
-    });
+    })
+    .then(response => response.json())
+    .then(result=>{
+
+        console.log(result);
+
+    })
 }
 
   document.addEventListener('DOMContentLoaded', function () {

@@ -88,7 +88,7 @@ public interface SpaceMapper {
 	//  ---- 열람실 이용중인 회원들 번호 가져오기
 	List<Integer> getSeatUserNo();
 	
-	String seateUserDoneTime(int seatUserNo);
+	String seateUserDoneTime(int userNo);
 
 	int setSeatAvailable(int seatUserNo);
 	

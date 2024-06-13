@@ -17,5 +17,7 @@ public interface ManagementMapper {
 	int updateAuthority(Integer memberNo);
 
 	int updateApplicationStatus(@Param("memberNo") int memberNo, @Param("status") String status);
+	
+	int insertTrainer(Application app);
 
 }

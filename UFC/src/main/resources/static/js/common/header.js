@@ -51,6 +51,7 @@ if(notificationLoginCheck){
 
     notificationSock.addEventListener("message", e=>{
         
+
         notReadCheckFn().then(notReadCount => {
                                 
             const notificationBtn = document.querySelector(".header-notification-btn");
@@ -67,7 +68,6 @@ if(notificationLoginCheck){
                 notificationBtn.classList.remove("fa-solid");
             }
         })
-
         selectnNotificationFn();
     })
 
@@ -89,11 +89,11 @@ if(notificationLoginCheck){
                 notificationList.innerHTML = "";
 
                 for(let data of selectList){
-
+                    
                     const notiItem = document.createElement("li");
                     notiItem.className = 'header-notification-item';
 
-                    if(data.notificationCheck === 0){
+                    if(data.notificationCheck === "0"){
                         notiItem.classList.add("not-read");
                     }
 
@@ -102,7 +102,7 @@ if(notificationLoginCheck){
 
                     notiText.addEventListener("click", ()=>{
 
-                        if(data.notificationCheck === 0){
+                        if(data.notificationCheck === "0"){
                             fetch("/notification", {
                                 method: "PUT",
                                 headers: {
@@ -110,9 +110,18 @@ if(notificationLoginCheck){
                                 },
                                 body: data.notificationNo
                             })
+                            .then(resp => resp.text())
+                            .then(result => {
+                                
+                            })
+                            
                         }
 
-                        location.href= data.notificationUrl;
+
+                        window.open(data.notificationUrl, 'messagePopup', 'width=450,height=400,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no');
+                        // console.log(">>>>>>>>>>>",data);
+                        
+
 
                     })
 

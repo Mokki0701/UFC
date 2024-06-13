@@ -45,7 +45,7 @@ public class NotificationServiceImpl implements NotificationService {
 		return mapper.selectNotification(memberNo);
 	}
 	@Override
-	public void updateNotification(int notificationNo) {
-		mapper.updateNotification(notificationNo);
+	public int updateNotification(int notificationNo) {
+		return mapper.updateNotification(notificationNo);
 	}
 }

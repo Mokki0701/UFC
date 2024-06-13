@@ -21,6 +21,7 @@ public class ExceptionController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleBadRequest(Exception ex, Model model) {
+    	ex.printStackTrace();
         model.addAttribute("error", "Bad Request");
         model.addAttribute("message", ex.getMessage());
         return "error/400";
@@ -28,6 +29,7 @@ public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
     public String allExceptionHandler(Exception ex, Model model) {
+    	ex.printStackTrace();
         model.addAttribute("error", "Internal Server Error");
         model.addAttribute("message", ex.getMessage());
         ex.printStackTrace();
