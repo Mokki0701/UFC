@@ -22,6 +22,6 @@ public interface NotificationMapper {
 
 	List<Notification> selectNotification(int memberNo);
 
-	void updateNotification(int notificationNo);
+	int updateNotification(int notificationNo);
 
 }
