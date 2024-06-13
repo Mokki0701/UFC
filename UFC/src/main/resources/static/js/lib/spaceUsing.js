@@ -351,3 +351,101 @@ function cancleSpceBooking() {
     });
 
 }
+
+
+
+
+
+
+
+
+// 공간 정보를 가져옴
+// 생성된 공간의 갯수만큼 반복
+// 가져올 공간 정보 : 
+// spaceNo2, spaceName -> space테이블
+// spaceDone -> rentSpace 테이블
+
+
+function spaceInfo() {
+  fetch('/lib/space/spaceDoneTime', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result); // 받은 데이터를 콘솔에 출력하여 확인
+
+      const spaceUsage = document.querySelector('.spaceUsage');
+      if (result && Array.isArray(result) && result.length > 0) {
+        if (spaceUsage != null) {
+          // 내부 요소를 초기화
+          spaceUsage.innerHTML = '';
+
+          // 공간 갯수만큼 반복하여 요소 생성
+          result.forEach(space => {
+            const smallSpaceUsage = document.createElement('div');
+            smallSpaceUsage.classList.add('smallSpaceUsage');
+
+            // 종료 예정 시간을 포맷팅
+            let formattedTime = '없음';
+            if (space.SPACE_DONE) {
+              formattedTime = formatTime(space.SPACE_DONE);
+            }
+
+            // 공간 번호와 종료 예정 시간을 설정
+            const spaceNo = space.SPACE_NO2 || space.spaceNo2;
+
+            smallSpaceUsage.innerHTML = `
+            <span>공간 번호 : <span class="sn">${spaceNo}</span></span>
+            <span>종료 예정 시간 : <span class="sd">${formattedTime}</span></span>
+          `;
+
+            spaceUsage.appendChild(smallSpaceUsage);
+          });
+        }
+      } else {
+        console.warn("No space information received.");
+        // 빈 상태를 처리하는 로직 추가
+        if (spaceUsage != null) {
+          spaceUsage.innerHTML = '<p>현재 이용중인 공간이 없습니다.</p>';
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // 오류 메시지를 사용자에게 표시
+      const spaceUsage = document.querySelector('.spaceUsage');
+      if (spaceUsage != null) {
+        spaceUsage.innerHTML = '<p>데이터를 불러오는 중 오류가 발생했습니다.</p>';
+      }
+    });
+}
+
+// 시간을 "오후 1시 59분" 형식으로 포맷팅하는 함수
+function formatTime(datetimeString) {
+  const date = new Date(datetimeString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const period = hours >= 12 ? '오후' : '오전';
+  const formattedHours = hours % 12 || 12; // 0시를 12시로 표시
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  return `${period} ${formattedHours}시 ${formattedMinutes}분`;
+}
+
+// 페이지 로드 시 데이터 로드
+document.addEventListener('DOMContentLoaded', (event) => {
+  spaceInfo();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

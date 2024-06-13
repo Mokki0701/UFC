@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         trainerChange.addEventListener("click", () => {
-            const memberNo = document.querySelector("#memberNo").textContent;
+            const applicationNo = document.querySelector("#applicationNo").textContent;
 
             // 비동기로 서버에 memberAuthority 업데이트 요청 보내기
             fetch("/management/updateMemberAuthority", {
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    memberNo: memberNo
+                    applicationNo: applicationNo
                 })
             })
             .then(response => response.json())

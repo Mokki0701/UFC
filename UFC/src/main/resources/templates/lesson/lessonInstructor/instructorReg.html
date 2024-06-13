@@ -5,12 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>강사 지원</title>
+  <th:block th:replace="~{common/common}"></th:block>
 </head>
 
 <body>
   
   <main>
     
+    <div th:replace="~{common/header}"></div>
+    <div th:replace="~{common/sidebar}"></div>
     <!-- 세미 헤더 들어가는 곳 시작 -->
     <th:block th:replace="~{lesson/lessonCommon/semiHeader}"></th:block>
     <!-- 세미 헤더 들어가는 곳 끝 -->
@@ -78,7 +81,7 @@
   <!-- lessonCommon 들어가는곳 끝 -->
 
   <!-- 푸터 부분 시작 -->
-  <!-- <th:block th:replace="~{common/footer}"></th:block> -->
+  <th:block th:replace="~{common/footer}"></th:block>
   <!-- 푸터 부분 끝 -->
 
   <!-- 강사 신청 JS 연결 시작 -->

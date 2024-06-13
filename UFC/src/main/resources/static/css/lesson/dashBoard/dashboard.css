@@ -42,7 +42,7 @@ body{
 }
 
 .less_attendance {
-  background-color: #BF9D5E;
+  background-color: #FFFDE7;
   padding:10px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -57,7 +57,7 @@ body{
 }
 
 .less_schedule {
-  background-color: #BF9D5E;
+  background-color: #FFFDE7;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -90,7 +90,7 @@ body{
 }
 
 .less_lectures {
-  background-color: #BF9D5E;
+  background-color: #FFFDE7;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -98,7 +98,7 @@ body{
 }
 
 .less_rating {
-  background-color: #BF9D5E;
+  background-color: #FFFDE7;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -106,7 +106,7 @@ body{
 }
 
 .less_write_rating {
-  background-color: #BF9D5E;
+  background-color: #FFFDE7;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -203,9 +203,9 @@ body{
 }
 
 .less_rating_content label, .less_rating_content select, .less_rating_content .stars, .less_rating_content button {
-  background-color: #D9BD89;
+  background-color: #e2e3e5;
   border: none;
-  color: #fff;
+  color: #000;
   padding: 10px;
   border-radius: 5px;
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.kh.cooof.common.scheduler.mapper.NotificationMapper">
+<mapper namespace="edu.kh.cooof.websocket.model.mapper.NotificationMapper">
 
 	<insert id="insertNotification">
 		INSERT INTO NOTIFICATION
@@ -12,5 +12,55 @@
 		FROM "MESSAGE"
 		WHERE MESSAGE_NO = #{messageNo}
 	</select>
+	
+	<select id="selectNotification">
+		SELECT NOTIFICATION_NO, NOTIFICATION_CONTENT, NOTIFICATION_CHECK,
+			NOTIFICATION_URL, 
+			<![CDATA[
+			CASE
+					 WHEN CURRENT_DATE - NOTIFICATION_DATE < 1 / 24 / 60 
+					 THEN FLOOR((CURRENT_DATE - NOTIFICATION_DATE) * 24 * 60 * 60)  || '초 전'
+					 
+					 WHEN CURRENT_DATE - NOTIFICATION_DATE < 1 / 24 
+					 THEN FLOOR((CURRENT_DATE - NOTIFICATION_DATE)* 24 * 60) || '분 전'
+					 
+					 WHEN CURRENT_DATE - NOTIFICATION_DATE < 1
+					 THEN FLOOR((CURRENT_DATE - NOTIFICATION_DATE) * 24) || '시간 전'
+					 
+					 ELSE TO_CHAR(NOTIFICATION_DATE, 'YYYY-MM-DD')
+				 	
+				 END NOTIFICATION_DATE 
+		 ]]>
+		FROM "NOTIFICATION"
+		WHERE RECEIVE_MEMBER_NO = #{receiveMemberNo}
+		ORDER BY NOTIFICATION_NO DESC
+	</select>
+	
+	<select id="updateNotification">
+		UPDATE "NOTIFICATION" SET
+		NOTIFICATION_CHECK = 1
+		WHERE NOTIFICATION_NO = #{notificationNo}
+	</select>
+	
+	<select id="notReadCheck">
+		SELECT COUNT(*) 
+		FROM "NOTIFICATION"
+		WHERE RECEIVE_MEMBER_NO = #{memberNo}
+		AND NOTIFICATION_CHECK = 0
+	</select>
+	
+	<delete id="deleteNotification">
+		DELETE FROM "NOTIFICATION"
+		WHERE NOTIFICATION_NO = #{notificationNo}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

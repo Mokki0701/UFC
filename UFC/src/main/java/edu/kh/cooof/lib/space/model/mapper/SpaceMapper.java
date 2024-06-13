@@ -67,4 +67,35 @@ public interface SpaceMapper {
 	// 공간 예약 취소하기
 	int cancleSpceBooking(int memberNo);
 
+	// 생성된 공간 갯수 세기
+	int countSpace();
+
+	// 각 공간마다 종료 시간 가져오기
+	Map<String, Object> spaceDoneTime(int spaceNo);
+
+	
+	// -----------------------
+	
+	// 공간대여 분단위
+	List<Integer> getSpaceUserNo();
+
+	String spaceUserDoneTime(int userNo);
+
+	int updateSpaceToAvailable(int userNo);
+
+	int getOut(int userNo);
+
+	//  ---- 열람실 이용중인 회원들 번호 가져오기
+	List<Integer> getSeatUserNo();
+	
+	String seateUserDoneTime(int seatUserNo);
+
+	int setSeatAvailable(int seatUserNo);
+	
+	int getOutFromSeat(int seatUserNo);
+
+
+
+
+
 }

@@ -172,29 +172,33 @@ public class ManagementController {
         }
 
         return ResponseEntity.ok(response);
-    }
-
+    }    
     
     
-
-    // 회원 권한 업데이트
+    // 회원 권한 업데이트 및 트레이너 테이블로 이동
     @ResponseBody
     @PostMapping("/updateMemberAuthority")
-    public ResponseEntity<Map<String, Object>> updateMemberAuthority(@RequestBody Map<String, Integer> requestData) {
-        Integer memberNo = requestData.get("memberNo");
+    public ResponseEntity<Map<String, Object>> updateMemberAuthority(@RequestBody Map<String, String> requestData) {
+    	Integer applicationNo = Integer.parseInt(requestData.get("applicationNo"));
 
         Map<String, Object> response = new HashMap<>();
-
         String path = "/management/applicationList";
         String message = null;
 
         try {
-            int result = service.updateMemberAuthority(memberNo);
+            // Application 정보를 가져옴
+            Application app = service.getApplicationNo(applicationNo);
+            
+            // 트레이너 테이블에 추가
+            int result = service.addTrainer(app);
+
             if (result > 0) {
-                message = "멤버 권한이 성공적으로 업데이트되었습니다.";
+                // 회원 권한 업데이트
+                service.updateMemberAuthority(app.getMemberNo());
+                message = "트레이너 권한이 성공적으로 업데이트되었습니다.";
                 response.put("success", true);
             } else {
-                message = "멤버 권한 업데이트 실패";
+                message = "트레이너 권한 업데이트 실패";
                 response.put("success", false);
             }
         } catch (Exception e) {
@@ -208,4 +212,5 @@ public class ManagementController {
 
         return ResponseEntity.ok(response);
     }
+
 }

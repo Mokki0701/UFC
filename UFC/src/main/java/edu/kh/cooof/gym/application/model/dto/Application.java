@@ -28,4 +28,16 @@ public class Application {
     private String memberEmail;
     private int memberAuthority;
     private String status = "미완료";
+    private int trainerPrice;
+    private String trainerImg;
+    
+    private String fullName;
+
+    public String getFullName() {
+        return memberFirstName + " " + memberLastName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 }

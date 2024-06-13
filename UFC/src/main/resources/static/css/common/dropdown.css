@@ -1,0 +1,31 @@
+.messageDropdown {
+    cursor: pointer;
+}
+
+.messageDropdown:hover {
+    color: gray; /* 색상을 원하는 대로 변경할 수 있습니다 */
+}
+
+.dropdown-content {
+    display: none;
+    background-color: white;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border: 1px solid #ccc;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 10px 12px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.show {
+    display: block;
+}
