@@ -61,6 +61,7 @@ public class gymMyPageController {
          // PT 진행 횟수가 PT 최대 횟수와 같아지면 gymMyPage를 null로 설정
             if (completedPT == gymMyPage.getPtYN()) {
                 gymMyPage = null;
+                model.addAttribute("message", "PT가 완료되었습니다.");
             } else {
             	
             	// PT 진행 횟수를 설정
