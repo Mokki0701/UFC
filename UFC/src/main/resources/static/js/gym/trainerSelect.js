@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                        
                     }else {
-                console.log('PT 정보가 없거나, PT 기간이 만료되었습니다.');
+                        console.log('PT 정보가 없거나, PT 기간이 만료되었습니다.');
                         return;
                     }
                 }
