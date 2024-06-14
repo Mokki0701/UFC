@@ -169,14 +169,13 @@
             <button class="lib-nav-btn" onclick="openBookReservationModal()">도서 예약</button>
             <a href="/libMain/toUseSeat"><button class="lib-nav-btn">열람실</button></a>
             <a href="/libMain/toSpace"><button class="lib-nav-btn">공간 대여</button></a>
+            <a href="/libMember/member"><button class="lib-nav-btn">나의 도서관 이용 내역 확인하기</button></a>
           </div>
-
-
 
           <!-- 관리자 회원에게 보여질 버튼 -->
           <div th:block class="managerBtnSack"
             th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
-            <a href="/lesson/inst/reg"><button class="lib-nav-btn">대여 및 연장관리</button></a>
+            <a href="/loan/select"><button class="lib-nav-btn">대여 및 연장관리</button></a>
             <a href="/libMain/managingSeatPage"><button class="lib-nav-btn">열람실 관리</button></a>
             <a href="/libMain/managingSpace"><button class="lib-nav-btn">공간 관리</button></a>
           </div>
