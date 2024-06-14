@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch('/lesson/calendar')
         .then(response => response.json())
         .then(data => {
-          console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
+          //console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
           if (Array.isArray(data)) {
             const events = [];
             let colorIndex = 0;
