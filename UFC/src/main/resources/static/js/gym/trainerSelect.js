@@ -41,13 +41,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buttons.forEach(button => {
         button.addEventListener("click", e => {
+
             if (ptPrice && ptPrice.ptYn > 0 && ptPrice.ptStrdate) {
                 const endDate = new Date(ptPrice.ptStrdate);
-                endDate.setDate(endDate.getDate() + ptPrice.ptYn);
+                endDate.setDate(endDate.getDate() + ptPrice.ptYn); // PT 가 끝나는 날짜
 
-                const currentDate = new Date();
+                const currentDate = new Date(); // 현재 날짜
+                console.log(endDate);
+                console.log(currentDate);
+                console.log(endDate.getTime() > currentDate.getTime());
 
-                if (endDate > currentDate) {
+                
+                if (endDate.getTime() > currentDate.getTime()) {    
+                   
                     const formattedEndDate = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`;
                     const confirmation = confirm(`${ptPrice.ptStrdate} 부터 ${formattedEndDate}까지 PT 진행 중입니다. 결제를 계속 하시겠습니까?`);
                     if (confirmation) {
@@ -81,11 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                        
                     }else {
-                
+                console.log('PT 정보가 없거나, PT 기간이 만료되었습니다.');
                         return;
                     }
                 }
             } else {
+                console.log(2);
                 const ptCount =  button.dataset.ptCount; // PT 횟수
                 const memberGender = button.dataset.memberGender; // 이름
                 

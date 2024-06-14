@@ -99,10 +99,9 @@ public class TrainerSelectController {
 			 String memberFname = loginMember.getMemberFirstName();
 			 String memberGender = loginMember.getMemberGender();
 			 
-			 PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			 Trainer trainer = service.selectTrainer(trainerNo);
 			
-			model.addAttribute("ptPrice" , ptPrice);
+			
 			model.addAttribute("trainer", trainer);
 			model.addAttribute("calcResult", trainer.getTrainerPrice() * ptCount);
 			model.addAttribute("member", loginMember);

@@ -177,7 +177,11 @@
                   </div>
                   <div>
                     <label>우편번호 :</label>
-                    <span th:text="${session.loginMember.memberAddress}"></span>
+                    <span th:text="${postcode}"></span>
+                    <label>도로명/지번 주소 :</label>
+                    <span th:text="${address}"></span>
+                    <label>상세 주소 :</label>
+                    <span th:text="${detailAddress}"></span>
                   </div>
                 
                 <button id="modalCloseButton">닫기</button>
