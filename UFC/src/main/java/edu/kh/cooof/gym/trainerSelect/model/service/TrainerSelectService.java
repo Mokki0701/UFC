@@ -3,7 +3,9 @@ package edu.kh.cooof.gym.trainerSelect.model.service;
 import java.util.List;
 
 import edu.kh.cooof.gym.trainerSelect.model.dto.PaymentRequest;
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.gym.trainerSelect.model.dto.Trainer;
+import edu.kh.cooof.member.model.dto.Member;
 
 public interface TrainerSelectService {
 
@@ -26,6 +28,15 @@ public interface TrainerSelectService {
 	 */
 	int gymPayment(PaymentRequest request);
 
+	
+	// 로그인한 회원의 pt 정보
+	PtPrice getPriceByMemberNo(int memberNo);
+	
+	
+
+	
+
+	
 	
 
 	

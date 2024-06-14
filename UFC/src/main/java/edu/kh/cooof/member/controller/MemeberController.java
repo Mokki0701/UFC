@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.member.model.dto.Member;
 import edu.kh.cooof.member.model.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -75,6 +76,9 @@ public class MemeberController {
 		
 		Member loginMember = service.login(inputMember);
 		
+		
+		
+		
 		if(loginMember == null) {
 			ra.addFlashAttribute("message" , "아이디 또는 비밀번호가 일치하지 않습니다");
 		}
@@ -82,6 +86,7 @@ public class MemeberController {
 		if(loginMember != null ) {
 			ra.addFlashAttribute("message" , "로그인 성공");
 			model.addAttribute("loginMember" , loginMember);
+			
 		}
 		
 		return "redirect:/";
@@ -203,6 +208,16 @@ public class MemeberController {
 			ra.addFlashAttribute("message" ,message);
 			
 			return "redirect:/";
+	}
+	
+	@PostMapping("memberDelete")
+	public String memberDelete(
+			@SessionAttribute("loginMember")Member loginMember
+			) {
+		service.memberDelete(loginMember.getMemberNo());
+		
+		
+		return "redirect:/";
 	}
 	
 	

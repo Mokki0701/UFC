@@ -18,4 +18,5 @@ public class PtPrice {
 	private int memberNo;
 	private int trainerNo;
 	private String ptStrdate;
+	
 }

@@ -8,6 +8,8 @@
   <!-- 도서관 전용 헤더 스타일로만 사용하기!! -->
   <link rel="stylesheet" href="/css/libMain.css">
   <link rel="stylesheet" href="/css/lib/managingSpace.css">
+  <link rel="stylesheet" href="/css/common/sidebar.css">
+
   <title>대여공간 관리자 페이지</title>
 
 </head>
@@ -15,10 +17,10 @@
 <body>
 
   <!-- 공용 헤더 -->
-  <!-- <header th:replace="~{common/header}"></header> -->
 
-  <!-- 도서관 전용 navVar -->
-  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
+  <div th:replace="~{common/header}"></div>
+  <div th:replace="~{common/sidebar}"></div>
+  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
 
   <h1>대여 공간 관리 페이지 입니다.</h1>
   <div class="spaceManager">

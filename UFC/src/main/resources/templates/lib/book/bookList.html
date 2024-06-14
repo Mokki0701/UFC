@@ -17,6 +17,7 @@
     <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
 
     <div class="container">
+        
         <div class="sidebar">
             <h2>카테고리</h2>
             <div th:each="bookStorageLocation : ${bookStorageLocations}" th:object="${bookStorageLocation}" class="category-item">

@@ -231,7 +231,7 @@ stopUsingSeat.addEventListener("click", () => {
         const seatNo2 = document.querySelector(".seatNo");
         const noSeatNo = document.querySelector(".noSeatNo");
         seatNo2.style.display = 'none';
-        noSeatNo.style.display = 'inline';
+        // noSeatNo.style.display = 'block';
 
         if (seatDiv) {
           console.log(`Removing 'nowUsing' class from seat with seatNo: ${seatNo}`);

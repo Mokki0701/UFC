@@ -1,275 +1,272 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper
-	namespace="edu.kh.cooof.lib.space.model.mapper.SpaceMapper">
+   namespace="edu.kh.cooof.lib.space.model.mapper.SpaceMapper">
 
-	<!-- spaceTable 지워버리기 -->
-	<delete id="delTbSpace">
-		DELETE FROM SPACE
-	</delete>
+   <!-- spaceTable 지워버리기 -->
+   <delete id="delTbSpace">
+      DELETE FROM SPACE
+   </delete>
 
-	<!-- 편집 내용 저장하기 -->
-	<insert id="saveManagement">
-		INSERT INTO SPACE (SPACE_NO, SPACE_NAME, SPACE_AVAIL,
-		LEFT, TOP, WIDTH,
-		HEIGHT)
-		VALUES (#{spaceNo}, #{spaceNo} || '번 방',
-		DEFAULT, #{left}, #{top}, #{width},
-		#{height})
-	</insert>
+   <!-- 편집 내용 저장하기 -->
+   <insert id="saveManagement">
+      INSERT INTO SPACE (SPACE_NO, SPACE_NAME, SPACE_AVAIL,
+      LEFT, TOP, WIDTH,
+      HEIGHT)
+      VALUES (#{spaceNo}, #{spaceNo} || '번 방',
+      DEFAULT, #{left}, #{top}, #{width},
+      #{height})
+   </insert>
 
-	<!-- 관리자 : 공간의 Avail 수정하기 -->
-	<update id="updateSpaceStatus" parameterType='map'>
-		UPDATE SPACE
-		SET
-		SPACE_AVAIL = #{changAvailCode}
-		WHERE SPACE_NO = #{spaceNo}
+   <!-- 관리자 : 공간의 Avail 수정하기 -->
+   <update id="updateSpaceStatus" parameterType='map'>
+      UPDATE SPACE
+      SET
+      SPACE_AVAIL = #{changAvailCode}
+      WHERE SPACE_NO = #{spaceNo}
 
-	</update>
+   </update>
 
-	<!-- 저장된 공간 정보 불러오기 -->
-	<select id="getAllSpaces"
-		resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
-		SELECT SPACE_NO as spaceNo, SPACE_AVAIL as spaceAvail, LEFT
-		as left, TOP as
-		top, WIDTH as width, HEIGHT as height
-		FROM SPACE
-	</select>
-
-
-
-	<!-- 좌석의 현재 상태 체크하기 -->
-	<select id="checkAvail" parameterType='int'>
-
-		SELECT COUNT(*) FROM SPACE
-		rs
-		WHERE SPACE_NO = #{spaceNo}
-		AND SPACE_AVAIL = 0
-
-	</select>
-
-	<!-- 이용 요청한 회원이 현재 이용 중인 공간이 있는지 확인 -->
-	<select id="memberSpaceUsingCheck">
-		SELECT COUNT(*)
-		FROM RENT_SPACE
-		WHERE MEMBER_NO =
-		#{memberNo}
-
-	</select>
-
-	<!-- 공간 이용하기 -->
-	<update id="useSpace" parameterType='map'>
-		BEGIN
-		UPDATE SPACE
-		SET
-		SPACE_AVAIL = 1
-		WHERE SPACE_NO = #{spaceNo};
-
-		INSERT INTO RENT_SPACE
-		(RENT_SPACE_NO, SPACE_START, SPACE_DONE, SPACE_EXTEND, SPACE_NO2,
-		MEMBER_NO)
-		VALUES (SEQ_RENT_SPACE_NO.NEXTVAL, DEFAULT, SYSDATE +
-		INTERVAL '4' HOUR,
-		DEFAULT, #{spaceNo}, #{memberNo});
-		END;
-	</update>
-
-	<!-- 공간 그만 이용하기 -->
-	<update id="stopUsingSpace">
-		UPDATE SPACE
-		SET SPACE_AVAIL = 0
-		WHERE SPACE_NO =
-		#{curUsingSpaceNo}
-	</update>
-
-	<!-- 회원의 공간 대여 기록 지우기 -->
-	<delete id="deleteRentSpace">
-		DELETE FROM RENT_SPACE
-		WHERE SPACE_NO2 =
-		#{curUsingSpaceNo}
-		AND MEMBER_NO = #{memberNo}
-	</delete>
-
-	<!-- 자리 연장 기회 카운트 -->
-	<select id="countExtend">
-		SELECT COUNT(*)
-		FROM RENT_SPACE
-		WHERE MEMBER_NO =
-		#{memberNo}
-		AND SPACE_EXTEND = 1
-	</select>
-
-	<!-- 연장 기회 차감하기 -->
-	<update id="updateRentSpace">
-		UPDATE RENT_SPACE
-		SET SPACE_EXTEND = 0
-		WHERE MEMBER_NO
-		= #{memberNo}
-	</update>
+   <!-- 저장된 공간 정보 불러오기 -->
+   <select id="getAllSpaces"
+      resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
+      SELECT SPACE_NO as spaceNo, SPACE_AVAIL as spaceAvail, LEFT
+      as left, TOP as
+      top, WIDTH as width, HEIGHT as height
+      FROM SPACE
+   </select>
 
 
-	<!-- 자리 연장하기 -->
-	<update id="extendUseSpace">
-		UPDATE RENT_SPACE
-		SET SPACE_DONE = SPACE_DONE +
-		INTERVAL '4' HOUR
-		WHERE MEMBER_NO = #{memberNo}
-	</update>
+
+   <!-- 좌석의 현재 상태 체크하기 -->
+   <select id="checkAvail" parameterType='int'>
+
+      SELECT COUNT(*) FROM SPACE
+      rs
+      WHERE SPACE_NO = #{spaceNo}
+      AND SPACE_AVAIL = 0
+
+   </select>
+
+   <!-- 이용 요청한 회원이 현재 이용 중인 공간이 있는지 확인 -->
+   <select id="memberSpaceUsingCheck">
+      SELECT COUNT(*)
+      FROM RENT_SPACE
+      WHERE MEMBER_NO =
+      #{memberNo}
+
+   </select>
+
+   <!-- 공간 이용하기 -->
+   <update id="useSpace" parameterType='map'>
+      BEGIN
+      UPDATE SPACE
+      SET
+      SPACE_AVAIL = 1
+      WHERE SPACE_NO = #{spaceNo};
+
+      INSERT INTO RENT_SPACE
+      (RENT_SPACE_NO, SPACE_START, SPACE_DONE, SPACE_EXTEND, SPACE_NO2,
+      MEMBER_NO)
+      VALUES (SEQ_RENT_SPACE_NO.NEXTVAL, DEFAULT, SYSDATE +
+      INTERVAL '4' HOUR,
+      DEFAULT, #{spaceNo}, #{memberNo});
+      END;
+   </update>
+
+   <!-- 공간 그만 이용하기 -->
+   <update id="stopUsingSpace">
+      UPDATE SPACE
+      SET SPACE_AVAIL = 0
+      WHERE SPACE_NO =
+      #{curUsingSpaceNo}
+   </update>
+
+   <!-- 회원의 공간 대여 기록 지우기 -->
+   <delete id="deleteRentSpace">
+      DELETE FROM RENT_SPACE
+      WHERE SPACE_NO2 =
+      #{curUsingSpaceNo}
+      AND MEMBER_NO = #{memberNo}
+   </delete>
+
+   <!-- 자리 연장 기회 카운트 -->
+   <select id="countExtend">
+      SELECT COUNT(*)
+      FROM RENT_SPACE
+      WHERE MEMBER_NO =
+      #{memberNo}
+      AND SPACE_EXTEND = 1
+   </select>
+
+   <!-- 연장 기회 차감하기 -->
+   <update id="updateRentSpace">
+      UPDATE RENT_SPACE
+      SET SPACE_EXTEND = 0
+      WHERE MEMBER_NO
+      = #{memberNo}
+   </update>
 
 
-	<!-- 예약하고자 하는 공간에 다른 예약이 있는지 확인 -->
-	<select id="checkOtherReservation" parameterType="map"
-		resultType="int">
-		SELECT COUNT(*)
-		FROM SEAT_SPACE_BOOKING ssb
-		WHERE
-		ssb.SPACE_NO = #{spaceNo}
-		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') ||
-		' ' || #{startTime},
-		'YYYY-MM-DD HH24:MI')
-		BETWEEN ssb.START_BOOKING AND
-		ssb.END_BOOKING
-	</select>
-
-	<!-- 현재 다른사람이 이용 중인 공간을 예약했을 때, 공간을 예약한 시간과 종료예정시간이 겹치는지 확인 -->
-	<select id="checkStartTime" parameterType="map" resultType="int">
-		SELECT COUNT(*)
-		FROM RENT_SPACE rs
-		WHERE rs.SPACE_NO2 = #{spaceNo}
-		AND
-		TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime},
-		'YYYY-MM-DD HH24:MI')
-		BETWEEN rs.SPACE_START AND rs.SPACE_DONE
-	</select>
-
-	<!-- 공간 예약하기 -->
-	<insert id="bookSpace" parameterType="map">
-		INSERT INTO
-		SEAT_SPACE_BOOKING (
-		BOOKING_SS_NO, START_BOOKING, END_BOOKING,
-		MEMBER_NO, SPACE_NO, SEAT_NO
-		) VALUES (
-		SEQ_BOOKING_SS_NO.NEXTVAL,
-		TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime},
-		'YYYY-MM-DD HH24:MI'),
-		TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' ||
-		#{startTime},
-		'YYYY-MM-DD HH24:MI') + INTERVAL '4' HOUR,
-		#{memberNo},
-		#{spaceNo},
-		NULL
-		)
-	</insert>
-
-	<!-- 나에게 다른 예약이 있는지 확인하기 -->
-	<select id="checkMyReserVation">
-
-		SELECT COUNT(*)
-		FROM SEAT_SPACE_BOOKING ssb
-		WHERE
-		MEMBER_NO = #{memberNo}
+   <!-- 자리 연장하기 -->
+   <update id="extendUseSpace">
+      UPDATE RENT_SPACE
+      SET SPACE_DONE = SPACE_DONE +
+      INTERVAL '4' HOUR
+      WHERE MEMBER_NO = #{memberNo}
+   </update>
 
 
-	</select>
+   <!-- 예약하고자 하는 공간에 다른 예약이 있는지 확인 -->
+   <select id="checkOtherReservation" parameterType="map"
+      resultType="int">
+      SELECT COUNT(*)
+      FROM SEAT_SPACE_BOOKING ssb
+      WHERE
+      ssb.SPACE_NO = #{spaceNo}
+      AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') ||
+      ' ' || #{startTime},
+      'YYYY-MM-DD HH24:MI')
+      BETWEEN ssb.START_BOOKING AND
+      ssb.END_BOOKING
+   </select>
 
-	<!-- 공간 대여 현황 표시하기 -->
-	<select id="rentSpaceInfo"
-		resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
-		SELECT
-		SPACE_START as startTime,
-		SPACE_DONE as endTime,
-		SPACE_EXTEND as spaceExtend
-		FROM
-		RENT_SPACE rs
-		WHERE
-		MEMBER_NO =
-		#{memberNo}
-	</select>
+   <!-- 현재 다른사람이 이용 중인 공간을 예약했을 때, 공간을 예약한 시간과 종료예정시간이 겹치는지 확인 -->
+   <select id="checkStartTime" parameterType="map" resultType="int">
+      SELECT COUNT(*)
+      FROM RENT_SPACE rs
+      WHERE rs.SPACE_NO2 = #{spaceNo}
+      AND
+      TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime},
+      'YYYY-MM-DD HH24:MI')
+      BETWEEN rs.SPACE_START AND rs.SPACE_DONE
+   </select>
 
-	<!-- 공간 예약 내역 확인하기 -->
-	<select id="spaceReservationInfo"
-		resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
-		SELECT SPACE_NO as spaceNo, START_BOOKING as startBooking
-		FROM
-		SEAT_SPACE_BOOKING ssb
-		WHERE MEMBER_NO =#{memberNo}
-	</select>
+   <!-- 공간 예약하기 -->
+   <insert id="bookSpace" parameterType="map">
+      INSERT INTO
+      SEAT_SPACE_BOOKING (
+      BOOKING_SS_NO, START_BOOKING, END_BOOKING,
+      MEMBER_NO, SPACE_NO, SEAT_NO
+      ) VALUES (
+      SEQ_BOOKING_SS_NO.NEXTVAL,
+      TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime},
+      'YYYY-MM-DD HH24:MI'),
+      TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' ||
+      #{startTime},
+      'YYYY-MM-DD HH24:MI') + INTERVAL '4' HOUR,
+      #{memberNo},
+      #{spaceNo},
+      NULL
+      )
+   </insert>
 
+   <!-- 나에게 다른 예약이 있는지 확인하기 -->
+   <select id="checkMyReserVation">
+      SELECT COUNT(*)
+      FROM SEAT_SPACE_BOOKING ssb
+      WHERE
+      MEMBER_NO = #{memberNo}
+   </select>
 
-	<delete id="cancleSpceBooking">
-		DELETE
-		FROM SEAT_SPACE_BOOKING
-		WHERE MEMBER_NO =
-		#{memberNo}
-		AND SEAT_NO IS NULL
-	</delete>
+   <!-- 공간 대여 현황 표시하기 -->
+   <select id="rentSpaceInfo"
+      resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
+      SELECT
+      SPACE_START as startTime,
+      SPACE_DONE as endTime,
+      SPACE_EXTEND as spaceExtend
+      FROM
+      RENT_SPACE rs
+      WHERE
+      MEMBER_NO =
+      #{memberNo}
+   </select>
 
-	<select id="countSpace">
-		SELECT COUNT(*)
-		FROM SPACE
-	</select>
+   <!-- 공간 예약 내역 확인하기 -->
+   <select id="spaceReservationInfo"
+      resultType="edu.kh.cooof.lib.space.model.dto.SpaceDTO">
+      SELECT SPACE_NO as spaceNo, START_BOOKING as startBooking
+      FROM
+      SEAT_SPACE_BOOKING ssb
+      WHERE MEMBER_NO =#{memberNo}
+   </select>
 
-	<select id="spaceDoneTime" parameterType="int" resultType="map">
-		SELECT SPACE_NO2, SPACE_DONE
-		FROM RENT_SPACE
-		WHERE SPACE_NO2 = #{spaceNo}
-	</select>
+   <delete id="cancleSpceBooking">
+      DELETE
+      FROM SEAT_SPACE_BOOKING
+      WHERE MEMBER_NO =
+      #{memberNo}
+      AND SEAT_NO IS NULL
+   </delete>
 
-	 <select id="getSpaceUserNo" resultType="int">
+   <select id="countSpace">
+      SELECT COUNT(*)
+      FROM SPACE
+   </select>
+
+   <select id="spaceDoneTime" parameterType="_int" resultType="map">
+      SELECT SPACE_NO2, SPACE_DONE
+      FROM RENT_SPACE
+      WHERE SPACE_NO2 = #{spaceNo}
+   </select>
+
+    <select id="getSpaceUserNo" resultType="_int">
         SELECT MEMBER_NO
         FROM RENT_SPACE
     </select>
 
-    <select id="spaceUserDoneTime" parameterType="int" resultType="String">
-	    SELECT TO_CHAR(SPACE_DONE, 'yyyy-mm-dd hh24:mi') AS spaceDone
-	    FROM RENT_SPACE
-	    WHERE MEMBER_NO = #{userNo}
-	</select>
+    <select id="spaceUserDoneTime" parameterType="_int" resultType="string">
+       SELECT TO_CHAR(SPACE_DONE, 'YYYY-MM-DD Hh24:MI') AS spaceDone
 
-    <update id="updateSpaceToAvailable" parameterType="int">
+       FROM RENT_SPACE
+       WHERE MEMBER_NO = #{userNo}
+   </select>
+
+    <update id="updateSpaceToAvailable" parameterType="_int">
         UPDATE SPACE s
-		SET s.SPACE_AVAIL = 0
-		WHERE s.SPACE_NO IN (
-		    SELECT rs.SPACE_NO2
-		    FROM RENT_SPACE rs
-		    WHERE rs.MEMBER_NO = #{userNo}
-		)
+      SET s.SPACE_AVAIL = 0
+      WHERE s.SPACE_NO IN (
+          SELECT rs.SPACE_NO2
+          FROM RENT_SPACE rs
+          WHERE rs.MEMBER_NO = #{userNo}
+      )
     </update>
 
-    <delete id="getOut" parameterType="int">
+    <delete id="getOut" parameterType="_int">
         DELETE 
         FROM RENT_SPACE
         WHERE MEMBER_NO = #{userNo}
     </delete>
 
-	<!-- 열람실 이용중인 회원 번호 구하기 -->    
-    <select id="getSeatUserNo" resultType="Int">
-    	SELECT MEMBER_NO
-    	FROM RENT_SEAT
+   <!-- 열람실 이용중인 회원 번호 구하기 -->    
+    <select id="getSeatUserNo" resultType="_int">
+       SELECT MEMBER_NO
+       FROM RENT_SEAT
+    </select>
+
+    <select id="seateUserDoneTime" parameterType="string">
+          SELECT TO_CHAR(READING_DONE, 'YYYY-MM-DD HH24:MI') AS seatDone
+       FROM RENT_SEAT
+       WHERE MEMBER_NO = #{userNo} 
     </select>
     
-    <select id="seateUserDoneTime" parameterType="int">
-   	 	SELECT TO_CHAR(READING_DONE, 'yyyy-mm-dd hh24:mi') AS seatDone
-	    FROM RENT_SEAT
-	    WHERE MEMBER_NO = #{userNo} 
-    </select>
-    
-    <update id="setSeatAvailable" parameterType="int">
-    	UPDATE SEAT s
-    	SET s.SEAT_AVAIL = 0
-    	WHERE s.SEAT_NO IN(
-    		SELECT rs.SEAT_NO2
-    		FROM RENT_SEAT
-    		WHERE rs.MEMBER_NO = #{memberNo}
-    	)
+    <update id="setSeatAvailable" parameterType="_int">
+       UPDATE SEAT s
+       SET s.SEAT_AVAIL = 2
+       WHERE s.SEAT_NO IN(
+          SELECT rs.SEAT_NO2
+          FROM RENT_SEAT rs
+          WHERE rs.MEMBER_NO = #{seatUserNo}
+       )
     </update>
     
-    <delete id="getOutFromSeat" parameterType="int">
-    	DELETE
-    	FROM RENT_SEAT
-    	WHERE MEMBER_NO = #{memberNo}
+    <delete id="getOutFromSeat" parameterType="_int">
+       DELETE
+       FROM RENT_SEAT
+       WHERE MEMBER_NO = #{seatUserNo}
     </delete>
     
     
-	
+   
 </mapper>

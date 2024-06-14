@@ -97,11 +97,15 @@ lessonSelect.addEventListener("change",()=>{
   fetch('/lesson/dashboard/star?lessonNo='+lessonCode)
   .then(res => res.text())
   .then(result =>{
+
+    console.log(result);
   
     if(result>0){
       //별점 UI 함수
       setStarRating(result)
-    }else{
+    } 
+    else{
+      unlockStarPoint();
       //초기화
       resetStarPointImages();
     }
@@ -495,7 +499,6 @@ function submitAttendance() {
 const studentStatusBtn = document.querySelector("#less_student_status");
 
 studentStatusBtn.addEventListener("click", e=>{
-
   e.preventDefault();
   attendanceTable.innerHTML='';
   
@@ -548,7 +551,7 @@ studentStatusBtn.addEventListener("click", e=>{
 // 모달 창 요소 가져오기
 const modal = document.getElementById('certificate-modal');
 const btn = document.querySelector('.certificate-modal-open');
-const span = document.getElementsByClassName('close')[0];
+const span = document.getElementsByClassName('dashboard-modal-close')[0];
 
 // 버튼 클릭 시 모달 창 열기
 btn.onclick = function() {

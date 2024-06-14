@@ -64,19 +64,6 @@
         WHERE TRUNC(READING_DONE, 'MI') = TRUNC(#{sysdate}, 'MI')
     </select>
     
-    <!-- 열람실 이용 종료 실행하기 : 해당 회원 이용 종료시키기 -->
-    <delete id="finishUsingSeat">
-    	DELETE
-		FROM RENT_SEAT rs 
-		WHERE MEMBER_NO = #{memberNo}
-    </delete>
-    
-    <!-- 열람실 이용 종료 실행하기 : 해당 좌석 상태 업데이트하기 -->
-	<update id="setAvail">
-		UPDATE SEAT
-		SET SEAT_AVAIL = 0
-		WHERE SEAT_NO = #{seatNo2}
-	</update>
 	
 	<!-- 마감 처리된 수업에 마감 태그 추가 -->
 	<insert id="setCloseTagAdd">
@@ -88,6 +75,14 @@
 	DELETE FROM LESSON_CATEGORY WHERE LESSON_NO = #{lessonNo} AND SMALL_CODE = 14
 	</delete>
 	
+	<select id="selectMemberList">
+		SELECT MEMBER_NO
+		WHERE MEMBER_CANCEL = 1
+	</select>
 	
+	<delete id="deleteMember">
+	 DELETE FROM "MEMBER"
+	 WHERE MEMBER_NO = #{memberNo}
+	</delete>
 	
 </mapper>

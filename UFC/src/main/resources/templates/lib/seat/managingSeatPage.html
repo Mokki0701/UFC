@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/lib/managingSeat.css">
+  <link rel="stylesheet" href="/css/common/header.css">
   <link rel="stylesheet" href="/css/libMain.css">
+  <link rel="stylesheet" href="/css/common/sidebar.css">
   <title>좌석 관리 페이지</title>
 
 
@@ -22,18 +24,17 @@
 </head>
 
 <body>
-  <header th:replace="~{common/header}"></header>
+  <div th:replace="~{common/header}"></div>
+  <div th:replace="~{common/sidebar}"></div>
+  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
 
 
-  <h1>도서관 좌석 관리 페이지</h1>
 
-  <!-- 도서관 nav 조각 -->
-  <th:block th:replace="~{common/lib/libNavVar}"></th:block>
 
-  <span>이메일 : </span><span th:text="${session.loginMember.memberEmail}"></span>
+  <!-- <span>이메일 : </span><span th:text="${session.loginMember.memberEmail}"></span>
 
   <br>
-  <span>회원 등급 : </span><span th:text="${session.loginMember.memberAuthority}"></span>
+  <span>회원 등급 : </span><span th:text="${session.loginMember.memberAuthority}"></span> -->
 
   <!-- 좌석이 만들어지는 section 칸 -->
 
