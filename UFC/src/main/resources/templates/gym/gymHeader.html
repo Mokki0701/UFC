@@ -1,161 +1,159 @@
 <style>
-
-.gym_headerMenu {
+/* 헬스장 헤더 스타일 */
+.gym-semiheader-container {
     display: flex;
+    width: 100%;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    background-color: #333;
-    padding: 40px 30px;
+    background-color:#f2e2ce;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 20px;
+.gym-header {
+    height: 100px;
+    border-radius: 180px;
+    background-color: #D9BD89;
+    
+    padding: 20px;
+    color: black;
+    text-align: center;
+    margin-top: 65px;
+    width: 80%;
+}
+
+.gym-contents {
+    justify-content: space-evenly;
+    display: flex;
+    margin-top: 15px;
+}
+
+.gym-header .gym-contents {
+    margin-top: 15px;
+}
+
+.gym-header-menus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.gym-header button {
+    margin: 5px;
     padding: 10px 20px;
+    border: none;
+    background-color: #f8d89d;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.gym_header {
-    font-size: 2.5em; /* 글씨 크기를 키움 */
-    color: #fff; /* 색깔을 흰색으로 변경 */
-    margin: 0;
-    padding: 0;
+.gym-header button:hover {
+    background-color: #ffffdd;
+    color: #333;
 }
 
-.gym_headerMenu a {
-    color: #fff;
-    transition: color 0.3s ease;
+.gym-title {
+    user-select: none;
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: black; /* 글씨 색상 */
+    transition: color 0.3s; /* 호버 효과 */
 }
 
-.gym_headerMenu a:hover {
-    color: #f0a500;
+.gym-title:hover {
+    color: #333; /* 호버 시 색상 변경 */
 }
 
-.gym_main_logo {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
-    padding: 0;
-    margin: 0;
-}
-
-.gym_main_logo li {
-    position: relative;
-    margin: 0 15px;
-}
-
-.gym_main_logo a {
-    text-decoration: none;
-    font-size: 1.2em;
-    color: #fff; /* 색깔을 흰색으로 변경 */
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.gym_main_logo a:hover {
-    background-color: #444;
-    color: #f000c8;
-    ;
-}
-
-.gym_main_logo .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
-    top: 100%; /* 드롭다운 메뉴가 a 태그 바로 아래에 오도록 조정 */
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #aaa; /* 배경색을 회색으로 변경 */
-    min-width: 180px;
+    background-color: #D9BD89;
+    min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    list-style: none; 
-    padding: 0; 
-    margin: 0; 
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    border-radius: 10px;
+    padding: 10px 0;
+    text-align: center;
 }
 
-.gym_main_logo li:hover .dropdown-content {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-}
-
-.gym_main_logo .dropdown-content a {
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.gym_main_logo .dropdown-content a:hover {
-    background-color: #b7b1b1;
-    color: #f000c8;
+.dropdown-content a:hover {
+    background-color: #ffffdd;
+    color: #333;
 }
 
-#flashMessage {
-    display: none;
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.menu-button {
+    position: relative;
+    display: inline-block; /* 가로 정렬 */
+}
+
+.gym-nav-btn{
+    font-weight: bold;
+    font-size: 15px;
 }
 
 </style>
 
-<div class="gym_headerMenu">
-    <h2 class="gym_header" onclick="location.href='/';" style="cursor: pointer;">헬스장</h2>
-    <ul class="gym_main_logo">
-        <li class="dropdown">
-            <a href="/gym/information/useMachines">운동정보</a>
-            <ul class="dropdown-content">
-                <li><a href="/gym/information/useMachines">기구 사용법</a></li>
-                <li><a href="/gym/information/stretching">스트레칭</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="/trainerSelect/trainerSelect" th:if="${session.loginMember != null}">PT신청</a>
-            <ul class="dropdown-content">
-                <li><a href="/trainerSelect/trainerSelect" th:if="${session.loginMember != null}">트레이너</a></li>
+<section class="gym-semiheader-container">
+    <section class="gym-header">
+    <div class="gym-contents">
+        <div>
+        <div>
+            <a href="/gym/information/useMachines" class="gym-title">헬스장</a>
+        </div>
+        </div>
+        <div class="gym-header-menus">
+        <div class="menu-button dropdown">
+            <a href="/gym/information/useMachines"><button class="gym-nav-btn">운동정보</button></a>
+            <div class="dropdown-content">
+            <a href="/gym/information/useMachines">기구 사용법</a>
+            <a href="/gym/information/stretching">스트레칭</a>
+            </div>
+        </div>
+        <div class="menu-button dropdown">
+            <a href="/trainerSelect/trainerSelect"  th:if="${session.loginMember != null}"><button class="gym-nav-btn">PT신청</button></a>
+            <div class="dropdown-content">
+            <a href="/trainerSelect/trainerSelect" th:if="${session.loginMember != null}">트레이너</a>
+            <a href="/trainerSelect/apply" th:if="${session.loginMember != null}">지원하기</a>
+            <a href="/management/applicationList" th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">지원서 확인</a>
+            </div>
+        </div>
+        <div class="menu-button dropdown">
+            <a href="/reviews/gymReview"><button class="gym-nav-btn">사용후기</button></a>
+            <div class="dropdown-content">
+            <a href="/reviews/gymReview">사용자 리뷰</a>
+            <a href="/gymWrite/insert">리뷰 작성</a>
+            </div>
+        </div>
+        <a href="/gym/myPage/gymMyPage" th:if="${session.loginMember != null}"><button class="gym-nav-btn">내 정보</button></a>
+        </div>
+    </div>
+    </section>
+</section>
 
-                <li>
-                    <a href="/trainerSelect/apply" th:if="${session.loginMember != null}">지원하기</a>
-                </li>
-
-                <li th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
-                    <a href="/management/applicationList">지원서 확인</a>
-                </li>
-
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#">사용후기</a>
-            <ul class="dropdown-content">
-                <li><a href="/reviews/gymReview">사용자 리뷰</a></li>
-                <li><a href="/gymWrite/insert">리뷰 작성</a></li>
-            </ul>
-        </li>
-
-        <li><a href="/gym/myPage/gymMyPage"  th:if="${session.loginMember != null}">내 정보</a></li>
-    </ul>
-
-
-  </div>
-
-  <div th:if="${message}" th:text="${message}" id="flashMessage" style="display: none;"></div>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-   const flashMessage = document.getElementById('flashMessage').innerText;
-   if (flashMessage) {
-       alert(flashMessage);
-   }
-   }); 
- </script>
-  
-
-  
+<div th:if="${message}" th:text="${message}" id="flashMessage" style="display: none;"></div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const flashMessage = document.getElementById('flashMessage').innerText;
+    if (flashMessage) {
+        alert(flashMessage);
+    }
+});
+</script>
+    
