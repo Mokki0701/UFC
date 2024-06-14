@@ -4,6 +4,7 @@ body.application-list-body {
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* 최소 높이를 전체 화면 높이로 설정 */
+    background-color: #f2e2ce;
 }
 
 .application-list {
@@ -69,11 +70,4 @@ body.application-list-body {
 .table a.detail-link:hover {
     color: darkblue; /* 호버 시 더 진한 푸른색 */
     text-decoration: underline;
-}
-
-footer {
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: auto; /* 페이지 하단에 위치하도록 설정 */
 }

@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>운동 정보</title>
 
-    <link rel="stylesheet" href="/css/gym/gymHeader.css">
     <link rel="stylesheet" href="/css/gym/information/stretching.css">
+    <th:block th:replace="~{common/common}"></th:block>
 </head>
 <body>
+    <div th:replace="~{common/header}"></div>
+    <div th:replace="~{common/sidebar}"></div>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
     <div class="gym_container">
         <h3>스트레칭</h3>

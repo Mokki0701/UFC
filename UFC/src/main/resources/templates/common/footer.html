@@ -17,16 +17,16 @@
 </footer>
 
 <!-- 모달 구조 -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
-    <div class="modal-body" id="modal-body"></div>
+<div class="footer-modal" id="footer-modal">
+  <div class="footer-modal-content">
+    <span class="footer-close-btn">&times;</span>
+    <div class="footer-modal-body" id="footer-modal-body"></div>
   </div>
 </div>
 
 <style>
   /* 일반 스타일 */
-  .body {
+/*   .body {
     font-family: Arial, sans-serif;
     background-color: transparent;
     color: #333;
@@ -35,7 +35,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-  }
+  } */
 
   .footer {
     padding: 20px;
@@ -54,7 +54,7 @@
   }
 
   /* 모달 스타일 */
-  .modal {
+  .footer-modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -72,7 +72,7 @@
     to {opacity: 1;}
   }
 
-  .modal-content {
+  .footer-modal-content {
     background-color: #fff;
     margin: 5% auto;
     padding: 30px;
@@ -89,7 +89,7 @@
     to {transform: translateY(0);}
   }
 
-  .close-btn {
+  .footer-close-btn {
     color: #333;
     float: right;
     font-size: 24px;
@@ -97,25 +97,25 @@
     cursor: pointer;
   }
 
-  .close-btn:hover,
-  .close-btn:focus {
+  .footer-close-btn:hover,
+  .footer-close-btn:focus {
     color: #000;
     text-decoration: none;
   }
 
-  .modal-body {
+  .footer-modal-body {
     max-height: 70vh;
     overflow-y: auto;
   }
 
   /* 사용자 정의 콘텐츠 스타일 */
-  .modal-body h2 {
+  .footer-modal-body h2 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #007BFF;
   }
 
-  .modal-body p {
+  .footer-modal-body p {
     line-height: 1.6;
     margin-bottom: 15px;
   }
@@ -164,9 +164,9 @@
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     // 모달 관련 변수 설정
-    const modal = document.getElementById('modal');
-    const closeBtn = document.querySelector('.close-btn');
-    const modalBody = document.getElementById('modal-body');
+    const modal = document.getElementById('footer-modal');
+    const closeBtn = document.querySelector('.footer-close-btn');
+    const modalBody = document.getElementById('footer-modal-body');
 
     // 모든 footer-tags 클래스 요소에 클릭 이벤트 추가
     document.querySelectorAll(".footer-tags").forEach(item => {

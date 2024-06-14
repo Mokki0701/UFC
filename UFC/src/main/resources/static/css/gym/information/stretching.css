@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f2e2ce;
     color: #333;
 }
 
@@ -22,7 +22,7 @@ body{
 
 .gym_type {
     height: 50px;
-    background-color: white;
+    background-color: #f2e2ce;
     width: 100%;
 }
 
@@ -52,8 +52,7 @@ body{
 }
 
 .gym_type a:hover {
-    color: white;
-    background-color: #f000c8;
+    background-color: #D9BD89;
 }
 
 .gym_title {
