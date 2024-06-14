@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.member.model.dto.Member;
 import edu.kh.cooof.member.model.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -117,7 +118,8 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.changeAnything(inputMember);
 	}
-
+	
+	
 	
 	
 }

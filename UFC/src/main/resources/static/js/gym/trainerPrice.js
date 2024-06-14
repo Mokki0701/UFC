@@ -24,50 +24,6 @@ function checkSelectAll() {
 
 
 
-
-
-const gymPrices = document.querySelectorAll(".gym_price");
-
-gymPrices.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const ptCount =  btn.dataset.ptCount; // PT 횟수
-        const memberGender = btn.dataset.memberGender; // 이름
-        
-
-        // form 태그 만들기
-        const form = document.createElement("form");
-        form.action = '/trainerSelect/trainerPrice';
-        form.method = 'POST';
-        
-        // 횟수 입력된 input
-        const input1 = document.createElement("input");
-        input1.type = "hidden";
-        input1.name = "ptCount";
-        input1.value = ptCount;
-        
-        const input2 = document.createElement("input");
-        input2.type = "hidden";
-        input2.name = "trainerNo";
-        input2.value = btn.parentElement.parentElement.dataset.trainerNo;
-        
-        
-        // form태그를 화면에 추가
-        form.append(input1, input2);
-        document.querySelector("body").append(form);
-
-        // form태그 제출
-        form.submit();
-
-    })
-})
-
-
-
-
-
-
-
-
 const gymPayButton = document.querySelector("#gym_pay_button");
 // 락커룸 0,1 작동법 + 요구조건
 
@@ -192,6 +148,8 @@ function incrementNumber() {
 
             console.log('Success', data);
             alert("결제 성공")
+
+            window.location.href = "/trainerSelect/trainerSelect";
           })
           .catch((error) =>{
             console.error('Error:', error);
@@ -202,5 +160,31 @@ function incrementNumber() {
       })
     }
 
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const lockerButtons = document.querySelectorAll('.trainer-locker button');
+      
+      lockerButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          // 현재 버튼 활성화 및 비활성화 처리
+          lockerButtons.forEach(function(btn) {
+            if (btn !== button) {
+              btn.classList.remove('active');
+            }
+          });
+          button.classList.toggle('active');
+        });
+      });
+    });
+    
+
+    /* 드래그 되는거 없애기 */
+    const startDateInputs = document.getElementById('startDate');
+
+    startDateInputs.addEventListener('mousedown', function(event) {
+        event.preventDefault(); // 기본 선택 효과 제거
+    });
+
+    
 
 
