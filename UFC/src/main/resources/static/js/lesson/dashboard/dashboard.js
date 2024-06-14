@@ -103,7 +103,8 @@ lessonSelect.addEventListener("change",()=>{
     if(result>0){
       //별점 UI 함수
       setStarRating(result)
-    } 
+
+    }
     else{
       unlockStarPoint();
       //초기화
