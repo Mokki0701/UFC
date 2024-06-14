@@ -297,9 +297,24 @@ function openModal() {
   }
 }
 
-function closeModal() {
-  modal.style.display = "none";
+ // 모달 열기 및 닫기 함수
+ function openHowToEditSpaceModal() {
+  document.getElementById('howToEditSpaceModal').style.display = 'block';
 }
+
+function closeModal() {
+  document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+}
+
+document.querySelectorAll('.closeButton').forEach(button => {
+  button.addEventListener('click', closeModal);
+});
+
+window.onclick = function (event) {
+  if (event.target.classList.contains('modal')) {
+    closeModal();
+  }
+};
 
 function updateSpaceStatusDisplay(status) {
   switch (status) {

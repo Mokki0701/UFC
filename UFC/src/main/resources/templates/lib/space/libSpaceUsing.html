@@ -4,16 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UFC 도서관 공간대여</title>
-  <link rel="stylesheet" href="/css/common/header.css">
   <link rel="stylesheet" href="/css/libMain.css">
   <link rel="stylesheet" href="/css/lib/space.css">
+  <link rel="stylesheet" href="/css/common/header.css">
+  <link rel="stylesheet" href="/css/common/sidebar.css">
+  <title>UFC 도서관 공간대여</title>
 </head>
+
+<style>
+  .drawnDiv:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+} 
+</style>
 
 <body>
 
-  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
   <div th:replace="~{common/header}"></div>
+  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
   <div th:replace="~{common/sidebar}"></div>
 
 
@@ -22,18 +31,47 @@
 
     <h1>공간 대여 페이지</h1>
 
-    <!-- 출입구 표시 -->
     <div class="spaceInfoArea">
       <div class="spaceUsage">
-        <!-- 여기에 공간 정보가 동적으로 추가됨 -->
+        <!-- 여기에 공간 이용 정보가 동적으로 추가됨 -->
       </div>
 
       <div class="spaceInfoDetails">
+
+       
+
         <div id="exitSack">
           <div class="exit">출입구</div>
           <div class="exit">출입구</div>
         </div>
         <div id="drawingArea"></div>
+
+        <div id="conditionGuide">
+          <div class="boxSack ">
+            <div class="conditionBox avail"></div>
+            <p>: 이용 가능 / </p>
+          </div>
+          <div class="boxSack ">
+            <div class="conditionBox nowUsing"></div>
+            <p>: 현재 사용 중 /</p>
+          </div>
+          <div class="boxSack">
+            <div class="conditionBox disavail"></div>
+            <p>: 점검 중. 이용 불가</p>
+          </div>
+        </div>
+
+        <div id="spaceButtonSack">
+          <form id="actionForm" action="/lib/space/wannaUseSpace" method="post">
+            <input type="hidden" name="spaceNo" id="actionInput">
+            <button type="button" onclick="wannaUseSpace()">이용하기</button>
+            <button type="button" onclick="extendSpace()">공간 연장하기</button>
+            <button type="button" onclick="bookingSpace()">공간 예약하기</button>
+            <button type="button" onclick="checkMySpace()">나의 공간 확인하기</button>
+            <button type="button" onclick="checkMySpaceReservation()">나의 공간 예약 내역</button>
+    
+          </form>
+        </div>
       </div>
 
     </div>
@@ -53,24 +91,7 @@
 
 
   <!-- 방의 상태 창 -->
-  <div id="conditionGuide">
-
-    <div class="boxSack ">
-      <div class="conditionBox avail"></div>
-      <p>: 이용 가능 / </p>
-    </div>
-
-    <div class="boxSack ">
-      <div class="conditionBox nowUsing"></div>
-      <p>: 현재 사용 중 /</p>
-    </div>
-
-    <div class="boxSack">
-      <div class="conditionBox disavail"></div>
-      <p>: 점검 중. 이용 불가</p>
-    </div>
-
-  </div>
+  
 
   <!-- 필요한 정보 일반 -->
   <!-- 다음과 같은 정보가 필요 할 것.
@@ -89,28 +110,15 @@
   <div>
 
     <!-- 1. 로그인한 회원의 번호 -->
-    <div>
+    <div style="display: none;">
       회원님의 회원 번호 : <span th:text="${session.loginMember.memberNo}"></span>
+    <span>현재 선택한 공간 번호 : <span class="currentSelectSpace"></span> </span> <br>
     </div>
 
     <br>
 
-    <div>
-      <span>현재 선택한 공간 번호 : <span class="currentSelectSpace"></span> </span> <br>
-    </div>
 
-    <div id="buttonSack">
-      <form id="actionForm" action="/lib/space/wannaUseSpace" method="post">
-        <input type="hidden" name="spaceNo" id="actionInput">
-        <button type="button" onclick="wannaUseSpace()">이용하기</button>
-        <button type="button" onclick="stopUsingSpace()">그만 사용하기</button>
-        <button type="button" onclick="extendSpace()">공간 연장하기</button>
-        <button type="button" onclick="bookingSpace()">공간 예약하기</button>
-        <button type="button" onclick="checkMySpace()">나의 공간 확인하기</button>
-        <button type="button" onclick="checkMySpaceReservation()">나의 공간 예약 내역</button>
-
-      </form>
-    </div>
+    
 
     <!-- 모달에서 이용할 사용자 정보 -->
     <div id="userInfo" data-member-no="${session.loginMember.memberNo}"></div>
@@ -203,6 +211,7 @@
           </div>
 
           <button type="button" onclick="extendSpace()">연장하기</button>
+          <button type="button" onclick="stopUsingSpace()">그만 사용하기</button>
 
         </th:block>
       </div>
