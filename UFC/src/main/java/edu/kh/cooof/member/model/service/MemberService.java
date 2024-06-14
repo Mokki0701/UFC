@@ -24,6 +24,8 @@ public interface MemberService {
 	// 주소 생일 전화번호 변경
 	int changeAnything(Member inputMember, String[] memberAddress);
 
+	void memberDelete(int memberNo);
+
 	
 	
 

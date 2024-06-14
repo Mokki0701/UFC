@@ -25,7 +25,6 @@ import edu.kh.cooof.member.model.dto.Member;
 import jakarta.servlet.ServletContext;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("lib")

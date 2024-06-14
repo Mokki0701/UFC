@@ -210,5 +210,15 @@ public class MemeberController {
 			return "redirect:/";
 	}
 	
+	@PostMapping("memberDelete")
+	public String memberDelete(
+			@SessionAttribute("loginMember")Member loginMember
+			) {
+		service.memberDelete(loginMember.getMemberNo());
+		
+		
+		return "redirect:/";
+	}
+	
 	
 }

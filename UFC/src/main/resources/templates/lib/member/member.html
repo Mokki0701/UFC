@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <header>
-            <p><strong>정승우</strong> 님, 안녕하세요.</p>
+            <p><strong th:text="|${session.loginMember.memberLastName} ${session.loginMember.memberFirstName}|">정승우</strong> 님, 안녕하세요.</p>
         </header>
         <main>
             <div class="section">
