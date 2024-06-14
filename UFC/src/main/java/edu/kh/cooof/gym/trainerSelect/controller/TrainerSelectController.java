@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.cooof.gym.trainerSelect.model.dto.PaymentRequest;
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.gym.trainerSelect.model.dto.Trainer;
 import edu.kh.cooof.gym.trainerSelect.model.service.TrainerSelectService;
 import edu.kh.cooof.member.model.dto.Member;
@@ -37,7 +38,9 @@ public class TrainerSelectController {
 			RedirectAttributes ra) {
 		
 		Member loginMember = (Member) session.getAttribute("loginMember");
-		String path = null;	
+		
+		
+		String path = null;		
 		String message = null;
 		
 		if(loginMember == null) {
@@ -45,13 +48,37 @@ public class TrainerSelectController {
 			path = "redirect:/gym/gymMain";
 			
 		} else {
-			List<Trainer> trainers = service.getAllTrainers();	
-			model.addAttribute("trainers", trainers);
-			path = "gym/trainerSelect/trainerSelect";
-		}
+			int memberNo = loginMember.getMemberNo();
+			PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
+			List<Trainer> trainers = service.getAllTrainers();
 		
+		  if (ptPrice == null) {
+		     ptPrice = new PtPrice();
+		     ptPrice.setPtYn(0); // 기본 PT 횟수
+		     ptPrice.setPtStrdate(null); // 기본 시작일 (null)
+		     }
+			
+			path = "gym/trainerSelect/trainerSelect";
+		
+		
+		model.addAttribute("ptPrice" , ptPrice);	
+		model.addAttribute("trainers", trainers);
+		model.addAttribute("loginMember", loginMember);
+		}
 	    return path;
 	}
+	
+	@GetMapping("trainerPrice")
+	public String trainerPrice1(
+			HttpSession session,
+			Model model){
+		
+		return "gym/trainerSelect/trainerPrice";
+	}
+	
+	
+	
+	
 	
 	@PostMapping("trainerPrice")
 	public String trainerPrice(
@@ -64,6 +91,7 @@ public class TrainerSelectController {
 		
 		
 		
+		
 		if(loginMember != null) {
 			
 			 int memberNo = loginMember.getMemberNo(); 
@@ -71,8 +99,10 @@ public class TrainerSelectController {
 			 String memberFname = loginMember.getMemberFirstName();
 			 String memberGender = loginMember.getMemberGender();
 			 
+			 PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			 Trainer trainer = service.selectTrainer(trainerNo);
 			
+			model.addAttribute("ptPrice" , ptPrice);
 			model.addAttribute("trainer", trainer);
 			model.addAttribute("calcResult", trainer.getTrainerPrice() * ptCount);
 			model.addAttribute("member", loginMember);

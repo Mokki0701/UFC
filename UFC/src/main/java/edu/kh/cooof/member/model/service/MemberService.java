@@ -1,5 +1,6 @@
 package edu.kh.cooof.member.model.service;
 
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.member.model.dto.Member;
 
 public interface MemberService {
@@ -22,6 +23,10 @@ public interface MemberService {
 
 	// 주소 생일 전화번호 변경
 	int changeAnything(Member inputMember, String[] memberAddress);
+
+	void memberDelete(int memberNo);
+
+	
 	
 
 

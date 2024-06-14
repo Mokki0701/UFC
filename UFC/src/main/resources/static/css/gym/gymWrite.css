@@ -1,0 +1,89 @@
+/* common/header.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* gym/gymHeader.css */
+.gym-write {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.gym-title input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1.2em;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.gym-content textarea {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px;
+    width: 100%;
+    min-height: 200px;
+    box-sizing: border-box;
+}
+
+.gym-btn-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.gym-btn-area button {
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 10px 20px;
+}
+
+.gym-btn-area button:hover {
+    background-color: #218838;
+}
+
+/* common/footer.css */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+
+textarea {
+    width: 100%;
+    height: 6.25em;
+    border: none;
+    resize: none;
+  }

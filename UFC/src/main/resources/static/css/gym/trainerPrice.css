@@ -1,0 +1,63 @@
+/* 기본 페이지 스타일 */
+.buyPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto; /* Adjust margin as needed */
+    max-width: 800px; /* Adjust maximum width as needed */
+    padding: 20px;
+    border: 1px solid #ccc; /* Optional: Add border for clarity */
+    background-color: #f9f9f9; /* Optional: Add background color */
+  }
+  
+  /* 각 섹션의 공통 스타일 */
+  .info-box {
+    background-color: #f0f0f0; /* 배경색 */
+    border: 1px solid #ccc; /* 테두리 */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 그림자 */
+    width: 80%; /* 너비 설정 */
+    max-width: 600px; /* 최대 너비 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+  }
+  
+  /* 섹션 간 여백 설정 */
+  .info-box + .info-box {
+    margin-top: 20px;
+  }
+  
+  /* 락커룸 선택 버튼 기본 스타일 */
+.trainer-locker button {
+    background-color: #f0f0f0; /* 클릭 전 배경색 (옅은 회색) */
+    color: #333; /* 텍스트 색상 */
+    border: 1px solid #ccc; /* 테두리 */
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  /* 선택된 상태 */
+  .trainer-locker button.active {
+    background-color: #007bff; /* 클릭 후 배경색 (파란색) */
+    color: white; /* 텍스트 색상 */
+    border-color: #007bff; /* 테두리 색상 */
+  }
+  
+  #gym_pay_button {
+    margin-top: 20px; /* Adjust button margin */
+    background-color: #f0f0f0; /* 클릭 전 배경색 (옅은 회색) */
+    color: #333; /* 텍스트 색상 */
+    border: 1px solid #ccc; /* 테두리 */
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  
+  
+  
