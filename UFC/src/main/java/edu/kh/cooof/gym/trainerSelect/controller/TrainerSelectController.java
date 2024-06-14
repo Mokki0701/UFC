@@ -73,26 +73,7 @@ public class TrainerSelectController {
 			HttpSession session,
 			Model model){
 		
-		Member loginMember = (Member) session.getAttribute("loginMember");
-		
-		if(loginMember != null) {
-			
-			 int memberNo = loginMember.getMemberNo(); 
-			 String memberLname = loginMember.getMemberLastName();
-			 String memberFname = loginMember.getMemberFirstName();
-			 String memberGender = loginMember.getMemberGender();
-			 
-			 PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
-			 
-			
-			model.addAttribute("ptPrice" , ptPrice);
-			model.addAttribute("member", loginMember);
-			
-
-			return "/gym/trainerSelect/trainerPrice"; // ${param.ptCount}
-		}
-		
-		return "/gym/trainerSelect/trainerSelect";
+		return "gym/trainerSelect/trainerPrice";
 	}
 	
 	

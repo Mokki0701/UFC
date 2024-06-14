@@ -86,7 +86,33 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             } else {
-                window.location.href = `/trainerSelect/trainerPrice`;
+                const ptCount =  button.dataset.ptCount; // PT 횟수
+                const memberGender = button.dataset.memberGender; // 이름
+                
+        
+                // form 태그 만들기
+                const form = document.createElement("form");
+                form.action = '/trainerSelect/trainerPrice';
+                form.method = 'POST';
+                
+                // 횟수 입력된 input
+                const input1 = document.createElement("input");
+                input1.type = "hidden";
+                input1.name = "ptCount";
+                input1.value = ptCount;
+                
+                const input2 = document.createElement("input");
+                input2.type = "hidden";
+                input2.name = "trainerNo";
+                input2.value = button.parentElement.parentElement.dataset.trainerNo;
+                
+                
+                // form태그를 화면에 추가
+                form.append(input1, input2);
+                document.querySelector("body").append(form);
+        
+                // form태그 제출
+                form.submit();
             }
         });
     });

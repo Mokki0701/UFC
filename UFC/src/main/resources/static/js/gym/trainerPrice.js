@@ -161,4 +161,30 @@ function incrementNumber() {
     }
 
 
+    document.addEventListener('DOMContentLoaded', function() {
+      const lockerButtons = document.querySelectorAll('.trainer-locker button');
+      
+      lockerButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          // 현재 버튼 활성화 및 비활성화 처리
+          lockerButtons.forEach(function(btn) {
+            if (btn !== button) {
+              btn.classList.remove('active');
+            }
+          });
+          button.classList.toggle('active');
+        });
+      });
+    });
+    
+
+    /* 드래그 되는거 없애기 */
+    const startDateInputs = document.getElementById('startDate');
+
+    startDateInputs.addEventListener('mousedown', function(event) {
+        event.preventDefault(); // 기본 선택 효과 제거
+    });
+
+    
+
 
