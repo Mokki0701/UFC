@@ -2,6 +2,11 @@
   user-select: none;
 }
 
+h1 {
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  margin: 20px 0; /* 위아래 여백 설정, 좌우 여백 자동 설정으로 가운데 정렬 */
+}
+
 .resize-handle {
   width: 10px;
   height: 10px;
@@ -11,9 +16,6 @@
   bottom: 0;
   cursor: se-resize;
 }
-
-
-
 
 .spaceManager {
   margin: 0;
@@ -93,7 +95,7 @@
   border-radius: 10px;
 }
 
-button {
+.controlPanel > button {
   display: block;
   margin-bottom: 10px;
   padding: 10px 20px;
