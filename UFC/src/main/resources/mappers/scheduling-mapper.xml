@@ -75,6 +75,14 @@
 	DELETE FROM LESSON_CATEGORY WHERE LESSON_NO = #{lessonNo} AND SMALL_CODE = 14
 	</delete>
 	
+	<select id="selectMemberList">
+		SELECT MEMBER_NO
+		WHERE MEMBER_CANCEL = 1
+	</select>
 	
+	<delete id="deleteMember">
+	 DELETE FROM "MEMBER"
+	 WHERE MEMBER_NO = #{memberNo}
+	</delete>
 	
 </mapper>

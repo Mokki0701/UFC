@@ -64,4 +64,10 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
+	<update id="memberDelete">
+		UPDATE "MEMBER" SET
+		MEMBER_CANCEL = 1
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 </mapper>
