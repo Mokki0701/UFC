@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.cooof.common.scheduler.mapper.SchedulingMapper;
 import edu.kh.cooof.lesson.list.model.dto.Lesson;
 import edu.kh.cooof.lib.seat.model.dto.LibSeatDTO;
+import edu.kh.cooof.member.model.dto.Member;
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 
@@ -83,6 +84,16 @@ public class CommonSchedulingServiceImpl implements CommonSchedulingService {
 	@Override
 	public int removeOpenTag(int lessonNo) {
 		return mapper.removeOpenTag(lessonNo);
+	}
+	
+	@Override
+	public void deleteMemberAll() {
+		
+		List<Integer> memberNoList = mapper.selectMemberList();
+		for(int memberNo : memberNoList) {
+			mapper.deleteMember(memberNo);
+		}
+		
 	}
 	
 }

@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="/css/common/header.css">
     <link rel="stylesheet" href="/css/gym/gymHeader.css">
+    <link rel="stylesheet" href="/css/gym/trainerPrice.css">
     
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
@@ -16,76 +17,68 @@
     
     <th:black th:replace="~{gym/gymHeader}"></th:black>
 
-    <h2>상품 정보</h2>
-    <div th:text="${trainer.trainerName}">trainer</div>
-    <div th:text="${param.ptCount} + '회' + ${calcResult} + '원'"></div>
-    <div>
-      <h2>구매자 정보</h2>
-      <div>
-        <div>이름:</div>
-        <div th:text="${member.memberLastName} + '' + ${member.memberFirstName}"></div>
-      </div>
-      <div>
-        <div>휴대폰 번호</div>
-        <div th:text="${trainer.memberPhone}"></div>
-      </div>
-      
-    </div>
-    <div>성별</div>
-    <div th:text="${member.memberGender}"></div>
+    <div class="buyPage">
     
-
-    <div>락커룸 사용 여부(추가 금액 없음)</div>
-    <div id="gym-locker">
-      <button id="lockerYes">O</button> 
-      <button id="lockerNo">X</button>
-    </div>
-
-    <div>
-      <div>
-         최종 결재 금액
+      <!-- 상품 정보 -->
+      <div class="info-box">
+        <h2>상품 정보</h2>
+        <div>트레이너 : <span th:text="${trainer.trainerName}">트레이너 이름</span></div>
+        <div>가격 : <span th:text="${param.ptCount} + '회 ' + ${calcResult} + '원'"></span></div>
       </div>
-      <div>
-        <span  th:text="${calcResult}"></span>
-      </div>  
-    </div>
-
-    <div>
-      <div>
-        <label for="startDate">운동 시작일:</label>
-        <input type="date" id="startDate" name="startDate" required>
+  
+      <!-- 구매자 정보 -->
+      <div class="info-box">
+        <h2>구매자 정보</h2>
+        <div>이름 : <span th:text="${member.memberLastName} + ' ' + ${member.memberFirstName}"></span></div>
+        <div>휴대폰 번호 : <span th:text="${trainer.memberPhone}"></span></div>
+        <div>성별 : <span th:text="${member.memberGender}"></span></div>
       </div>
-      <div>
-        <span class="date-message" id="dateMessage">내일 날짜부터 입력해주세요</span>
+  
+      <!-- 선택 부분 -->
+      <div class="info-box">
+        <h2>선택 부분</h2>
+        <div class="trainer-locker">
+          <div>락커룸 사용 여부(추가 금액 없음)</div>
+          <div id="gym-locker">
+            <button id="lockerYes">O</button> 
+            <button id="lockerNo">X</button>
+          </div>
+        </div>
+        <div class="buyStr">
+          <label for="startDate">운동 시작일:</label>
+          <input type="date" id="startDate" name="startDate" required>
+          <span class="date-message" id="dateMessage">내일 날짜부터 입력해주세요</span>
+        </div>
       </div>
-    </div>
-
-    <div class="agreement-container">
-      
-      <div>
+        
+      <!-- 결제 서비스 이용약관 동의 -->
+      <div class="info-box">
+        <h2>결제 서비스 이용약관 동의</h2>
+        <div>
           <input type="checkbox" id="selectAll" onclick="toggleAll(this)">
           <label for="selectAll" class="bold">전체 동의</label>
-      </div>
-      <div>
+        </div>
+        <div>
           <input type="checkbox" class="agreement" data-required="true" onclick="checkSelectAll()">
           <label for="agreement1">(필수) 약관 1 동의</label>
           <a href="">내용보기</a> <!-- 동의에 대한 내용 보기 -->
-      </div>
-      <div>
+        </div>
+        <div>
           <input type="checkbox" class="agreement" data-required="true" onclick="checkSelectAll()">
           <label for="agreement2">(필수) 약관 2 동의</label>
           <a href="">내용보기</a>
-      </div>
-      <div>
+        </div>
+        <div>
           <input type="checkbox" class="agreement" onclick="checkSelectAll()">
           <label for="agreement3">약관 3 동의</label>
           <a href="">내용보기</a>
+        </div>
       </div>
-  </div>
-
   
-  <button id="gym_pay_button" >결제하기</button>
-
+      <!-- 최종 결제하기 버튼 -->
+      <button id="gym_pay_button">결제하기</button>
+  
+    </div>
   <script th:inline="javascript">
     const calcResult = /*[[${calcResult}]]*/ 100; // spring에서 타임리프 사용 방법
     const memberPhone = /*[[${trainer.memberPhone}]]*/ 0;

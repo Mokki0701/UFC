@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym 게시글 상세 보기</title>
-    <link rel="stylesheet" href="/css/gym/gymHeader.css">
-    <link rel="stylesheet" href="/css/common/header.css">
+
+    <th:block th:replace="~{common/common}"></th:block>
 </head>
 <body>
+
+    <div th:replace="~{common/header}"></div>
+    <div th:replace="~{common/sidebar}"></div>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
 
     <h1 th:text="${gymReview.gymTitle}"></h1>

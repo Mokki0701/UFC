@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.cooof.gym.trainerSelect.model.dto.PaymentRequest;
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.gym.trainerSelect.model.dto.Trainer;
 import edu.kh.cooof.gym.trainerSelect.model.mapper.TrainerSelectMapper;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,15 @@ public class TrainerSelectServiceImpl implements TrainerSelectService {
 	public int gymPayment(PaymentRequest request) {
 		return mapper.gymPayment(request);
 	}
+	
+	// 로그인한 회원의 pt 정보
+	@Override
+	public PtPrice getPriceByMemberNo(int memberNo) {
+			
+		return mapper.selectPtPriceByMemberNo(memberNo);
+	}
+		
+	
+		
 	
 }

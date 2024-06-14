@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #F2E2CE;
     color: #333;
 }
 
@@ -21,7 +21,7 @@ body{
 }
 .gym_type {
     height: 50px;
-    background-color: white;
+    background-color: #F2E2CE;
     width: 100%;
 }
 .gym_type > ul {
@@ -48,8 +48,7 @@ body{
     transition-duration: 0.1s;
 }
 .gym_type a:hover {
-    color: white;
-    background-color: #f000c8;
+    background-color: #D9BD89;
 }
 .gym_items {
     display: flex;
@@ -101,6 +100,7 @@ body{
     padding: 5px 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: white;
 }
 .pagination a:hover {
     background-color: #ddd;

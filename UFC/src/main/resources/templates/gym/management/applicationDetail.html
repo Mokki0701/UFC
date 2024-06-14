@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지원서 상세 조회</title>
 
-    <link rel="stylesheet" href="/css/common/header.css">
-    <link rel="stylesheet" href="/css/gym/gymHeader.css">
     <link rel="stylesheet" href="/css/gym/applicationDetail.css">
+    <th:block th:replace="~{common/common}"></th:block>
 </head>
 <body>
+    <div th:replace="~{common/header}"></div>
+    <div th:replace="~{common/sidebar}"></div>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
     <section class="application-detail">
         <h3 th:text="|${app.memberLastName} ${app.memberFirstName} 의 지원서|">지원서</h3>

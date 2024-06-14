@@ -20,7 +20,7 @@ JOIN
     TRAINER t ON p.TRAINER_NO = t.TRAINER_NO
 WHERE 
     p.MEMBER_NO = #{memberNo}
-
+AND ROWNUM = 1
 </select>
 	
 

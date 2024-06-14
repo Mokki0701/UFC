@@ -3,6 +3,7 @@ package edu.kh.cooof.member.model.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import edu.kh.cooof.gym.trainerSelect.model.dto.PtPrice;
 import edu.kh.cooof.member.model.dto.Member;
 
 // UFC 
@@ -30,6 +31,10 @@ public interface MemberMapper {
 	
 	// 주소 생일 전화번호 변경
 	int changeAnything(Member inputMember);
+
+	void memberDelete(int memberNo);
+
+	
 	
 	
 
