@@ -238,6 +238,10 @@ body{
   cursor: pointer;
 }
 
+#reviewBtn:hover{
+  background-color: #8fa693;
+}
+
 #lecture_list {
   height: 80%;
   overflow-y: auto;

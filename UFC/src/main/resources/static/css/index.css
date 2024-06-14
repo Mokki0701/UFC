@@ -455,7 +455,7 @@ body {
 .board-table {
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: 18px;
+  font-size: 1rem;
   width: 100%;
   border-top: 1px solid #8a4b08;
   /* border-bottom: 1px solid #8a4b08; */
@@ -488,6 +488,7 @@ body {
 .board-table th, .board-table td {
   padding: 14px 0;
 }
+
 
 .board-table tbody td {
   border-top: 1px solid #e7e7e7;
