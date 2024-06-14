@@ -119,6 +119,12 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.changeAnything(inputMember);
 	}
 	
+	@Override
+	public void memberDelete(int memberNo) {
+		
+		mapper.memberDelete(memberNo);
+		
+	}
 	
 	
 	

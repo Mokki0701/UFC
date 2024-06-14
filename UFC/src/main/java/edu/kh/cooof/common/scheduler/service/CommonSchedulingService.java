@@ -63,4 +63,6 @@ public interface CommonSchedulingService {
 	 */
 	int removeOpenTag(int lessonNo);
 
+	void deleteMemberAll();
+
 }
