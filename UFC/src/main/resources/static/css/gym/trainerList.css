@@ -1,13 +1,15 @@
+/* 메인 컨테이너 스타일 */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #f2e2ce;
+    margin: 0;
+    padding: 0;
 }
 
 .trainer-list-container {
-    margin: 20px auto;
-    padding: 20px;
     max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -15,80 +17,92 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 2.5em;
     color: #333;
+    margin-bottom: 20px;
+}
+
+.trainer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
 .trainer-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    justify-content: space-between;
+    width: calc(50% - 20px); /* 한 줄에 두 개씩 배치, 간격 조정 */
+    margin-bottom: 20px;
 }
 
 .trainer-item {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: calc(100% - 20px); /* trainer-container 안에서 한 개씩 배치 */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .trainer-item:hover {
     transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .trainer-image {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: auto;
     border-radius: 10px;
-}
-
-.trainer-details {
-    padding: 15px;
-    text-align: center;
-}
-
-.trainer-name {
-    display: block;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.trainer-intro {
-    display: block;
-    font-size: 1.1em;
-    color: #777;
     margin-bottom: 15px;
 }
 
-.trainer-prices {
+.trainer-details {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.trainer-name {
+    font-weight: bold;
+}
+
+.priceBtns {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
 }
 
 .gym_price {
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #4CAF50;
+    background-color: #8B4513; /* 버튼 배경색 */
+    color: #ffffff;
     border: none;
     border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1.2em; /* 글씨 크기 키우기 */
 }
 
 .gym_price:hover {
-    background-color: #45a049;
+    background-color: #A0522D;
+    color: #ffffff;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .trainer-container {
+        width: calc(50% - 20px); /* 작은 화면에서도 두 개씩 배치 */
+    }
+}
+
+@media (max-width: 480px) {
+    .trainer-container {
+        width: calc(100% - 20px); /* 작은 화면에서는 한 개씩 배치 */
+    }
 }
