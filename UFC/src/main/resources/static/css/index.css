@@ -25,10 +25,10 @@ body {
 }
 
 .main_wrapper {
-  margin: 20px auto;
+  margin: 45px auto;
   padding: 0;
   box-sizing: border-box;
-
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
