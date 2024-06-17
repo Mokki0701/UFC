@@ -194,6 +194,7 @@
 
           <!-- 비밀번호 변경 -->
           <section id="changePasswordModal" class="modal">
+            <div class="modalContent">
             <span class="close">&times;</span>
             <h1>비밀번호 변경</h1>
             <span>
@@ -218,10 +219,11 @@
               </div>    
               <button class="myPage-submit">변경하기</button>
             </form>
+            </div>
           </section>
 
-
           <section id="changeInfoModal" class="modal">
+            <div class="modalContent">
             <form action="/member/changeAnything" method="POST" name="myPageFrm" id="changeAnything">
               <div>
                 <span class="close">&times;</span>
@@ -258,15 +260,15 @@
                 <button class="anythingChange">변경하기</button>
               </div>
             </form>
+            </div>
           </section>
-
-          <div>
+          
           
       
           
       
            
-          </div>
+          
           <div class="MessageSize">
         
             <div th:replace="~{common/main/message}"></div>
