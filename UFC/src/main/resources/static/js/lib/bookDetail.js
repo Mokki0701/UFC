@@ -29,16 +29,19 @@ function updateChart(type) {
         
         const bar = document.getElementById(`bar-${index}`);
         
+        let heightPercent = 0;
+        
         if(type === 'age'){
             document.getElementsByClassName(`bar-label`)[index].innerText = 10*index + "대";
             document.getElementsByClassName(`loan-label`)[index].innerText = 10*index + "대";
+            heightPercent = (loanCount / ageStatisticsMax) * 100; 
         }
         else{
             document.getElementsByClassName(`bar-label`)[index].innerText = 2015 + index;
             document.getElementsByClassName(`loan-label`)[index].innerText = 2015 + index;
+            heightPercent = (loanCount / yearStatisticsMax) * 100; 
         }
 
-        const heightPercent = (loanCount / 3) * 100; 
         bar.style.height = `${heightPercent}%`;
 
         const loan = document.getElementById(`loan-${index}`);

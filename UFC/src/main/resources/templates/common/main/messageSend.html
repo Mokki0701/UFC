@@ -171,6 +171,10 @@
         const messageTitle = document.querySelector("#messageTitle").value;
         const messageContent = document.querySelector("#messageContent").innerText;
 
+        if(messageTitle == "" || messageContent == "") {
+            alert("제목과 내용을 입력하세요.");
+            return;
+        }
         
 
         const obj = {

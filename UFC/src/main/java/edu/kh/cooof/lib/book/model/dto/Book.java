@@ -26,6 +26,7 @@ public class Book {
 	private int lrFlag;
 	private int catNo;
 	private int bookLikeNum;
+	private int bookDelFl;
 	
 	
 }

@@ -3,6 +3,7 @@ package edu.kh.cooof.lib.book.model.service;
 import java.util.List;
 import java.util.Map;
 
+import edu.kh.cooof.lib.book.model.dto.Book;
 import edu.kh.cooof.lib.book.model.dto.LoanBook;
 
 public interface BookLoanService {
@@ -32,6 +33,8 @@ public interface BookLoanService {
 	int completeHopeBook(int newBookNo, int applyMemberNo, int memberNo);
 
 	Map<String, Object> queryExtendList(int cp, String query);
+
+	int storeBook(Book storeBook);
 
 	
 
