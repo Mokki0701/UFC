@@ -47,6 +47,7 @@ function clickDropDown(element) {
         document.body.appendChild(dropdownContent);
     }
 
+    
     // 클릭한 h2 태그 바로 밑에 드롭다운 메뉴 위치 설정
     const rect = element.getBoundingClientRect();
     const scrollTop = document.documentElement.scrollTop;
