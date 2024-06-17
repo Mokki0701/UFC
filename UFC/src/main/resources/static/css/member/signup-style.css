@@ -3,8 +3,8 @@
  .error{ color : red; }
 
 
-/*  모달 */
- .modal {
+/* 모달 */
+.modal {
   display: none; /* 기본적으로 숨김 */
   position: fixed;
   z-index: 1000;
@@ -16,8 +16,9 @@
   background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
 }
 
+/* 모달 내부 콘텐츠 */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #fefefe; /* 흰색 배경 */
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -25,6 +26,7 @@
   max-width: 600px;
 }
 
+/* 닫기 버튼 */
 .close {
   color: #aaa;
   float: right;
