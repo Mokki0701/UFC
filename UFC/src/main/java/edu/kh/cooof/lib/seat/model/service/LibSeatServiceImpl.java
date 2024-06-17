@@ -156,4 +156,20 @@ public class LibSeatServiceImpl implements LibSeatService {
 		
 		return mapper.cancleSeatBooking(memberNo);
 	}
+	
+	@Override
+	public int banAllSeatUsers() {
+		int result = 0;
+		
+		int updateSeatsAvail2 = mapper.updateSeatsAvail2();
+		int deleteAllSeatUsers = mapper.deleteAllSeatUsers();
+		int deleteAllSeatSpaceRent = mapper.deleteAllSeatSpaceRent();
+		
+		if (updateSeatsAvail2 >= 1 && deleteAllSeatUsers >= 1) {
+			result = 1;
+		} else result = 0;
+		
+		
+		return result;
+	}
 }

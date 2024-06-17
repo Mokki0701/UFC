@@ -297,8 +297,8 @@ function openModal() {
   }
 }
 
- // 모달 열기 및 닫기 함수
- function openHowToEditSpaceModal() {
+// 모달 열기 및 닫기 함수
+function openHowToEditSpaceModal() {
   document.getElementById('howToEditSpaceModal').style.display = 'block';
 }
 
@@ -385,4 +385,28 @@ function saveSpaceStatus() {
       console.error('Error:', error);
       alert('Error: 공간 상태 저장에 실패했습니다.');
     });
+}
+
+function banAllSpaceUsers() {
+  if (confirm("정말 모든 회원의 공간 대여 이용을 종료시키시겠습니까?")) {
+    fetch('/lib/space/banAllSpaceUsers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();  // 서버로부터 응답 메시지를 텍스트로 받음
+      })
+      .then(message => {
+        alert(message);  // 받은 메시지를 alert로 출력
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("서버와 통신 중 오류가 발생했습니다.");
+      });
+  }
 }

@@ -182,5 +182,17 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND SPACE_NO IS NULL
 	</delete>
+	
+	<update id="updateSeatsAvail2">
+		UPDATE SEAT SET SEAT_AVAIL = 0
+	</update>
+	
+	<delete id="deleteAllSeatUsers">
+		DELETE FROM RENT_SEAT
+	</delete>
+	
+	<delete id="deleteAllSeatSpaceRent">
+		DELETE FROM SEAT_SPACE_BOOKING
+	</delete>
 
 </mapper>

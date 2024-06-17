@@ -229,34 +229,43 @@ public class SpaceServiceImpl implements SpaceService {
 	public int updateSpaceToAvailable(int userNo) {
 		return mapper.updateSpaceToAvailable(userNo);
 	}
-	
-	
+
 	// 이용 종료시키기
 	@Override
 	public int getOut(int userNo) {
 		return mapper.getOut(userNo);
 	}
-	
+
 	// 열람실 이용중인 회원들의 회원 번호 가져오기
 	@Override
 	public List<Integer> getSeatUserNo() {
 		return mapper.getSeatUserNo();
 	}
-	
+
 	@Override
 	public String seateUserDoneTime(int seatUserNo) {
 		return mapper.seateUserDoneTime(seatUserNo);
 	}
-	
+
 	@Override
 	public int setSeatAvailable(int seatUserNo) {
 		return mapper.setSeatAvailable(seatUserNo);
 	}
-	
+
 	@Override
 	public int getOutFromSeat(int seatUserNo) {
 		return mapper.getOutFromSeat(seatUserNo);
 	}
-	
-	
+
+	@Override
+	public int banAllSpaceUsers() {
+		try {
+			int updateCount = mapper.updateSpaceAvail();
+			int deleteCount = mapper.deleteAllSpaceRent();
+			return (updateCount > 0 && deleteCount > 0) ? 1 : 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }

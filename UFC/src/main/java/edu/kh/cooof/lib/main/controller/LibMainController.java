@@ -28,16 +28,14 @@ public class LibMainController {
 	public String toUfcMain() {
 		return "/index";
 	}
-	
-	
+
 	// 도서관 메인으로 이동
 	@GetMapping("/toLibMain")
 	public String toLibMain() {
-		
+
 		return "/liblary/libMain";
 	}
-	
-	
+
 	// 자리 관리 페이지로 이동
 	@GetMapping("/managingSeatPage")
 	public String managingSeatPage(HttpSession session, RedirectAttributes ra) {
@@ -61,6 +59,32 @@ public class LibMainController {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		String path = null;
 
+		// 필요한 세션 객체 생성하기
+		// 1. 공간 세션 객체를 생성하기
+		Map<Integer, Integer> memberAndSpaceSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSpaceSession");
+
+		if (memberAndSpaceSession == null) {
+			memberAndSpaceSession = new HashMap<>();
+
+			session.setAttribute("memberAndSpaceSession", memberAndSpaceSession);
+		}
+
+		// 2. 공간 예약 세션 객체를 생성하기
+		Map<String, Object> bookingSpaceSession = (Map<String, Object>) session.getAttribute("bookingSpaceSession");
+		if (bookingSpaceSession == null) {
+			bookingSpaceSession = new HashMap<>();
+		}
+
+		// 3. 열람실 세션 객체 생성하기
+		Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
+				.getAttribute("memberAndSeatSession");
+
+		if (memberAndSeatSession == null) {
+			memberAndSeatSession = new HashMap<>();
+			session.setAttribute("memberAndSeatSession", memberAndSeatSession);
+		}
+
 		// 로그인이 된 경우에만 이동 가능하게 하기
 		if (loginMember == null) {
 			ra.addFlashAttribute("message", "로그인 후 이용해 주세요");
@@ -68,6 +92,7 @@ public class LibMainController {
 		}
 
 		if (loginMember != null && loginMember.getMemberAuthority() < 3) {
+
 			path = "lib/seat/useSeat";
 		}
 
@@ -96,36 +121,33 @@ public class LibMainController {
 		return path;
 
 	}
+
 	// 공간 관리 페이지로 이동하기
 	@GetMapping("managingSpace")
 	public String managingSpace(HttpSession session, RedirectAttributes ra, Model model) {
-		
-		
-		
+
 		Member loginMember = (Member) session.getAttribute("loginMember");
-		
-		
+
 		String path = null;
 		// loginMember.memberAuthority == 3 : 관리자 회원만 접근 가능하게 하기
 		int memberAuthority = loginMember.getMemberAuthority();
-		
+
 		// 관리자가 아닌 경우
-		if(memberAuthority < 3) {
+		if (memberAuthority < 3) {
 			ra.addFlashAttribute("message", "해당 기능은 관리자만 이용 가능합니다.");
-			
+
 			path = "redirect:/";
 		}
-		
+
 		// 관리자인 경우
-		if(memberAuthority == 3) {
+		if (memberAuthority == 3) {
 			path = "lib/space/libSpaceManaging";
 		}
-		
+
 		model.addAttribute("memberAuthority", memberAuthority);
 		return path;
-		
+
 	}
-	
 
 	// 공간 이용 페이지로 이동하기
 	@GetMapping("toSpace")
@@ -141,22 +163,21 @@ public class LibMainController {
 		if (memberAndSpaceSession == null) {
 			memberAndSpaceSession = new HashMap<>();
 		}
-		
+
 		// 2. 공간 예약 세션 객체를 생성하기
 		Map<String, Object> bookingSpaceSession = (Map<String, Object>) session.getAttribute("bookingSpaceSession");
-	    if (bookingSpaceSession == null) {
-	        bookingSpaceSession = new HashMap<>();
-	    }
-		
+		if (bookingSpaceSession == null) {
+			bookingSpaceSession = new HashMap<>();
+		}
+
 		// 3. 열람실 세션 객체 생성하기
 		Map<Integer, Integer> memberAndSeatSession = (Map<Integer, Integer>) session
 				.getAttribute("memberAndSeatSession");
-		
+
 		if (memberAndSeatSession == null) {
 			memberAndSeatSession = new HashMap<>();
 		}
-		
-		
+
 		// 로그인 안된 경우
 		if (loginMember == null) {
 			ra.addFlashAttribute("message", "로그인 후 이용해 주세요");

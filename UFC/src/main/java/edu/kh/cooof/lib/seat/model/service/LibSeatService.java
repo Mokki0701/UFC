@@ -52,6 +52,8 @@ public interface LibSeatService {
 	// 열람실 예약 취소하기
 	int cancleSeatBooking(int memberNo);
 
+	int banAllSeatUsers();
+
 	
 
 	
