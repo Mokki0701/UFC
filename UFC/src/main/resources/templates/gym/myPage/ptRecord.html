@@ -37,11 +37,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:if="${gymMyPage != null}">
-                        <td th:text="${gymMyPage.ptYN}"></td>
-                        <td th:text="${gymMyPage.trainerName}"></td>
-                        <td th:text="'PT ' + ${gymMyPage.ptYN} + '회권 - ' + ${gymMyPage.ptPrice} + '원'"></td>
-                        <td th:text="${#dates.format(gymMyPage.ptStrDate, 'yyyy-MM-dd')}"></td>
+                    <tr th:each="record : ${ptRecords}">
+                        <td th:text="${record.ptYN}"></td>
+                        <td th:text="${record.trainerName}"></td>
+                        <td th:text="'PT ' + ${record.ptYN} + '회권 - ' + ${record.ptPrice} + '원'"></td>
+                        <td th:text="${#dates.format(record.ptStrDate, 'yyyy-MM-dd')}"></td>
                     </tr>
                 </tbody>
             </table>
