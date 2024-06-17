@@ -181,21 +181,8 @@
                   </div>
                   <div>
                     <label>우편번호 :</label>
-<<<<<<< HEAD
-                    <span th:text="${postcode}"></span>
-                    <label>도로명/지번 주소 :</label>
-                    <span th:text="${address}"></span>
-                    <label>상세 주소 :</label>
-                    <span th:text="${detailAddress}"></span>
-                  </div>
-                
-                <button id="modalCloseButton">닫기</button>
-              </div>
-            </div>
-=======
                     <span th:text="${session.loginMember.memberAddress}"></span>
                   </div>           
->>>>>>> a9ddec46e5acd2f311d603f0b4ec01c2dbbbaee0
           </div>
 
 
@@ -225,7 +212,7 @@
                   <label>새 비밀번호</label>
                   <input type="password" name="newPw" id="newPw" maxlength="30">              
               </div>
-              
+    
               <div class="myPage-row">
                   <label>새 비밀번호 확인</label>
                   <input type="password" name="newPwConfirm" id="newPwConfirm" maxlength="30">              
@@ -275,17 +262,7 @@
             </form>
             </div>
           </section>
-
-
-          <section>
-            <form action="/member/memberDelete" method="POST" name="myPageFrm" id="memberDelete">
-              <h1>회원 탈퇴</h1>
-              <button type="button" onclick="confirmDeletion()">탈퇴</button>
-            </form>
-          </section>
-
-          <div>
-
+          
           
       
           
