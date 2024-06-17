@@ -1,9 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="background-color: #F2E2CE;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym 게시글 상세 보기</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .gymRivSession {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .gymReviewList {
+            width: 60%;
+            max-width: 800px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .gymReviewSection {
+            margin-bottom: 20px;
+            padding: 10px; /* 각 섹션의 안쪽 여백 추가 */
+            border: 1px solid #ccc; /* 섹션의 테두리 추가 */
+            border-radius: 8px; /* 섹션의 모서리를 둥글게 처리 */
+            background-color: #fff; /* 섹션의 배경색 지정 */
+        }
+
+        .gymTitleSection h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0; /* 제목의 마진을 0으로 설정하여 여백을 없앱니다. */
+        }
+
+        .gymWriteSection p,
+        .gymContentSection p,
+        .gymDateSection p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .gymWriteSection span,
+        .gymContentSection span,
+        .gymDateSection span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        footer {
+            /* 여기에 푸터 스타일을 추가하세요 */
+        }
+
+    </style>
 
     <th:block th:replace="~{common/common}"></th:block>
 </head>
@@ -13,12 +75,27 @@
     <div th:replace="~{common/sidebar}"></div>
     <th:block th:replace="~{gym/gymHeader}"></th:block>
 
-    <h1 th:text="${gymReview.gymTitle}"></h1>
-    <p>작성자: <span th:text="${gymReview.memberLastName} + '**'  "></span></p>
-    <p th:text="${gymReview.gymContent}"></p>
-    <p>작성일: <span th:text="${gymReview.gymWriteDate}"></span></p>
-    <!-- 다른 게시글 내용을 추가로 표시할 수 있음 -->
+    <div class="gymRivSession">
+        <div class="gymReviewList">
+            <div class="gymReviewSection gymTitleSection">
+                <h1 th:text="'제목: ' + ${gymReview.gymTitle}"></h1>
+            </div>
 
-    <th:block th:replace="~{/common/footer}">footer</th:block>
+            <div class="gymReviewSection gymWriteSection">
+                <p>작성자: <span th:text="${gymReview.memberLastName} + '**'"></span></p>
+            </div>
+
+            <div class="gymReviewSection gymContentSection">
+                <p>작성 내용: <span th:text="${gymReview.gymContent}"></span></p>
+            </div>
+
+            <div class="gymReviewSection gymDateSection">
+                <p>작성일: <span th:text="${gymReview.gymWriteDate}"></span></p>
+            </div>
+
+        </div>
+    </div>
+
+    <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>
