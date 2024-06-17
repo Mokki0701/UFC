@@ -41,7 +41,7 @@ public class TrainerSelectServiceImpl implements TrainerSelectService {
 	@Override
 	public PtPrice getPriceByMemberNo(int memberNo) {
 			
-		return mapper.selectPtPriceByMemberNo(memberNo);
+		return mapper.getPriceByMemberNo(memberNo);
 	}
 		
 	

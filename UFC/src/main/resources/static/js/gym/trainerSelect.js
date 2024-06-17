@@ -39,23 +39,23 @@
 document.addEventListener("DOMContentLoaded", () => {
     const buttons = document.querySelectorAll(".gym_price");
 
+    console.log(ptPrices);
+    
     buttons.forEach(button => {
         button.addEventListener("click", e => {
-            if (ptPrice && ptPrice.ptYn > 0 && ptPrice.ptStrdate) {
-                const endDate = new Date(ptPrice.ptStrdate);
-                endDate.setDate(endDate.getDate() + ptPrice.ptYn);
-
-                const currentDate = new Date();
-
-                if (endDate > currentDate) {
-                    const formattedEndDate = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`;
-                    const confirmation = confirm(`${ptPrice.ptStrdate} 부터 ${formattedEndDate}까지 PT 진행 중입니다. 결제를 계속 하시겠습니까?`);
-                    if (!confirmation) {
-                        return;
-                    }
-                }
-            }
-
+            const endDate = new Date(ptPrices.ptStrdate);
+            endDate.setDate(endDate.getDate() + ptPrices.ptYn);
+            const currentDate = new Date();
+            
+            if (endDate > currentDate) {  
+                console.log(endDate)
+                console.log(currentDate)  
+                alert("PT 진행 중입니다. PT기간이 끝난후 신청 하실수있습니다");
+                return;
+              
+            } else {
+                console.log(endDate)
+            console.log(currentDate)
             const ptCount = button.dataset.ptCount; // PT 횟수
             const trainerNo = button.closest('.trainer-container').dataset.trainerNo; // 트레이너 번호
 
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // form태그 제출
             form.submit();
+            }
         });
     });
 });

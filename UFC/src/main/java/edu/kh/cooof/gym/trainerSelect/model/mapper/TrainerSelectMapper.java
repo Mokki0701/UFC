@@ -29,7 +29,8 @@ public interface TrainerSelectMapper {
 	int gymPayment(PaymentRequest request);
 	
 	// 로그인한 회원 pt 정보 조회
-		PtPrice selectPtPriceByMemberNo(int memberNo);
+
+		PtPrice getPriceByMemberNo(int memberNo);
 
 		
 

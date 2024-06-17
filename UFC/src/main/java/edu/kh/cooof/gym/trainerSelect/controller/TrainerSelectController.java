@@ -51,22 +51,24 @@ public class TrainerSelectController {
 		
 		else {
 			int memberNo = loginMember.getMemberNo();
-			PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
+			PtPrice ptPrices = service.getPriceByMemberNo(memberNo);
+			
 			List<Trainer> trainers = service.getAllTrainers();
 		
-		  if (ptPrice == null) {
-		     ptPrice = new PtPrice();
-		     ptPrice.setPtYn(0); // 기본 PT 횟수
-		     ptPrice.setPtStrdate(null); // 기본 시작일 (null)
+		  if (ptPrices == null) {
+		     ptPrices = (PtPrice) new PtPrice();
+		     ((PtPrice) ptPrices).setPtYn(0); // 기본 PT 횟수
+		     ((PtPrice) ptPrices).setPtStrdate(null); // 기본 시작일 (null)
 		     }
 			
 			path = "gym/trainerSelect/trainerSelect";
 		
 		
-		model.addAttribute("ptPrice" , ptPrice);	
+		model.addAttribute("ptPrices" , ptPrices);	
 		model.addAttribute("trainers", trainers);
 		model.addAttribute("loginMember", loginMember);
 		}
+		
 	    return path;
 	}
 	

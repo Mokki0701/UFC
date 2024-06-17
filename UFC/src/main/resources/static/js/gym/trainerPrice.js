@@ -41,23 +41,32 @@ const gymPayButton = document.querySelector("#gym_pay_button");
 
 
 
-const startDateInput = document.getElementById("startDate");
-let inputDate = ""; // 입력된 날짜를 저장할 변수
-let selectedDate = null; // 선택된 날짜를 저장할 변수
-
-// 운동 시작일 입력이 변경될 때마다 확인하는 함수
-startDateInput.addEventListener("input", function() {
-    inputDate = startDateInput.value.trim();
-    selectedDate = new Date(inputDate); // 입력된 날짜 가져오기
-    const today = new Date(); // 오늘 날짜 가져오기
-
-    // 오늘 이전의 날짜인 경우
-    if (selectedDate < today) {
-        startDateInput.value = '';
-        alert("오늘 이후의 날짜부터 가능합니다.")
-        return;
-    }
-});
+    const startDateInput = document.getElementById("startDate");
+    let inputDate = ""; // 입력된 날짜를 저장할 변수
+    let selectedDate = null; // 선택된 날짜를 저장할 변수
+    
+    // 운동 시작일 입력이 변경될 때마다 확인하는 함수
+    startDateInput.addEventListener("input", function() {
+        inputDate = startDateInput.value.trim();
+        selectedDate = new Date(inputDate); // 입력된 날짜 가져오기
+        const today = new Date(); // 오늘 날짜 가져오기
+        const maxSelectableDate = new Date(today.getTime() + (14 * 24 * 60 * 60 * 1000)); // 오늘로부터 2주(14일) 후의 날짜 계산
+    
+        // 오늘 이전의 날짜인 경우
+        if (selectedDate < today) {
+            startDateInput.value = '';
+            alert("오늘 이후의 날짜부터 가능합니다.");
+            return;
+        }
+    
+        // 2주 이후의 날짜인 경우
+        if (selectedDate > maxSelectableDate) {
+            startDateInput.value = '';
+            alert("2주 이내의 날짜까지 선택 가능합니다.");
+            return;
+        }
+    });
+    
 
 
 /* 버튼을 눌렀을 때 */
