@@ -11,7 +11,7 @@
     <div class="container reservationBook" th:fragment="reservationBook">
         <div class="summary">
             <div class="book-count" th:text="|도서 개수 : ${totalCount}개|">도서 개수: 0개</div>
-            <button class="reserve-btn" id="reserveBtn" onclick="reserveBook()">예약하기</button>
+            <button class="reserve-btn" id="reserveBtn" onclick="reserveBook(this)">예약하기</button>
         </div>
         
         <div class="cart-item" th:each="rent : ${rentList}" th:object="${rent}">

@@ -1,6 +1,7 @@
 package edu.kh.cooof.lib.book.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +145,11 @@ public class BookController {
 		model.addAttribute("themeList", paramMap.get("themeList"));
 		model.addAttribute("ageStatistics", paramMap.get("ageStatistics"));
 		model.addAttribute("yearStatistics", paramMap.get("yearStatistics"));
+		
+		model.addAttribute("yearStatisticsMax",Collections.max((List<Integer>) paramMap.get("yearStatistics")));
+		model.addAttribute("yearStatisticsMin",Collections.min((List<Integer>) paramMap.get("yearStatistics")));
+		model.addAttribute("ageStatisticsMax",Collections.max((List<Integer>) paramMap.get("ageStatistics")));
+		model.addAttribute("ageStatisticsMin",Collections.min((List<Integer>) paramMap.get("ageStatistics")));
 		
 		return "lib/book/bookDetail";
 	}

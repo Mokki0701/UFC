@@ -25,21 +25,27 @@ function bookReserveDelete(){
 
 }
 
-function reserveBook(){
+function reserveBook(e){
     
     const checkBoxs = {}
     let num = 0;
+    let checkNum = 0;
 
     for(let i of reserveCheck){
 
         if(i.checked){
             const bookNo = i.nextElementSibling.innerText;
             checkBoxs[num] = bookNo;
+            checkNum++;
         }
         else{
             checkBoxs[num] = 0;
         }
         num++;
+    }
+    if(checkNum === 0){
+        alert("도서를 선택하십시오");
+        return;
     }
 
     console.log(num);
@@ -54,7 +60,7 @@ function reserveBook(){
     .then(data => {
         console.log('Success:', data);
 
-        window.location.href = "/main/libMain";
+        window.location.href = "/book/bookList";
     })
     .catch((error) => {
 

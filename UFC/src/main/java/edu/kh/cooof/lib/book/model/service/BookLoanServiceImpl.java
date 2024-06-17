@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.cooof.lesson.list.model.dto.LessonPagination;
+import edu.kh.cooof.lib.book.model.dto.Book;
 import edu.kh.cooof.lib.book.model.dto.LoanBook;
 import edu.kh.cooof.lib.book.model.dto.NewBook;
 import edu.kh.cooof.lib.book.model.dto.RentBook;
@@ -339,6 +340,12 @@ public class BookLoanServiceImpl implements BookLoanService {
 		map.put("loanList", loanList);
 		
 		return map;
+	}
+	
+	@Override
+	public int storeBook(Book storeBook) {
+
+		return mapper.storeBook(storeBook);
 	}
 	
 	
