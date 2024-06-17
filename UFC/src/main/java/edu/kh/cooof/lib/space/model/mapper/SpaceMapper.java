@@ -94,6 +94,10 @@ public interface SpaceMapper {
 	
 	int getOutFromSeat(int seatUserNo);
 
+	int updateSpaceAvail();
+
+    int deleteAllSpaceRent();
+
 
 
 

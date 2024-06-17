@@ -245,8 +245,8 @@
        FROM RENT_SEAT
     </select>
 
-    <select id="seateUserDoneTime" parameterType="string">
-          SELECT TO_CHAR(READING_DONE, 'YYYY-MM-DD HH24:MI') AS seatDone
+    <select id="seateUserDoneTime" parameterType="_int">
+       SELECT TO_CHAR(READING_DONE, 'YYYY-MM-DD HH24:MI') AS seatDone
        FROM RENT_SEAT
        WHERE MEMBER_NO = #{userNo} 
     </select>
@@ -267,6 +267,14 @@
        WHERE MEMBER_NO = #{seatUserNo}
     </delete>
     
+  	<update id="updateSpaceAvail">
+        UPDATE "SPACE" SET SPACE_AVAIL = 0
+        WHERE SPACE_AVAIL != 3
+    </update>
+
+    <delete id="deleteAllSpaceRent">
+        DELETE FROM RENT_SPACE
+    </delete>
     
    
 </mapper>
