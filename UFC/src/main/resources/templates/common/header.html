@@ -4,8 +4,7 @@
       <a href="/">UFC</a>
     </div>
     <input type="checkbox" id="notification-toggle" class="header-notification-toggle" th:if="${session.loginMember}">
-    <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell"
-      th:if="${session.loginMember}"></label>
+    <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell" th:if="${session.loginMember}"></label>
     <div class="header-notification-num" th:if="${session.loginMember}">
       <span class="noti-number"></span>
     </div>

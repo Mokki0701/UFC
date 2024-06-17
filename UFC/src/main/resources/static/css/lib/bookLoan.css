@@ -1,4 +1,4 @@
-body {
+#bookLoanBody {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(to right, #ece9e6, #ffffff);
     color: #333;
@@ -6,9 +6,8 @@ body {
     padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
+
 .container {
     max-width: 1200px;
     width: 100%;
@@ -17,9 +16,10 @@ body {
     border-radius: 12px;
     overflow: hidden;
 }
+
 .header {
-    background: #007BFF;
-    color: #fff;
+    background: burlywood;
+    color: #3b3b3b; /* 어두운 갈색 계열 */
     padding: 20px;
     text-align: center;
     font-size: 26px;
@@ -28,21 +28,24 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
 .tab-btn {
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background: #0056b3;
-    border: 1px solid #0056b3;
+    background: #8B4513; /* 어두운 갈색 */
+    border: 1px solid #8B4513;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
     margin: 0 10px;
 }
+
 .tab-btn:hover, .tab-btn.active {
-    background: #007BFF;
+    background: #A0522D; /* 좀 더 밝은 갈색 */
     color: #fff;
 }
+
 .search-container {
     display: flex;
     justify-content: space-between;
@@ -50,6 +53,7 @@ body {
     background: #f7f7f9;
     border-bottom: 1px solid #e7e7e9;
 }
+
 .search-container input[type="text"] {
     flex-grow: 1;
     padding: 12px 16px;
@@ -59,14 +63,16 @@ body {
     transition: all 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .search-container input[type="text"]:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    border-color: #8B4513; /* 어두운 갈색 */
+    box-shadow: 0 0 8px rgba(139, 69, 19, 0.25);
 }
+
 .search-container button {
     padding: 12px 20px;
     font-size: 16px;
-    background-color: #007BFF;
+    background-color: #8B4513; /* 어두운 갈색 */
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -75,35 +81,43 @@ body {
     margin-left: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .search-container button:hover {
-    background-color: #0056b3;
+    background-color: #A0522D; /* 좀 더 밝은 갈색 */
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 0;
 }
+
 table th, table td {
     padding: 15px 20px;
     border-bottom: 1px solid #ddd;
     text-align: left;
 }
+
 table th {
     background-color: #f8f9fa;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
+
 table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+
 table tr:hover {
     background-color: #e9ecef;
 }
+
 .action-buttons {
     display: flex;
     gap: 10px;
 }
+
 .action-buttons button {
     padding: 10px 15px;
     font-size: 14px;
@@ -114,18 +128,23 @@ table tr:hover {
     transition: all 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .action-buttons .approve {
     background-color: #28a745;
 }
+
 .action-buttons .approve:hover {
     background-color: #218838;
 }
+
 .action-buttons .delete {
     background-color: #dc3545;
 }
+
 .action-buttons .delete:hover {
     background-color: #c82333;
 }
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -135,29 +154,26 @@ table tr:hover {
     list-style-type: none;
     margin: 0;
 }
+
 .pagination li {
     margin: 0 5px;
 }
-.pagination a {
+
+.pagination button {
     padding: 8px 12px;
     font-size: 16px;
-    color: #007BFF;
-    text-decoration: none;
+    color: #8B4513; /* 어두운 갈색 */
     background: none;
-    border: 1px solid #007BFF;
+    border: 1px solid #8B4513;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.pagination a:hover {
-    background: #007BFF;
+
+.pagination button:hover, .pagination .active button {
+    background: #8B4513; /* 어두운 갈색 */
     color: #fff;
-}
-.pagination .active a {
-    background: #007BFF;
-    color: #fff;
-    border: 1px solid #007BFF;
 }
 
 button:disabled {
@@ -165,4 +181,29 @@ button:disabled {
     color: #777; /* 텍스트 색상을 회색으로 */
     cursor: not-allowed; /* 커서를 금지 모양으로 */
     opacity: 0.6; /* 불투명도 낮추기 */
+}
+
+#book-list > tr > td {
+    text-align: center;
+}
+
+.loanBook > table > thead > tr > th {
+    text-align: center;
+}
+
+.pagination > li > a, .pagination > li > button {
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #8B4513; /* 어두운 갈색 */
+    background: none;
+    border: 1px solid #8B4513;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pagination > li > a:hover, .pagination > li > button:hover, .pagination .active a, .pagination .active button {
+    background: #8B4513; /* 어두운 갈색 */
+    color: #fff;
 }

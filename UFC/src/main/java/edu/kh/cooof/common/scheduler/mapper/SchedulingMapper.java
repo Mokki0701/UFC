@@ -65,6 +65,11 @@ public interface SchedulingMapper {
 	 */
 	int removeOpenTag(int lessonNo);
 
+	List<Integer> selectMemberList();
+
+	void deleteMember(int memberNo);
+
+
 	
 	
 

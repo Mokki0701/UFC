@@ -626,8 +626,14 @@ document.getElementById('changePasswordBtn').onclick = function() {
 
 });
 
+// -----------------------------------
+// 회원 탈퇴
 
-
+function confirmDeletion() {
+    if (confirm("정말로 탈퇴하시겠습니까?")) {
+      document.getElementById("memberDelete").submit();
+    }
+  }
 
 
 

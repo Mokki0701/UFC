@@ -49,12 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* 상세 검색에 clicked 클래스를 가진 요소가 있다면 display:none에서 block으로 바꾸는 코드 끝 */
 
-
-
-
-
-
-
     // 검색 버튼을 변수로 저장함
     const searchButton = document.querySelector('.search-bar button[type="submit"]');
     // 상세 검색 버튼들을 변수로 저장함

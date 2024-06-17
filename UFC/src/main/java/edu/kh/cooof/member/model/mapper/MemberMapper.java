@@ -32,6 +32,8 @@ public interface MemberMapper {
 	// 주소 생일 전화번호 변경
 	int changeAnything(Member inputMember);
 
+	void memberDelete(int memberNo);
+
 	
 	
 	

@@ -19,7 +19,7 @@ fetch('/lesson/api/attendance?memberNo=' + loginMemberNo)
         datasets: [
           {
             label: "attendance rate (%)",
-            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            backgroundColor: ["#FFD1DC", "#B3E5FC", "#C8F7C5", "#E6E6FA", "#8BA590"],
             data: rates
           }
         ]
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch('/lesson/calendar')
         .then(response => response.json())
         .then(data => {
-          console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
+          //console.log('Fetched data:', data); // 데이터 확인을 위한 로그 출력
           if (Array.isArray(data)) {
             const events = [];
             let colorIndex = 0;
