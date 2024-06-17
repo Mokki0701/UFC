@@ -88,6 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
+	openTab('main'); // 기본적으로 첫 번째 탭 열기
+
 	const messageBody = document.querySelector(".message-container");
 
 	if(loginCheck) {
@@ -103,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 	}
-	openTab('main'); // 기본적으로 첫 번째 탭 열기
+	
 });
 
 function messageListSelect(type){
