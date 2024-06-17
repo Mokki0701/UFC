@@ -39,7 +39,7 @@
         <span> 사용중인 좌석</span>
       </div>
 
-      <!-- <div class="usingSeatInfo">
+      <div class="usingSeatInfo" th:if="${session.loginMember != null}">
 
         <th:block
           th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
@@ -48,7 +48,7 @@
             <span class="noSeatNo" th:if="${session.memberAndSeatSession[session.loginMember.memberNo] == null}">이용중인 좌석 없음</span>
             <span  th:if="${session.memberAndSeatSession[session.loginMember.memberNo] != null}">번 좌석 이용 중</span>
           </p>
-      </div> -->
+      </div>
 
       <!-- 버튼 모음 -->
       <div class="buttonSack"> <button id="useSeat">이용하기</button>

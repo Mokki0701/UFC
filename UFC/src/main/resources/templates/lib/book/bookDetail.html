@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Information</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/css/lib/bookDetail.css">
+    <link rel="stylesheet" href="/css/common/header.css">
+    <link rel="stylesheet" href="/css/common/sidebar.css">
 </head>
+
 <body>
+
+    <div th:replace="~{common/header}"></div>
+    <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
+    <div th:replace="~{common/sidebar}"></div>
+
 
     <div class="book-info" th:object="${book}">
         <div class="book-main">
@@ -15,7 +24,8 @@
             <div class="book-details">
                 <h2 th:text="*{bookTitle}">레드셔츠</h2>
                 <div class="book-meta">
-                    <p><strong>저자:</strong> <span th:text="*{authorFirstName}">존</span> <span th:text="*{authorLastName}">스칼지</span></p>
+                    <p><strong>저자:</strong> <span th:text="*{authorFirstName}">존</span> <span
+                            th:text="*{authorLastName}">스칼지</span></p>
                     <p><strong>출판사:</strong> <span th:text="*{bookPublisher}">폴라북스</span></p>
                     <p><strong>발행 연도:</strong> <span th:text="*{bookYear}">2014</span></p>
                     <p><strong>ISBN:</strong> <span th:text="*{storageDetail}">978-89-01-23456-7</span></p>
@@ -186,11 +196,12 @@
 
         const bookNo2 = /*[[${book.bookNo}]]*/ "책 번호";
     </script>
-    
+
     class="memberNoChattingBtn"
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="/js/lib/bookDetail.js"></script>
 </body>
+
 </html>

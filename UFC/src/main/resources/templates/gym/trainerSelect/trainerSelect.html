@@ -17,45 +17,39 @@
   <div class="trainer-list-container">
     <h1>Trainer List</h1>
     
-    <div class="trainer-container" th:each="trainer : ${trainers}" th:data-trainer-no="${trainer.trainerNo}">
-      <div class="trainer-item">
+    <div class="trainer-row" th:each="trainerPair : ${#lists.partition(trainers, 2)}">
+      <div class="trainer-container" th:each="trainer : ${trainerPair}" th:data-trainer-no="${trainer.trainerNo}">
+        <div class="trainer-item">
           <img class="trainer-image" th:src="@{'/uploads/gym/' + ${trainer.trainerImg}}" alt="헬스트레이너">
           <div class="trainer-details">
             트레이너 <span class="trainer-name" th:text="${trainer.trainerName}">트레이너 이름</span>
           </div>
-          <img class="trainer-image" th:src="@{'/uploads/gym/' + ${trainer.trainerImg}}" alt="헬스트레이너">
-          <div class="trainer-details">
-            트레이너 <span class="trainer-name" th:text="${trainer.trainerName}">트레이너 이름</span>
-          </div>
-      <div>
-        <button class="gym_price"  data-pt-count="1"  th:text="'1회 가격: '  + ${trainer.trainerPrice}        + '원'">1회 가격</button>
-        <button class="gym_price"  data-pt-count="5"  th:text="'5회 가격: '  + (${trainer.trainerPrice} * 5)  + '원'">5회 가격</button>
-        <button class="gym_price"  data-pt-count="10" th:text="'10회 가격: ' + (${trainer.trainerPrice} * 10) + '원'">10회 가격</button>
-        <div th:text="${ptPrice.ptYn}"></div>
-        <div th:text="${ptPrice.ptStrdate}"></div>
+          <div class="priceBtns">
+            <button class="gym_price" data-pt-count="1" th:data-trainer-no="${trainer.trainerNo}" th:text="'1회 가격: ' + ${trainer.trainerPrice} + '원'">1회 가격</button>
+            <button class="gym_price" data-pt-count="5" th:data-trainer-no="${trainer.trainerNo}" th:text="'5회 가격: ' + (${trainer.trainerPrice} * 5) + '원'">5회 가격</button>
+            <button class="gym_price" data-pt-count="10" th:data-trainer-no="${trainer.trainerNo}" th:text="'10회 가격: ' + (${trainer.trainerPrice} * 10) + '원'">10회 가격</button>
 
-          <!-- <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice})}" id="tenTimesLink" data-pt-count="1">
-          </a>
-          <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice * 5})}" id="tenTimesLink" data-pt-count="5">
-          </a>
-          <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice * 10})}" id="tenTimesLink" data-pt-count="10">
-          </a> -->
+            <!-- <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice})}" id="tenTimesLink" data-pt-count="1">
+            </a>
+            <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice * 5})}" id="tenTimesLink" data-pt-count="5">
+            </a>
+            <a th:href="@{/trainerSelect/trainerPrice(price=${trainer.trainerPrice * 10})}" id="tenTimesLink" data-pt-count="10">
+            </a> -->
+
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  
-  
-  <script  src="/js/gym/trainerSelect.js"></script>
+  <script src="/js/gym/trainerSelect.js"></script>
   <script th:inline="javascript">
     const ptYn = /*[[${ptPrice.ptYn}]]*/ 0;
     const ptStrdate = /*[[${ptPrice.ptStrdate}]]*/ 0;
     const ptPrice = /*[[${ptPrice}]]*/ null;
-    
   </script>
 
   <th:block th:replace="~{common/footer}"></th:block>
-  
-
 </body>
 </html>

@@ -106,7 +106,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 95%;
+  width: 80%;
   border-radius: 10px;
 
   background-color: burlywood;
@@ -188,18 +188,6 @@
 
 /* 버튼 스타일 */
 
-#buttonSack{
-  display: flex;
-  flex-direction: row;
-
-  justify-content: space-around;
-}
-
-#buttonSack > button{
-  width: 200px;
-  height: 50px;
-}
-
 button{
   font-size: 20px;
 }
@@ -209,16 +197,56 @@ button:hover{
 
 }
 
+#spaceButtonSack{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(222, 184, 135, 0.589);
+}
+
+#actionForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+#actionForm > button {
+  width: 32%;
+  height: 50px;
+  border-radius: 10px;
+  background-color: rgba(140, 106, 43, 1); 
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+#actionForm > button:hover {
+  cursor: pointer;
+  background-color:rgba(191, 152, 80, 1);
+  transform: translateY(-3px);
+}
+
+#actionForm > button:active {
+  background-color: peru;
+  transform: translateY(0);
+}
+
+
 /* ------------------------- 생성된 공간 관련 css ------------------------------------------ */
 
 .spaceManager {
-
-  
   margin: 20px 0px 0px 0px ;
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  background-color: rgba(242, 214, 162, 1);
 }
 
 .spaceManager > h1 {
@@ -227,11 +255,12 @@ button:hover{
   margin-bottom: 20px;
   border: 2px solid black;
   background-color: burlywood;
-  width: 90vw;
+  width: 80vw;
   padding : 10px;
   border-radius: 10px;
   text-align: center;
 }
+
 
 
 #exitSack{
@@ -243,11 +272,10 @@ button:hover{
 #drawingArea {
   width: 750px;
   height: 500px;
-  background-color: #cdcdcd;
+  background-color: #ffffffbe;
   position: relative;
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border: 0.5px solid gray;
   border-radius: 10px;
 }
 
@@ -266,6 +294,8 @@ button:hover{
 
   border-radius: 10px;
 }
+
+
 
 /* 클래스 토글 표시 */
 

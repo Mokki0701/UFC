@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Dashboard</title>
     <link rel="stylesheet" href="/css/lib/member.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common/header.css">
+    <link rel="stylesheet" href="/css/common/sidebar.css">
 </head>
+
 <body>
+    <div th:replace="~{common/header}"></div>
+    <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
+    <div th:replace="~{common/sidebar}"></div>
+
     <div class="container">
         <header>
-            <p><strong th:text="|${session.loginMember.memberLastName} ${session.loginMember.memberFirstName}|">정승우</strong> 님, 안녕하세요.</p>
+
+            <p><strong th:text="|${session.loginMember.memberLastName} ${session.loginMember.memberFirstName}|">회원 이름
+                    표시</strong> 님, 안녕하세요.</p>
+
         </header>
         <main>
             <div class="section">
@@ -34,7 +45,7 @@
                 <div class="box purple-box half-box" onclick="mySeat()">
                     <div class="title">이용중인 좌석 조회</div>
                     <div class="content">
-                        
+
                         <!-- 자리 있음 -->
                         <div th:unless="${seat?.memberNo}">
                             <p>회원님이 사용 중인 좌석 번호 : <span>없음</span></p>
@@ -46,7 +57,9 @@
                         <!-- 자리 없음 -->
                         <div th:if="${seat?.memberNo}">
                             <p>회원님이 사용 중인 좌석 번호 : <span th:text="${seat.seatNo2}"></span></p>
-                            <p>연장 가능 : <span th:text="${seat.readingExtend == 1 ? 'O' : (seat.readingExtend == 0 ? 'X' : '')}"></span></p>
+                            <p>연장 가능 : <span
+                                    th:text="${seat.readingExtend == 1 ? 'O' : (seat.readingExtend == 0 ? 'X' : '')}"></span>
+                            </p>
                             <p>이용 시작한 시간 : <span th:text="${seat.readingStart}">00 : 00</span></p>
                             <p>이용 종료 예정 시간 : <span th:text="${seat.readingDone}">00 : 00</span></p>
                         </div>
@@ -75,7 +88,9 @@
                         <!-- 공간 없음 -->
                         <div th:if="${space?.memberNo}">
                             <p>회원님이 사용 중인 공간 번호 : <span th:text="${space.spaceNo2}"></span></p>
-                            <p>연장 가능 : <span th:text="${space.spaceExtend == 1 ? 'O' : (space.spaceExtend == 0 ? 'X' : '')}"></span></p>
+                            <p>연장 가능 : <span
+                                    th:text="${space.spaceExtend == 1 ? 'O' : (space.spaceExtend == 0 ? 'X' : '')}"></span>
+                            </p>
                             <p>이용 시작한 시간 : <span th:text="${space.spaceStart}">00 : 00</span></p>
                             <p>이용 종료 예정 시간 : <span th:text="${space.spaceDone}">00 : 00</span></p>
                         </div>
@@ -125,7 +140,8 @@
                         <td th:text="*{bookTitle}">도서 제목 1</td>
                         <td th:text="*{bookStart}">2024-01-01</td>
                         <td th:text="*{bookEnd}">2024-01-15</td>
-                        <td th:value="*{bookNo}"><button onclick="extendApply(this)" th:attr="disabled=*{bookReturn} == 1 ? 'disabled' : null">연장</button></td>
+                        <td th:value="*{bookNo}"><button onclick="extendApply(this)"
+                                th:attr="disabled=*{bookReturn} == 1 ? 'disabled' : null">연장</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -176,7 +192,8 @@
                 <input type="text" id="memberNo" th:attr="value=${session.loginMember.memberNo}" readonly>
             </div>
             <div class="modal-footer">
-                <button id="submitBtn" th:attr="value=${session.loginMember.memberNo}" onclick="submitHope(this.value)">신청 완료 버튼</button>
+                <button id="submitBtn" th:attr="value=${session.loginMember.memberNo}"
+                    onclick="submitHope(this.value)">신청 완료 버튼</button>
             </div>
         </div>
     </div>
@@ -184,4 +201,5 @@
 
     <script src="/js/lib/member.js"></script>
 </body>
+
 </html>
