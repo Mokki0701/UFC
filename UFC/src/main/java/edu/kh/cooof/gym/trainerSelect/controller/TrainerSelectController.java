@@ -51,7 +51,7 @@ public class TrainerSelectController {
 		
 		else {
 			int memberNo = loginMember.getMemberNo();
-			<List>PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
+			PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			List<Trainer> trainers = service.getAllTrainers();
 		
 		  if (ptPrice == null) {

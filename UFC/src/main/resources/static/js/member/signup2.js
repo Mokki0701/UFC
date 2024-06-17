@@ -604,32 +604,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ----------------- 모달 창
-    const modalOpenButton = document.getElementById('modalOpenButton');
-    const modalCloseButton = document.getElementById('modalCloseButton');
-    const modal = document.getElementById('modalContainer');
-
-    modalOpenButton.addEventListener('click', () => {
-    modal.classList.remove('hidden');
-    });
-
-    modalCloseButton.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    });
-
-
-
-    const modalOpenButton2 = document.getElementById('modalOpenButton2');
-    const modalCloseButton2 = document.getElementById('modalCloseButton2');
-
-    modalOpenButton.addEventListener('click', () => {
-    modal.classList.remove('hidden');
-    });
-
-    modalCloseButton.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    });
-
-
+// 비밀번호 변경 모달 트리거 버튼 클릭 시
+// 비밀번호 변경 모달 트리거 버튼 클릭 시
+document.getElementById('changePasswordBtn').onclick = function() {
+    document.getElementById('changePasswordModal').style.display = 'block';
+  }
+  
+  // 정보 변경 모달 트리거 버튼 클릭 시
+  document.getElementById('changeInfoBtn').onclick = function() {
+    document.getElementById('changeInfoModal').style.display = 'block';
+  }
+  
+  // 닫기 버튼 클릭 시 모달 닫기
+  document.querySelectorAll('.close').forEach(function(closeBtn) {
+    closeBtn.onclick = function() {
+      var modal = closeBtn.closest('.modal');
+      modal.style.display = 'none';
+    }
+  });
+  
 
 });
 
