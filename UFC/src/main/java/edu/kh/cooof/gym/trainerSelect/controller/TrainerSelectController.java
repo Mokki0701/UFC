@@ -47,7 +47,9 @@ public class TrainerSelectController {
 			ra.addFlashAttribute("message", "트레이너 페이지는 로그인 후 사용 가능합니다.");
 			path = "redirect:/gym/gymMain";
 			
-		} else {
+		} 
+		
+		else {
 			int memberNo = loginMember.getMemberNo();
 			PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			List<Trainer> trainers = service.getAllTrainers();
@@ -99,10 +101,9 @@ public class TrainerSelectController {
 			 String memberFname = loginMember.getMemberFirstName();
 			 String memberGender = loginMember.getMemberGender();
 			 
-			 PtPrice ptPrice = service.getPriceByMemberNo(memberNo);
 			 Trainer trainer = service.selectTrainer(trainerNo);
 			
-			model.addAttribute("ptPrice" , ptPrice);
+			
 			model.addAttribute("trainer", trainer);
 			model.addAttribute("calcResult", trainer.getTrainerPrice() * ptCount);
 			model.addAttribute("member", loginMember);

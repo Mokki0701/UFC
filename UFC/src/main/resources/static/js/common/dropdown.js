@@ -49,9 +49,12 @@ function clickDropDown(element) {
 
     // 클릭한 h2 태그 바로 밑에 드롭다운 메뉴 위치 설정
     const rect = element.getBoundingClientRect();
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollLeft = document.documentElement.scrollLeft;
+
     dropdownContent.style.position = 'absolute';
-    dropdownContent.style.top = rect.bottom + 'px';
-    dropdownContent.style.left = rect.left + 'px';
+    dropdownContent.style.top = (rect.bottom + scrollTop) + 'px';
+    dropdownContent.style.left = (rect.left + scrollLeft) + 'px';
 
     // 드롭다운 메뉴 표시/숨기기 토글
     dropdownContent.classList.toggle('show');

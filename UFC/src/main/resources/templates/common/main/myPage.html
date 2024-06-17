@@ -5,7 +5,7 @@
     <div class="swiper-wrapper"> 
       <div class="swiper-slide"  th:unless="${session.loginMember != null}" id="loginSignup" >
         <!-- 로그인 -->
-        <div>   
+        <div class="myPage-loginForm">   
           <form action="/member/loginMember" method="post" id="loginForm">
             <h2>로그인</h2>
             <section class="input-box">
@@ -21,142 +21,146 @@
 
         </div>
       </div>
-      <!-- 회원가입 -->
+
+      <!-- 회원가입 -->    
       <div class="swiper-slide"  th:unless="${session.loginMember != null}" id="loginSignup">
         <section class="signUp-content">
           <form action="/member/signup" method="POST" name="signUpForm" id="signUpForm">
             <!-- 이메일 입력 -->
-            <label for="memberEmail">
-              <span class="required">*</span> 아이디(이메일)
-            </label>
-            <div class="signUp-input-area">
-                <!-- 아이디(이메일) 입력란 -->
-                <input type="text" name="memberEmailId" id="memberEmailId" placeholder="아이디" maxlength="30" autocomplete="off">
-                @ 
-                <input type="text" name="memberEmailDomain" id="memberEmailDomain" >
-                <!-- 도메인 선택을 위한 select 요소 -->
-                <select class="Email-box" id="domain-list">
-                  <option value="type">직접 입력</option>
-                  <option value="naver.com">naver.com</option>
-                  <option value="gmail.com">gmail.com</option>
-                  <option value="hanmail.net">hanmail.net</option>
-                  <option value="nate.com">nate.com</option>
-                  <option value="kakao.com">kakao.com</option>
-                </select>
-                <button id="sendAuthKeyBtn" type="button">인증번호 받기</button>
+            <div class="myPage-left">
+              <label for="memberEmail">
+                <span class="required">*</span> 아이디(이메일)
+              </label>
+              <div class="signUp-input-area">
+                  <!-- 아이디(이메일) 입력란 -->
+                  <input type="text" name="memberEmailId" id="memberEmailId" placeholder="아이디" maxlength="30" autocomplete="off">
+                  @ 
+                  <input type="text" name="memberEmailDomain" id="memberEmailDomain" >
+                  <!-- 도메인 선택을 위한 select 요소 -->
+                  <select class="Email-box" id="domain-list">
+                    <option value="type">직접 입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="hanmail.net">hanmail.net</option>
+                    <option value="nate.com">nate.com</option>
+                    <option value="kakao.com">kakao.com</option>
+                  </select>
               </div>
-            <span class="signUp-message" id="emailMessage">옳바른 이메일을 입력해주세요</span>
+                  <div class="sendAuthKeyBtn">
+                    <button id="sendAuthKeyBtn" type="button">인증번호 받기</button>
+                  </div>
+              <span class="signUp-message" id="emailMessage">옳바른 이메일을 입력해주세요</span>
 
-            <!-- 인증번호 입력 -->
-            <label for="emailCheck">
-              <span class="authKeyNumber">*</span> 인증번호
-            </label>
+              <!-- 인증번호 입력 -->
+              <label for="emailCheck" style="margin: 5px;">
+                <span class="authKeyNumber">*</span> 인증번호
+              </label>
 
-            <div class="signUp-input-area">
-              <input type="text" name="authKey" id="authKey" placeholder="인증번호 입력" maxlength="6" autocomplete="off">
-              <button id="checkAuthKeyBtn" type="button">인증하기</button>
-            </div>
-            <span class="signUp-message" id="authKeyMessage"></span>
+              <div class="signUp-input-area">
+                <input type="text" name="authKey" id="authKey" placeholder="인증번호 입력" maxlength="6" autocomplete="off">
+                <button id="checkAuthKeyBtn" type="button">인증하기</button>
+              </div>
+              <span class="signUp-message" id="authKeyMessage"></span>
 
-            <br>
-            <!-- 비밀번호/비밀번호 확인 입력 -->
-            <label for="memberPw">
-              <span class="required">*</span> 비밀번호
-            </label>
-            <div class="signUp-input-area">
-              <input type="password" name="memberPw" id="memberPw"
-              placeholder="비밀번호" maxlength="20">
+              <br>
+              <!-- 비밀번호/비밀번호 확인 입력 -->
+              <label for="memberPw">
+                <span class="required">*</span> 비밀번호
+              </label>
+              <div class="signUp-input-area">
+                <input type="password" name="memberPw" id="memberPw"
+                placeholder="비밀번호" maxlength="20">
+              </div>
+              <div class="signUp-input-area">
+                <input type="password" name="memberPwConfirm" id="memberPwConfirm"
+                placeholder="비밀번호 확인" maxlength="20">
+              </div>
+              <span class="signUp-message" id="pwMessage">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.</span>
+      
+              <br>
+              <!-- 성 입력 -->
+              <label for="memberLastName">
+                <span class="required">*</span> 성
+              </label>
+              <div class="signUp-input-area">
+                <input type="text" name="memberLastName" id="memberLastName" placeholder="성" maxlength="10">
+              </div>
+              <span class="name-message" id="lnameMessage">한글 1~5글자 사이로 입력해 주세요.</span>
+              
+              <br>
+              <!-- 이름 입력 -->
+              <label for="memberFirstName" style="margin: 5px;">
+                <span class="required">*</span> 이름
+              </label>
+              <div class="signUp-input-area">
+                <input type="text" name="memberFirstName" id="memberFirstName" placeholder="이름" maxlength="10">
+              </div>
+              <span class="name-message" id="fnameMessage">한글 1~7글자 사이로 입력해 주세요.</span>
+              <br>
+              <br>
             </div>
-            <div class="signUp-input-area">
-              <input type="password" name="memberPwConfirm" id="memberPwConfirm"
-              placeholder="비밀번호 확인" maxlength="20">
+
+            <div class="myPage-right">
+              <!-- 성별 선택 -->
+              <span>* 성별을 선택해주세요</span>
+              <div class="signUp-input-area">
+                <label for="male">남자</label>
+                <input type="radio" name="memberGender" id="male" value="M">
+                <label for="female">여자</label>
+                <input type="radio" name="memberGender" id="female" value="F">
+              </div>
+              <span class="gender-message" id="genderMessage">성별을 선택해 주세요.</span>
+              
+              <br>
+              <!-- 생년월일 입력 -->
+              <label for="memberBirthday">* 생년월일
+                <input type="date" id="memberBirthday" name="memberBirthday" 
+                  min="1950-01-01" max="2020-12-31">
+              </label>
+              <br>
+              <span class="birthdate-message" id="birthdateMessage">정확한 생년월일을 입력해주세요.</span>
+              <br>
+      
+              <!-- 전화번호 입력 -->
+              <label for="memberPhone">
+                <span class="required">*</span> 전화번호
+              </label>
+              <div class="signUp-input-area">
+                <input type="text" name="memberPhone" id="memberPhone" placeholder="- 없이 숫자만 입력" maxlength="11">
+              </div>
+              <span class="signUp-message" id="telMessage">전화번호를 입력해주세요.(010으로 시작만 가능)(- 제외)</span>
+      
+              <br>
+              <!-- 주소 입력 -->
+              <label for="memberPostcode">우편번호</label>
+              <div class="signUp-input-area">
+                <input type="text" name="memberAddress" placeholder="우편번호" maxlength="6" id="postcode">
+                <button type="button" id="searchAddress">검색</button>
+              </div>
+      
+              <label for="memberAddress">도로명/지번 주소</label>
+              <div class="signUp-input-area">
+                <input type="text" name="memberAddress" placeholder="도로명/지번 주소" id="address">
+              </div>
+      
+              <label for="memberDetailAddress">상세 주소</label>
+              <div class="signUp-input-area">
+                <input type="text" name="memberAddress" placeholder="상세 주소" id="detailAddress">
+              </div>
+      
             </div>
-            <span class="signUp-message" id="pwMessage">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.</span>
-    
-            <br>
-            <!-- 성 입력 -->
-            <label for="memberLastName">
-              <span class="required">*</span> 성
-            </label>
-            <div class="signUp-input-area">
-              <input type="text" name="memberLastName" id="memberLastName" placeholder="성" maxlength="10">
-            </div>
-            <span class="name-message" id="lnameMessage">한글 1~5글자 사이로 입력해 주세요.</span>
-            
-            <br>
-            <!-- 이름 입력 -->
-            <label for="memberFirstName">
-              <span class="required">*</span> 이름
-            </label>
-            <div class="signUp-input-area">
-              <input type="text" name="memberFirstName" id="memberFirstName" placeholder="이름" maxlength="10">
-            </div>
-            <span class="name-message" id="fnameMessage">한글 1~7글자 사이로 입력해 주세요.</span>
-            <br>
-            <br>
-    
-            <!-- 성별 선택 -->
-            <span>* 성별을 선택해주세요</span>
-            <div class="signUp-input-area">
-              <input type="radio" name="memberGender" id="male" value="M">
-              <label for="male">남자</label>
-              <input type="radio" name="memberGender" id="female" value="F">
-              <label for="female">여자</label>
-            </div>
-            <span class="gender-message" id="genderMessage">성별을 선택해 주세요.</span>
-            
-            <br>
-            <!-- 생년월일 입력 -->
-            <label for="memberBirthday">* 생년월일
-              <input type="date" id="memberBirthday" name="memberBirthday" 
-                min="1950-01-01" max="2020-12-31">
-            </label>
-            <br>
-            <span class="birthdate-message" id="birthdateMessage">정확한 생년월일을 입력해주세요.</span>
-            <br>
-    
-            <!-- 전화번호 입력 -->
-            <label for="memberPhone">
-              <span class="required">*</span> 전화번호
-            </label>
-            <div class="signUp-input-area">
-              <input type="text" name="memberPhone" id="memberPhone" placeholder="- 없이 숫자만 입력" maxlength="11">
-            </div>
-            <span class="signUp-message" id="telMessage">전화번호를 입력해주세요.(010으로 시작만 가능)(- 제외)</span>
-    
-            <br>
-            <!-- 주소 입력 -->
-            <label for="memberPostcode">우편번호</label>
-            <div class="signUp-input-area">
-              <input type="text" name="memberAddress" placeholder="우편번호" maxlength="6" id="postcode">
-              <button type="button" id="searchAddress">검색</button>
-            </div>
-    
-            <label for="memberAddress">도로명/지번 주소</label>
-            <div class="signUp-input-area">
-              <input type="text" name="memberAddress" placeholder="도로명/지번 주소" id="address">
-            </div>
-    
-            <label for="memberDetailAddress">상세 주소</label>
-            <div class="signUp-input-area">
-              <input type="text" name="memberAddress" placeholder="상세 주소" id="detailAddress">
-            </div>
-    
             <button type="submit" id="signUpBtn">가입하기</button>
+
           </form>
         </section>
       </div>
-
+      
 
       <!-- 마이페이지 -->
       <div class="swiper-slide"  th:if="${session.loginMember != null}" id="myPageContent">
         <div>
           <h1>마이페이지</h1>
           <div>
-            <button id="modalOpenButton">내 정보 보기</button>
-
-            <div id="modalContainer" class="hidden">
-              <div id="modalContent">
                   <div>
                     <label>성명 :
                       <span th:text="${session.loginMember.memberLastName}"></span>
@@ -178,14 +182,20 @@
                   <div>
                     <label>우편번호 :</label>
                     <span th:text="${session.loginMember.memberAddress}"></span>
-                  </div>
-                
-                <button id="modalCloseButton">닫기</button>
-              </div>
-            </div>
+                  </div>           
           </div>
+
+
+          <!-- 비밀번호 변경 모달 트리거 버튼 -->
+          <button id="changePasswordBtn">비밀번호 변경</button>
+
+          <!-- 정보 변경 모달 트리거 버튼 -->
+          <button id="changeInfoBtn">정보 변경</button>
+
           <!-- 비밀번호 변경 -->
-          <section>
+          <section id="changePasswordModal" class="modal">
+            <div class="modalContent">
+            <span class="close">&times;</span>
             <h1>비밀번호 변경</h1>
             <span>
               현재 비밀번호와 일치하는 경우
@@ -209,12 +219,14 @@
               </div>    
               <button class="myPage-submit">변경하기</button>
             </form>
+            </div>
           </section>
 
-
-          <section>
+          <section id="changeInfoModal" class="modal">
+            <div class="modalContent">
             <form action="/member/changeAnything" method="POST" name="myPageFrm" id="changeAnything">
               <div>
+                <span class="close">&times;</span>
                 <h1>주소 변경</h1>
                 <span>원하는 주소 변경 가능.</span>
                 <div class="myPage-row info-address">
@@ -245,10 +257,12 @@
                   <input type="date" id="memberBirthday" name="memberBirthday" 
                   min="1950-01-01" max="2020-12-31">
                 </div>
+                <button class="anythingChange">변경하기</button>
               </div>
-              <button class="anythingChange">변경하기</button>
             </form>
+            </div>
           </section>
+
 
           <section>
             <form action="/member/memberDelete" method="POST" name="myPageFrm" id="memberDelete">
@@ -258,12 +272,13 @@
           </section>
 
           <div>
+
           
       
           
       
            
-          </div>
+          
           <div class="MessageSize">
         
             <div th:replace="~{common/main/message}"></div>
