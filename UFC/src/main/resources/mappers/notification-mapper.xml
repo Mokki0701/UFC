@@ -36,11 +36,11 @@
 		ORDER BY NOTIFICATION_NO DESC
 	</select>
 	
-	<select id="updateNotification">
+	<update id="updateNotification">
 		UPDATE "NOTIFICATION" SET
 		NOTIFICATION_CHECK = 1
 		WHERE NOTIFICATION_NO = #{notificationNo}
-	</select>
+	</update>
 	
 	<select id="notReadCheck">
 		SELECT COUNT(*) 

@@ -78,8 +78,10 @@ public class LibSeatController {
 		String message = null;
 		int memberNo = loginMember.getMemberNo();
 		int isMemberUsing = service.isMemberUsing(memberNo);
+		int isMemberUsingSpace = service.isMemberUsingSpace(memberNo);
 		int seatCondition = libSeat.getCondition();
 		int userSeatNo = 0;
+		
 
 		// 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
 		if (seatCondition != 1) {
@@ -88,6 +90,9 @@ public class LibSeatController {
 		} else if (isMemberUsing == 1) {
 			// 현재 회원이 이용 중인 좌석이 있을 경우
 			message = "현재 회원님은 이용중인 자리가 있습니다.";
+			result = "fail";
+		} else if (isMemberUsingSpace == 1) {
+			message = "현재 회원님은 이용중인 공간이 있습니다.";
 			result = "fail";
 		} else {
 			// 이용 가능한 좌석이며, 현재 회원이 이용 중인 좌석이 없을 경우
@@ -115,7 +120,6 @@ public class LibSeatController {
 				if (memberAndSeatSession == null) {
 					memberAndSeatSession = new HashMap<>();
 				}
-				// memberAndSeatSession.put(memberNo, libSeat.getSeatNo());
 				memberAndSeatSession.put(memberNo, userSeatNo);
 
 				session.setAttribute("memberAndSeatSession", memberAndSeatSession);
@@ -408,7 +412,27 @@ public class LibSeatController {
 		return map;
 	}	
 
+	@PostMapping("banAllSeatUsers")
+	@ResponseBody
+	public String banAllSeatUsers() {
+		
+		String message = null;
+		
+		int result = service.banAllSeatUsers();
+		
+		if(result == 0) {
+			message = "모든 회원의 열람실 이용이 종료되었습니다.";
+		}
+		if(result == 1) {
+			message = "회원의 열람실 강제 종료 실패..";
+		}
+		
+		System.out.println("Controller Result: " + message);
+		
+		
+		return message;
+	}
 	
-	// 시간이 되면 열람실 이용 종료시키기
+	
 	
 }

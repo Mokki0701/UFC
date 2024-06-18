@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .book-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            margin: auto;
+        }
+        .book-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .book-body label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .book-body input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .modal-footer {
+            text-align: center;
+        }
+        .modal-footer button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal-footer button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="book-content">
+        <div class="book-header" id="hopeTitle">
+            희망 도서 신청
+        </div>
+        <div class="book-body">
+            <label for="bookTitle">도서 이름:</label>
+            <input type="text" id="bookTitle" class="input-field">
+            <label for="authorLastName">저자 성:</label>
+            <input type="text" id="authorLastName" class="input-field">
+            <label for="authorFirstName">저자 명:</label>
+            <input type="text" id="authorFirstName" class="input-field">
+            <label for="publisher">출판사:</label>
+            <input type="text" id="publisher" class="input-field">
+            <label for="madeYear">저작년도:</label>
+            <input type="text" id="madeYear" class="input-field">
+            <label for="bookImg">도서 이미지:</label>
+            <input type="text" id="bookImg" class="input-field">
+            <label for="bookTmi">도서 설명:</label>
+            <input type="text" id="bookTmi" class="input-field">
+            <label for="storageDetail">도서 위치:</label>
+            <input type="text" id="storageDetail" class="input-field">
+            <label for="catNo">카테고리 번호:</label>
+            <input type="text" id="catNo" class="input-field">
+            <span id="bookDelFl">0</span>
+        </div>
+        <div class="modal-footer">
+            <button id="submitBtn" onclick="submitHope(this.value)">신청 완료 버튼</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    function submitHope() {
+        const bookTitle = document.getElementById('bookTitle').value;
+        const authorLastName = document.getElementById('authorLastName').value;
+        const authorFirstName = document.getElementById('authorFirstName').value;
+        const bookPublisher = document.getElementById('publisher').value;
+        const bookYear = document.getElementById('madeYear').value;
+        const bookImg = document.getElementById('bookImg').value;
+        const bookTmi = document.getElementById('bookTmi').value;
+        const storageDetail = document.getElementById('storageDetail').value;
+        const catNo = document.getElementById('catNo').value;
+        const bookDelFl = document.getElementById('bookDelFl').innerText;
+    
+        const requestData = {
+            bookTitle,
+            authorLastName,
+            authorFirstName,
+            bookPublisher,
+            bookYear,
+            bookImg,
+            bookTmi,
+            storageDetail,
+            catNo,
+            bookDelFl
+        };
+    
+        fetch('/loan/store', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.text())
+        .then(data => {
+            if(data > 0){
+                alert("데이터베이스에 도서 입고 완료");
+                window.close();
+            }
+
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+
+        });
+    }
+    </script>
+</html>

@@ -3,6 +3,7 @@ package edu.kh.cooof.gym.myPage.controller;
 import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,11 +87,11 @@ public class gymMyPageController {
         // 세션에서 memberNo를 가져옴
         int memberNo = loginMember.getMemberNo();
 
-        // 서비스 호출하여 PT 정보 조회
-        GymMyPage gymMyPage = service.getPTInfo(memberNo);
+        // 서비스 호출하여 모든 PT 기록 조회
+        List<GymMyPage> ptRecords = service.getAllPTRecords(memberNo);
 
-        // PT 정보를 모델에 추가
-        model.addAttribute("gymMyPage", gymMyPage);
+        // PT 기록을 모델에 추가
+        model.addAttribute("ptRecords", ptRecords);
 
         return "gym/myPage/ptRecord";
     }

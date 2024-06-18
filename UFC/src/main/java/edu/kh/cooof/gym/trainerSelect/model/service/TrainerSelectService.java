@@ -28,9 +28,11 @@ public interface TrainerSelectService {
 	 */
 	int gymPayment(PaymentRequest request);
 
-	
-	// 로그인한 회원의 pt 정보
+	// 로그인한 회원의 pt 정보 조회
 	PtPrice getPriceByMemberNo(int memberNo);
+
+	
+	
 	
 	
 

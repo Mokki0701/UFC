@@ -148,8 +148,15 @@ function handleHopeComplete(button){
     .then(resp => resp.text())
     .then(result => {
         if(result > 0){
-            alert("희망도서 입고 완료 입니다.");
-            button.disabled = true;
+            
+            if(confirm("확인을 누를 시 요청이 사라지며 확실한 정보를 입력해야 합니다. 확인을 누르시겠습니까?")){
+        
+                var url = "/loan/store";
+                window.open(url, 'messagePopup', 'width=450,height=400,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no');
+    
+                button.disabled = true;
+
+            }
         }
     })
 
