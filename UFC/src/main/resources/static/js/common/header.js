@@ -1,27 +1,3 @@
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  console.log('DOMContentLoaded event fired'); // 추가된 로그
-
-  var loginButton = document.getElementById('login-button');
-
-  if (loginButton) {
-    loginButton.addEventListener('click', function () {
-      if (loginButton.textContent === '로그인') {
-        loginButton.textContent = '로그아웃';
-      } else {
-        loginButton.textContent = '로그인';
-      }
-    });
-  } else {
-    console.error('login-button not found');
-  }
-
-
-
-});
-
 // ----------------------------------------------------------
 // 웹소켓 기능
 
