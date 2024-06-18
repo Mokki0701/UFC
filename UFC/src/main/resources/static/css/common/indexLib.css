@@ -53,6 +53,10 @@
   transition: background-color 0.3s;
 }
 
+.right > * {
+  font-weight: 900;
+}
+
 .libContentHead{
   font-size: 35px;
 }
@@ -82,7 +86,6 @@
   margin: 10px;
   font-size: 20px;
 }
-
 
 
 
@@ -128,15 +131,15 @@
 
 /* 각 페이지 링크 css */
 .libLink {
-  display: inline-block; /* 인라인 블록 요소로 설정 */
-  padding: 20px; /* 높이를 높게 하기 위한 패딩 설정 */
-  font-size: 16px; /* 글자 크기 */
-  background-color: #f0f0f0; /* 배경 색상 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  text-align: center; /* 텍스트 가운데 정렬 */
-  vertical-align: middle; /* 수직 정렬 */
-  cursor: pointer; /* 마우스 커서 포인터로 변경 */
-  transition: background-color 0.3s; /* 배경색 전환 효과 */
+  display: inline-block; 
+  padding: 20px;
+  font-size: 16px;
+  background-color: #f0f0f0; 
+  border-radius: 5px; 
+  text-align: center; 
+  vertical-align: middle; 
+  cursor: pointer; 
+  transition: all 0.5s; 
 
   font-style: none;
 }
@@ -278,22 +281,46 @@ a.libLink {
   display: block; /* 이미지에 호버 시 메시지 보이기 */
 }
 
+/* 두 번째 슬라이드 : 도서 대출 안내 */
+#libSecondInfoSlide{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
 /* ---------------------- 세번째 슬라이드 : 열람실 이용 안내 ---------------------- */
 
 #libThirdInfoSlide{
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.libStrongText{
+  font-weight: bold;
+  color: red;
+}
+
+.libStrongTextBlack{
+  font-weight: 1200;
 }
 
 .libSecondSlideChild{
-  min-width: 50%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
-
-
-
+.libSecondSlideChild > div{
+  margin: 10px;
+}
 
 
 

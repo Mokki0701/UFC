@@ -23,8 +23,8 @@ body {
 }
 
 .sidebar {
-    max-width: 250px;
-    background: #007BFF;
+    max-width: 300px;
+    background: burlywood;
     padding: 20px;
     color: #fff;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -51,7 +51,7 @@ body {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: #ff9800; /* 체크박스 색상 */
+    accent-color: brown; /* 체크박스 색상 */
 }
 
 .storageContainer {
@@ -60,7 +60,7 @@ body {
 }
 
 .category-item:hover .storageContainer {
-    color: #ff9800;
+    color: brown;
 }
 
 .content {

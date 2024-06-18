@@ -324,7 +324,6 @@ function setAvailableTimes(currentTime) {
   const amPmSelect = document.getElementById('amPm');
   const hourSelect = document.getElementById('hour');
   const minuteSelect = document.getElementById('minute');
-
   const currentHour = currentTime.getHours();
   const currentMinute = currentTime.getMinutes();
 
