@@ -195,6 +195,84 @@ window.onclick = function (event) {
   }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  const amPmSelect = document.getElementById('amPm');
+  const hourSelect = document.getElementById('hour');
+  const minuteSelect = document.getElementById('minute');
+
+  function updateTimeOptions() {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
+    const isPM = currentHour >= 12;
+    const currentHour12 = currentHour % 12 || 12;
+
+    // AM/PM 설정
+    if (isPM) {
+      amPmSelect.value = 'PM';
+    } else {
+      amPmSelect.value = 'AM';
+    }
+
+    // 시간 옵션 설정
+    for (let i = 0; i < hourSelect.options.length; i++) {
+      const option = hourSelect.options[i];
+      const optionHour = parseInt(option.value);
+      if ((isPM && optionHour < currentHour12) || (!isPM && optionHour < currentHour12)) {
+        option.disabled = true;
+      } else {
+        option.disabled = false;
+      }
+    }
+
+    // 분 옵션 설정
+    for (let i = 0; i < minuteSelect.options.length; i++) {
+      const option = minuteSelect.options[i];
+      const optionMinute = parseInt(option.value);
+      if (optionMinute < currentMinute && parseInt(hourSelect.value) === currentHour12) {
+        option.disabled = true;
+      } else {
+        option.disabled = false;
+      }
+    }
+  }
+
+  function setInitialTime() {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
+    const isPM = currentHour >= 12;
+    const currentHour12 = currentHour % 12 || 12;
+
+    // AM/PM 설정
+    amPmSelect.value = isPM ? 'PM' : 'AM';
+
+    // 시간 설정
+    hourSelect.value = currentHour12.toString().padStart(2, '0');
+
+    // 분 설정 (5분 단위로 반올림)
+    const roundedMinute = Math.ceil(currentMinute / 5) * 5;
+    if (roundedMinute === 60) {
+      hourSelect.value = (currentHour12 + 1).toString().padStart(2, '0');
+      minuteSelect.value = '00';
+      if (hourSelect.value === '12') {
+        amPmSelect.value = isPM ? 'AM' : 'PM';
+      }
+    } else {
+      minuteSelect.value = roundedMinute.toString().padStart(2, '0');
+    }
+  }
+
+  setInitialTime(); // 페이지 로드 시 초기 시간 설정
+  updateTimeOptions(); // 페이지 로드 시 초기화
+
+  amPmSelect.addEventListener('change', updateTimeOptions);
+  hourSelect.addEventListener('change', updateTimeOptions);
+  minuteSelect.addEventListener('change', updateTimeOptions);
+});
+
 function realBookingSpace() {
   const selectedSpaceNo = document.querySelector(".currentSelectSpace").textContent;
   const amPm = document.getElementById('amPm').value;
@@ -228,7 +306,7 @@ function realBookingSpace() {
     .then(response => response.json())
     .then(result => {
       if (result.success) {
-        alert('예약이 성공적으로 완료되었습니다.\n' + result.message);
+        alert(result.message);
         if (result.redirectUrl) {
           window.location.href = result.redirectUrl;
         } else {
@@ -243,6 +321,7 @@ function realBookingSpace() {
       alert('예약 처리 중 오류가 발생했습니다.');
     });
 }
+
 
 // 나의 공간 확인하기
 function checkMySpace() {
@@ -342,7 +421,6 @@ function cancleSpceBooking() {
       }
 
       else {
-        alert("예약 취소 중 오류가 발생했습니다. 관리자에게 문의하세요.");
         checkMySpaceReservationModal.style.display = "none";
       }
     })

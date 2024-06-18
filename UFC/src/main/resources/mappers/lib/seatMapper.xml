@@ -123,7 +123,7 @@
 	<select id="chckSeatConditon">
 		SELECT COUNT(*) FROM SEAT
 		WHERE SEAT_NO = #{seatNo}
-		AND SEAT_AVAIL != 1
+		AND SEAT_AVAIL = 1
 	</select>
 	
 	<!--현재 다른사람이 이용 중인 열람실을 예약했을 때,
@@ -194,5 +194,10 @@
 	<delete id="deleteAllSeatSpaceRent">
 		DELETE FROM SEAT_SPACE_BOOKING
 	</delete>
+	
+	<select id="isMemberUsingSpace">
+		SELECT COUNT(*) FROM RENT_SPACE
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 </mapper>

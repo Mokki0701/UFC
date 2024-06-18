@@ -19,8 +19,6 @@ for (let i = 0; i < rows; i++) {
 }
 
 // 드래그로 div 선택 시작
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const seatChart = document.querySelector('.seat-chart');
   let isDragging = false;

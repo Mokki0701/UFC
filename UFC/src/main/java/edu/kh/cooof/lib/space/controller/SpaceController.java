@@ -320,7 +320,7 @@ public class SpaceController {
 									int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
 									log.debug("bookSpace result: {}", bookSpace);
 									if (bookSpace == 1) {
-										message = "공간 예약 성공!";
+										message = "공간 예약에 성공했습니다.";
 										success = true;
 
 										bookingSpaceSession.put("memberNo", memberNo);
