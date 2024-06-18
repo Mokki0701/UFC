@@ -1,12 +1,16 @@
 package edu.kh.cooof.lib.book.model.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.cooof.lesson.list.model.dto.LessonPagination;
 import edu.kh.cooof.lib.book.model.dto.Book;
@@ -22,6 +26,9 @@ import lombok.RequiredArgsConstructor;
 public class BookLoanServiceImpl implements BookLoanService {
 
 	private final BookLoanMapper mapper;
+	
+	@Value("${lesson.folder-path}")
+	private String folderPath;
 	
 	@Override
 	public Map<String, Object> selectList(int cp) {
@@ -343,8 +350,25 @@ public class BookLoanServiceImpl implements BookLoanService {
 	}
 	
 	@Override
-	public int storeBook(Book storeBook) {
+	public int storeBook(Book storeBook, MultipartFile inputImg) throws IllegalStateException, IOException {
+		
+		String inputImgName = inputImg.getOriginalFilename();
 
+		// 업로드 경로 지정
+		File uploadDir = new File(folderPath);
+
+		// 업로드 경로가 없을 경우 생성
+		if (!uploadDir.exists()) {
+			uploadDir.mkdirs();
+		}
+
+		// 이미지 업로드
+		File uploadFile = new File(uploadDir, inputImgName);
+		inputImg.transferTo(uploadFile);
+		
+		storeBook.setBookImg(inputImgName);
+		
+		
 		return mapper.storeBook(storeBook);
 	}
 	

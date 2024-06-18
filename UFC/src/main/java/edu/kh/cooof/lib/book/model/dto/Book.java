@@ -1,5 +1,7 @@
 package edu.kh.cooof.lib.book.model.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +30,6 @@ public class Book {
 	private int bookLikeNum;
 	private int bookDelFl;
 	
+	private MultipartFile inputImg;
 	
 }

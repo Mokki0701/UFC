@@ -148,3 +148,10 @@ function paginationSelect(cp){
     })
 
 }
+
+function bookInput(){
+    
+    var url = "/loan/store";
+    window.open(url, 'messagePopup', 'width=450,height=400,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no');
+    
+}
