@@ -21,5 +21,6 @@ public class LessonListDTO {
 	private String fullName;
 	//즐겨찾기
 	private String lessonSchedule; 
+	private int deleteYn;
 
 }
