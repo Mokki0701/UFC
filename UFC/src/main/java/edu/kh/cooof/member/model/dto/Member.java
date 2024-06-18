@@ -43,6 +43,10 @@ public class Member {
 	
 	private int blockBeing;
 	
+	private String Postcode;
+	private String RoadAddress;
+	private String DetailAddress;
+	
 	
 	
 	
