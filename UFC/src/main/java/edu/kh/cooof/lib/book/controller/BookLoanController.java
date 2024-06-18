@@ -1,5 +1,6 @@
 package edu.kh.cooof.lib.book.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.cooof.lib.book.model.dto.Book;
 import edu.kh.cooof.lib.book.model.service.BookLoanService;
@@ -275,11 +278,12 @@ public class BookLoanController {
 	
 	@PostMapping("store")
 	@ResponseBody
-	public int storeBook(
-			@RequestBody Book storeBook
-			) {
+	public int storeBook (
+			@RequestPart("bookImg") MultipartFile inputImg,
+            @RequestPart("data") Book storeBook
+			) throws IllegalStateException, IOException {
 		
-		return service.storeBook(storeBook);
+		return service.storeBook(storeBook, inputImg);
 	}
 	
 	@GetMapping("store")

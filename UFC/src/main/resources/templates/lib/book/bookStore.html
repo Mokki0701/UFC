@@ -75,8 +75,13 @@
             <input type="text" id="publisher" class="input-field">
             <label for="madeYear">저작년도:</label>
             <input type="text" id="madeYear" class="input-field">
+            
+            
             <label for="bookImg">도서 이미지:</label>
-            <input type="text" id="bookImg" class="input-field">
+            <button type="button" id="customButton" class="custom-button">이미지 선택</button>
+            <input type="file" name="bookImg" id="bookImg" class="input-field" accept="image/*">
+
+
             <label for="bookTmi">도서 설명:</label>
             <input type="text" id="bookTmi" class="input-field">
             <label for="storageDetail">도서 위치:</label>
@@ -98,31 +103,30 @@
         const authorFirstName = document.getElementById('authorFirstName').value;
         const bookPublisher = document.getElementById('publisher').value;
         const bookYear = document.getElementById('madeYear').value;
-        const bookImg = document.getElementById('bookImg').value;
+        const bookImg = document.getElementById('bookImg').files[0];
         const bookTmi = document.getElementById('bookTmi').value;
         const storageDetail = document.getElementById('storageDetail').value;
         const catNo = document.getElementById('catNo').value;
         const bookDelFl = document.getElementById('bookDelFl').innerText;
     
-        const requestData = {
+        const formData = new FormData();
+
+        formData.append('bookImg', bookImg);
+        formData.append('data', new Blob([JSON.stringify({
             bookTitle,
             authorLastName,
             authorFirstName,
             bookPublisher,
             bookYear,
-            bookImg,
             bookTmi,
             storageDetail,
             catNo,
             bookDelFl
-        };
+        })], { type: 'application/json' }));
     
         fetch('/loan/store', { 
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)
+            body: formData
         })
         .then(response => response.text())
         .then(data => {

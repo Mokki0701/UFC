@@ -20,7 +20,7 @@
 
     <div class="book-info" th:object="${book}">
         <div class="book-main">
-            <img src="path/to/book-image.jpg" alt="Book Image" class="book-image">
+            <img class="book-img" th:src="'/images/lesson/' + *{bookImg}" alt="프로그램 이미지">도서 이미지</img>
             <div class="book-details">
                 <h2 th:text="*{bookTitle}">레드셔츠</h2>
                 <div class="book-meta">
@@ -48,7 +48,7 @@
             <div class="swiper-wrapper">
                 <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
                     <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}" class="browsing-book">
-                        <img src="path/to/image1.jpg" alt="책 1" class="book-thumbnail">
+                        <img class="book-thumbnail" th:src="'/images/lesson/' + *{bookImg}" alt="프로그램 이미지">도서 이미지</img>
                         <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
                         <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
                         <span th:text="*{bookPublisher}"></span>
@@ -66,7 +66,7 @@
             <div class="swiper-wrapper">
                 <div th:each="chunk : ${#lists.partition(themeList,4)}" class="swiper-slide">
                     <div th:each="themeBook : ${chunk}" th:object="${themeBook}" class="theme-book">
-                        <img src="path/to/image1.jpg" alt="책 1" class="book-thumbnail">
+                        <img class="book-thumbnail" th:src="'/images/lesson/' + *{bookImg}" alt="프로그램 이미지">도서 이미지</img>
                         <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
                         <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
                         <span th:text="*{bookPublisher}"></span>
@@ -84,7 +84,7 @@
             <div class="swiper-wrapper">
                 <div th:each="chunk : ${#lists.partition(browsingList,4)}" class="swiper-slide">
                     <div th:each="browsingBook : ${chunk}" th:object="${browsingBook}" class="browsing-book">
-                        <img src="path/to/image1.jpg" alt="책 1" class="book-thumbnail">
+                        <img class="book-thumbnail" th:src="'/images/lesson/' + *{bookImg}" alt="프로그램 이미지">도서 이미지</img>
                         <li><a th:href="@{/book/bookDetail(bookNo=*{bookNo})}" th:text="*{bookTitle}"></a></li>
                         <span th:text="*{authorFirstName}"></span> <span th:text="*{authorLastName}"></span>
                         <span th:text="*{bookPublisher}"></span>

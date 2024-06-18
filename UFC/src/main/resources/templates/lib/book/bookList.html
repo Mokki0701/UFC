@@ -40,7 +40,7 @@
                             <div class="book-title" th:text="*{bookTitle}">도서 제목</div>
                             <div class="book-author" th:text="*{authorLastName} + ' ' + *{authorFirstName}">저자</div>
                             <div class="book-publisher" th:text="*{bookPublisher}">출판사</div>
-                            <div class="book-img" th:text="*{bookImg}">도서 이미지</div>
+                            <img class="book-img" th:src="'/images/lesson/' + *{bookImg}" alt="프로그램 이미지">도서 이미지</img>
                             <div class="book-tmi" th:text="*{bookTmi}">도서 정보</div>
                             <div class="book-location" th:text="*{storageDetail}">세부 위치</div>
                             <div class="book-status" th:text="*{lrFlag} == 1 ? '대출 O' : '대출 X'"></div>
@@ -62,6 +62,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div th:if="${session.loginMember.memberAuthority} == 3">
+        <button id="bookListBtn" onclick="bookInput()">도서 입고</button>
     </div>
     
     <th:block th:replace="~{common/footer}"></th:block>
