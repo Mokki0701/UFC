@@ -172,4 +172,9 @@ public class LibSeatServiceImpl implements LibSeatService {
 		
 		return result;
 	}
+	
+	@Override
+	public int isMemberUsingSpace(int memberNo) {
+		return mapper.isMemberUsingSpace(memberNo);
+	}
 }

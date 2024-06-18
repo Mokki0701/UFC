@@ -13,7 +13,8 @@ const SNAP_DISTANCE = 10;
 const currentSelectSpace = document.getElementById('currentSelectSpace');
 
 
-/* 생성된 div 박스를 표시하기 위한 변수 모음 */
+
+/* 수동편집기능 */
 let isDrawing = false;
 let startX, startY, currentDiv;
 let roomCounter = 1;
@@ -22,11 +23,16 @@ let selectedDiv = null;
 let isDragging = false;
 let offsetX, offsetY;
 
+
+drawingArea.addEventListener('mousedown', startDrawing);
+drawingArea.addEventListener('mousemove', draw);
+drawingArea.addEventListener('mouseup', stopDrawing);
+
 /* 수동편집기능 */
 function startDrawing(e) {
   isDrawing = true;
-  startX = e.clientX - drawingArea.offsetLeft;
-  startY = e.clientY - drawingArea.offsetTop;
+  startX = e.pageX - drawingArea.offsetLeft;
+  startY = e.pageY - drawingArea.offsetTop;
   currentDiv = document.createElement('div');
   currentDiv.className = 'drawnDiv';
   currentDiv.style.left = `${startX}px`;
@@ -40,8 +46,8 @@ function startDrawing(e) {
 /* 자리 그리기 */
 function draw(e) {
   if (!isDrawing) return;
-  const currentX = e.clientX - drawingArea.offsetLeft;
-  const currentY = e.clientY - drawingArea.offsetTop;
+  const currentX = e.pageX - drawingArea.offsetLeft;
+  const currentY = e.pageY - drawingArea.offsetTop;
   const width = currentX - startX;
   const height = currentY - startY;
 
@@ -64,6 +70,30 @@ function draw(e) {
 function stopDrawing() {
   isDrawing = false;
   roomCounter++;
+}
+
+/* 드래그 기능 추가 */
+function startDrag(e) {
+  isDragging = true;
+  selectedDiv = e.target;
+  offsetX = e.pageX - selectedDiv.getBoundingClientRect().left;
+  offsetY = e.pageY - selectedDiv.getBoundingClientRect().top;
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', stopDrag);
+}
+
+function drag(e) {
+  if (!isDragging) return;
+  const x = e.pageX - offsetX;
+  const y = e.pageY - offsetY;
+  selectedDiv.style.left = `${x}px`;
+  selectedDiv.style.top = `${y}px`;
+}
+
+function stopDrag() {
+  isDragging = false;
+  document.removeEventListener('mousemove', drag);
+  document.removeEventListener('mouseup', stopDrag);
 }
 
 /* 수동편집 버튼 클릭 시 반응 */
@@ -260,7 +290,9 @@ function sendDivInfo() {
 const clearAllButton = document.querySelector("#clearAll");
 
 clearAllButton.addEventListener('click', () => {
-  drawingArea.innerHTML = '';
+  if (confirm('정말 편집중인 모든 공간을 지우시겠습니까?\n\n(db에는 저장되지 않음)')) {
+    drawingArea.innerHTML = '';
+  }
 });
 
 

@@ -78,8 +78,10 @@ public class LibSeatController {
 		String message = null;
 		int memberNo = loginMember.getMemberNo();
 		int isMemberUsing = service.isMemberUsing(memberNo);
+		int isMemberUsingSpace = service.isMemberUsingSpace(memberNo);
 		int seatCondition = libSeat.getCondition();
 		int userSeatNo = 0;
+		
 
 		// 좌석 컨디션이 1이 아닌 경우(이용 가능한 좌석이 아닌 경우)
 		if (seatCondition != 1) {
@@ -88,6 +90,9 @@ public class LibSeatController {
 		} else if (isMemberUsing == 1) {
 			// 현재 회원이 이용 중인 좌석이 있을 경우
 			message = "현재 회원님은 이용중인 자리가 있습니다.";
+			result = "fail";
+		} else if (isMemberUsingSpace == 1) {
+			message = "현재 회원님은 이용중인 공간이 있습니다.";
 			result = "fail";
 		} else {
 			// 이용 가능한 좌석이며, 현재 회원이 이용 중인 좌석이 없을 경우

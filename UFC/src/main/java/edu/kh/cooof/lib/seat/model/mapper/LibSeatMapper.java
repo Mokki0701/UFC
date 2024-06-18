@@ -79,6 +79,8 @@ public interface LibSeatMapper {
 
 	int deleteAllSeatSpaceRent();
 
+	int isMemberUsingSpace(int memberNo);
+
 	
 	
 	

@@ -53,6 +53,9 @@ public interface LibSeatService {
 	int cancleSeatBooking(int memberNo);
 
 	int banAllSeatUsers();
+	
+	// 이용중인 공간이 있을 경우 이용 종료시키기
+	int isMemberUsingSpace(int memberNo);
 
 	
 

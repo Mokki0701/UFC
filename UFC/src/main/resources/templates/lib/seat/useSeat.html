@@ -15,7 +15,7 @@
 
   <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
   <div th:replace="~{common/header}"></div>
-  
+
   <div th:replace="~{common/sidebar}"></div>
   <br>
 
@@ -45,8 +45,9 @@
           th:with="memberNo=${session.loginMember.memberNo}, seatNo=${session.memberAndSeatSession[session.loginMember.memberNo]}">
           <p>회원님이 사용 중인 좌석 번호:
             <span class="seatNo" th:text="${seatNo}"></span>
-            <span class="noSeatNo" th:if="${session.memberAndSeatSession[session.loginMember.memberNo] == null}">이용중인 좌석 없음</span>
-            <span  th:if="${session.memberAndSeatSession[session.loginMember.memberNo] != null}">번 좌석 이용 중</span>
+            <span class="noSeatNo" th:if="${session.memberAndSeatSession[session.loginMember.memberNo] == null}">이용중인 좌석
+              없음</span>
+            <span th:if="${session.memberAndSeatSession[session.loginMember.memberNo] != null}">번 좌석 이용 중</span>
           </p>
       </div>
 
@@ -86,12 +87,12 @@
 
   </div>
 
-<!-- 로딩창 모달 -->
-<div id="loadingModal">
-  <div id="modalBox">
-    <div id="modalCircle"></div>
+  <!-- 로딩창 모달 -->
+  <div id="loadingModal">
+    <div id="modalBox">
+      <div id="modalCircle"></div>
+    </div>
   </div>
-</div>
 
   <!-- 이용하기 버튼 클릭 시 표시될 모달 -->
   <!-- 모달에서 이용할 사용자 정보 -->
@@ -197,16 +198,22 @@
 
       <div class="middleTitle">나의 열람실 예약 현황</div>
 
-      <div>
-        <div class="checkMySeatContent">
-          내가 예약한 열람실 좌석 번호 : <span id="reservedSeatNo"></span>
+      <div id="checkMySeatReservationContent">
+
+        <div>
+          <div class="checkMySeatContent">
+            내가 예약한 열람실 좌석 번호 : <span id="reservedSeatNo"></span>
+          </div>
+  
+          <div class="checkMySeatContent">
+            열람실 이용 시작 시간 : <span id="startBookingTime"></span>
+          </div>
         </div>
 
-        <div class="checkMySeatContent">
-          열람실 이용 시작 시간 : <span id="startBookingTime"></span>
+        <div id="reservationBtnSack">
+          <button type="button" onclick="cancleSeatBooking()">열람실 예약 취소하기</button>
         </div>
 
-        <button type="button" onclick="cancleSeatBooking()">공간 예약 취소하기</button>
       </div>
 
     </div>
