@@ -1,6 +1,8 @@
 package edu.kh.cooof.common.filter;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -44,7 +46,13 @@ public class LoginFilter implements Filter{
 		if( session.getAttribute("loginMember") == null ) {
 			
 			// /loginError 재요청
-			resp.sendRedirect("/member/login");
+			String message = "로그인이 필요합니다.";
+		    
+			String encodedMessage = URLEncoder.encode(message, StandardCharsets.UTF_8.toString());
+			
+		    // 메시지를 URL에 쿼리 매개변수로 추가하여 리다이렉트
+		    resp.sendRedirect("/main/goHome?message=" + encodedMessage);
+
 		}
 		
 		// 로그인 되어있는 경우
@@ -56,7 +64,6 @@ public class LoginFilter implements Filter{
 			// (만약 없으면 Dispatcher Servlet으로 전달)
 			chain.doFilter(request, response);
 		}
-		
 	}
 
 	

@@ -90,6 +90,8 @@ public class SpaceController {
 	public String postMethodName(HttpSession session, HttpServletRequest request, @RequestParam("spaceNo") int spaceNo,
 			SpaceDTO space, Model model, RedirectAttributes ra) {
 
+		System.out.println("공간 이용 요청 왔음2222");
+
 		// 공간의 대여 현황 검사하기
 		// 전달 받은 공간 번호 중 space_avail 이 0 인 컬럼 조회
 		// 결과 1 : 대여 가능, 결과 0 : 빌리기 불가
@@ -318,7 +320,7 @@ public class SpaceController {
 									int bookSpace = service.bookSpace(memberNo, spaceNo, startTime);
 									log.debug("bookSpace result: {}", bookSpace);
 									if (bookSpace == 1) {
-										message = "공간 예약 성공!";
+										message = "공간 예약에 성공했습니다.";
 										success = true;
 
 										bookingSpaceSession.put("memberNo", memberNo);
@@ -453,6 +455,20 @@ public class SpaceController {
 		return responseList;
 	}
 
-	
+	@PostMapping("/banAllSpaceUsers")
+    @ResponseBody
+    public String banAllSpaceUsers() {
+        String message = "";
+        int result = service.banAllSpaceUsers();
+
+        if(result == 0) {
+            message = "현재 공간을 이용중인 회원이 없습니다.";
+        } else if(result == 1) {
+            message = "모든 회원의 공간 이용이 정지되었습니다.";
+        }
+
+        System.out.println("Returning message: " + message);  // 디버그용 메시지 출력
+        return message;
+    }
 
 }

@@ -20,10 +20,12 @@
     	#{memberNo} ,#{trainerNo} , TO_DATE(#{strDate}, 'YYYY-MM-DD') )
 	</insert>
 	
-	<select id="selectPtPriceByMemberNo">
-		SELECT PT_NO, PT_YN, PT_PRICE, PT_LKROOM, MEMBER_NO, TRAINER_NO, TO_CHAR(PT_STRDATE, 'YYYY-MM-DD') AS PT_STRDATE , PT_CHECK
+	<select id="getPriceByMemberNo">
+		SELECT PT_NO, PT_YN, PT_PRICE, PT_LKROOM, MEMBER_NO, TRAINER_NO, TO_CHAR(PT_STRDATE, 'YYYY-MM-DD') AS PT_STRDATE
 		FROM PT
 		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY PT_STRDATE DESC
+		FETCH FIRST 1 ROW ONLY
 	</select>
 
 </mapper>

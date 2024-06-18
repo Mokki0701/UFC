@@ -66,6 +66,8 @@ public interface SpaceService {
 	
 	int getOutFromSeat(int seatUserNo);
 
+	int banAllSpaceUsers();
+
 
 
 }

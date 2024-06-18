@@ -23,6 +23,7 @@
       </div>
 
       <!-- 회원가입 -->    
+       <span> * 표시는 꼭 입력해 주셔야 합니다.</span>
       <div class="swiper-slide"  th:unless="${session.loginMember != null}" id="loginSignup">
         <section class="signUp-content">
           <form action="/member/signup" method="POST" name="signUpForm" id="signUpForm">
@@ -223,7 +224,7 @@
                   <label>새 비밀번호</label>
                   <input type="password" name="newPw" id="newPw" maxlength="30">              
               </div>
-    
+              
               <div class="myPage-row">
                   <label>새 비밀번호 확인</label>
                   <input type="password" name="newPwConfirm" id="newPwConfirm" maxlength="30">              
@@ -273,7 +274,17 @@
             </form>
             </div>
           </section>
-          
+
+
+          <section>
+            <form action="/member/memberDelete" method="POST" name="myPageFrm" id="memberDelete">
+              <h1>회원 탈퇴</h1>
+              <button type="button" onclick="confirmDeletion()">탈퇴</button>
+            </form>
+          </section>
+
+          <div>
+
           
       
           

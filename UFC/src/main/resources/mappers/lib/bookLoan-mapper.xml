@@ -213,6 +213,20 @@
     </choose>
 </insert>
 
+	<insert id="storeBook">
+		INSERT INTO BOOK_INFO (
+		    BOOK_NO, BOOK_TITLE, AUTHOR_LAST_NAME, AUTHOR_FIRST_NAME, 
+		    BOOK_PUBLISHER, BOOK_YEAR, BOOK_IMG, BOOK_TMI, 
+		    AVALABLE_COUNT, STORAGE_DETAIL, LR_FLAG, CAT_NO, 
+		    BOOK_LIKE_NUM, BOOK_DEL_FL
+		) VALUES (
+		    SEQ_BOOK_NO.NEXTVAL, #{bookTitle}, #{authorLastName}, #{authorFirstName}, 
+		    #{bookPublisher}, #{bookYear}, #{bookImg}, #{bookTmi},
+		    DEFAULT, #{storageDetail}, DEFAULT, #{catNo}, 
+		    DEFAULT, 0
+		)
+	</insert>
+
 
 
 
