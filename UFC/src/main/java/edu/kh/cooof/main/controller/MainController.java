@@ -31,7 +31,7 @@ public class MainController {
 			@RequestParam(value="message", required = false) String message,
 			Model model
 			) {
-		if(message == null) {
+		if(message != null) {
 			model.addAttribute("message", message);			
 		}
 		
