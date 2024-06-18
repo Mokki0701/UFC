@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    
-    
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -622,9 +620,35 @@ document.getElementById('changePasswordBtn').onclick = function() {
       modal.style.display = 'none';
     }
   });
+
+
+  
+
+
+
+
   
 
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('changeAnything');
+    const postcode = document.getElementById('postcode');
+    const address = document.getElementById('address');
+    const detailAddress = document.getElementById('detailAddress');
+    const memberPhone = document.getElementById('memberTel');
+    const memberBirthday = document.getElementById('memberBirthday');
+  
+    form.addEventListener('submit', function (event) {
+      // 모든 필드가 채워졌는지 확인
+      if (!postcode.value.trim() || !address.value.trim() || !detailAddress.value.trim() || 
+          !memberPhone.value.trim() || !memberBirthday.value) {
+        event.preventDefault(); // 폼 제출 막기
+        alert('모든 값을 입력해야 합니다.');
+      }
+    });
+  });
+
 
 // -----------------------------------
 // 회원 탈퇴

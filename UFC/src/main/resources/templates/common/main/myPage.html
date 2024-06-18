@@ -161,6 +161,7 @@
         <div>
           <h1>마이페이지</h1>
           <div>
+            
                   <div>
                     <label>성명 :
                       <span th:text="${session.loginMember.memberLastName}"></span>
@@ -180,8 +181,18 @@
                     <span th:text="${session.loginMember.memberBirthday} "></span>
                   </div>
                   <div>
-                    <label>우편번호 :</label>
-                    <span th:text="${session.loginMember.memberAddress}"></span>
+                    <div>
+                      <label>우편번호 :</label>
+                      <span id="postcode"></span>
+                  </div>
+                  <div>
+                      <label>도로명/지번 주소 :</label>
+                      <span id="roadAddress"></span>
+                  </div>
+                  <div>
+                      <label>상세 주소 :</label>
+                      <span id="detailAddress"></span>
+                  </div>
                   </div>           
           </div>
 
@@ -228,7 +239,7 @@
               <div>
                 <span class="close">&times;</span>
                 <h1>주소 변경</h1>
-                <span>원하는 주소 변경 가능.</span>
+                <span>모두 입력후 변경 가능</span>
                 <div class="myPage-row info-address">
                   <span>우편번호</span>
                   <input type="text" name="memberAddress" placeholder="우편번호" id="postcode"  th:value="${postcode}">
@@ -295,7 +306,15 @@
 
       <script th:inline="javascript">
         var sessionMember = /*[[${sessionMember}]]*/ null;
-        
+        document.addEventListener('DOMContentLoaded', function() {
+            var memberAddress = /*[[${session.loginMember.memberAddress}]]*/ ""; // 서버에서 전달된 결합된 주소
+            if (memberAddress) {
+                var addressParts = memberAddress.split('^^^');
+                document.getElementById('postcode').innerText = addressParts[0];
+                document.getElementById('roadAddress').innerText = addressParts[1];
+                document.getElementById('detailAddress').innerText = addressParts[2];
+            }
+        });
         
     </script>
   
