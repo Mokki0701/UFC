@@ -28,12 +28,9 @@ public class MainController {
 	// 홈으로 보내
 	@GetMapping("goHome")
 	public String goHome(
-			@RequestParam(value="message", required = false) String message,
 			Model model
 			) {
-		if(message != null) {
-			model.addAttribute("message", message);			
-		}
+
 		
 		return"index";
 	}

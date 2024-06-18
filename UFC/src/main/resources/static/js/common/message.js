@@ -1,21 +1,3 @@
-const receivedTab = document.getElementById('receivedTab');
-const sentTab = document.getElementById('sentTab');
-
-let type = 0;
-
-receivedTab.addEventListener('click', () => {
-
-    messageListSelect(0);
-    type = 0;
-
-});
-
-sentTab.addEventListener('click', () => {
-
-    messageListSelect(1);
-    type = 1;
-
-});
 
 function deleteMessage(button){
 
@@ -62,11 +44,17 @@ function openSendMessagePopup(){
 
 
 function showReceivedMessages() {
+    messageListSelect(0);
+    type = 0;
+
     document.getElementById('messageSelect').classList.remove('hidden');
     document.getElementById('blockMemberList').classList.add('hidden');
 }
 
 function showSentMessages() {
+    messageListSelect(1);
+    type = 1;
+
     document.getElementById('messageSelect').classList.remove('hidden');
     document.getElementById('blockMemberList').classList.add('hidden');
 }
