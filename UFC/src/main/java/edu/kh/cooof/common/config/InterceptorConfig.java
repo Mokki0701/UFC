@@ -23,8 +23,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		.addPathPatterns("/**")
 		.excludePathPatterns("/css/**",
 				 "/js/**",
-				 "/images/**",
-				 "/favicon.ico");
+				 "/images/**");
 		
 	}
 	

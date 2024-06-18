@@ -44,14 +44,10 @@ public class LoginFilter implements Filter{
 		// 세션에서 로그인한 회원 정보를 얻어왔으나 없을 때
 		// -> 로그인이 되어있지 않은 상태
 		if( session.getAttribute("loginMember") == null ) {
-			
-			// /loginError 재요청
-			String message = "로그인이 필요합니다.";
-		    
-			String encodedMessage = URLEncoder.encode(message, StandardCharsets.UTF_8.toString());
+
 			
 		    // 메시지를 URL에 쿼리 매개변수로 추가하여 리다이렉트
-		    resp.sendRedirect("/main/goHome?message=" + encodedMessage);
+		    resp.sendRedirect("/loginError");
 
 		}
 		
@@ -64,6 +60,7 @@ public class LoginFilter implements Filter{
 			// (만약 없으면 Dispatcher Servlet으로 전달)
 			chain.doFilter(request, response);
 		}
+		
 	}
 
 	
