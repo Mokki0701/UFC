@@ -73,15 +73,15 @@
 }
 
 .buttonSack > button {
-
+  
   width: 250px;
   height: 70px;
   background-color: rgb(164, 150, 129);
   color: white;
   border: 2px solid black;
   border-radius: 10px;
-
   font-size: 17px;
+
 }
 
 .buttonSack > button:hover{
@@ -341,8 +341,10 @@
 }
 
 #editBtnSack>button {
-  width: 120px;
-  height: 50px;
+  height: 70px;
+  background-color: burlywood;
+  font-weight: 900;
+  color: black;
   transition: background-color 0.3s ease;
 }
 
@@ -352,7 +354,8 @@
 
 #editBtnSack>button:hover {
   cursor: pointer;
-  background-color: rgba(219, 186, 242, 1);
+  color: white;
+  background-color: rgb(163, 90, 61);
   
 }
 
