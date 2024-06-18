@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <div th:if="${session.loginMember.memberAuthority} == 3">
+    <div th:if="${session.loginMember?.memberAuthority} == 3">
         <button id="bookListBtn" onclick="bookInput()">도서 입고</button>
     </div>
     
