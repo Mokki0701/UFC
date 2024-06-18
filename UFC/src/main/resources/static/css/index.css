@@ -447,7 +447,7 @@ body {
 .board-table {
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: 1rem;
+  font-size: 14px;
   width: 100%;
   border-top: 1px solid #8a4b08;
   /* border-bottom: 1px solid #8a4b08; */
@@ -492,6 +492,15 @@ body {
   padding-right: 14px;
   border-top: 1px solid #e7e7e7;
   text-align: left;
+}
+
+.board-table tbody th a{
+  width: 200px; /* 원하는 너비 설정 */
+  max-width: 200px;
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis;
+  display: inline-block; 
 }
 
 .board-table tbody th p{
